@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    ...
+</head>
+<body>
+
+<div th:fragment="nologin-header">
+
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Seed App</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+        </nav>
+        <a class="btn btn-outline-primary" href="#">Sign up</a>
+    </div>
+
+
+</div>
+
+<div th:fragment="loggedin-header">
+
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Seed App</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+        </nav>
+        <h6 class="my-0 mr-md-auto font-weight-normal"><span sec:authentication="name">User</span></h6>
+
+        <a th:href="@{/auth/logout}">Logout </a>
+    </div>
+
+
+</div>
+
+</body>
+</html>
+

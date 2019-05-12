@@ -1,0 +1,26 @@
+spring:
+    application:
+        name: Seed App - An example of professional spring project
+    profiles:
+        # The commented value for `active` can be replaced with valid spring profiles to load.
+        # Otherwise, it will be filled in by maven when building the WAR file
+        # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+        active: #spring.profiles.active#
+    jpa:
+        show-sql: true
+        open-in-view: false
+
+    #for /h2-console
+    h2:
+        console:
+            enabled: true
+
+server:
+    port: 8080
+
+logging.level:
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.springframework.security.web: INFO
+    org.hibernate: INFO
+    g.t: TRACE

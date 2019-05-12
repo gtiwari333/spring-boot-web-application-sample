@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>Logged In</title>
+
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/common.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:replace="_fragments/header :: loggedin-header"></div>
+
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">You are logged in</h1>
+    <h3>
+        <span th:text="${message}"></span>
+    </h3>
+
+</div>
+
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+
+    </div>
+
+    <div th:replace="_fragments/footer :: page-footer"></div>
+
+</div>
+
+<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
