@@ -1,4 +1,4 @@
-package g.t.app.rest;
+package g.t.app.web.rest;
 
 import g.t.app.dto.user.UserDTO;
 import g.t.app.exception.InternalServerErrorException;

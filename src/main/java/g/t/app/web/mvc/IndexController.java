@@ -1,4 +1,4 @@
-package g.t.app.controller;
+package g.t.app.web.mvc;
 
 import g.t.app.config.security.UserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
