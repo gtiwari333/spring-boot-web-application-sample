@@ -2,6 +2,7 @@ package g.t.app.web.rest;
 
 import g.t.app.dto.user.UserDTO;
 import g.t.app.exception.InternalServerErrorException;
+import g.t.app.mapper.UserMapper;
 import g.t.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +18,11 @@ public class UserResource {
 
     private final UserService userService;
 
-
     @GetMapping("/account")
     public UserDTO getAccount() {
+
         return userService.getCurrentUserWithAuthorities()
-            .map(UserDTO::new)
-            .orElseThrow(() -> new InternalServerErrorException("Not logged in"));
+            .map(UserMapper.INSTANCE::userToUserDto)
+            .orElseThrow(() -> new InternalServerErrorException("Could not retrieve user"));
     }
 }
