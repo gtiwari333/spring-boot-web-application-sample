@@ -122,7 +122,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>popper.js</artifactId>
-            <version>1.15</version>
+            <version>1.15.0</version>
         </dependency>
 
         <!--needed for SB 2.2  https://github.com/springfox/springfox/issues/2932#issuecomment-475947175-->

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>Logged In</title>
+
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/common.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:replace="_fragments/header :: loggedin-header"></div>
+
+
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto text-center">
+
+            <form action="#" th:action="@{/note/add}" th:object="${note}" method="post">
+                <label for="title">Title</label>
+                <input type="text" th:field="*{title}" id="title" placeholder="title">
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                <label for="content">Content</label>
+                <input type="text" th:field="*{content}" id="content" placeholder="content">
+                <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+                <input type="submit" value="Add Note">
+            </form>
+
+            <hr/>
+
+            <div th:switch="${notes}">
+                <h2 th:case="null">No notes yet!</h2>
+                <div th:case="*">
+                    <h2>Notes</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="note : ${notes}">
+                            <td th:text="${note.title}"></td>
+                            <td th:text="${note.content}"></td>
+                            <td><a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a></td>
+                            <td><a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:replace="_fragments/footer :: page-footer"></div>
+
+</div>
+
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.7/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

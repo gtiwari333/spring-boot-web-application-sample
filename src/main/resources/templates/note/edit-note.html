@@ -18,16 +18,23 @@
 <div th:replace="_fragments/header :: loggedin-header"></div>
 
 
-<div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto text-center">
-    <h1 class="display-6">You are logged in</h1>
-    <h5>
-        <span th:text="${message}"></span>
-    </h5>
-
 <div class="container">
     <div class="card-deck mb-3 text-center">
-        <p><a th:href="@{/note/}">Notes</a></p>
 
+        <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto text-center">
+
+            <form action="#" th:action=@{/note/edit/{id}(id=${note.id})} th:object="${note}" method="post">
+                <label for="title">Title</label>
+                <input type="text" th:field="*{title}" id="title" placeholder="title">
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                <label for="content">Content</label>
+                <input type="text" th:field="*{content}" id="content" placeholder="content">
+                <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+                <input type="submit" value="Update Note">
+            </form>
+
+
+        </div>
     </div>
 
     <div th:replace="_fragments/footer :: page-footer"></div>
