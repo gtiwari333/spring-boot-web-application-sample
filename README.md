@@ -9,7 +9,8 @@
 - Live reload of thymeleaf templates
 - Spring / Maven profiles for dev/prod
 - Security with basic config
-- lombok, webjar ...
-- Swagger API Docs
+- lombok, webjar, mapstruct ...
+- Swagger API Docs with UI
+- H2 Console enabled for local 
 - Request logger filter
 - RestControllerAdvice demo
