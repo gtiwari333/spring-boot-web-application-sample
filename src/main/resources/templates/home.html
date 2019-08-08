@@ -24,18 +24,19 @@
         <span th:text="${message}"></span>
     </h5>
 
-<div class="container">
-    <div class="card-deck mb-3 text-center">
-        <p><a th:href="@{/note/}">Notes</a></p>
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <p><a th:href="@{/note/}">Notes</a></p>
+
+        </div>
+
+        <div th:replace="_fragments/footer :: page-footer"></div>
 
     </div>
-
-    <div th:replace="_fragments/footer :: page-footer"></div>
-
 </div>
 
 <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="/webjars/popper.js/1.14.7/popper.min.js"></script>
+<script src="/webjars/popper.js/1.15.0/popper.min.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
