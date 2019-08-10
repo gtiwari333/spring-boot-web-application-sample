@@ -103,7 +103,6 @@ public class Application {
             authorRepository.save(user1);
 
 
-
             User owner1 = new User();
             owner1.setUniqueId("owner1");
             owner1.setDateOfBirth(LocalDate.now().minusYears(1));

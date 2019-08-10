@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="generator" content="">
-    <title>Seed App</title>
+<div th:replace="_fragments/header :: head"></div>
 
-    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
-    <link href="/static/css/common.css" rel="stylesheet">
-
-</head>
 <body>
 
 <div th:replace="_fragments/header :: nologin-header"></div>
@@ -39,9 +29,8 @@
 
 </div>
 
-<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="/webjars/popper.js/1.15.0/popper.min.js"></script>
-<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<div th:replace="_fragments/footer :: js-imports"></div>
+
 
 </body>
 </html>

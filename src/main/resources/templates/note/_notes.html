@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="note-editor">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="title">Title</label>
+            <input class="form-control" id="title" placeholder="" required="" th:field="*{title}" type="text"
+                   value="">
+            <span th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></span>
+
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="content">Content</label>
+            <input class="form-control" id="content" placeholder="" required="" th:field="*{content}"
+                   type="text" value="">
+            <span th:errors="*{content}" th:if="${#fields.hasErrors('content')}"></span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+

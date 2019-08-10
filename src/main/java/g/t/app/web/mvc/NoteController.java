@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/note")
@@ -32,22 +33,23 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public String addNoteComplete(Model model, NoteEditDto noteDto, BindingResult result) {
+    public String addNoteComplete(Model model, NoteEditDto noteDto, BindingResult result, RedirectAttributes redirectAttrs) {
 
         //TODO:validate and return to GET:/add on errors
 
-        noteService.createNote(noteDto);
+        Note note = noteService.createNote(noteDto);
 
-        //TODO:add flash attribute
+        redirectAttrs.addFlashAttribute("success", "Note with id " + note.getId() + " is created");
+
         return "redirect:/note/";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteNote(@PathVariable Long id) {
+    public String deleteNote(@PathVariable Long id, RedirectAttributes redirectAttrs) {
 
         noteService.delete(id);
 
-        //TODO:add flash attribute
+        redirectAttrs.addFlashAttribute("success", "Note with id " + id + " is deleted");
         return "redirect:/note/";
     }
 
@@ -59,7 +61,7 @@ public class NoteController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateNote(Model model, NoteEditDto noteDto, @PathVariable Long id, BindingResult result) {
+    public String updateNote(Model model, NoteEditDto noteDto, @PathVariable Long id, BindingResult result, RedirectAttributes redirectAttrs) {
         model.addAttribute("msg", "Add a new note");
 
 
@@ -68,7 +70,8 @@ public class NoteController {
 
         noteService.update(id, noteDto);
 
-        //TODO:add flash attribute
+        redirectAttrs.addFlashAttribute("success", "Note with id " + id + " is updated");
+
         return "redirect:/note/";
     }
 }

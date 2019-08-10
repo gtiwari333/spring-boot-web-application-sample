@@ -1,5 +1,6 @@
 package g.t.app.web.mvc;
 
+import g.t.app.config.security.SecurityUtils;
 import g.t.app.config.security.UserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,13 +16,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
     @GetMapping("/")
-    public String index(Model model, Pageable pageable) { //uses default page sizes
+    public String index(Model model) {
         model.addAttribute("greeting", "Hello Spring");
+
+        if (SecurityUtils.isAuthenticated()) {
+
+            UserDetails loggedInUser = SecurityUtils.getCurrentUserDetails();
+
+            if (loggedInUser.isSystemAdmin()) {
+                return "redirect:admin";
+            }
+
+            if (loggedInUser.isOwner()) {
+                return "redirect:owner";
+            }
+
+
+            if (loggedInUser.isUser()) {
+                return "redirect:user";
+            }
+
+            throw new RuntimeException("Unsupported User Type");
+        }
+
         return "index";
     }
 
     @GetMapping("/admin")
-    public String adminHome(Model model, @AuthenticationPrincipal UserDetails principal, Pageable pageable) {
+    public String adminHome(Model model, @AuthenticationPrincipal UserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
         return "home";
     }
