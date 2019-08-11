@@ -34,6 +34,7 @@
                     <th>Title</th>
                     <th>Content</th>
                     <th>Files</th>
+                    <th>Created On</th>
                     <th colspan="2">Action</th>
                 </tr>
                 </thead>
@@ -46,6 +47,7 @@
                                 <a th:href="@{/download/file/{id}(id=${file.id})}"> <span th:text="${file.name}"></span> </a>
                             </span>
                     </td>
+                    <td th:text="${#temporals.format(note.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                     <td>
                             <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
                                 <a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a>
