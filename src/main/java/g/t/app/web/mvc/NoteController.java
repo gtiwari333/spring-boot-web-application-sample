@@ -4,6 +4,7 @@ import g.t.app.domain.Note;
 import g.t.app.dto.note.NoteEditDto;
 import g.t.app.service.NoteService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/note")
 @RequiredArgsConstructor
+@Slf4j
 public class NoteController {
 
     final NoteService noteService;
@@ -50,6 +52,7 @@ public class NoteController {
         noteService.delete(id);
 
         redirectAttrs.addFlashAttribute("success", "Note with id " + id + " is deleted");
+
         return "redirect:/note/";
     }
 

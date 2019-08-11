@@ -20,7 +20,7 @@
             </div>
 
 
-            <form action="#" method="post" th:action="@{/note/add}" th:object="${note}">
+            <form action="#" method="post" th:action="@{/note/add}" th:object="${note}" enctype="multipart/form-data">
                 <div th:replace="note/_notes :: note-editor"></div>
 
                 <button class="btn btn-primary btn-sm btn-block" type="submit">Add Note</button>
@@ -34,6 +34,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Content</th>
+                    <th>Files</th>
                     <th colspan="2">Action</th>
                 </tr>
                 </thead>
@@ -41,6 +42,11 @@
                 <tr th:each="note : ${notes}">
                     <td th:text="${note.title}"></td>
                     <td th:text="${note.content}"></td>
+                    <td>
+                            <span th:each="file : ${note.files}">
+                                <a th:href="@{/download/file/{id}(id=${file.id})}"> <span th:text="${file.name}"></span> </a>
+                            </span>
+                    </td>
                     <td><a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a></td>
                     <td><a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a></td>
                 </tr>

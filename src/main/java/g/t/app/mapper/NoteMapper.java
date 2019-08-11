@@ -1,8 +1,9 @@
 package g.t.app.mapper;
 
 import g.t.app.domain.Note;
-import g.t.app.dto.note.NoteDto;
+import g.t.app.domain.ReceivedFile;
 import g.t.app.dto.note.NoteEditDto;
+import g.t.app.dto.note.NoteReadDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -13,7 +14,11 @@ public interface NoteMapper {
     NoteMapper INSTANCE = Mappers.getMapper(NoteMapper.class);
 
     @Mapping(source = "createdByUser.id", target = "userId")
-    NoteDto mapForRead(Note user);
+    @Mapping(source = "attachedFiles", target = "files")
+    NoteReadDto mapForRead(Note note);
 
-    Note userToUserDto(NoteEditDto user);
+    Note userToUserDto(NoteEditDto dto);
+
+    @Mapping(source = "originalFileName", target = "name")
+    NoteReadDto.FileInfo map(ReceivedFile receivedFile);
 }

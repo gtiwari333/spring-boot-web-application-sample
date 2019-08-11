@@ -24,3 +24,8 @@ logging.level:
     org.springframework.security.web: INFO
     org.hibernate: INFO
     g.t: TRACE
+
+
+app-properties:
+    file-storage:
+        upload-folder: /X/uploads

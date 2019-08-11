@@ -14,53 +14,40 @@ import java.util.Set;
 @Entity
 @Data
 public class User extends BaseEntity implements UserDetails {
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
+    byte[] avatar;
     @Column(nullable = false)
     private String firstName;
-
     private String lastName;
-
     @Column(nullable = false)
     private LocalDate dateOfBirth;
-
     @Column(length = 254, unique = true, nullable = false)
     private String email;
-
     @Column(nullable = false, unique = true)
     @Size(min = 5, max = 20)
     private String uniqueId;
-
     @Column(name = "password_hash", length = 60)
     private String password;
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
-
     /*
      * TODO: BLOGIT http://stackoverflow.com/questions/3383169/hibernate-jpa-mysql-and- tinyint1-for-boolean-instead-of-bit-or-char
      */
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean active = false;
-
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean accountNonExpired;
-
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean accountNonLocked;
-
     @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean credentialsNonExpired;
-
-
     private String activationKey;
     private String resetKey;
-
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
-    byte[] avatar;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

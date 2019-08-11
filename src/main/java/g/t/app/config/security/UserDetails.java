@@ -18,6 +18,17 @@ public class UserDetails extends User {
     private String lastName;
     private String email;
 
+    public UserDetails(Long id, String userName, String email, String password, String firstName, String lastName, Collection<? extends GrantedAuthority> authorities,
+                       boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked) {
+
+        super(userName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public boolean isUser() {
         return getGrantedAuthorities().contains(Constants.ROLE_USER);
     }
@@ -28,17 +39,6 @@ public class UserDetails extends User {
 
     public boolean isSystemAdmin() {
         return getGrantedAuthorities().contains(Constants.ROLE_ADMIN);
-    }
-
-    public UserDetails(Long id, String userName, String email, String password, String firstName, String lastName, Collection<? extends GrantedAuthority> authorities,
-                       boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked) {
-
-        super(userName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
     }
 
     public Collection<String> getGrantedAuthorities() {
