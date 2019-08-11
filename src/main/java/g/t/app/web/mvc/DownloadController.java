@@ -26,6 +26,7 @@ public class DownloadController {
     final FileService fileService;
 
     @GetMapping("/file/{id}")
+    //no security check needed
     public void downloadFile(@PathVariable UUID id, HttpServletResponse response) throws IOException {
 
         Optional<ReceivedFile> fileOpt = receivedFileRepository.findById(id);

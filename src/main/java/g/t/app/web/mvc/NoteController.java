@@ -6,6 +6,7 @@ import g.t.app.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,6 +48,7 @@ public class NoteController {
     }
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize("@permEvaluator.hasAccess(#id, 'Note' )")
     public String deleteNote(@PathVariable Long id, RedirectAttributes redirectAttrs) {
 
         noteService.delete(id);
@@ -64,6 +66,7 @@ public class NoteController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("@permEvaluator.hasAccess(#id, 'Note' )")
     public String updateNote(Model model, NoteEditDto noteDto, @PathVariable Long id, BindingResult result, RedirectAttributes redirectAttrs) {
         model.addAttribute("msg", "Add a new note");
 
