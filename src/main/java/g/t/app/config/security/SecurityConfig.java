@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
         "/swagger-resources/**",
         "/v2/api-docs",
+        "/" //landing page is allowed for all
     };
 
     private final UserDetailsService userDetailsService;
@@ -55,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/owner/**").hasAuthority(Constants.ROLE_OWNER)
                 .antMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
                 .antMatchers("/api/**").authenticated()//individual api will be secured differently
+                .anyRequest().authenticated() //this one will catch the rest patterns
             .and()
                 .csrf().disable()
             .formLogin()
@@ -137,11 +139,11 @@ class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-        this.redirectStrategy = redirectStrategy;
-    }
-
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
+    }
+
+    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
+        this.redirectStrategy = redirectStrategy;
     }
 }
