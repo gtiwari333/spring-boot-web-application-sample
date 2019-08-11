@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class AppProperties {
 
-    final FileStorage fileStorage;
+    final FileStorage fileStorage = new FileStorage();
 
     @Data
     public static class FileStorage {

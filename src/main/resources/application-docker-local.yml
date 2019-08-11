@@ -1,0 +1,11 @@
+spring:
+    profiles:
+        active: docker-local
+
+        #for /h2-console, xFrame  ##the default db url: jdbc:h2:mem:testdb
+    h2:
+        console:
+            enabled: true
+
+server:
+    port: 8080

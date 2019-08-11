@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/swagger-resources/**",
         "/v2/api-docs",
         "/h2-console/**",
+        "/webjars/**",
+        "/static/**",
         "/" //landing page is allowed for all
     };
 

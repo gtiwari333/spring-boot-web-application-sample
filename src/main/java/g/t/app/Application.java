@@ -1,6 +1,5 @@
 package g.t.app;
 
-import com.google.common.io.Files;
 import g.t.app.config.Constants;
 import g.t.app.domain.Authority;
 import g.t.app.domain.User;
@@ -14,7 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -93,7 +94,7 @@ public class Application {
             user1.setFirstName("Ganesh");
             user1.setLastName("User");
             user1.setDateOfBirth(LocalDate.now().minusYears(10));
-            user1.setAvatar(Files.toByteArray(new ClassPathResource("static/img/male-coat.png").getFile()));
+            user1.setAvatar(readClassPathFile("static/img/male-coat.png"));
             user1.setPassword(passwordEncoder.encode("pass"));
             user1.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
             user1.setAccountNonExpired(true);
@@ -109,7 +110,7 @@ public class Application {
             owner1.setFirstName("Owner 1");
             owner1.setLastName("Owner");
             owner1.setEmail("Owner1@owner");
-            owner1.setAvatar(Files.toByteArray(new ClassPathResource("static/img/male-tshirt.png").getFile()));
+            owner1.setAvatar(readClassPathFile("static/img/male-tshirt.png"));
             owner1.setPassword(passwordEncoder.encode("pass"));
             owner1.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER, Constants.ROLE_OWNER));
             owner1.setAccountNonExpired(true);
@@ -125,7 +126,7 @@ public class Application {
             owner3.setFirstName("Owner 2");
             owner3.setLastName("Author2 lastname");
             owner3.setEmail("owner2@owner");
-            owner3.setAvatar(Files.toByteArray(new ClassPathResource("static/img/male-coat.png").getFile()));
+            owner3.setAvatar(readClassPathFile("static/img/male-coat.png"));
             owner3.setPassword(passwordEncoder.encode("pass"));
             owner3.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER, Constants.ROLE_OWNER));
             owner3.setAccountNonExpired(true);
@@ -138,6 +139,11 @@ public class Application {
         };
 
 
+    }
+
+    private byte[] readClassPathFile(String location) throws IOException {
+        ClassPathResource cpr = new ClassPathResource(location);
+        return FileCopyUtils.copyToByteArray(cpr.getInputStream());
     }
 
 }

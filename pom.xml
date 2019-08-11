@@ -212,6 +212,20 @@
             </properties>
         </profile>
         <profile>
+            <id>docker-local</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <properties>
+                <spring.profiles.active>docker-local</spring.profiles.active>
+                <build.profile>docker-local</build.profile>
+            </properties>
+        </profile>
+        <profile>
             <id>staging</id>
             <properties>
                 <spring.profiles.active>staging</spring.profiles.active>

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class IndexController {
 
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public String index(Model model) {
         model.addAttribute("greeting", "Hello Spring");
 
