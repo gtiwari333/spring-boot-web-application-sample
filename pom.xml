@@ -212,7 +212,7 @@
             </properties>
         </profile>
         <profile>
-            <id>docker-local</id>
+            <id>docker</id>
             <dependencies>
                 <dependency>
                     <groupId>com.h2database</groupId>
@@ -221,8 +221,8 @@
                 </dependency>
             </dependencies>
             <properties>
-                <spring.profiles.active>docker-local</spring.profiles.active>
-                <build.profile>docker-local</build.profile>
+                <spring.profiles.active>docker</spring.profiles.active>
+                <build.profile>docker</build.profile>
             </properties>
         </profile>
         <profile>
