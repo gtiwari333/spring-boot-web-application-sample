@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
         "/swagger-resources/**",
         "/v2/api-docs",
+        "/h2-console/**",
         "/" //landing page is allowed for all
     };
 
@@ -50,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+            .headers().frameOptions().sameOrigin()
+            .and()
+                .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/admin/**").hasAuthority(Constants.ROLE_ADMIN)
                 .antMatchers("/owner/**").hasAuthority(Constants.ROLE_OWNER)

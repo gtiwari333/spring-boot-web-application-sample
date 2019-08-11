@@ -10,11 +10,6 @@ spring:
         show-sql: true
         open-in-view: false
 
-    #for /h2-console
-    h2:
-        console:
-            enabled: true
-
 server:
     port: 8080
 
