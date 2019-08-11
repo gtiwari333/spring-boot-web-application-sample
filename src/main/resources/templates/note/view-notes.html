@@ -19,7 +19,6 @@
                 </div>
             </div>
 
-
             <form action="#" method="post" th:action="@{/note/add}" th:object="${note}" enctype="multipart/form-data">
                 <div th:replace="note/_notes :: note-editor"></div>
 
@@ -47,8 +46,16 @@
                                 <a th:href="@{/download/file/{id}(id=${file.id})}"> <span th:text="${file.name}"></span> </a>
                             </span>
                     </td>
-                    <td><a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a></td>
-                    <td><a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a></td>
+                    <td>
+                            <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
+                                <a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a>
+                            </span>
+                    </td>
+                    <td>
+                            <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
+                                <a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a>
+                            </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
