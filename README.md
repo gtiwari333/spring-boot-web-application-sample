@@ -29,7 +29,9 @@
 
 Future: do more stuff
 - multi tenacy -> notes per user --> security -- read
-- fix lost attachment on note edit 
+- fix lost attachment on note edit
+- Signup 
+- Thymeleaf custom title -- pass param on fragment
 - elastic search, statistics, dashboard - search into files as well
 - home page -- view all notes by all 
 - public and private pages
