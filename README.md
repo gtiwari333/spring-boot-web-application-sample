@@ -24,14 +24,14 @@
 - H2 db for local, Console enabled for local
 - User/User_Authority entity and repository/services
     - login, logout, home pages based on user role
-- Security with basic config, custom authorization check
-
+- Security with basic config
+- Domain object Access check on update/delete using custom evaluators
 
 Future: do more stuff
-- multi tenacy -> notes per user --> security -- read
-- fix lost attachment on note edit
 - Signup 
-- Thymeleaf custom title -- pass param on fragment
+- Test cases - unit/integration/e2e with fixtures, default data etc
+- Email and background job
+- Markdown editor?
 - elastic search, statistics, dashboard - search into files as well
 - home page -- view all notes by all 
 - public and private pages
