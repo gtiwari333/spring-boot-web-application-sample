@@ -1,6 +1,7 @@
 package g.t.app.web.mvc;
 
 import g.t.app.domain.Note;
+import g.t.app.dto.note.NoteCreateDto;
 import g.t.app.dto.note.NoteEditDto;
 import g.t.app.service.NoteService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public String addNoteComplete(Model model, NoteEditDto noteDto, BindingResult result, RedirectAttributes redirectAttrs) {
+    public String addNoteComplete(Model model, NoteCreateDto noteDto, BindingResult result, RedirectAttributes redirectAttrs) {
 
         //TODO:validate and return to GET:/add on errors
 
@@ -65,18 +66,18 @@ public class NoteController {
         return "note/edit-note";
     }
 
-    @PostMapping("/edit/{id}")
-    @PreAuthorize("@permEvaluator.hasAccess(#id, 'Note' )")
-    public String updateNote(Model model, NoteEditDto noteDto, @PathVariable Long id, BindingResult result, RedirectAttributes redirectAttrs) {
+    @PostMapping("/edit")
+    @PreAuthorize("@permEvaluator.hasAccess(#noteDto.id, 'Note' )")
+    public String updateNote(Model model, NoteEditDto noteDto, BindingResult result, RedirectAttributes redirectAttrs) {
         model.addAttribute("msg", "Add a new note");
 
 
         //TODO:validate and return to GET:/edit/{id} on errors
 
 
-        noteService.update(id, noteDto);
+        noteService.update(noteDto);
 
-        redirectAttrs.addFlashAttribute("success", "Note with id " + id + " is updated");
+        redirectAttrs.addFlashAttribute("success", "Note with id " + noteDto.getId() + " is updated");
 
         return "redirect:/note/";
     }

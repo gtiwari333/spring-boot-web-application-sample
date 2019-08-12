@@ -6,10 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class NoteEditDto {
+public class NoteCreateDto {
 
-    private Long id;
+    @NotNull
+    MultipartFile[] files;
     private String title;
     private String content;
-
 }

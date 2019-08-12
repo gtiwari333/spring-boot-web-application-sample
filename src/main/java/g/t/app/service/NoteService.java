@@ -2,6 +2,7 @@ package g.t.app.service;
 
 import g.t.app.domain.Note;
 import g.t.app.domain.ReceivedFile;
+import g.t.app.dto.note.NoteCreateDto;
 import g.t.app.dto.note.NoteReadDto;
 import g.t.app.dto.note.NoteEditDto;
 import g.t.app.mapper.NoteMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,10 +26,11 @@ import java.util.List;
 public class NoteService {
 
     private static final ReceivedFile.FileGroup FILE_GROUP = ReceivedFile.FileGroup.NOTE_ATTACHMENT;
-    final NoteRepository noteRepository;
-    final FileService fileService;
+    private final NoteRepository noteRepository;
+    private final FileService fileService;
 
-    public Note createNote(NoteEditDto dto) {
+
+    public Note createNote(NoteCreateDto dto) {
 
         List<ReceivedFile> files = new ArrayList<>();
         for (MultipartFile mpf : dto.getFiles()) {
@@ -46,11 +49,14 @@ public class NoteService {
         return noteRepository.save(note);
     }
 
-    public Note update(Long id, NoteEditDto dto) {
-        Note note = NoteMapper.INSTANCE.userToUserDto(dto);
-        note.setId(id);
+    public Note update(NoteEditDto dto) {
 
-        return noteRepository.save(note);
+        Optional<Note> noteOpt = noteRepository.findById(dto.getId());
+        return noteOpt.map(note -> {
+                NoteMapper.INSTANCE.userToUserDto(dto, note);
+                return noteRepository.save(note);
+            }
+        ).orElseThrow();
     }
 
     public NoteReadDto read(Long id) {

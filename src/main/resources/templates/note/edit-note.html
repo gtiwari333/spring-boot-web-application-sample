@@ -12,7 +12,7 @@
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
 
-            <form action="#" method="post" th:action=@{/note/edit/{id}(id=${note.id})} th:object="${note}" enctype="multipart/form-data">
+            <form action="#" method="post" th:action=@{/note/edit} th:object="${note}" enctype="multipart/form-data">
 
                 <div th:replace="note/_notes :: note-editor"></div>
 
