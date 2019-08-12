@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head th:fragment="head(title, links)">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="" name="description">
     <meta content="" name="author">
     <meta content="" name="generator">
-    <title>Logged In</title>
+    <title th:replace="${title}"> Title ...</title>
 
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/common.css" rel="stylesheet">
+
+    <th:block th:replace="${links}" />
 
 </head>
 <body>

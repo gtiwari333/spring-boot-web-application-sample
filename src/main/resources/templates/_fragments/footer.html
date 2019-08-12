@@ -30,10 +30,14 @@
 </div>
 
 
-<div th:fragment="js-imports">
+<div th:fragment="js-imports(scripts)">
     <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script src="/webjars/popper.js/1.15.0/popper.min.js"></script>
     <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- we can pass in additional script if needed -->
+    <th:block th:replace="${scripts}"/>
+
 </div>
 </body>
 </html>

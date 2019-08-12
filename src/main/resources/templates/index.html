@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="_fragments/header :: head"></div>
-
+<head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
+    <title> Note App - HOME</title>
+    <!-- we can do the following to add extra css on this page -->
+        <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
+</head>
 <body>
 
 <div th:replace="_fragments/header :: nologin-header"></div>
@@ -29,8 +32,9 @@
 
 </div>
 
-<div th:replace="_fragments/footer :: js-imports"></div>
-
+<div th:replace="_fragments/footer :: js-imports(~{::.custom-script})">
+        <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
+</div>
 
 </body>
 </html>
