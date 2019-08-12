@@ -70,6 +70,11 @@ public class NoteService {
             .map(NoteMapper.INSTANCE::mapForRead);
     }
 
+    public Page<NoteReadDto> readAllByUser(Pageable pageable, Long userId) {
+        return noteRepository.findByCreatedByUser_IdOrderByCreatedDateDesc(pageable, userId)
+            .map(NoteMapper.INSTANCE::mapForRead);
+    }
+
     public void delete(Long id) {
         noteRepository.deleteById(id);
     }

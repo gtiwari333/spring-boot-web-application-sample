@@ -57,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/admin/**").hasAuthority(Constants.ROLE_ADMIN)
-                .antMatchers("/owner/**").hasAuthority(Constants.ROLE_OWNER)
                 .antMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
                 .antMatchers("/api/**").authenticated()//individual api will be secured differently
                 .anyRequest().authenticated() //this one will catch the rest patterns
@@ -123,11 +122,6 @@ class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
         if (authorities.contains(Constants.ROLE_ADMIN)) {
             return "/admin/";
-        }
-
-
-        if (authorities.contains(Constants.ROLE_OWNER)) {
-            return "/owner/";
         }
 
         throw new IllegalStateException();

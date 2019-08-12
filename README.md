@@ -28,13 +28,12 @@
 - Domain object Access check on update/delete using custom evaluators
 
 Future: do more stuff
-- Signup 
+- home page -- view all notes by all 
+- public and private pages
 - Test cases - unit/integration/e2e with fixtures, default data etc
 - Email and background job
 - Markdown editor?
 - elastic search, statistics, dashboard - search into files as well
-- home page -- view all notes by all 
-- public and private pages
 - rate limit by IP on public API ( note api )
 - cleanup/freeze core features and split into microservice architecture ( a separate project )
     - statistics service - dashboard to display popular vs recent - cache the dashboard
@@ -43,3 +42,4 @@ Future: do more stuff
     - public API in separate microservice   
     - user mgmt -> using keycloak ( last )
     - Docker compose for deployment of microservices
+- Signup using keycloak ?

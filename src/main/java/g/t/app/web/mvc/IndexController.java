@@ -2,9 +2,9 @@ package g.t.app.web.mvc;
 
 import g.t.app.config.security.SecurityUtils;
 import g.t.app.config.security.UserDetails;
+import g.t.app.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 @RequiredArgsConstructor
 public class IndexController {
+
+    private final NoteService noteService;
 
     @GetMapping({"/", ""})
     public String index(Model model) {
@@ -26,11 +28,6 @@ public class IndexController {
             if (loggedInUser.isSystemAdmin()) {
                 return "redirect:admin";
             }
-
-            if (loggedInUser.isOwner()) {
-                return "redirect:owner";
-            }
-
 
             if (loggedInUser.isUser()) {
                 return "redirect:user";
@@ -50,12 +47,6 @@ public class IndexController {
 
     @GetMapping("/user")
     public String userHome(Model model, @AuthenticationPrincipal UserDetails principal) {
-        model.addAttribute("message", getWelcomeMessage(principal));
-        return "home";
-    }
-
-    @GetMapping("/owner")
-    public String ownerHome(Model model, @AuthenticationPrincipal UserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
         return "home";
     }

@@ -33,10 +33,6 @@ public class UserDetails extends User {
         return getGrantedAuthorities().contains(Constants.ROLE_USER);
     }
 
-    public boolean isOwner() {
-        return getGrantedAuthorities().contains(Constants.ROLE_OWNER);
-    }
-
     public boolean isSystemAdmin() {
         return getGrantedAuthorities().contains(Constants.ROLE_ADMIN);
     }

@@ -84,6 +84,21 @@ public class User extends BaseEntity implements UserDetails {
         return active;
     }
 
+    public User(){
+
+    }
+    public User(String uniqueId, LocalDate dob, String firstName, String lastName, String email) {
+        this.uniqueId = uniqueId;
+        this.dateOfBirth = dob;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.active = true;
+    }
+
     @Override
     public String toString() {
         return "User{" +

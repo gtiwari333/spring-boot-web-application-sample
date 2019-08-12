@@ -66,76 +66,30 @@ public class Application {
             userAuthority.setName(Constants.ROLE_USER);
             authorityRepository.save(userAuthority);
 
-            Authority ownerAuthority = new Authority();
-            ownerAuthority.setName(Constants.ROLE_OWNER);
-            authorityRepository.save(ownerAuthority);
+            //String encodedPassword = passwordEncoder.encode("pass");
+            String encodedPassword = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster
 
-            User adminUser = new User();
-            adminUser.setUniqueId("system");
-            adminUser.setEmail("system@email");
-            adminUser.setFirstName("System");
-            adminUser.setDateOfBirth(LocalDate.now().minusYears(1));
-            adminUser.setLastName("Tiwari");
-            adminUser.setPassword(passwordEncoder.encode("pass"));
-            adminUser.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_OWNER, Constants.ROLE_USER));
-            adminUser.setAccountNonExpired(true);
-            adminUser.setAccountNonLocked(true);
-            adminUser.setCredentialsNonExpired(true);
-            adminUser.setActive(true);
+            User adminUser = new User("system", LocalDate.now().minusYears(10), "System", "Tiwari", "system@email");
+            adminUser.setPassword(encodedPassword);
+            adminUser.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
             userRepository.save(adminUser);
 
             /*
             other users
              */
 
-            User user1 = new User();
-            user1.setUniqueId("user1");
-            user1.setEmail("gt@email");
-            user1.setFirstName("Ganesh");
-            user1.setLastName("User");
-            user1.setDateOfBirth(LocalDate.now().minusYears(10));
-            user1.setAvatar(readClassPathFile("static/img/male-coat.png"));
-            user1.setPassword(passwordEncoder.encode("pass"));
+            User user1 = new User("user1", LocalDate.now().minusYears(10), "Ganesh", "Tiwari", "gt@email");
+            //user1.setAvatar(readClassPathFile("static/img/male-coat.png"));
+            user1.setPassword(encodedPassword);
             user1.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
-            user1.setAccountNonExpired(true);
-            user1.setAccountNonLocked(true);
-            user1.setCredentialsNonExpired(true);
-            user1.setActive(true);
             authorRepository.save(user1);
 
 
-            User owner1 = new User();
-            owner1.setUniqueId("owner1");
-            owner1.setDateOfBirth(LocalDate.now().minusYears(1));
-            owner1.setFirstName("Owner 1");
-            owner1.setLastName("Owner");
-            owner1.setEmail("Owner1@owner");
-            owner1.setAvatar(readClassPathFile("static/img/male-tshirt.png"));
-            owner1.setPassword(passwordEncoder.encode("pass"));
-            owner1.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER, Constants.ROLE_OWNER));
-            owner1.setAccountNonExpired(true);
-            owner1.setAccountNonLocked(true);
-            owner1.setCredentialsNonExpired(true);
-            owner1.setActive(true);
-            userRepository.save(owner1);
-
-
-            User owner3 = new User();
-            owner3.setUniqueId("owner2");
-            owner3.setDateOfBirth(LocalDate.now().minusYears(1));
-            owner3.setFirstName("Owner 2");
-            owner3.setLastName("Author2 lastname");
-            owner3.setEmail("owner2@owner");
-            owner3.setAvatar(readClassPathFile("static/img/male-coat.png"));
-            owner3.setPassword(passwordEncoder.encode("pass"));
-            owner3.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER, Constants.ROLE_OWNER));
-            owner3.setAccountNonExpired(true);
-            owner3.setAccountNonLocked(true);
-            owner3.setCredentialsNonExpired(true);
-            owner3.setActive(true);
-            userRepository.save(owner3);
-
-
+            User user2 = new User("user2", LocalDate.now().minusYears(1), "Jyoti", "Kattel", "jk@email");
+            //user2.setAvatar(readClassPathFile("static/img/male-coat.png"));
+            user2.setPassword(encodedPassword);
+            user2.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
+            userRepository.save(user2);
         };
 
 
