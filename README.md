@@ -26,10 +26,11 @@
     - login, logout, home pages based on user role
 - Security with basic config
 - Domain object Access check on update/delete using custom evaluators
+- public home page -- view all notes by all 
+- private pages based on user roles
 
 Future: do more stuff
-- home page -- view all notes by all 
-- public and private pages
+- Account management, signup
 - Test cases - unit/integration/e2e with fixtures, default data etc
 - Email and background job
 - Markdown editor?
