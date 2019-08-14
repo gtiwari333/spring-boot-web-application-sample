@@ -19,3 +19,7 @@
 .hidden {
     display: none;
 }
+
+.note-box {
+    margin-bottom: 20px;
+}

@@ -4,7 +4,7 @@
 <head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
     <title> Notes</title>
     <!-- we can do the following to add extra css on this page -->
-        <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
+    <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
 </head>
 
 <body>
@@ -16,6 +16,15 @@
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
 
+            <h3>
+                <span th:text="${message}"></span>
+            </h3>
+
+            <div th:if="${success} != null">
+                <div class="alert alert-success" role="alert">
+                    <span th:text="${success}"></span>
+                </div>
+            </div>
 
             <form action="#" method="post" th:action="@{/note/add}" th:object="${note}" enctype="multipart/form-data">
                 <div th:replace="note/_notes :: note-editor"></div>
@@ -69,7 +78,7 @@
 </div>
 
 <div th:replace="_fragments/footer :: js-imports(~{::.custom-script})">
-        <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
+    <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
 </div>
 
 </body>

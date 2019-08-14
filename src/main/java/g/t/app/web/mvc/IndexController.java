@@ -1,10 +1,13 @@
 package g.t.app.web.mvc;
 
-import g.t.app.config.security.SecurityUtils;
 import g.t.app.config.security.UserDetails;
+import g.t.app.domain.Note;
 import g.t.app.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,41 +21,31 @@ public class IndexController {
     private final NoteService noteService;
 
     @GetMapping({"/", ""})
-    public String index(Model model) {
+    public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
 
-        if (SecurityUtils.isAuthenticated()) {
+        model.addAttribute("notes", noteService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("note", new Note());
 
-            UserDetails loggedInUser = SecurityUtils.getCurrentUserDetails();
-
-            if (loggedInUser.isSystemAdmin()) {
-                return "redirect:admin";
-            }
-
-            if (loggedInUser.isUser()) {
-                return "redirect:user";
-            }
-
-            throw new RuntimeException("Unsupported User Type");
-        }
-
-        return "index";
+        return "landing";
     }
 
     @GetMapping("/admin")
     public String adminHome(Model model, @AuthenticationPrincipal UserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
-        return "home";
+        return "admin";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/note")
     public String userHome(Model model, @AuthenticationPrincipal UserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
-        return "home";
+        model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
+        model.addAttribute("note", new Note());
+        return "note";
     }
 
     private String getWelcomeMessage(UserDetails principal) {
-        return "Hello " + principal.getUsername() + ", you have " + String.join(", ", principal.getGrantedAuthorities());
+        return "Hello " + principal.getUsername() + "!";
     }
 
 }

@@ -12,13 +12,13 @@ import java.util.Optional;
 
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
-    @EntityGraph(attributePaths = "attachedFiles")
+    @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
     Optional<Note> findById(Long id);
 
-    @EntityGraph(attributePaths = "attachedFiles")
+    @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
     Page<Note> findAll(Pageable pageable);
 
-    @EntityGraph(attributePaths = "attachedFiles")
+    @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
     Page<Note> findByCreatedByUser_IdOrderByCreatedDateDesc(Pageable pageable, Long userId);
 
     @Query("select n.createdByUser.id from Note n where n.id=:id ")

@@ -13,43 +13,48 @@
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/common.css" rel="stylesheet">
 
-    <th:block th:replace="${links}" />
+    <th:block th:replace="${links}"/>
 
 </head>
 <body>
 
-<div th:fragment="nologin-header">
-
-
+<div th:fragment="headerbar">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">
             <a th:href="@{/}">Note App</a>
         </h5>
         <nav class="my-2 my-md-0 mr-md-3">
-            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
+
+            <span sec:authorize="hasRole('USER')">
+                <a class="p-2" th:href="@{/note}">
+                    <span sec:authentication="name">Notes</span>'s Notes
+                </a>
+            </span>
+
+            <span sec:authorize="hasRole('ADMIN')">
+                <a class="p-2" th:href="@{/admin}">
+                    Admin
+                </a>
+            </span>
+
         </nav>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
+
+        <div sec:authorize="isAnonymous()">
+            <a class="p-2" th:href="@{/login}">
+                Login
+            </a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <a class="btn btn-outline-primary" th:href="@{/auth/logout}">
+                Logout
+            </a>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+            <a class="btn btn-outline-primary" href="#">Sign up</a>
+        </div>
     </div>
-
-
-</div>
-
-<div th:fragment="loggedin-header">
-
-
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">
-            <a th:href="@{/}">Note App</a>
-        </h5>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <!--<a class="p-2 text-dark" href="#">Pricing</a>-->
-        </nav>
-        <h6 class="my-0 mr-md-auto font-weight-normal"><span sec:authentication="name">User</span></h6>
-
-        <a th:href="@{/auth/logout}">Logout </a>
-    </div>
-
-
 </div>
 
 </body>

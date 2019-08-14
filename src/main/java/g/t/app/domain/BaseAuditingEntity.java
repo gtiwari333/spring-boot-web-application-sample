@@ -28,7 +28,7 @@ abstract class BaseAuditingEntity extends BaseEntity {
 
     @CreationTimestamp
     @Column(name = "created_date", nullable = false)
-    private Instant createdDate = Instant.now();
+    private Instant createdDate;
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,5 +38,5 @@ abstract class BaseAuditingEntity extends BaseEntity {
 
     @UpdateTimestamp
     @Column(name = "last_modified_date")
-    private Instant lastModifiedDate = Instant.now();
+    private Instant lastModifiedDate;
 }

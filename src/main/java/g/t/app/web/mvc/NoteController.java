@@ -1,19 +1,19 @@
 package g.t.app.web.mvc;
 
-import g.t.app.config.security.UserDetails;
 import g.t.app.domain.Note;
 import g.t.app.dto.note.NoteCreateDto;
 import g.t.app.dto.note.NoteEditDto;
 import g.t.app.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -23,13 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class NoteController {
 
     final NoteService noteService;
-
-    @GetMapping("/")
-    public String notes(Model model, Pageable pageable, @AuthenticationPrincipal UserDetails userDetails) {
-        model.addAttribute("notes", noteService.readAllByUser(pageable, userDetails.getId()));
-        model.addAttribute("note", new Note());
-        return "note/view-notes";
-    }
 
     @GetMapping("/add")
     public String startAddNote(Model model) {
@@ -47,7 +40,7 @@ public class NoteController {
 
         redirectAttrs.addFlashAttribute("success", "Note with id " + note.getId() + " is created");
 
-        return "redirect:/note/";
+        return "redirect:/";
     }
 
     @GetMapping("/delete/{id}")
@@ -58,7 +51,7 @@ public class NoteController {
 
         redirectAttrs.addFlashAttribute("success", "Note with id " + id + " is deleted");
 
-        return "redirect:/note/";
+        return "redirect:/";
     }
 
     @GetMapping("/edit/{id}")
