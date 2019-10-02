@@ -11,7 +11,7 @@ spring:
     mvc:
         static-path-pattern: /static/**
 
-    #for /h2-console, xFrame  ##the default db url: jdbc:h2:mem:testdb
+    #Access from http://localhost:8080/h2-console/, db url: jdbc:h2:mem:testdb, username: sa
     h2:
         console:
             enabled: true
