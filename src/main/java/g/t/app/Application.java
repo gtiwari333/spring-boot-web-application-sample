@@ -1,5 +1,6 @@
 package g.t.app;
 
+import g.t.app.config.AppProperties;
 import g.t.app.config.Constants;
 import g.t.app.domain.Authority;
 import g.t.app.domain.User;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -24,6 +26,7 @@ import java.util.Map;
 
 @SpringBootApplication
 @Slf4j
+@EnableConfigurationProperties(AppProperties.class)
 public class Application {
 
     public static void main(String[] args) throws UnknownHostException {

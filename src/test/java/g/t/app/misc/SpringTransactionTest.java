@@ -2,6 +2,7 @@ package g.t.app.misc;
 
 import g.t.app.domain.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.InitializingBean;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
 
-import static java.util.List.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -215,12 +215,7 @@ class PersonService implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         //setup data
-        repo.saveAll(of(
-            new Person("ram", "tiwari", 20),
-            new Person("shyam", "tiwari", 21),
-            new Person("hari", "tiwari", 22),
-            new Person("sita", "tiwari", 23)
-        ));
+        repo.save(new Person("ram", "tiwari", 20));
     }
 }
 
@@ -234,7 +229,7 @@ interface PersonRepo extends JpaRepository<Person, Long> {
 
 @Entity
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 class Person extends BaseEntity {
     String firstName;
     String lastName;
