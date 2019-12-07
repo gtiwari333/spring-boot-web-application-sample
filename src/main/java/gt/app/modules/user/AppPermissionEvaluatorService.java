@@ -1,7 +1,8 @@
-package gt.app.config.security;
+package gt.app.modules.user;
 
+import gt.app.config.security.SecurityUtils;
+import gt.app.config.security.UserDetails;
 import gt.app.domain.BaseEntity;
-import gt.app.modules.user.UserAuthorityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @Slf4j
 @RequiredArgsConstructor
 @Service("permEvaluator")
-public class AppPermissionEvaluator implements PermissionEvaluator {
+public class AppPermissionEvaluatorService implements PermissionEvaluator {
 
     private final UserAuthorityService userAuthorityService;
 

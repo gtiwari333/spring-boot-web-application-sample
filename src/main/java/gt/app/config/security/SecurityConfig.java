@@ -1,6 +1,7 @@
 package gt.app.config.security;
 
 import gt.app.config.Constants;
+import gt.app.modules.user.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

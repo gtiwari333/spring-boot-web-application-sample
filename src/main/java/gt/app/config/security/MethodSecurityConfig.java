@@ -1,5 +1,6 @@
 package gt.app.config.security;
 
+import gt.app.modules.user.AppPermissionEvaluatorService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +13,10 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
-    private final AppPermissionEvaluator permissionEvaluator;
+    private final AppPermissionEvaluatorService permissionEvaluator;
     private final ApplicationContext applicationContext;
 
-    public MethodSecurityConfig(@Qualifier("permEvaluator") AppPermissionEvaluator permissionEvaluator, ApplicationContext applicationContext) {
+    public MethodSecurityConfig(@Qualifier("permEvaluator") AppPermissionEvaluatorService permissionEvaluator, ApplicationContext applicationContext) {
         this.permissionEvaluator = permissionEvaluator;
         this.applicationContext = applicationContext;
     }

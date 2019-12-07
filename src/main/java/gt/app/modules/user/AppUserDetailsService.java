@@ -1,7 +1,7 @@
-package gt.app.config.security;
+package gt.app.modules.user;
 
+import gt.app.config.security.UserDetails;
 import gt.app.domain.User;
-import gt.app.modules.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
