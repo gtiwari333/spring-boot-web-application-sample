@@ -9,6 +9,7 @@ The default username/passwords are listed on : gt.app.Application.initData, whic
 - user1/pass
 - user2/pass
 
+Microservice version of this app with several other features is under development at https://github.com/gtiwari333/spring-boot-web-application-seed
 
 ### Requirements
 - JDK 11+
