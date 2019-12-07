@@ -1,7 +1,7 @@
 package gt.app.config.security;
 
 import gt.app.domain.User;
-import gt.app.repository.UserRepository;
+import gt.app.service.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AppUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        Optional<User> userFromDatabase = userRepository.findOneWithAuthoritiesByUniqueId(email);
+        Optional<User> userFromDatabase = userService.findWithAuthoritiesByEmail(email);
 
         return userFromDatabase
             .map(this::getCustomUserDetails)

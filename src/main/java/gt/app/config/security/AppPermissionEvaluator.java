@@ -1,7 +1,7 @@
 package gt.app.config.security;
 
 import gt.app.domain.BaseEntity;
-import gt.app.service.UserAuthorityService;
+import gt.app.service.user.UserAuthorityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;

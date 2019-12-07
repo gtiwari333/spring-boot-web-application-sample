@@ -2,9 +2,9 @@ package gt.app.web.mvc;
 
 
 import gt.app.domain.ReceivedFile;
-import gt.app.repository.ReceivedFileRepository;
+import gt.app.service.file.FileDownloadUtil;
 import gt.app.service.file.FileService;
-import gt.app.util.FileDownloadUtil;
+import gt.app.service.file.ReceivedFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -22,14 +22,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class DownloadController {
 
-    final ReceivedFileRepository receivedFileRepository;
+    final ReceivedFileService receivedFileService;
     final FileService fileService;
 
     @GetMapping("/file/{id}")
     //no security check needed
     public void downloadFile(@PathVariable UUID id, HttpServletResponse response) throws IOException {
 
-        Optional<ReceivedFile> fileOpt = receivedFileRepository.findById(id);
+        Optional<ReceivedFile> fileOpt = receivedFileService.findById(id);
 
         if (fileOpt.isEmpty()) {
             throw new RuntimeException("File not found");

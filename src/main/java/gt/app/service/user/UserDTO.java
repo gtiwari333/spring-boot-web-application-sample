@@ -1,4 +1,4 @@
-package gt.app.dto.user;
+package gt.app.service.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

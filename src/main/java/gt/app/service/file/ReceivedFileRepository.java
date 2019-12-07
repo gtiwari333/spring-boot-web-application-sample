@@ -1,9 +1,9 @@
-package gt.app.repository;
+package gt.app.service.file;
 
 import gt.app.domain.ReceivedFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface ReceivedFileRepository extends JpaRepository<ReceivedFile, UUID> {
+interface ReceivedFileRepository extends JpaRepository<ReceivedFile, UUID> {
 }

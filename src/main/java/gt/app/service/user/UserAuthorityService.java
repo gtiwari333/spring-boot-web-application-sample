@@ -1,9 +1,9 @@
-package gt.app.service;
+package gt.app.service.user;
 
 import gt.app.config.security.UserDetails;
 import gt.app.domain.Note;
 import gt.app.domain.User;
-import gt.app.repository.NoteRepository;
+import gt.app.service.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserAuthorityService {
 
-    private final NoteRepository noteRepository;
+    private final NoteService noteService;
 
     public boolean hasAccess(UserDetails curUser, Long id, String entity) {
 
@@ -30,7 +30,7 @@ public class UserAuthorityService {
 
         if (Note.class.getSimpleName().equalsIgnoreCase(entity)) {
 
-            Long createdById = noteRepository.findCreatedByUserIdById(id);
+            Long createdById = noteService.findCreatedByUserIdById(id);
 
             return createdById.equals(curUser.getId());
         }

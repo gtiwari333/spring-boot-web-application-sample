@@ -3,7 +3,7 @@
 ### Intro
 This is a simple micro blogging application where you can post a note/blog and other can view it.
 
-The default username/passwords are listed on : g.t.app.Application.initData, which are:
+The default username/passwords are listed on : gt.app.Application.initData, which are:
 
 - system/pass
 - user1/pass

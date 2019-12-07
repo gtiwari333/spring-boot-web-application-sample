@@ -1,4 +1,4 @@
-package gt.app.util;
+package gt.app.service.file;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.util.MimeTypeUtils;

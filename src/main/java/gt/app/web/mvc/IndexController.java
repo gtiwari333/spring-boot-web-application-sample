@@ -2,7 +2,7 @@ package gt.app.web.mvc;
 
 import gt.app.config.security.UserDetails;
 import gt.app.domain.Note;
-import gt.app.service.NoteService;
+import gt.app.service.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;

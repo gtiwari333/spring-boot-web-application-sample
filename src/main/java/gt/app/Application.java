@@ -4,8 +4,8 @@ import gt.app.config.AppProperties;
 import gt.app.config.Constants;
 import gt.app.domain.Authority;
 import gt.app.domain.User;
-import gt.app.repository.AuthorityRepository;
-import gt.app.repository.UserRepository;
+import gt.app.service.user.AuthorityService;
+import gt.app.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -44,8 +44,7 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner initData(AuthorityRepository authorityRepository,
-                                      UserRepository userRepository) {
+    public CommandLineRunner initData(AuthorityService authorityService, UserService userService) {
 
         return args -> {
 
@@ -55,29 +54,29 @@ public class Application {
 
             Authority adminAuthority = new Authority();
             adminAuthority.setName(Constants.ROLE_ADMIN);
-            authorityRepository.save(adminAuthority);
+            authorityService.save(adminAuthority);
 
             Authority userAuthority = new Authority();
             userAuthority.setName(Constants.ROLE_USER);
-            authorityRepository.save(userAuthority);
+            authorityService.save(userAuthority);
 
             String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster
 
             User adminUser = new User("system", LocalDate.now().minusYears(10), "System", "Tiwari", "system@email");
             adminUser.setPassword(pwd);
-            adminUser.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
-            userRepository.save(adminUser);
+            adminUser.setAuthorities(authorityService.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
+            userService.save(adminUser);
 
             User user1 = new User("user1", LocalDate.now().minusYears(10), "Ganesh", "Tiwari", "gt@email");
             user1.setPassword(pwd);
-            user1.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
-            userRepository.save(user1);
+            user1.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
+            userService.save(user1);
 
 
             User user2 = new User("user2", LocalDate.now().minusYears(1), "Jyoti", "Kattel", "jk@email");
             user2.setPassword(pwd);
-            user2.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
-            userRepository.save(user2);
+            user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
+            userService.save(user2);
 
 
             /*

@@ -1,7 +1,6 @@
-package gt.app.mapper;
+package gt.app.service.user;
 
 import gt.app.domain.User;
-import gt.app.dto.user.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

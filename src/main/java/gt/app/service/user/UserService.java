@@ -1,11 +1,8 @@
-package gt.app.service;
+package gt.app.service.user;
 
 import gt.app.config.security.SecurityUtils;
 import gt.app.domain.User;
-import gt.app.dto.user.UserProfileUpdateDTO;
-import gt.app.dto.user.UserSignUpDTO;
 import gt.app.exception.RecordNotFoundException;
-import gt.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -60,4 +57,11 @@ public class UserService {
         userRepository.save(author);
     }
 
+    public Optional<User> findWithAuthoritiesByEmail(String email) {
+        return userRepository.findOneWithAuthoritiesByUniqueId(email);
+    }
+
+    public User save(User u) {
+        return userRepository.save(u);
+    }
 }

@@ -1,15 +1,14 @@
 package gt.app.web.mvc;
 
 import gt.app.domain.Note;
-import gt.app.dto.note.NoteCreateDto;
-import gt.app.dto.note.NoteEditDto;
-import gt.app.service.NoteService;
+import gt.app.service.note.NoteCreateDto;
+import gt.app.service.note.NoteEditDto;
+import gt.app.service.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +31,7 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public String finishAddNote(Model model, NoteCreateDto noteDto, BindingResult result, RedirectAttributes redirectAttrs) {
+    public String finishAddNote(NoteCreateDto noteDto, RedirectAttributes redirectAttrs) {
 
         //TODO:validate and return to GET:/add on errors
 
@@ -64,7 +63,7 @@ public class NoteController {
 
     @PostMapping("/edit")
     @PreAuthorize("@permEvaluator.hasAccess(#noteDto.id, 'Note' )")
-    public String finishEditNote(Model model, NoteEditDto noteDto, BindingResult result, RedirectAttributes redirectAttrs) {
+    public String finishEditNote(Model model, NoteEditDto noteDto, RedirectAttributes redirectAttrs) {
         model.addAttribute("msg", "Add a new note");
 
 

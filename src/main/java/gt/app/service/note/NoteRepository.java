@@ -1,4 +1,4 @@
-package gt.app.repository;
+package gt.app.service.note;
 
 import gt.app.domain.Note;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface NoteRepository extends JpaRepository<Note, Long> {
+interface NoteRepository extends JpaRepository<Note, Long> {
 
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
     Optional<Note> findById(Long id);

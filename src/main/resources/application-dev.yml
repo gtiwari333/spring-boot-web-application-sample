@@ -16,5 +16,3 @@ spring:
         console:
             enabled: true
 
-logging.level:
-    g.t: TRACE

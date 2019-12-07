@@ -1,4 +1,4 @@
-package gt.app.repository;
+package gt.app.service.user;
 
 import gt.app.domain.User;
 import org.springframework.data.domain.Page;
@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(attributePaths = {"authorities"})
     Optional<User> findOneWithAuthoritiesByUniqueId(String uniqueId);

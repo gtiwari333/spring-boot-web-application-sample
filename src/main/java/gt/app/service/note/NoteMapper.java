@@ -1,10 +1,7 @@
-package gt.app.mapper;
+package gt.app.service.note;
 
 import gt.app.domain.Note;
 import gt.app.domain.ReceivedFile;
-import gt.app.dto.note.NoteCreateDto;
-import gt.app.dto.note.NoteEditDto;
-import gt.app.dto.note.NoteReadDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

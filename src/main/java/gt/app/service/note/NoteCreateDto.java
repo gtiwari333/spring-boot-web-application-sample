@@ -1,4 +1,4 @@
-package gt.app.dto.note;
+package gt.app.service.note;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,12 +1,7 @@
-package gt.app.service;
+package gt.app.service.note;
 
 import gt.app.domain.Note;
 import gt.app.domain.ReceivedFile;
-import gt.app.dto.note.NoteCreateDto;
-import gt.app.dto.note.NoteEditDto;
-import gt.app.dto.note.NoteReadDto;
-import gt.app.mapper.NoteMapper;
-import gt.app.repository.NoteRepository;
 import gt.app.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -79,4 +74,7 @@ public class NoteService {
         noteRepository.deleteById(id);
     }
 
+    public Long findCreatedByUserIdById(Long id) {
+        return noteRepository.findCreatedByUserIdById(id);
+    }
 }
