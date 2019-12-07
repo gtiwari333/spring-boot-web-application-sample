@@ -10,6 +10,8 @@ import java.io.IOException;
 
 public final class FileDownloadUtil {
 
+    private FileDownloadUtil() {
+    }
 
     public static void downloadFile(HttpServletResponse response, File file, String originalFileName) throws IOException {
         handle(response, file, originalFileName, null);

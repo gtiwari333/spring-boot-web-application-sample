@@ -29,10 +29,6 @@ public class WebConfig {
 @Slf4j
 class ReqLogFilter implements Filter {
 
-    @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         Map<String, String> req = new HashMap<>();

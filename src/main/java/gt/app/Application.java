@@ -13,11 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.FileCopyUtils;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -48,14 +44,10 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner initData(UserRepository authorRepository,
-
-                                      PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository,
+    public CommandLineRunner initData(AuthorityRepository authorityRepository,
                                       UserRepository userRepository) {
 
         return args -> {
-
-
 
             /*
             user accounts
@@ -69,38 +61,31 @@ public class Application {
             userAuthority.setName(Constants.ROLE_USER);
             authorityRepository.save(userAuthority);
 
-            //String encodedPassword = passwordEncoder.encode("pass");
-            String encodedPassword = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster
+            String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster
 
             User adminUser = new User("system", LocalDate.now().minusYears(10), "System", "Tiwari", "system@email");
-            adminUser.setPassword(encodedPassword);
+            adminUser.setPassword(pwd);
             adminUser.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
             userRepository.save(adminUser);
 
-            /*
-            other users
-             */
-
             User user1 = new User("user1", LocalDate.now().minusYears(10), "Ganesh", "Tiwari", "gt@email");
-            //user1.setAvatar(readClassPathFile("static/img/male-coat.png"));
-            user1.setPassword(encodedPassword);
+            user1.setPassword(pwd);
             user1.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
-            authorRepository.save(user1);
+            userRepository.save(user1);
 
 
             User user2 = new User("user2", LocalDate.now().minusYears(1), "Jyoti", "Kattel", "jk@email");
-            //user2.setAvatar(readClassPathFile("static/img/male-coat.png"));
-            user2.setPassword(encodedPassword);
+            user2.setPassword(pwd);
             user2.setAuthorities(authorityRepository.findByNameIn(Constants.ROLE_USER));
             userRepository.save(user2);
+
+
+            /*
+            Notes:
+             */
         };
 
 
-    }
-
-    private byte[] readClassPathFile(String location) throws IOException {
-        ClassPathResource cpr = new ClassPathResource(location);
-        return FileCopyUtils.copyToByteArray(cpr.getInputStream());
     }
 
 }

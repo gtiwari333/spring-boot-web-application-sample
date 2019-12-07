@@ -26,12 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/" //landing page is allowed for all
     };
 
-    private final UserDetailsService userDetailsService;
+    private final AppUserDetailsService appUserDetailsService;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-            .userDetailsService(userDetailsService)
+            .userDetailsService(appUserDetailsService)
             .passwordEncoder(passwordEncoder());
     }
 

@@ -43,8 +43,8 @@ public class WebConfigurer implements ServletContextInitializer {
 
     static class CachingHttpHeadersFilter extends OncePerRequestFilter {
 
-        private final long LAST_MODIFIED = System.currentTimeMillis();
-        private long cacheTimeToLive = TimeUnit.DAYS.toMillis(1461L);
+        final long lastModified = System.currentTimeMillis();
+        final long cacheTimeToLive = TimeUnit.DAYS.toMillis(1461L);
 
         @Override
         public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -57,7 +57,7 @@ public class WebConfigurer implements ServletContextInitializer {
             response.setDateHeader("Expires", cacheTimeToLive + System.currentTimeMillis());
 
             // Setting the Last-Modified header, for browser caching
-            response.setDateHeader("Last-Modified", LAST_MODIFIED);
+            response.setDateHeader("Last-Modified", lastModified);
 
             filterChain.doFilter(request, response);
         }
