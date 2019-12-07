@@ -1,4 +1,4 @@
-package gt.app.service.user;
+package gt.app.modules.user;
 
 import gt.app.domain.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;

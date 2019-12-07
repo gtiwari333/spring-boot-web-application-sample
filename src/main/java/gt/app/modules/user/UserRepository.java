@@ -1,4 +1,4 @@
-package gt.app.service.user;
+package gt.app.modules.user;
 
 import gt.app.domain.User;
 import org.springframework.data.domain.Page;

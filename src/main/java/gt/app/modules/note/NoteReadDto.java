@@ -1,4 +1,4 @@
-package gt.app.service.note;
+package gt.app.modules.note;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

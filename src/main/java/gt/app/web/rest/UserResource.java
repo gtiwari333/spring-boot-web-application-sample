@@ -1,9 +1,9 @@
 package gt.app.web.rest;
 
-import gt.app.service.user.UserDTO;
+import gt.app.modules.user.UserDTO;
 import gt.app.exception.InternalServerErrorException;
-import gt.app.service.user.UserMapper;
-import gt.app.service.user.UserService;
+import gt.app.modules.user.UserMapper;
+import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package gt.app.service.file;
+package gt.app.modules.file;
 
 import gt.app.domain.ReceivedFile;
 import org.springframework.data.jpa.repository.JpaRepository;

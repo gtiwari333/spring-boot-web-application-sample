@@ -1,4 +1,4 @@
-package gt.app.service.user;
+package gt.app.modules.user;
 
 import lombok.Data;
 

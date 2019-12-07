@@ -1,4 +1,4 @@
-package gt.app.service.user;
+package gt.app.modules.user;
 
 import gt.app.config.security.SecurityUtils;
 import gt.app.domain.User;

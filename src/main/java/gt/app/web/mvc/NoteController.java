@@ -1,9 +1,9 @@
 package gt.app.web.mvc;
 
 import gt.app.domain.Note;
-import gt.app.service.note.NoteCreateDto;
-import gt.app.service.note.NoteEditDto;
-import gt.app.service.note.NoteService;
+import gt.app.modules.note.NoteCreateDto;
+import gt.app.modules.note.NoteEditDto;
+import gt.app.modules.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;

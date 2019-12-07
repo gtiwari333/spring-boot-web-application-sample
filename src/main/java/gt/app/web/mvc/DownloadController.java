@@ -2,9 +2,9 @@ package gt.app.web.mvc;
 
 
 import gt.app.domain.ReceivedFile;
-import gt.app.service.file.FileDownloadUtil;
-import gt.app.service.file.FileService;
-import gt.app.service.file.ReceivedFileService;
+import gt.app.modules.file.FileDownloadUtil;
+import gt.app.modules.file.FileService;
+import gt.app.modules.file.ReceivedFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;

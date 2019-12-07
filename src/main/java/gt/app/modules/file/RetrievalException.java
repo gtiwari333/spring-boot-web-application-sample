@@ -1,4 +1,4 @@
-package gt.app.service.file;
+package gt.app.modules.file;
 
 public class RetrievalException extends RuntimeException {
 

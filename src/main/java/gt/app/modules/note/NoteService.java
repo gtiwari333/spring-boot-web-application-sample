@@ -1,8 +1,8 @@
-package gt.app.service.note;
+package gt.app.modules.note;
 
 import gt.app.domain.Note;
 import gt.app.domain.ReceivedFile;
-import gt.app.service.file.FileService;
+import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

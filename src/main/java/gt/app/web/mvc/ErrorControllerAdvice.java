@@ -1,7 +1,7 @@
 package gt.app.web.mvc;
 
-import gt.app.service.file.RetrievalException;
-import gt.app.service.file.StorageException;
+import gt.app.modules.file.RetrievalException;
+import gt.app.modules.file.StorageException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
