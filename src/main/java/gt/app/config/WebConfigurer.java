@@ -2,18 +2,16 @@ package gt.app.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.EnumSet;
-import java.util.concurrent.TimeUnit;
 
 @Configuration
 @RequiredArgsConstructor
@@ -41,26 +39,14 @@ public class WebConfigurer implements ServletContextInitializer {
         cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
-    static class CachingHttpHeadersFilter extends OncePerRequestFilter {
+    @Bean
+    public FilterRegistrationBean<ReqLogFilter> loggingFilter() {
+        FilterRegistrationBean<ReqLogFilter> registrationBean = new FilterRegistrationBean<>();
 
-        final long lastModified = System.currentTimeMillis();
-        final long cacheTimeToLive = TimeUnit.DAYS.toMillis(1461L);
+        registrationBean.setFilter(new ReqLogFilter());
+        registrationBean.setOrder((Ordered.HIGHEST_PRECEDENCE));
 
-        @Override
-        public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws IOException, ServletException {
-
-            response.setHeader("Cache-Control", "max-age=" + cacheTimeToLive + ", public");
-            response.setHeader("Pragma", "cache");
-
-            // Setting Expires header, for proxy caching
-            response.setDateHeader("Expires", cacheTimeToLive + System.currentTimeMillis());
-
-            // Setting the Last-Modified header, for browser caching
-            response.setDateHeader("Last-Modified", lastModified);
-
-            filterChain.doFilter(request, response);
-        }
+        return registrationBean;
     }
 
 }
