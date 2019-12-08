@@ -51,8 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
             .formLogin()
                 .loginProcessingUrl("/auth/login")
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
                 .permitAll()
             .and()
                 .logout()
