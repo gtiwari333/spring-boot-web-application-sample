@@ -181,6 +181,7 @@
 
     <build>
         <finalName>${build.profile}-${project.version}-app</finalName>
+        <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
 
             <plugin>
