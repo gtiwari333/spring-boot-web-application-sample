@@ -18,7 +18,8 @@ logging.level:
     org.springframework.security: INFO
     org.springframework.security.web: INFO
     org.hibernate: INFO
-    gt: TRACE
+    ROOT: WARN
+    gt: DEBUG
 
 
 app-properties:

@@ -17,6 +17,11 @@ public final class FileDownloadUtil {
         handle(response, file, originalFileName, null);
     }
 
+    public static void downloadFile(HttpServletResponse response, File file, String originalFileName, String mimeType) throws IOException {
+        handle(response, file, originalFileName, mimeType);
+    }
+
+
     private static void handle(HttpServletResponse response, File file, String originalFileName, String mimeType) throws IOException {
         try (FileInputStream in = new FileInputStream(file)) {
 
