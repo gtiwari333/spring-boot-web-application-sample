@@ -17,6 +17,7 @@
     </parent>
 
     <properties>
+        <profile.tls />
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
@@ -193,6 +194,12 @@
 
     <profiles>
         <profile>
+            <id>tls</id>
+            <properties>
+                <profile.tls>,tls</profile.tls>
+            </properties>
+        </profile>
+        <profile>
             <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -210,7 +217,7 @@
                 </dependency>
             </dependencies>
             <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
+                <spring.profiles.active>dev${profile.tls}</spring.profiles.active>
                 <build.profile>dev</build.profile>
             </properties>
         </profile>

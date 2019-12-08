@@ -1,0 +1,10 @@
+# keytool -genkeypair -alias seedappkeyalias -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore seedapp.p12 -validity 2650
+
+server:
+    ssl:
+        key-store-type: PKCS12
+        key-store: classpath:keys/seedapp.p12
+        key-store-password: password
+        key-alias: seedappkeyalias
+    http2:
+        enabled: true
