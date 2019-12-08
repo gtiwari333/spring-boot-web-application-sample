@@ -1,4 +1,4 @@
-package gt.app;
+package gt.app.arch;
 
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.lang.ArchCondition;

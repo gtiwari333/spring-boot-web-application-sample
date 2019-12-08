@@ -1,4 +1,4 @@
-package gt.app;
+package gt.app.arch;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
