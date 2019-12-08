@@ -1,6 +1,8 @@
 package gt.app.config.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gt.app.config.Constants;
+import gt.app.domain.Authority;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -10,7 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
-public class UserDetails extends User {
+public class AppUserDetails extends User {
 
     private Long id;
     private String firstName;
@@ -18,8 +20,8 @@ public class UserDetails extends User {
     private String lastName;
     private String email;
 
-    public UserDetails(Long id, String userName, String email, String password, String firstName, String lastName, Collection<? extends GrantedAuthority> authorities,
-                       boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked) {
+    public AppUserDetails(Long id, String userName, String email, String password, String firstName, String lastName, Collection<Authority> authorities,
+                          boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked) {
 
         super(userName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 
@@ -29,10 +31,12 @@ public class UserDetails extends User {
         this.email = email;
     }
 
+    @JsonIgnore
     public boolean isUser() {
         return getGrantedAuthorities().contains(Constants.ROLE_USER);
     }
 
+    @JsonIgnore
     public boolean isSystemAdmin() {
         return getGrantedAuthorities().contains(Constants.ROLE_ADMIN);
     }
@@ -47,7 +51,7 @@ public class UserDetails extends User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        UserDetails that = (UserDetails) o;
+        AppUserDetails that = (AppUserDetails) o;
         return id.equals(that.id);
     }
 

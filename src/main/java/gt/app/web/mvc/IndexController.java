@@ -1,6 +1,6 @@
 package gt.app.web.mvc;
 
-import gt.app.config.security.UserDetails;
+import gt.app.config.security.AppUserDetails;
 import gt.app.domain.Note;
 import gt.app.modules.note.NoteService;
 import lombok.RequiredArgsConstructor;
@@ -31,20 +31,20 @@ public class IndexController {
     }
 
     @GetMapping("/admin")
-    public String adminHome(Model model, @AuthenticationPrincipal UserDetails principal) {
+    public String adminHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
         return "admin";
     }
 
     @GetMapping("/note")
-    public String userHome(Model model, @AuthenticationPrincipal UserDetails principal) {
+    public String userHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
         model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
         model.addAttribute("note", new Note());
         return "note";
     }
 
-    private String getWelcomeMessage(UserDetails principal) {
+    private String getWelcomeMessage(AppUserDetails principal) {
         return "Hello " + principal.getUsername() + "!";
     }
 

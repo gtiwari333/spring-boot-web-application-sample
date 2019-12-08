@@ -1,6 +1,6 @@
 package gt.app.modules.user;
 
-import gt.app.config.security.UserDetails;
+import gt.app.config.security.AppUserDetails;
 import gt.app.domain.Note;
 import gt.app.domain.User;
 import gt.app.modules.note.NoteService;
@@ -17,7 +17,7 @@ public class UserAuthorityService {
 
     private final NoteService noteService;
 
-    public boolean hasAccess(UserDetails curUser, Long id, String entity) {
+    public boolean hasAccess(AppUserDetails curUser, Long id, String entity) {
 
         if (curUser.isSystemAdmin()) {
             return true;

@@ -1,12 +1,13 @@
 package gt.app.modules.user;
 
 import gt.app.config.security.SecurityUtils;
-import gt.app.config.security.UserDetails;
+import gt.app.config.security.AppUserDetails;
 import gt.app.domain.BaseEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -38,9 +39,15 @@ public class AppPermissionEvaluatorService implements PermissionEvaluator {
     }
 
     public boolean hasAccess(Long id, String targetEntity) {
-        UserDetails curUser = SecurityUtils.getCurrentUserDetails();
+        User curUser = SecurityUtils.getCurrentUserDetails();
 
-        return userAuthorityService.hasAccess(curUser, id, targetEntity);
+        if (!(curUser instanceof AppUserDetails)) {
+            throw new RuntimeException("Current SecurityContext doesn't have AppUserDetails ");
+        }
+
+        AppUserDetails appUser = (AppUserDetails) curUser;
+
+        return userAuthorityService.hasAccess(appUser, id, targetEntity);
     }
 
 

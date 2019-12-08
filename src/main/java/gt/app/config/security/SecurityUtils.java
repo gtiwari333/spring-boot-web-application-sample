@@ -3,6 +3,7 @@ package gt.app.config.security;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.Optional;
 
@@ -23,8 +24,8 @@ public final class SecurityUtils {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return Optional.ofNullable(authentication)
             .map(a -> {
-                if (a.getPrincipal() instanceof UserDetails) {
-                    UserDetails springSecurityUser = (UserDetails) a.getPrincipal();
+                if (a.getPrincipal() instanceof User) {
+                    User springSecurityUser = (User) a.getPrincipal();
                     return springSecurityUser.getUsername();
                 } else if (a.getPrincipal() instanceof String) {
                     return (String) a.getPrincipal();
@@ -38,22 +39,23 @@ public final class SecurityUtils {
      */
     public static Long getCurrentUserId() {
 
-        UserDetails user = getCurrentUserDetails();
-        if (user != null) {
-            return user.getId();
+        User user = getCurrentUserDetails();
+        if (user instanceof AppUserDetails) {
+            AppUserDetails appUserDetails = (AppUserDetails) user;
+            return appUserDetails.getId();
         }
         return null;
     }
 
-    public static UserDetails getCurrentUserDetails() {
+    public static User getCurrentUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return getCurrentUserDetails(authentication);
     }
 
-    public static UserDetails getCurrentUserDetails(Authentication authentication) {
-        UserDetails userDetails = null;
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            userDetails = (UserDetails) authentication.getPrincipal();
+    public static User getCurrentUserDetails(Authentication authentication) {
+        User userDetails = null;
+        if (authentication != null && authentication.getPrincipal() instanceof User) {
+            userDetails = (User) authentication.getPrincipal();
         }
         return userDetails;
     }

@@ -10,7 +10,9 @@ import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 
-import javax.servlet.*;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
 import java.util.EnumSet;
 
 @Configuration

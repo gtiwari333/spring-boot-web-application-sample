@@ -1,11 +1,9 @@
 package gt.app.web.rest;
 
-import gt.app.modules.user.UserDTO;
-import gt.app.exception.InternalServerErrorException;
-import gt.app.modules.user.UserMapper;
-import gt.app.modules.user.UserService;
+import gt.app.config.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserResource {
 
-    private final UserService userService;
-
     @GetMapping("/account")
-    public UserDTO getAccount() {
-
-        return userService.getCurrentUserWithAuthorities()
-            .map(UserMapper.INSTANCE::userToUserDto)
-            .orElseThrow(() -> new InternalServerErrorException("Could not retrieve user"));
+    public User getAccount() {
+        return SecurityUtils.getCurrentUserDetails();
     }
 }

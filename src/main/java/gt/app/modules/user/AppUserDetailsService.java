@@ -1,6 +1,6 @@
 package gt.app.modules.user;
 
-import gt.app.config.security.UserDetails;
+import gt.app.config.security.AppUserDetails;
 import gt.app.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,18 +16,18 @@ public class AppUserDetailsService implements org.springframework.security.core.
     private final UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
+    public AppUserDetails loadUserByUsername(String email) {
         Optional<User> userFromDatabase = userService.findWithAuthoritiesByEmail(email);
 
-        return userFromDatabase
+         return userFromDatabase
             .map(this::getCustomUserDetails)
             .orElseThrow(() -> new UsernameNotFoundException(" User with login:" + email + " was not found in the " + " database "));
     }
 
     @Transactional(readOnly = true)
-    public UserDetails getCustomUserDetails(User user) {
+    public AppUserDetails getCustomUserDetails(User user) {
 
-        return new UserDetails(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getAuthorities(),
+        return new AppUserDetails(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getAuthorities(),
             user.isEnabled(), user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonLocked());
     }
 

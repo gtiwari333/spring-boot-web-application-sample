@@ -50,7 +50,7 @@ public class User extends BaseEntity implements UserDetails {
     private String resetKey;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<Authority> getAuthorities() {
         return authorities;
     }
 
