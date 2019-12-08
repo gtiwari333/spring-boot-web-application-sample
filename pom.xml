@@ -22,13 +22,25 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <springfox.version>2.9.2</springfox.version>
-        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
 
-        <archunit-junit5.version>0.12.0</archunit-junit5.version>
         <selenide.version>5.5.1</selenide.version>
 
         <google-guava.version>28.1-jre</google-guava.version>
+
+        <!-- code quality -->
+        <archunit-junit5.version>0.12.0</archunit-junit5.version>
+        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+
+        <!-- test properties -->
+        <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
+        <jacoco.utReportFolder>${project.build.directory}/jacoco/test</jacoco.utReportFolder>
+        <jacoco.utReportFile>${jacoco.utReportFolder}/test.exec</jacoco.utReportFile>
+        <jacoco.itReportFolder>${project.build.directory}/jacoco/integrationTest</jacoco.itReportFolder>
+        <jacoco.itReportFile>${jacoco.itReportFolder}/integrationTest.exec</jacoco.itReportFile>
+        <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
+        <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
 
     </properties>
 
@@ -202,6 +214,7 @@
                 <!-- we need to do mvn  compiler:testCompile resources:testResources  surefire:test-->
                 <configuration>
                     <runOrder>alphabetical</runOrder>
+                    <reportsDirectory>${junit.utReportFolder}</reportsDirectory>
                 </configuration>
             </plugin>
 
@@ -213,6 +226,7 @@
                 <configuration>
                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                     <runOrder>alphabetical</runOrder>
+                    <reportsDirectory>${junit.itReportFolder}</reportsDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -226,6 +240,59 @@
                         <goals>
                             <goal>verify</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>pre-unit-tests</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${jacoco.utReportFile}</destFile>
+                        </configuration>
+                    </execution>
+                    <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${jacoco.utReportFile}</dataFile>
+                            <outputDirectory>${jacoco.utReportFolder}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-tests</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Sets the path to the file which contains the execution data. -->
+                            <destFile>${jacoco.itReportFile}</destFile>
+                        </configuration>
+                    </execution>
+                    <!-- Ensures that the code coverage report for integration tests is created after integration tests have been run -->
+                    <execution>
+                        <id>post-integration-tests</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report-integration</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${jacoco.itReportFile}</dataFile>
+                            <outputDirectory>${jacoco.itReportFolder}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
