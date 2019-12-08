@@ -2,21 +2,14 @@ package gt.app;
 
 import gt.app.config.AppProperties;
 import gt.app.config.Constants;
-import gt.app.domain.Authority;
-import gt.app.domain.User;
-import gt.app.modules.user.AuthorityService;
-import gt.app.modules.user.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -41,50 +34,6 @@ public class Application {
             env.getProperty("server.port"),
             Arrays.toString(env.getActiveProfiles())
         );
-    }
-
-    @Bean
-    public CommandLineRunner initData(AuthorityService authorityService, UserService userService) {
-
-        return args -> {
-
-            /*
-            user accounts
-             */
-
-            Authority adminAuthority = new Authority();
-            adminAuthority.setName(Constants.ROLE_ADMIN);
-            authorityService.save(adminAuthority);
-
-            Authority userAuthority = new Authority();
-            userAuthority.setName(Constants.ROLE_USER);
-            authorityService.save(userAuthority);
-
-            String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster
-
-            User adminUser = new User("system", LocalDate.now().minusYears(10), "System", "Tiwari", "system@email");
-            adminUser.setPassword(pwd);
-            adminUser.setAuthorities(authorityService.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
-            userService.save(adminUser);
-
-            User user1 = new User("user1", LocalDate.now().minusYears(10), "Ganesh", "Tiwari", "gt@email");
-            user1.setPassword(pwd);
-            user1.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
-            userService.save(user1);
-
-
-            User user2 = new User("user2", LocalDate.now().minusYears(1), "Jyoti", "Kattel", "jk@email");
-            user2.setPassword(pwd);
-            user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
-            userService.save(user2);
-
-
-            /*
-            Notes:
-             */
-        };
-
-
     }
 
 }

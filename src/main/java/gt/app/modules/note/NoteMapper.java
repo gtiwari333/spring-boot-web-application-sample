@@ -19,9 +19,9 @@ public interface NoteMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "attachedFiles", ignore = true)
-    void userToUserDto(NoteEditDto dto, @MappingTarget Note note);
+    void createToEntity(NoteEditDto dto, @MappingTarget Note note);
 
-    Note userToUserDto(NoteCreateDto dto);
+    Note createToEntity(NoteCreateDto dto);
 
     @Mapping(source = "originalFileName", target = "name")
     NoteReadDto.FileInfo map(ReceivedFile receivedFile);

@@ -26,7 +26,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
 
             <span sec:authorize="hasRole('USER')">
-                <a class="p-2" th:href="@{/note}">
+                <a class="p-2" th:href="@{/note}" id="user-note-link">
                     <span sec:authentication="name">Notes</span>'s Notes
                 </a>
             </span>
@@ -40,19 +40,19 @@
         </nav>
 
         <div sec:authorize="isAnonymous()">
-            <a class="p-2" th:href="@{/login}">
+            <a class="p-2" th:href="@{/login}" id="login-link">
                 Login
             </a>
         </div>
 
         <div sec:authorize="isAuthenticated()">
-            <a class="btn btn-outline-primary" th:href="@{/auth/logout}">
+            <a class="btn btn-outline-primary" th:href="@{/auth/logout}" id="logout-link">
                 Logout
             </a>
         </div>
 
         <div sec:authorize="isAnonymous()">
-            <a class="btn btn-outline-primary" href="#">Sign up</a>
+            <a class="btn btn-outline-primary" href="#" id="signup-link">Sign up</a>
         </div>
     </div>
 </div>

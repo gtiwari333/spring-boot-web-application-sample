@@ -38,7 +38,7 @@ public class NoteService {
             files.add(new ReceivedFile(FILE_GROUP, mpf.getOriginalFilename(), fileId));
         }
 
-        Note note = NoteMapper.INSTANCE.userToUserDto(dto);
+        Note note = NoteMapper.INSTANCE.createToEntity(dto);
         note.getAttachedFiles().addAll(files);
 
         return noteRepository.save(note);
@@ -48,7 +48,7 @@ public class NoteService {
 
         Optional<Note> noteOpt = noteRepository.findById(dto.getId());
         return noteOpt.map(note -> {
-                NoteMapper.INSTANCE.userToUserDto(dto, note);
+                NoteMapper.INSTANCE.createToEntity(dto, note);
                 return noteRepository.save(note);
             }
         ).orElseThrow();
