@@ -9,8 +9,6 @@ The default username/passwords are listed on : gt.app.Application.initData, whic
 - user1/pass
 - user2/pass
 
-Microservice version of this app with several other features is under development at https://github.com/gtiwari333/spring-boot-web-application-seed
-
 ### Requirements
 - JDK 11+
 - Lombok configured on IDE
@@ -33,7 +31,7 @@ And open   `http://localhost:8080` on your browser
 
 
 ### Included Features/Samples
-
+- Modular application
 - Data JPA with User/Authority/Note/ReceivedFile entities, example of EntityGraph
 - Default test data created while running the app
 - Public and internal pages
@@ -60,23 +58,18 @@ And open   `http://localhost:8080` on your browser
 - Domain object Access security check on update/delete using custom PermissionEvaluator
 - public home page -- view all notes by all 
 - private pages based on user roles
+- Test cases - unit/integration with JUnit 5, Mockito and Spring Test
+- e2e with Selenide, fixtures. default data generated using Spring
+- Architecture test using ArchUnit
 
 Future: do more stuff
-- Account management, signup
-- Test cases - unit/integration/e2e with fixtures, default data etc
-- Email and background job
-- Markdown editor?
-- elastic search, statistics, dashboard - search into files as well
+- Account management with KeyCloak
+- Email
+- background jobs with Quartz
+- Liquibase/Flyway change log
+- Integrate Markdown editor for writing notes
+- search service using elastic search -- search into uploaded files as well
 - rate limit by IP on public API ( note api )
-- cleanup/freeze core features and split into microservice architecture ( a separate project )
-    - statistics service - dashboard to display popular vs recent - cache the dashboard
-    - search service using elastic search -- 
-    - note service
-    - public API in separate microservice   
-    - user mgmt -> using keycloak ( last )
-    - Docker compose for deployment of microservices
-- Signup using keycloak ?
-
 
 ## Screenshots:
 

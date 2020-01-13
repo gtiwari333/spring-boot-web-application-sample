@@ -1,9 +1,10 @@
-package gt.app.modules.note;
+package gt.app;
 
 import gt.app.config.Constants;
 import gt.app.domain.Authority;
 import gt.app.domain.Note;
 import gt.app.domain.User;
+import gt.app.modules.note.NoteService;
 import gt.app.modules.user.AuthorityService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class DataCreator {
 
     final AuthorityService authorityService;
     final UserService userService;
-    final NoteRepository noteRepository;
+    final NoteService noteService;
 
 
     @EventListener
@@ -39,7 +40,7 @@ public class DataCreator {
         userAuthority.setName(Constants.ROLE_USER);
         authorityService.save(userAuthority);
 
-        String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster
+        String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster //value is 'pass'
 
         User adminUser = new User("system", LocalDate.now().minusYears(10), "System", "Tiwari", "system@email");
         adminUser.setPassword(pwd);
@@ -71,7 +72,7 @@ public class DataCreator {
         n.setTitle(title);
         n.setContent(content);
 
-        noteRepository.save(n);
+        noteService.save(n);
     }
 
 

@@ -24,6 +24,9 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final FileService fileService;
 
+    public Note save(Note note) {
+        return noteRepository.save(note);
+    }
 
     public Note createNote(NoteCreateDto dto) {
 
@@ -41,7 +44,7 @@ public class NoteService {
         Note note = NoteMapper.INSTANCE.createToEntity(dto);
         note.getAttachedFiles().addAll(files);
 
-        return noteRepository.save(note);
+        return save(note);
     }
 
     public Note update(NoteEditDto dto) {
@@ -49,7 +52,7 @@ public class NoteService {
         Optional<Note> noteOpt = noteRepository.findById(dto.getId());
         return noteOpt.map(note -> {
                 NoteMapper.INSTANCE.createToEntity(dto, note);
-                return noteRepository.save(note);
+                return save(note);
             }
         ).orElseThrow();
     }
