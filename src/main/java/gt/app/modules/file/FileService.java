@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -46,7 +47,7 @@ public class FileService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new Exception("Could not read file: " + targetPath);
+                throw new IOException("Could not read file: " + targetPath);
 
             }
         } catch (Exception e) {
@@ -54,28 +55,28 @@ public class FileService {
         }
     }
 
-    private String getCleanedFileName(String originalName) throws Exception {
+    private String getCleanedFileName(String originalName) throws IOException {
         if (originalName == null || originalName.isEmpty()) {
-            throw new Exception("Failed to store empty file " + originalName);
+            throw new IOException("Failed to store empty file " + originalName);
         }
 
         if (originalName.contains("..")) {
             // This is a security check
-            throw new Exception("Cannot store file with relative path outside current directory " + originalName);
+            throw new IOException("Cannot store file with relative path outside current directory " + originalName);
         }
 
         return UUID.randomUUID().toString();
     }
 
-    private String getSubFolder(ReceivedFile.FileGroup fileGroup) throws Exception {
+    private String getSubFolder(ReceivedFile.FileGroup fileGroup) throws IOException {
         if (fileGroup == ReceivedFile.FileGroup.NOTE_ATTACHMENT) {
             return "attachments";
         }
 
-        throw new Exception("File group subfolder " + fileGroup + " is not implemented");
+        throw new IOException("File group subfolder " + fileGroup + " is not implemented");
     }
 
-    private Path getStoredFilePath(ReceivedFile.FileGroup fileGroup, String fileIdentifier) throws Exception {
+    private Path getStoredFilePath(ReceivedFile.FileGroup fileGroup, String fileIdentifier) throws IOException {
         return rootLocation.resolveSibling(getSubFolder(fileGroup)).resolve(fileIdentifier);
     }
 }

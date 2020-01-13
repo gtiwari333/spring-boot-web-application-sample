@@ -32,7 +32,7 @@ public class DownloadController {
         Optional<ReceivedFile> fileOpt = receivedFileService.findById(id);
 
         if (fileOpt.isEmpty()) {
-            throw new RuntimeException("File not found");
+            throw new IOException("File not found");
         }
 
         ReceivedFile receivedFile = fileOpt.get();
@@ -40,7 +40,7 @@ public class DownloadController {
         Resource fileRes = fileService.loadAsResource(receivedFile.getFileGroup(), receivedFile.getStoredName());
 
         if (!fileRes.exists()) {
-            throw new RuntimeException("File not found");
+            throw new IOException("File not found");
         }
 
         FileDownloadUtil.downloadFile(response, fileRes.getFile(), receivedFile.getOriginalFileName());

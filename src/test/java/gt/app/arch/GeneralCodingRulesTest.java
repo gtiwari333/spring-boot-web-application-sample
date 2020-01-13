@@ -4,7 +4,6 @@ import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
@@ -18,7 +17,11 @@ public class GeneralCodingRulesTest extends ArchitectureTest {
 
 
     private static final ArchCondition<JavaClass> USE_PACKAGES_FROM_TRANSITIVE_DEPENDENCIES =
-        dependOnClassesThat(resideInAnyPackage("org.unbescape", "org.skyscreamer",
+        dependOnClassesThat(resideInAnyPackage("org.unbescape", "org.skyscreamer", "org.h2",
+            "com.jcraft", "com.zaxxer", "org.xbill", "io.netty",
+            "net.minidev", "org.attoparser", "org.checkerframework", "org.brotli", "org.objenesis",
+            "org.opentest4j", "org.rauschig",
+            "org.webjars", "org.littleshoot", "org.xmlunit",
             "org.jvnet", "org.mozilla", "antlr"))
             .as("classes from transitive dependencies should not be used");
 
@@ -35,7 +38,6 @@ public class GeneralCodingRulesTest extends ArchitectureTest {
     }
 
     @Test
-    @Disabled
     void noClassesShouldThrowGenericExceptions() {
         ArchRule rule = ArchRuleDefinition.noClasses()
             .should(THROW_GENERIC_EXCEPTIONS);

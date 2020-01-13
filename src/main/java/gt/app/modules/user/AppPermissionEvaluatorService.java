@@ -3,6 +3,7 @@ package gt.app.modules.user;
 import gt.app.config.security.SecurityUtils;
 import gt.app.config.security.AppUserDetails;
 import gt.app.domain.BaseEntity;
+import gt.app.exception.OperationNotAllowedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
@@ -42,7 +43,7 @@ public class AppPermissionEvaluatorService implements PermissionEvaluator {
         User curUser = SecurityUtils.getCurrentUserDetails();
 
         if (!(curUser instanceof AppUserDetails)) {
-            throw new RuntimeException("Current SecurityContext doesn't have AppUserDetails ");
+            throw new OperationNotAllowedException("Current SecurityContext doesn't have AppUserDetails ");
         }
 
         AppUserDetails appUser = (AppUserDetails) curUser;
