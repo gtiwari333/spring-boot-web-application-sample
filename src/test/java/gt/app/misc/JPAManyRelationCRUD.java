@@ -37,7 +37,7 @@ class JPAManyRelationCRUD {
         parentService.createOrUpdate(pDto);
 
         assertNotNull(repo.findByFirstName("hari"));
-        assertEquals(childRepo.count(), 0);
+        assertEquals(0, childRepo.count());
     }
 
 
@@ -49,7 +49,7 @@ class JPAManyRelationCRUD {
         parentService.createOrUpdate(pDto);
 
         assertNotNull(repo.findByFirstName("hari"));
-        assertEquals(childRepo.count(), 2);
+        assertEquals(2, childRepo.count());
     }
 
 
@@ -61,7 +61,7 @@ class JPAManyRelationCRUD {
         parentService.createOrUpdate(pDto);
 
         assertNotNull(repo.findByFirstName("hari"));
-        assertEquals(childRepo.count(), 2);
+        assertEquals(2, childRepo.count());
     }
 
 
@@ -75,7 +75,7 @@ class JPAManyRelationCRUD {
         Parent hari = repo.findByFirstName("hari");
 
         assertNotNull(hari);
-        assertEquals(hari.children.size(), 2);
+        assertEquals(2, hari.children.size());
 
         //update hari's age, add a new children, remove one and update one
         pDto = new ParentUpdateDto(hari.getId(), "hari", "tiwari", 25, List.of(new ChildUpdateDto(childRepo.findByFirstName("hari jr 1").getId(), "hari jr (updated)", 5), new ChildUpdateDto(0, "hari jr new child", 2)));

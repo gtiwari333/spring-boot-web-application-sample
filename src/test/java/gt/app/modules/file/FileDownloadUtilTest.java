@@ -1,7 +1,6 @@
 package gt.app.modules.file;
 
 import gt.app.frwk.TestUtil;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.util.MimeTypeUtils;
@@ -10,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class FileDownloadUtilTest {
 
