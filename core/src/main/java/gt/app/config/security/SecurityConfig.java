@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAuthority(Constants.ROLE_ADMIN)
                 .antMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
                 .antMatchers("/api/**").authenticated()//individual api will be secured differently
+                .antMatchers(("/public/**")).permitAll()
                 .anyRequest().authenticated() //this one will catch the rest patterns
             .and()
                 .csrf().disable()
