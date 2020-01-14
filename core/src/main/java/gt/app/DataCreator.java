@@ -9,12 +9,17 @@ import gt.app.modules.user.AuthorityService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.DSLContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
+
+import static gtapp.jooq.Tables.NOTE;
 
 @Component
 @Profile("dev")
@@ -25,6 +30,7 @@ public class DataCreator {
     final AuthorityService authorityService;
     final UserService userService;
     final NoteService noteService;
+    final DSLContext dsl;
 
 
     @EventListener
@@ -57,6 +63,15 @@ public class DataCreator {
         user2.setPassword(pwd);
         user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
         userService.save(user2);
+
+        dsl.insertInto(NOTE)
+            .setNull(NOTE.ID)
+            .set(NOTE.CONTENT, "DSL Content ... ")
+            .set(NOTE.CREATED_BY_USER_ID, user2.getId())
+            .set(NOTE.TITLE, "DSL Title")
+            .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
+            .execute();
+
 
         createNote(adminUser, "Admin's First Note", "Content Admin 1");
         createNote(adminUser, "Admin's Second Note", "Content Admin 2");

@@ -72,59 +72,18 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
 
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.11.0</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>jakarta.persistence</groupId>-->
-        <!--            <artifactId>jakarta.persistence-api</artifactId>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>javax.persistence</groupId>-->
-        <!--            <artifactId>javax.persistence-api</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>jakarta.validation</groupId>-->
-        <!--            <artifactId>jakarta.validation-api</artifactId>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.h2database</groupId>-->
-        <!--            <artifactId>h2</artifactId>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.jooq</groupId>-->
-        <!--            <artifactId>jooq</artifactId>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework</groupId>-->
-        <!--            <artifactId>spring-context</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework</groupId>-->
-        <!--            <artifactId>spring-aspects</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework</groupId>-->
-        <!--            <artifactId>spring-jdbc</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework</groupId>-->
-        <!--            <artifactId>spring-orm</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>ch.qos.logback</groupId>-->
-        <!--            <artifactId>logback-core</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -140,31 +99,31 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <configuration>
-                            <generator>
-                                <database>
-                                    <name>org.jooq.meta.extensions.jpa.JPADatabase</name>
-                                    <properties>
-                                        <property>
-                                            <key>packages</key>
-                                            <value>
-                                                gt.app.domain
-                                            </value>
-                                        </property>
-                                    </properties>
-                                    <includes>.*</includes>
-                                </database>
-                                <generate>
-                                    <generatedAnnotation>false</generatedAnnotation>
-                                </generate>
-                                <target>
-                                    <packageName>gtapp.jooq</packageName>
-                                    <directory>${project.build.directory}/generated-sources</directory>
-                                </target>
-                            </generator>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <generator>
+                        <database>
+                            <name>org.jooq.meta.extensions.jpa.JPADatabase</name>
+                            <properties>
+                                <property>
+                                    <key>packages</key>
+                                    <value>
+                                        gt.app.domain
+                                    </value>
+                                </property>
+                            </properties>
+                            <includes>.*</includes>
+                        </database>
+                        <generate>
+                            <generatedAnnotation>false</generatedAnnotation>
+                        </generate>
+                        <target>
+                            <packageName>gtapp.jooq</packageName>
+                            <directory>${project.build.directory}/generated-sources</directory>
+                        </target>
+                    </generator>
+                </configuration>
                 <dependencies>
                     <!-- This is needed for the JPADatabase -->
                     <dependency>
