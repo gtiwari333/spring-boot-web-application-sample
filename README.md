@@ -61,6 +61,7 @@ And open   `http://localhost:8080` on your browser
 - Test cases - unit/integration with JUnit 5, Mockito and Spring Test
 - e2e with Selenide, fixtures. default data generated using Spring
 - Architecture test using ArchUnit
+- jOOQ integration with code generation based on JPA entity 
 
 Future: do more stuff
 - Account management with KeyCloak
