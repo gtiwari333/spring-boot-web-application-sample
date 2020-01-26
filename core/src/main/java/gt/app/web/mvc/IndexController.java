@@ -31,9 +31,9 @@ public class IndexController {
     }
 
     @GetMapping("/admin")
-    public String adminHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
-        model.addAttribute("message", getWelcomeMessage(principal));
-        return "admin";
+    public String adminHome(Model model) {
+        model.addAttribute("notesToReview", noteService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        return "admin/admin-area";
     }
 
     @GetMapping("/note")

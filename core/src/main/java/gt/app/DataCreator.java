@@ -3,6 +3,7 @@ package gt.app;
 import gt.app.config.Constants;
 import gt.app.domain.Authority;
 import gt.app.domain.Note;
+import gt.app.domain.NoteStatus;
 import gt.app.domain.User;
 import gt.app.modules.note.NoteService;
 import gt.app.modules.user.AuthorityService;
@@ -69,6 +70,7 @@ public class DataCreator {
             .set(NOTE.CONTENT, "DSL Content ... ")
             .set(NOTE.CREATED_BY_USER_ID, user2.getId())
             .set(NOTE.TITLE, "DSL Title")
+            .set(NOTE.STATUS, NoteStatus.FLAGGED.name())
             .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 

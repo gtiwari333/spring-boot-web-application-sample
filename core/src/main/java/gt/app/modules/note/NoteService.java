@@ -1,6 +1,7 @@
 package gt.app.modules.note;
 
 import gt.app.domain.Note;
+import gt.app.domain.NoteStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +50,7 @@ public class NoteService {
 
     public Note update(NoteEditDto dto) {
 
-        Optional<Note> noteOpt = noteRepository.findById(dto.getId());
+        Optional<Note> noteOpt = noteRepository.findWithFilesAndUserById(dto.getId());
         return noteOpt.map(note -> {
                 NoteMapper.INSTANCE.createToEntity(dto, note);
                 return save(note);
@@ -58,18 +59,29 @@ public class NoteService {
     }
 
     public NoteReadDto read(Long id) {
-        return noteRepository.findById(id)
+        return noteRepository.findWithFilesAndUserByIdAndStatus(id, NoteStatus.PUBLISHED)
             .map(NoteMapper.INSTANCE::mapForRead)
             .orElseThrow();
     }
 
     public Page<NoteReadDto> readAll(Pageable pageable) {
-        return noteRepository.findAll(pageable)
+        return noteRepository.findWithFilesAndUserAllByStatus(pageable, NoteStatus.PUBLISHED)
             .map(NoteMapper.INSTANCE::mapForRead);
     }
 
     public Page<NoteReadDto> readAllByUser(Pageable pageable, Long userId) {
-        return noteRepository.findByCreatedByUser_IdOrderByCreatedDateDesc(pageable, userId)
+        return noteRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, NoteStatus.PUBLISHED)
+            .map(NoteMapper.INSTANCE::mapForRead);
+    }
+
+    public NoteReadDto readForReview(Long id) {
+        return noteRepository.findWithFilesAndUserByIdAndStatus(id, NoteStatus.FLAGGED)
+            .map(NoteMapper.INSTANCE::mapForRead)
+            .orElseThrow();
+    }
+
+    public Page<NoteReadDto> getAllToReview(Pageable pageable) {
+        return noteRepository.findWithFilesAndUserAllByStatus(pageable, NoteStatus.FLAGGED)
             .map(NoteMapper.INSTANCE::mapForRead);
     }
 
@@ -79,5 +91,14 @@ public class NoteService {
 
     public Long findCreatedByUserIdById(Long id) {
         return noteRepository.findCreatedByUserIdById(id);
+    }
+
+
+    public Optional<Note> handleReview(NoteReviewDto dto) {
+        return noteRepository.findWithFilesAndUserByIdAndStatus(dto.getId(), NoteStatus.FLAGGED)
+            .map(n -> {
+                n.setStatus(dto.getVerdict());
+                return save(n);
+            });
     }
 }
