@@ -13,7 +13,7 @@ public interface NoteMapper {
     NoteMapper INSTANCE = Mappers.getMapper(NoteMapper.class);
 
     @Mapping(source = "createdByUser.id", target = "userId")
-    @Mapping(source = "createdByUser.uniqueId", target = "username")
+    @Mapping(source = "createdByUser.username", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
     NoteReadDto mapForRead(Note note);
 

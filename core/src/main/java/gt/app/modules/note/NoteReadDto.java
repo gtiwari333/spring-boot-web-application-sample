@@ -17,7 +17,7 @@ public class NoteReadDto {
 
     private String content;
 
-    private Long userId;
+    private UUID userId;
     private String username;
 
     private Instant createdDate;

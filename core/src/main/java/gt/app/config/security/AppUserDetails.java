@@ -1,15 +1,12 @@
 package gt.app.config.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import gt.app.config.Constants;
-import gt.app.domain.Authority;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Getter
 public class AppUserDetails extends User {
@@ -20,31 +17,20 @@ public class AppUserDetails extends User {
     private String lastName;
     private String email;
 
-    public AppUserDetails(Long id, String userName, String email, String password, String firstName, String lastName, Collection<Authority> authorities,
-                          boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked) {
-
-        super(userName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public AppUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
     }
 
     @JsonIgnore
     public boolean isUser() {
-        return getGrantedAuthorities().contains(Constants.ROLE_USER);
+        return true;
     }
 
     @JsonIgnore
     public boolean isSystemAdmin() {
-        return getGrantedAuthorities().contains(Constants.ROLE_ADMIN);
+        return false;
     }
 
-    public Collection<String> getGrantedAuthorities() {
-        Collection<GrantedAuthority> authorities = getAuthorities();
-        return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
-    }
 
     @Override
     public boolean equals(Object o) {

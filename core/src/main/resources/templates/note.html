@@ -56,12 +56,12 @@
                     </td>
                     <td th:text="${#temporals.format(note.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                     <td>
-                            <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
+                            <span th:if="${#authentication.getPrincipal()== note.userId}">
                                 <a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a>
                             </span>
                     </td>
                     <td>
-                            <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
+                            <span th:if="${#authentication.getPrincipal()== note.userId}">
                                 <a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a>
                             </span>
                     </td>
