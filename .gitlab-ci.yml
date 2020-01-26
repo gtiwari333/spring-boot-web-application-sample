@@ -1,0 +1,30 @@
+image: maven:3.6-jdk-11
+
+include:
+    - template: Code-Quality.gitlab-ci.yml
+
+stages:
+  - validate
+  - compile
+  - test
+
+validate:
+  stage: validate
+  script:
+    - mvn validate
+
+checkstyle:
+  stage: validate
+  script:
+    - mvn checkstyle:check
+  allow_failure: true
+
+compile:
+  stage: compile
+  script:
+    - mvn compile
+
+test:
+  stage: test
+  script:
+    - mvn test -B
