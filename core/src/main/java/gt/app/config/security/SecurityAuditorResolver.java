@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class SecurityAuditorResolver implements AuditorAware<User> {
     @Override
     public Optional<User> getCurrentAuditor() {
 
-        Long userId = SecurityUtils.getCurrentUserId();
+        UUID userId = SecurityUtils.getCurrentUserId();
         if (userId == null) {
             return Optional.empty();
         }

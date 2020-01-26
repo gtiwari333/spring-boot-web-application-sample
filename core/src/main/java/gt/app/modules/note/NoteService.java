@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -69,7 +70,7 @@ public class NoteService {
             .map(NoteMapper.INSTANCE::mapForRead);
     }
 
-    public Page<NoteReadDto> readAllByUser(Pageable pageable, Long userId) {
+    public Page<NoteReadDto> readAllByUser(Pageable pageable, UUID userId) {
         return noteRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, NoteStatus.PUBLISHED)
             .map(NoteMapper.INSTANCE::mapForRead);
     }
@@ -89,7 +90,7 @@ public class NoteService {
         noteRepository.deleteById(id);
     }
 
-    public Long findCreatedByUserIdById(Long id) {
+    public UUID findCreatedByUserIdById(Long id) {
         return noteRepository.findCreatedByUserIdById(id);
     }
 

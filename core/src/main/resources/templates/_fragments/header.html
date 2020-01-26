@@ -27,7 +27,7 @@
 
             <span sec:authorize="hasRole('USER')">
                 <a class="p-2" th:href="@{/note}" id="user-note-link">
-                    <span sec:authentication="name">Notes</span>'s Notes
+                    <span sec:authentication="user.username">Notes</span>'s Notes
                 </a>
             </span>
 

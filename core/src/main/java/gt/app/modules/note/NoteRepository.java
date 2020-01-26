@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.UUID;
 
 interface NoteRepository extends JpaRepository<Note, Long> {
 
@@ -20,10 +21,10 @@ interface NoteRepository extends JpaRepository<Note, Long> {
     Page<Note> findWithFilesAndUserAllByStatus(Pageable pageable, NoteStatus status);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Note> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, Long userId, NoteStatus status);
+    Page<Note> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, UUID userId, NoteStatus status);
 
     @Query("select n.createdByUser.id from Note n where n.id=:id ")
-    Long findCreatedByUserIdById(@Param("id") Long id);
+    UUID findCreatedByUserIdById(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
     Optional<Note> findWithFilesAndUserByIdAndStatus(Long id, NoteStatus flagged);

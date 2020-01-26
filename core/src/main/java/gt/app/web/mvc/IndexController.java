@@ -1,6 +1,7 @@
 package gt.app.web.mvc;
 
-import gt.app.config.security.AppUserDetails;
+import gt.app.config.security.CurrentUser;
+import gt.app.config.security.CurrentUserToken;
 import gt.app.domain.Note;
 import gt.app.modules.note.NoteService;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,15 +37,16 @@ public class IndexController {
     }
 
     @GetMapping("/note")
-    public String userHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
-        model.addAttribute("message", getWelcomeMessage(principal));
-        model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
+    public String userHome(Model model, @CurrentUser CurrentUserToken u) {
+
+        model.addAttribute("message", getWelcomeMessage(u));
+        model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
         model.addAttribute("note", new Note());
         return "note";
     }
 
-    private String getWelcomeMessage(AppUserDetails principal) {
-        return "Hello " + principal.getUsername() + "!";
+    private String getWelcomeMessage(CurrentUserToken curUser) {
+        return "Hello " + curUser.getUsername() + "!";
     }
 
 }

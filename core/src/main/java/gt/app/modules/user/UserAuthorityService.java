@@ -2,12 +2,13 @@ package gt.app.modules.user;
 
 import gt.app.config.security.AppUserDetails;
 import gt.app.domain.Note;
-import gt.app.domain.User;
 import gt.app.modules.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service("appSecurity")
 @RequiredArgsConstructor
@@ -23,16 +24,12 @@ public class UserAuthorityService {
             return true;
         }
 
-        if (User.class.getSimpleName().equalsIgnoreCase(entity)) {
-            return id.equals(curUser.getId());
-        }
-
 
         if (Note.class.getSimpleName().equalsIgnoreCase(entity)) {
 
-            Long createdById = noteService.findCreatedByUserIdById(id);
+            UUID createdById = noteService.findCreatedByUserIdById(id);
 
-            return createdById.equals(curUser.getId());
+            return createdById.equals(curUser.getUser().getId());
         }
 
 
