@@ -38,6 +38,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Status</th>
                     <th>Title</th>
                     <th>Content</th>
                     <th>Files</th>
@@ -47,6 +48,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="note : ${notes}">
+                    <td th:text="${note.status}"></td>
                     <td th:text="${note.title}"></td>
                     <td th:text="${note.content}"></td>
                     <td>

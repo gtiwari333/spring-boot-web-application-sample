@@ -67,10 +67,19 @@ public class DataCreator {
 
         dsl.insertInto(NOTE)
             .setNull(NOTE.ID)
-            .set(NOTE.CONTENT, "DSL Content ... ")
-            .set(NOTE.CREATED_BY_USER_ID, user2.getId())
-            .set(NOTE.TITLE, "DSL Title")
+            .set(NOTE.CONTENT, "DSL Content Flagged ")
+            .set(NOTE.CREATED_BY_USER_ID, user1.getId())
+            .set(NOTE.TITLE, "DSL Title Flagged")
             .set(NOTE.STATUS, NoteStatus.FLAGGED.name())
+            .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
+            .execute();
+
+        dsl.insertInto(NOTE)
+            .setNull(NOTE.ID)
+            .set(NOTE.CONTENT, "DSL Content Blocked... ")
+            .set(NOTE.CREATED_BY_USER_ID, user1.getId())
+            .set(NOTE.TITLE, "DSL Title Blocked")
+            .set(NOTE.STATUS, NoteStatus.BLOCKED.name())
             .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 

@@ -22,11 +22,16 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldHave(text("User1 Note"))
             .shouldHave(text("Admin's First Note"))
             .shouldHave(text("Admin's Second Note"))
+            .shouldNotHave(text("DSL Title Flagged"))
+            .shouldNotHave(text("DSL Title Blocked"))
 
             .shouldHave(text("Content Admin 1"))
             .shouldHave(text("Content Admin 2"))
             .shouldHave(text("Content User 1"))
-            .shouldHave(text("Content User 2"));
+            .shouldHave(text("Content User 2"))
+            .shouldNotHave(text("DSL Content Flagged"))
+            .shouldNotHave(text("DSL Content Blocked"))
+        ;
 
         testAccessDenied(new PublicPage().open());
     }
@@ -58,6 +63,27 @@ class WebAppIT extends BaseSeleniumTest {
         testAccessDenied(publicPage);
     }
 
+    @Test
+    void testAdminPage() {
+
+        var loginPage = new LoginPage().open();
+
+        var adminHome = loginPage.login("system", "pass");
+        testLoggedInHomePage(adminHome);
+
+        AdminPage admPage = adminHome.openAdminPage();
+        testAdminPage(admPage);
+
+        PublicPage publicPage = adminHome.logout();
+        publicPage.body()
+            .shouldHave(text("You have been signed out"));
+
+        testAccessDenied(publicPage);
+    }
+
+    private void testAdminPage(AdminPage adminPage) {
+    }
+
     private void testLoggedInHomePage(LoggedInHomePage page) {
         page.body()
             .shouldHave(text("Logout"))
@@ -82,6 +108,14 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("Content Admin 1"))
             .shouldNotHave(text("Content Admin 2"))
             .shouldNotHave(text("User2 Note"))
+
+            //flagged and blocked note
+            .shouldNotHave(text("DSL Title Flagged"))
+            .shouldNotHave(text("DSL Title Blocked"))
+
+            .shouldNotHave(text("DSL Content Flagged"))
+            .shouldNotHave(text("DSL Content Blocked"))
+
 
             //previously created note
             .shouldHave(text("New Title"))

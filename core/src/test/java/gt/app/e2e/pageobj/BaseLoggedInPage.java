@@ -9,6 +9,11 @@ public abstract class BaseLoggedInPage<U extends BaseLoggedInPage> extends BaseP
         return new UserPage();
     }
 
+    public AdminPage openAdminPage() {
+        $("#admin-area-link").click();
+        return new AdminPage();
+    }
+
     public PublicPage logout() {
         $("#logout-link").click();
         return new PublicPage();

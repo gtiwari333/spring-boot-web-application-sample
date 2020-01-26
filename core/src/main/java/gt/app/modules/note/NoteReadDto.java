@@ -1,5 +1,6 @@
 package gt.app.modules.note;
 
+import gt.app.domain.NoteStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,8 @@ public class NoteReadDto {
     private Long id;
 
     private String title;
+
+    private NoteStatus status;
 
     private String content;
 
