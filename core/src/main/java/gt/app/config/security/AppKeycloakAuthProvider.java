@@ -17,6 +17,11 @@ import java.util.List;
 
 public class AppKeycloakAuthProvider extends KeycloakAuthenticationProvider {
     private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
+    final UserService userService;
+
+    public AppKeycloakAuthProvider(UserService userService) {
+        this.userService = userService;
+    }
 
     public void setGrantedAuthoritiesMapper(GrantedAuthoritiesMapper grantedAuthoritiesMapper) {
         this.grantedAuthoritiesMapper = grantedAuthoritiesMapper;
@@ -39,8 +44,10 @@ public class AppKeycloakAuthProvider extends KeycloakAuthenticationProvider {
             grantedAuthorities.add(new KeycloakRole(role));
         }
 
+        User user = new User(id, userId, firstName, lastName);
+        userService.updateUserIfNeeded(user);
 
-        AppUserDetails userDetails = new AppUserDetails(new User(id, userId, firstName, lastName), grantedAuthorities);
+        AppUserDetails userDetails = new AppUserDetails(user, grantedAuthorities);
 
         return new CurrentUserToken(token.getAccount(), token.isInteractive(), mapAuthorities(grantedAuthorities), userDetails);
 

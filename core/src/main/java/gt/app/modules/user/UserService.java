@@ -17,4 +17,15 @@ public class UserService {
     public User save(User u) {
         return userRepository.save(u);
     }
+
+    public void updateUserIfNeeded(User user) {
+
+        //TODO: cache
+
+        if (!userRepository.existsById(user.getId())) {
+            save(user);
+        }
+
+
+    }
 }
