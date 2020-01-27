@@ -19,42 +19,60 @@
 <body>
 
 <div th:fragment="headerbar">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">
-            <a th:href="@{/}">Note App</a>
-        </h5>
-        <nav class="my-2 my-md-0 mr-md-3">
 
-            <span sec:authorize="hasRole('USER')">
-                <a class="p-2" th:href="@{/note}" id="user-note-link">
-                    <span sec:authentication="user.username">Notes</span>'s Notes
-                </a>
-            </span>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md bg-faded justify-content-center">
+        <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}">Note App</a>
 
-            <span sec:authorize="hasRole('ADMIN')">
-                <a class="p-2" th:href="@{/admin}" id="admin-area-link">
-                    Admin
-                </a>
-            </span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+            <ul class="navbar-nav w-100 justify-content-center">
 
-        </nav>
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link" th:href="@{/note}" id="user-note-link">
+                        <span sec:authentication="user.username">Notes</span>'s Notes
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin}" id="admin-area-link">
+                        Admin Area
+                    </a>
+                </li>
+            </ul>
 
-        <div sec:authorize="isAnonymous()">
-            <a class="p-2" th:href="@{/login}" id="login-link">
-                Login
-            </a>
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAnonymous()">
+                <li class="nav-item">
+                    <a class="nav-link " th:href="@{/auth/login}" id="login-link">
+                        Login
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link " th:href="@{/auth/signup}" id="signup-link">
+                        Signup
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAuthenticated()">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
+                        <span sec:authentication="user.username">USER_NAME</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" th:href="@{/auth/logout}" id="logout-link">
+                            Logout
+                        </a>
+                        <a class="dropdown-item" th:href="@{/auth/logout}" id="account-settings-link">
+                            Account Settings
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
+    </nav>
 
-        <div sec:authorize="isAuthenticated()">
-            <a class="btn btn-outline-primary" th:href="@{/auth/logout}" id="logout-link">
-                Logout
-            </a>
-        </div>
 
-        <div sec:authorize="isAnonymous()">
-            <a class="btn btn-outline-primary" href="#" id="signup-link">Sign up</a>
-        </div>
-    </div>
 </div>
 
 </body>
