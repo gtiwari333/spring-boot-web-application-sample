@@ -30,7 +30,7 @@ class ReqLogFilter implements Filter {
             req.put("req.xForwardedFor", httpServletRequest.getHeader("X-Forwarded-For"));
         }
 
-        log.info("Received request {} ", req);
+        log.debug("Received request {} ", req);
 
 
         chain.doFilter(request, response);

@@ -2,6 +2,8 @@ package gt.app.frwk;
 
 import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,5 +17,11 @@ public abstract class BaseSeleniumTest {
 
 
         Configuration.baseUrl = "http://localhost:8081";
+    }
+
+    @AfterEach
+    public void resetPage(){
+        Selenide.clearBrowserCookies();
+        Selenide.clearBrowserLocalStorage();
     }
 }

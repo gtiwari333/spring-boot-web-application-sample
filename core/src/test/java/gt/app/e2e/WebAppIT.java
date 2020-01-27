@@ -25,8 +25,8 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("DSL Title Flagged"))
             .shouldNotHave(text("DSL Title Blocked"))
 
-            .shouldHave(text("Content Admin 1"))
-            .shouldHave(text("Content Admin 2"))
+            .shouldHave(text("Content1 Admin"))
+            .shouldHave(text("Content2 Admin"))
             .shouldHave(text("Content User 1"))
             .shouldHave(text("Content User 2"))
             .shouldNotHave(text("DSL Content Flagged"))
@@ -51,10 +51,10 @@ class WebAppIT extends BaseSeleniumTest {
         var loginPage = new LoginPage().open();
 
         LoggedInHomePage loggedInHomePage = loginPage.login("user1", "pass");
-        testLoggedInHomePage(loggedInHomePage);
+        testLoggedInHomePage(loggedInHomePage, "user1");
 
         UserPage userPage = loggedInHomePage.openUserPage();
-        testUserPage(userPage);
+        testUser1Page(userPage);
 
         PublicPage publicPage = loggedInHomePage.logout();
         publicPage.body()
@@ -69,7 +69,7 @@ class WebAppIT extends BaseSeleniumTest {
         var loginPage = new LoginPage().open();
 
         var adminHome = loginPage.login("system", "pass");
-        testLoggedInHomePage(adminHome);
+        testLoggedInHomePage(adminHome, "system");
 
         AdminPage admPage = adminHome.openAdminPage();
         testAdminPage(admPage);
@@ -82,13 +82,15 @@ class WebAppIT extends BaseSeleniumTest {
     }
 
     private void testAdminPage(AdminPage adminPage) {
+        //TODO: test review page
     }
 
-    private void testLoggedInHomePage(LoggedInHomePage page) {
+    private void testLoggedInHomePage(LoggedInHomePage page, String username) {
+        //common home page for any user
         page.body()
             .shouldHave(text("Logout"))
             .shouldHave(text("Post Note"))
-            .shouldHave(text("User1's Notes"));
+            .shouldHave(text(username + "'s Notes"));
 
         page.postNote("New Title", "New Content");
 
@@ -97,16 +99,14 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldHave(text("New Content"));
     }
 
-    private void testUserPage(UserPage page) {
+    private void testUser1Page(UserPage page) {
         page.body()
             .shouldHave(text("Logout"))
             .shouldHave(text("Post Note"))
             .shouldHave(text("User1's Notes"))
-            .shouldHave(text("Hello User1!"))
-            .shouldHave(text("User1 Note"))
             //should not see other user's notes
-            .shouldNotHave(text("Content Admin 1"))
-            .shouldNotHave(text("Content Admin 2"))
+            .shouldNotHave(text("Content1 Admin"))
+            .shouldNotHave(text("Content2 Admin"))
             .shouldNotHave(text("User2 Note"))
 
             //flagged and blocked note
