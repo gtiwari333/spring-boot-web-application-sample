@@ -43,13 +43,8 @@
 
             <ul class="nav navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAnonymous()">
                 <li class="nav-item">
-                    <a class="nav-link " th:href="@{/auth/login}" id="login-link">
+                    <a class="nav-link " th:href="@{/sso/login}" id="login-link">
                         Login
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link " th:href="@{/auth/signup}" id="signup-link">
-                        Signup
                     </a>
                 </li>
             </ul>
@@ -60,11 +55,11 @@
                         <span sec:authentication="user.username">USER_NAME</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" th:href="@{/auth/logout}" id="logout-link">
+                        <a class="dropdown-item" th:href="@{/sso/logout}" id="logout-link">
                             Logout
                         </a>
-                        <a class="dropdown-item" th:href="@{/auth/logout}" id="account-settings-link">
-                            Account Settings
+                        <a class="dropdown-item" th:href="@{/auth/change-password}" id="logout-link">
+                            Change Password
                         </a>
                     </div>
                 </li>

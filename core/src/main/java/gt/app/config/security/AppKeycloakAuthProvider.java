@@ -1,6 +1,7 @@
 package gt.app.config.security;
 
 import gt.app.domain.User;
+import gt.app.modules.user.UserService;
 import org.keycloak.adapters.springsecurity.account.KeycloakRole;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
