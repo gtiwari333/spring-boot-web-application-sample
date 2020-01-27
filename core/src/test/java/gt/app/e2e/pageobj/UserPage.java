@@ -34,12 +34,12 @@ public class UserPage extends BaseLoggedInPage<UserPage> {
     }
 
     public NoteEditPage editNote(int row) {
-        $x(".//table/tbody/tr[" + row + "]/td[5]/span/a").click();
+        $x(".//table/tbody/tr[" + row + "]/td[6]/span/a").click();
         return new NoteEditPage();
     }
 
     public PublicPage deletePage(int row) {
-        $x(".//table/tbody/tr[" + row + "]/td[6]/span/a").click();
+        $x(".//table/tbody/tr[" + row + "]/td[7]/span/a").click();
         return new PublicPage();
     }
 

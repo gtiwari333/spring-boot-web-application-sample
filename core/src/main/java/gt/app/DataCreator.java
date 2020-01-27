@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import static gtapp.jooq.Tables.NOTE;
 
 @Component
-@Profile("dev")
+@Profile({"dev", "test"})
 @RequiredArgsConstructor
 @Slf4j
 public class DataCreator {
@@ -84,8 +84,8 @@ public class DataCreator {
             .execute();
 
 
-        createNote(adminUser, "Admin's First Note", "Content Admin 1");
-        createNote(adminUser, "Admin's Second Note", "Content Admin 2");
+        createNote(adminUser, "Admin's First Note", "Content1 Admin");
+        createNote(adminUser, "Admin's Second Note", "Content2 Admin");
         createNote(user1, "User1 Note", "Content User 1");
         createNote(user2, "User2 Note", "Content User 2");
 

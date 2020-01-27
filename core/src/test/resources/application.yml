@@ -1,0 +1,26 @@
+spring:
+    application:
+        name: Integration Test
+    profiles:
+        active: test
+    jpa:
+        show-sql: false
+        open-in-view: false
+    mvc:
+        static-path-pattern: /static/**
+    jooq:
+        sql-dialect: H2
+    main:
+        banner-mode: off
+
+server:
+    port: 8081
+
+logging.level:
+    ROOT: WARN
+    gt: INFO
+
+
+app-properties:
+    file-storage:
+        upload-folder: /X/uploads
