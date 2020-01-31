@@ -31,6 +31,28 @@
 
 </th:block>
 
+
+
+<th:block th:fragment="article-comment">
+    <ul>
+        <li th:each="comment : ${comments}">
+            <span th:text="${comment.content}"></span>
+            <span class="text-muted">
+                 At <span th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}"></span>,
+                        By <span th:text="${comment.username}"></span>
+            </span>
+
+            <div th:if="${comment.childComments.size()>0}">
+                <section th:insert="article/_articles :: article-comment"
+                         th:with="comments=${comment.childComments}">
+                </section>
+            </div>
+
+        </li>
+    </ul>
+</th:block>
+
+
 <th:block th:fragment="article-box">
 
     <div class="card  shadow-sm article-box">
@@ -44,17 +66,29 @@
                 <hr/>
                 Attachments:
                 <span th:each="file : ${article.files}">
-                    <a th:href="@{/download/file/{id}(id=${file.id})}">
+                    <a th:href="@{/article/download/file/{id}(id=${file.id})}">
                         <span th:text="${file.name}"></span>
                     </a>
-            </span>
+                </span>
             </div>
 
         </div>
 
         <div class="card-footer text-muted">
-            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By <span th:text="${article.username}"></span>
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By <span
+            th:text="${article.username}"></span>
         </div>
+
+        <div th:if="${article.comments.size()>0}">
+            <div class="card-body">
+                Comments:
+                <hr/>
+                <div th:insert="article/_articles :: article-comment" th:with="comments=${article.comments}">
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 </th:block>

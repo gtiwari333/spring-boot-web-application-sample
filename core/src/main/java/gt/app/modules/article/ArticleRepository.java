@@ -16,8 +16,8 @@ interface ArticleRepository extends JpaRepository<Article, Long> {
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
     Optional<Article> findWithFilesAndUserById(Long id);
 
-    @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithFilesAndUserAllByStatus(Pageable pageable, ArticleStatus status);
+    @EntityGraph(attributePaths = {"createdByUser", "comments", "attachedFiles"})
+    Page<Article> findWithAllByStatus(Pageable pageable, ArticleStatus status);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
     Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, Long userId, ArticleStatus status);

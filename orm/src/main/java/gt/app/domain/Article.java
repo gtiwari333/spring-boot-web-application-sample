@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "article")
@@ -25,5 +27,9 @@ public class Article extends BaseAuditingEntity {
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ReceivedFile> attachedFiles = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "articleId")
+    private Set<Comment> comments = new HashSet<>();
+
 
 }

@@ -6,6 +6,7 @@ import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,11 +62,38 @@ public class ArticleService {
     public ArticleReadDto read(Long id) {
         return articleRepository.findWithFilesAndUserByIdAndStatus(id, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead)
+            .map(this::mapNested)
             .orElseThrow();
     }
 
+
+    protected ArticleReadDto mapNested(ArticleReadDto s) {
+        ArticleReadDto d = new ArticleReadDto();
+        BeanUtils.copyProperties(s, d, "comments");
+
+        for (ArticleReadDto.CommentDto c : s.getComments()) {
+
+            if (c.parentCommentId == null) {
+                d.getComments().add(c);
+            } else {
+                ArticleReadDto.CommentDto parent = findParentWithId(s, c.parentCommentId);
+                parent.getChildComments().add(c);
+            }
+
+        }
+
+        return d;
+    }
+
+
+    private ArticleReadDto.CommentDto findParentWithId(ArticleReadDto d, Long parentCommentId) {
+        return d.getComments().stream()
+            .filter(c -> c.id.equals(parentCommentId))
+            .findFirst().orElseThrow();
+    }
+
     public Page<ArticleReadDto> readAll(Pageable pageable) {
-        return articleRepository.findWithFilesAndUserAllByStatus(pageable, ArticleStatus.PUBLISHED)
+        return articleRepository.findWithAllByStatus(pageable, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
@@ -81,7 +109,7 @@ public class ArticleService {
     }
 
     public Page<ArticleReadDto> getAllToReview(Pageable pageable) {
-        return articleRepository.findWithFilesAndUserAllByStatus(pageable, ArticleStatus.FLAGGED)
+        return articleRepository.findWithAllByStatus(pageable, ArticleStatus.FLAGGED)
             .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
