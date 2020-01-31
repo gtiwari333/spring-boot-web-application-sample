@@ -1,6 +1,6 @@
 package gt.app.modules.article;
 
-import gt.app.domain.NoteStatus;
+import gt.app.domain.ArticleStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ public class ArticleReadDto {
 
     private String title;
 
-    private NoteStatus status;
+    private ArticleStatus status;
 
     private String content;
 

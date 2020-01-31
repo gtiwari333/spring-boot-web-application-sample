@@ -3,7 +3,7 @@ package gt.app;
 import gt.app.config.Constants;
 import gt.app.domain.Article;
 import gt.app.domain.Authority;
-import gt.app.domain.NoteStatus;
+import gt.app.domain.ArticleStatus;
 import gt.app.domain.User;
 import gt.app.modules.article.ArticleService;
 import gt.app.modules.user.AuthorityService;
@@ -70,7 +70,7 @@ public class DataCreator {
             .set(NOTE.CONTENT, "DSL Content Flagged ")
             .set(NOTE.CREATED_BY_USER_ID, user1.getId())
             .set(NOTE.TITLE, "DSL Title Flagged")
-            .set(NOTE.STATUS, NoteStatus.FLAGGED.name())
+            .set(NOTE.STATUS, ArticleStatus.FLAGGED.name())
             .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 
@@ -79,7 +79,7 @@ public class DataCreator {
             .set(NOTE.CONTENT, "DSL Content Blocked... ")
             .set(NOTE.CREATED_BY_USER_ID, user1.getId())
             .set(NOTE.TITLE, "DSL Title Blocked")
-            .set(NOTE.STATUS, NoteStatus.BLOCKED.name())
+            .set(NOTE.STATUS, ArticleStatus.BLOCKED.name())
             .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 

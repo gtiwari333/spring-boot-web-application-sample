@@ -1,7 +1,7 @@
 package gt.app.modules.article;
 
 import gt.app.domain.Article;
-import gt.app.domain.NoteStatus;
+import gt.app.domain.ArticleStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +22,14 @@ import java.util.Optional;
 public class ArticleService {
 
     private static final ReceivedFile.FileGroup FILE_GROUP = ReceivedFile.FileGroup.NOTE_ATTACHMENT;
-    private final ArticleRepository noteRepository;
+    private final ArticleRepository articleRepository;
     private final FileService fileService;
 
     public Article save(Article article) {
-        return noteRepository.save(article);
+        return articleRepository.save(article);
     }
 
-    public Article createNote(ArticleCreateDto dto) {
+    public Article createArticle(ArticleCreateDto dto) {
 
         List<ReceivedFile> files = new ArrayList<>();
         for (MultipartFile mpf : dto.getFiles()) {
@@ -50,52 +50,52 @@ public class ArticleService {
 
     public Article update(ArticleEditDto dto) {
 
-        Optional<Article> noteOpt = noteRepository.findWithFilesAndUserById(dto.getId());
-        return noteOpt.map(note -> {
-                ArticleMapper.INSTANCE.createToEntity(dto, note);
-                return save(note);
+        Optional<Article> articleOpt = articleRepository.findWithFilesAndUserById(dto.getId());
+        return articleOpt.map(article -> {
+                ArticleMapper.INSTANCE.createToEntity(dto, article);
+                return save(article);
             }
         ).orElseThrow();
     }
 
     public ArticleReadDto read(Long id) {
-        return noteRepository.findWithFilesAndUserByIdAndStatus(id, NoteStatus.PUBLISHED)
+        return articleRepository.findWithFilesAndUserByIdAndStatus(id, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead)
             .orElseThrow();
     }
 
     public Page<ArticleReadDto> readAll(Pageable pageable) {
-        return noteRepository.findWithFilesAndUserAllByStatus(pageable, NoteStatus.PUBLISHED)
+        return articleRepository.findWithFilesAndUserAllByStatus(pageable, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
     public Page<ArticleReadDto> readAllByUser(Pageable pageable, Long userId) {
-        return noteRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, NoteStatus.PUBLISHED)
+        return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
     public ArticleReadDto readForReview(Long id) {
-        return noteRepository.findWithFilesAndUserByIdAndStatus(id, NoteStatus.FLAGGED)
+        return articleRepository.findWithFilesAndUserByIdAndStatus(id, ArticleStatus.FLAGGED)
             .map(ArticleMapper.INSTANCE::mapForRead)
             .orElseThrow();
     }
 
     public Page<ArticleReadDto> getAllToReview(Pageable pageable) {
-        return noteRepository.findWithFilesAndUserAllByStatus(pageable, NoteStatus.FLAGGED)
+        return articleRepository.findWithFilesAndUserAllByStatus(pageable, ArticleStatus.FLAGGED)
             .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
     public void delete(Long id) {
-        noteRepository.deleteById(id);
+        articleRepository.deleteById(id);
     }
 
     public Long findCreatedByUserIdById(Long id) {
-        return noteRepository.findCreatedByUserIdById(id);
+        return articleRepository.findCreatedByUserIdById(id);
     }
 
 
     public Optional<Article> handleReview(ArticleReviewDto dto) {
-        return noteRepository.findWithFilesAndUserByIdAndStatus(dto.getId(), NoteStatus.FLAGGED)
+        return articleRepository.findWithFilesAndUserByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)
             .map(n -> {
                 n.setStatus(dto.getVerdict());
                 return save(n);

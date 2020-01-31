@@ -1,7 +1,7 @@
 package gt.app.modules.article;
 
 import gt.app.domain.Article;
-import gt.app.domain.NoteStatus;
+import gt.app.domain.ArticleStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -17,14 +17,14 @@ interface ArticleRepository extends JpaRepository<Article, Long> {
     Optional<Article> findWithFilesAndUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithFilesAndUserAllByStatus(Pageable pageable, NoteStatus status);
+    Page<Article> findWithFilesAndUserAllByStatus(Pageable pageable, ArticleStatus status);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, Long userId, NoteStatus status);
+    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, Long userId, ArticleStatus status);
 
     @Query("select n.createdByUser.id from Article n where n.id=:id ")
     Long findCreatedByUserIdById(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
-    Optional<Article> findWithFilesAndUserByIdAndStatus(Long id, NoteStatus flagged);
+    Optional<Article> findWithFilesAndUserByIdAndStatus(Long id, ArticleStatus flagged);
 }

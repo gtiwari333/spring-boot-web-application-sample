@@ -21,7 +21,7 @@ public class Article extends BaseAuditingEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private NoteStatus status = NoteStatus.PUBLISHED;
+    private ArticleStatus status = ArticleStatus.PUBLISHED;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ReceivedFile> attachedFiles = new ArrayList<>();
