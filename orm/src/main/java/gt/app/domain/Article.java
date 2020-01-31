@@ -19,6 +19,7 @@ public class Article extends BaseAuditingEntity {
     private String title;
 
     @NotEmpty
+    @Lob
     private String content;
 
     @NotNull
@@ -30,6 +31,10 @@ public class Article extends BaseAuditingEntity {
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "articleId")
     private Set<Comment> comments = new HashSet<>();
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Topic> topics;
 
 
 }
