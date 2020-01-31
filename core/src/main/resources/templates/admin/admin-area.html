@@ -43,19 +43,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="note : ${notesToReview}">
-                        <td th:text="${note.title}"></td>
-                        <td th:text="${note.content}"></td>
+                    <tr th:each="article : ${notesToReview}">
+                        <td th:text="${article.title}"></td>
+                        <td th:text="${article.content}"></td>
                         <td>
-                        <span th:each="file : ${note.files}">
+                        <span th:each="file : ${article.files}">
                             <a th:href="@{/download/file/{id}(id=${file.id})}"> <span
                                 th:text="${file.name}"></span> </a>
                         </span>
                         </td>
-                        <td th:text="${#temporals.format(note.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${note.username}"></td>
+                        <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${article.username}"></td>
                         <td>
-                            <a th:href="@{/admin/review/{id}(id=${note.id})}">Review</a>
+                            <a th:href="@{/admin/review/{id}(id=${article.id})}">Review</a>
                         </td>
                     </tr>
                     </tbody>

@@ -1,6 +1,6 @@
 package gt.app.web.mvc;
 
-import gt.app.domain.Note;
+import gt.app.domain.Article;
 import gt.app.modules.note.NoteCreateDto;
 import gt.app.modules.note.NoteEditDto;
 import gt.app.modules.note.NoteService;
@@ -26,7 +26,7 @@ public class NoteController {
     @GetMapping("/add")
     public String startAddNote(Model model) {
         model.addAttribute("msg", "Add a new note");
-        model.addAttribute("note", new Note());
+        model.addAttribute("note", new Article());
         return "note/add-note";
     }
 
@@ -35,9 +35,9 @@ public class NoteController {
 
         //TODO:validate and return to GET:/add on errors
 
-        Note note = noteService.createNote(noteDto);
+        Article article = noteService.createNote(noteDto);
 
-        redirectAttrs.addFlashAttribute("success", "Note with id " + note.getId() + " is created");
+        redirectAttrs.addFlashAttribute("success", "Note with id " + article.getId() + " is created");
 
         return "redirect:/";
     }

@@ -1,6 +1,6 @@
 package gt.app.web.mvc;
 
-import gt.app.domain.Note;
+import gt.app.domain.Article;
 import gt.app.domain.NoteStatus;
 import gt.app.modules.note.NoteReviewDto;
 import gt.app.modules.note.NoteService;
@@ -33,7 +33,7 @@ public class ReviewController {
     @PostMapping("/review")
     public String finishEditNote(NoteReviewDto reviewResult, RedirectAttributes redirectAttrs) {
 
-        Optional<Note> noteOpt = noteService.handleReview(reviewResult);
+        Optional<Article> noteOpt = noteService.handleReview(reviewResult);
 
         String action = reviewResult.getVerdict() == NoteStatus.PUBLISHED ? "Approved" : "Rejected";
 

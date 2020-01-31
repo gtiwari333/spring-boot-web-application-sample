@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "note")
+@Table(name = "article")
 @Data
-public class Note extends BaseAuditingEntity {
+public class Article extends BaseAuditingEntity {
 
     @NotEmpty
     private String title;

@@ -1,6 +1,6 @@
 package gt.app.modules.note;
 
-import gt.app.domain.Note;
+import gt.app.domain.Article;
 import gt.app.domain.NoteStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
@@ -25,11 +25,11 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final FileService fileService;
 
-    public Note save(Note note) {
-        return noteRepository.save(note);
+    public Article save(Article article) {
+        return noteRepository.save(article);
     }
 
-    public Note createNote(NoteCreateDto dto) {
+    public Article createNote(NoteCreateDto dto) {
 
         List<ReceivedFile> files = new ArrayList<>();
         for (MultipartFile mpf : dto.getFiles()) {
@@ -42,15 +42,15 @@ public class NoteService {
             files.add(new ReceivedFile(FILE_GROUP, mpf.getOriginalFilename(), fileId));
         }
 
-        Note note = NoteMapper.INSTANCE.createToEntity(dto);
-        note.getAttachedFiles().addAll(files);
+        Article article = NoteMapper.INSTANCE.createToEntity(dto);
+        article.getAttachedFiles().addAll(files);
 
-        return save(note);
+        return save(article);
     }
 
-    public Note update(NoteEditDto dto) {
+    public Article update(NoteEditDto dto) {
 
-        Optional<Note> noteOpt = noteRepository.findWithFilesAndUserById(dto.getId());
+        Optional<Article> noteOpt = noteRepository.findWithFilesAndUserById(dto.getId());
         return noteOpt.map(note -> {
                 NoteMapper.INSTANCE.createToEntity(dto, note);
                 return save(note);
@@ -94,7 +94,7 @@ public class NoteService {
     }
 
 
-    public Optional<Note> handleReview(NoteReviewDto dto) {
+    public Optional<Article> handleReview(NoteReviewDto dto) {
         return noteRepository.findWithFilesAndUserByIdAndStatus(dto.getId(), NoteStatus.FLAGGED)
             .map(n -> {
                 n.setStatus(dto.getVerdict());

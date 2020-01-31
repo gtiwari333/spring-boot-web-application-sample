@@ -1,6 +1,6 @@
 package gt.app.modules.note;
 
-import gt.app.domain.Note;
+import gt.app.domain.Article;
 import gt.app.domain.NoteStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,20 +11,20 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-interface NoteRepository extends JpaRepository<Note, Long> {
+interface NoteRepository extends JpaRepository<Article, Long> {
 
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
-    Optional<Note> findWithFilesAndUserById(Long id);
+    Optional<Article> findWithFilesAndUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Note> findWithFilesAndUserAllByStatus(Pageable pageable, NoteStatus status);
+    Page<Article> findWithFilesAndUserAllByStatus(Pageable pageable, NoteStatus status);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Note> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, Long userId, NoteStatus status);
+    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, Long userId, NoteStatus status);
 
-    @Query("select n.createdByUser.id from Note n where n.id=:id ")
+    @Query("select n.createdByUser.id from Article n where n.id=:id ")
     Long findCreatedByUserIdById(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
-    Optional<Note> findWithFilesAndUserByIdAndStatus(Long id, NoteStatus flagged);
+    Optional<Article> findWithFilesAndUserByIdAndStatus(Long id, NoteStatus flagged);
 }

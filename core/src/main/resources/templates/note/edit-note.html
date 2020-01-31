@@ -16,9 +16,9 @@
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
 
-            <form action="#" method="post" th:action=@{/note/edit} th:object="${note}" enctype="multipart/form-data">
+            <form action="#" method="post" th:action=@{/article/edit} th:object="${article}" enctype="multipart/form-data">
 
-                <div th:replace="note/_notes :: note-editor"></div>
+                <div th:replace="article/_notes :: article-editor"></div>
 
                 <button class="btn btn-primary btn-sm btn-block" type="submit" id="updateNote-btn">Update Note</button>
             </form>

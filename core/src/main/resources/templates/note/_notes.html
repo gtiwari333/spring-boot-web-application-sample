@@ -3,7 +3,7 @@
 
 <body>
 
-<th:block th:fragment="note-editor">
+<th:block th:fragment="article-editor">
     <div class="row">
         <input class="form-control" id="id" placeholder="" required="" th:field="*{id}" type="hidden">
 
@@ -31,19 +31,19 @@
 
 </th:block>
 
-<th:block th:fragment="note-box">
+<th:block th:fragment="article-box">
 
-    <div class="card  shadow-sm note-box">
+    <div class="card  shadow-sm article-box">
         <div class="card-header">
-            <h5 class="card-title"><span th:text="${note.title}"></span></h5>
+            <h5 class="card-title"><span th:text="${article.title}"></span></h5>
         </div>
 
         <div class="card-body">
-            <p class="card-text"><span th:text="${note.content}"></span></p>
-            <div th:if="${note.files.size()>0}">
+            <p class="card-text"><span th:text="${article.content}"></span></p>
+            <div th:if="${article.files.size()>0}">
                 <hr/>
                 Attachments:
-                <span th:each="file : ${note.files}">
+                <span th:each="file : ${article.files}">
                     <a th:href="@{/download/file/{id}(id=${file.id})}">
                         <span th:text="${file.name}"></span>
                     </a>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="card-footer text-muted">
-            Posted on <span th:text="${#temporals.format(note.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By <span th:text="${note.username}"></span>
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By <span th:text="${article.username}"></span>
         </div>
     </div>
 

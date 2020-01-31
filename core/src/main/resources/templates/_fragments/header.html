@@ -26,7 +26,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
 
             <span sec:authorize="hasRole('USER')">
-                <a class="p-2" th:href="@{/note}" id="user-note-link">
+                <a class="p-2" th:href="@{/article}" id="user-article-link">
                     <span sec:authentication="name">Notes</span>'s Notes
                 </a>
             </span>

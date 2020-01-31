@@ -1,8 +1,8 @@
 package gt.app;
 
 import gt.app.config.Constants;
+import gt.app.domain.Article;
 import gt.app.domain.Authority;
-import gt.app.domain.Note;
 import gt.app.domain.NoteStatus;
 import gt.app.domain.User;
 import gt.app.modules.note.NoteService;
@@ -93,7 +93,7 @@ public class DataCreator {
     }
 
     void createNote(User user, String title, String content) {
-        var n = new Note();
+        var n = new Article();
         n.setCreatedByUser(user);
         n.setTitle(title);
         n.setContent(content);

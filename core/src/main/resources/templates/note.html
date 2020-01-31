@@ -26,8 +26,8 @@
                 </div>
             </div>
 
-            <form action="#" method="post" th:action="@{/note/add}" th:object="${note}" enctype="multipart/form-data">
-                <div th:replace="note/_notes :: note-editor"></div>
+            <form action="#" method="post" th:action="@{/article/add}" th:object="${article}" enctype="multipart/form-data">
+                <div th:replace="article/_notes :: article-editor"></div>
 
                 <button class="btn btn-primary btn-sm btn-block" type="submit" id="postNote-btn">Post Note</button>
             </form>
@@ -47,24 +47,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="note : ${notes}">
-                    <td th:text="${note.status}"></td>
-                    <td th:text="${note.title}"></td>
-                    <td th:text="${note.content}"></td>
+                <tr th:each="article : ${notes}">
+                    <td th:text="${article.status}"></td>
+                    <td th:text="${article.title}"></td>
+                    <td th:text="${article.content}"></td>
                     <td>
-                            <span th:each="file : ${note.files}">
+                            <span th:each="file : ${article.files}">
                                 <a th:href="@{/download/file/{id}(id=${file.id})}"> <span th:text="${file.name}"></span> </a>
                             </span>
                     </td>
-                    <td th:text="${#temporals.format(note.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                     <td>
-                            <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
-                                <a th:href="@{/note/edit/{id}(id=${note.id})}">Edit</a>
+                            <span th:if="${#authentication.getPrincipal().getId() == article.userId}">
+                                <a th:href="@{/article/edit/{id}(id=${article.id})}">Edit</a>
                             </span>
                     </td>
                     <td>
-                            <span th:if="${#authentication.getPrincipal().getId() == note.userId}">
-                                <a th:href="@{/note/delete/{id}(id=${note.id})}">Delete</a>
+                            <span th:if="${#authentication.getPrincipal().getId() == article.userId}">
+                                <a th:href="@{/article/delete/{id}(id=${article.id})}">Delete</a>
                             </span>
                     </td>
                 </tr>

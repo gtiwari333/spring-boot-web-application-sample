@@ -1,7 +1,7 @@
 package gt.app.modules.user;
 
 import gt.app.config.security.AppUserDetails;
-import gt.app.domain.Note;
+import gt.app.domain.Article;
 import gt.app.domain.User;
 import gt.app.modules.note.NoteService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class UserAuthorityService {
         }
 
 
-        if (Note.class.getSimpleName().equalsIgnoreCase(entity)) {
+        if (Article.class.getSimpleName().equalsIgnoreCase(entity)) {
 
             Long createdById = noteService.findCreatedByUserIdById(id);
 

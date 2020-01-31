@@ -1,7 +1,7 @@
 package gt.app.web.mvc;
 
 import gt.app.config.security.AppUserDetails;
-import gt.app.domain.Note;
+import gt.app.domain.Article;
 import gt.app.modules.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class IndexController {
         model.addAttribute("greeting", "Hello Spring");
 
         model.addAttribute("notes", noteService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
-        model.addAttribute("note", new Note());
+        model.addAttribute("note", new Article());
 
         return "landing";
     }
@@ -40,7 +40,7 @@ public class IndexController {
     public String userHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
         model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
-        model.addAttribute("note", new Note());
+        model.addAttribute("note", new Article());
         return "note";
     }
 
