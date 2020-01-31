@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 
-import static gtapp.jooq.Tables.NOTE;
+import static gtapp.jooq.Tables.ARTICLE;
 
 @Component
 @Profile({"dev", "test"})
@@ -65,34 +65,34 @@ public class DataCreator {
         user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
         userService.save(user2);
 
-        dsl.insertInto(NOTE)
-            .setNull(NOTE.ID)
-            .set(NOTE.CONTENT, "DSL Content Flagged ")
-            .set(NOTE.CREATED_BY_USER_ID, user1.getId())
-            .set(NOTE.TITLE, "DSL Title Flagged")
-            .set(NOTE.STATUS, ArticleStatus.FLAGGED.name())
-            .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
+        dsl.insertInto(ARTICLE)
+            .setNull(ARTICLE.ID)
+            .set(ARTICLE.CONTENT, "DSL Content Flagged ")
+            .set(ARTICLE.CREATED_BY_USER_ID, user1.getId())
+            .set(ARTICLE.TITLE, "DSL Title Flagged")
+            .set(ARTICLE.STATUS, ArticleStatus.FLAGGED.name())
+            .set(ARTICLE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 
-        dsl.insertInto(NOTE)
-            .setNull(NOTE.ID)
-            .set(NOTE.CONTENT, "DSL Content Blocked... ")
-            .set(NOTE.CREATED_BY_USER_ID, user1.getId())
-            .set(NOTE.TITLE, "DSL Title Blocked")
-            .set(NOTE.STATUS, ArticleStatus.BLOCKED.name())
-            .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
+        dsl.insertInto(ARTICLE)
+            .setNull(ARTICLE.ID)
+            .set(ARTICLE.CONTENT, "DSL Content Blocked... ")
+            .set(ARTICLE.CREATED_BY_USER_ID, user1.getId())
+            .set(ARTICLE.TITLE, "DSL Title Blocked")
+            .set(ARTICLE.STATUS, ArticleStatus.BLOCKED.name())
+            .set(ARTICLE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 
 
-        createNote(adminUser, "Admin's First Note", "Content1 Admin");
-        createNote(adminUser, "Admin's Second Note", "Content2 Admin");
-        createNote(user1, "User1 Note", "Content User 1");
-        createNote(user2, "User2 Note", "Content User 2");
+        createArticle(adminUser, "Admin's First Article", "Content1 Admin");
+        createArticle(adminUser, "Admin's Second Article", "Content2 Admin");
+        createArticle(user1, "User1 Article", "Content User 1");
+        createArticle(user2, "User2 Article", "Content User 2");
 
 
     }
 
-    void createNote(User user, String title, String content) {
+    void createArticle(User user, String title, String content) {
         var n = new Article();
         n.setCreatedByUser(user);
         n.setTitle(title);

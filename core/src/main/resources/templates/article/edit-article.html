@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
-    <title> Edit Note</title>
+    <title> Edit Article</title>
     <!-- we can do the following to add extra css on this page -->
     <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
 </head>
@@ -16,13 +16,11 @@
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
 
-            <form action="#" method="post" th:action=@{/admin/review} th:object="${article}" enctype="multipart/form-data">
-                <input class="form-control" id="id" placeholder="" required="" th:field="*{id}" type="hidden">
+            <form action="#" method="post" th:action=@{/article/edit} th:object="${article}" enctype="multipart/form-data">
 
-                <div th:replace="article/_notes :: article-box"></div>
+                <div th:replace="article/_articles :: article-editor"></div>
 
-                <button class="btn btn-primary btn-sm btn-block" type="submit" name="verdict" value="PUBLISHED" id="updateNote-btn">Accept</button>
-                <button class="btn btn-danger btn-sm btn-block" type="submit"  name="verdict" value="BLOCKED" id="updateNote-btn">Reject</button>
+                <button class="btn btn-primary btn-sm btn-block" type="submit" id="updateArticle-btn">Update Article</button>
             </form>
 
 

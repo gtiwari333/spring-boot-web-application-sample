@@ -24,24 +24,24 @@ public class IndexController {
     public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
 
-        model.addAttribute("notes", articleService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
-        model.addAttribute("note", new Article());
+        model.addAttribute("articles", articleService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("article", new Article());
 
         return "landing";
     }
 
     @GetMapping("/admin")
     public String adminHome(Model model) {
-        model.addAttribute("notesToReview", articleService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("articlesToReview", articleService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
         return "admin/admin-area";
     }
 
-    @GetMapping("/note")
+    @GetMapping("/article")
     public String userHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
-        model.addAttribute("notes", articleService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
-        model.addAttribute("note", new Article());
-        return "note";
+        model.addAttribute("articles", articleService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
+        model.addAttribute("article", new Article());
+        return "article";
     }
 
     private String getWelcomeMessage(AppUserDetails principal) {

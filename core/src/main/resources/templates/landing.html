@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
-    <title> Note App - HOME</title>
+    <title> Article App - HOME</title>
     <!-- we can do the following to add extra css on this page -->
     <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
 </head>
@@ -29,22 +29,22 @@
             <div sec:authorize="isAuthenticated()">
                 <form action="#" method="post" th:action="@{/article/add}" th:object="${article}"
                       enctype="multipart/form-data">
-                    <div th:replace="article/_notes :: article-editor"></div>
+                    <div th:replace="article/_articles :: article-editor"></div>
 
-                    <button class="btn btn-primary btn-sm btn-block" type="submit" id="postNote-btn">Post Note</button>
+                    <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">Post Article</button>
                 </form>
                 <hr/>
             </div>
 
-            <th:block th:each="article : ${notes}">
-                <th:block th:replace="article/_notes :: article-box">
+            <th:block th:each="article : ${articles}">
+                <th:block th:replace="article/_articles :: article-box">
 
                 </th:block>
             </th:block>
 
-            <div th:if="${notes.getTotalElements() ==0}">
+            <div th:if="${articles.getTotalElements() ==0}">
                 <div class="alert alert-warning" role="alert">
-                    <span>No notes available.</span>
+                    <span>No articles available.</span>
                 </div>
             </div>
         </div>

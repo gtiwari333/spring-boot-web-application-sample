@@ -4,14 +4,14 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class NoteEditPage extends BaseLoggedInPage<UserPage> {
+public class ArticleEditPage extends BaseLoggedInPage<UserPage> {
 
     @Override
     public UserPage open() {
         return new UserPage();
     }
 
-    public LoggedInHomePage updateNote(String title, String content) {
+    public LoggedInHomePage updateArticle(String title, String content) {
         getTitle().setValue(title);
         getContent().setValue(content);
 
@@ -29,6 +29,6 @@ public class NoteEditPage extends BaseLoggedInPage<UserPage> {
     }
 
     public SelenideElement getUpdateButton() {
-        return $("#updateNote-btn");
+        return $("#updateArticle-btn");
     }
 }

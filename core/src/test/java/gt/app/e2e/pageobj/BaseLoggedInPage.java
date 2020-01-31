@@ -5,7 +5,7 @@ import static com.codeborne.selenide.Selenide.$;
 public abstract class BaseLoggedInPage<U extends BaseLoggedInPage> extends BasePage<BaseLoggedInPage> {
 
     public UserPage openUserPage() {
-        $("#user-note-link").click();
+        $("#user-article-link").click();
         return new UserPage();
     }
 

@@ -12,7 +12,7 @@ public class UserPage extends BaseLoggedInPage<UserPage> {
         return new UserPage();
     }
 
-    public LoggedInHomePage postNote(String title, String content) {
+    public LoggedInHomePage postArticle(String title, String content) {
         getTitle().setValue(title);
         getContent().setValue(content);
 
@@ -30,12 +30,12 @@ public class UserPage extends BaseLoggedInPage<UserPage> {
     }
 
     public SelenideElement getPostButton() {
-        return $("#postNote-btn");
+        return $("#postArticle-btn");
     }
 
-    public NoteEditPage editNote(int row) {
+    public ArticleEditPage editArticle(int row) {
         $x(".//table/tbody/tr[" + row + "]/td[6]/span/a").click();
-        return new NoteEditPage();
+        return new ArticleEditPage();
     }
 
     public PublicPage deletePage(int row) {
