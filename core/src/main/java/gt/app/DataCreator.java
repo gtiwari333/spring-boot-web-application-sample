@@ -5,7 +5,7 @@ import gt.app.domain.Article;
 import gt.app.domain.Authority;
 import gt.app.domain.NoteStatus;
 import gt.app.domain.User;
-import gt.app.modules.note.NoteService;
+import gt.app.modules.article.ArticleService;
 import gt.app.modules.user.AuthorityService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class DataCreator {
 
     final AuthorityService authorityService;
     final UserService userService;
-    final NoteService noteService;
+    final ArticleService articleService;
     final DSLContext dsl;
 
 
@@ -98,7 +98,7 @@ public class DataCreator {
         n.setTitle(title);
         n.setContent(content);
 
-        noteService.save(n);
+        articleService.save(n);
     }
 
 

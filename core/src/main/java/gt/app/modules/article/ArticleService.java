@@ -1,4 +1,4 @@
-package gt.app.modules.note;
+package gt.app.modules.article;
 
 import gt.app.domain.Article;
 import gt.app.domain.NoteStatus;
@@ -19,17 +19,17 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class NoteService {
+public class ArticleService {
 
     private static final ReceivedFile.FileGroup FILE_GROUP = ReceivedFile.FileGroup.NOTE_ATTACHMENT;
-    private final NoteRepository noteRepository;
+    private final ArticleRepository noteRepository;
     private final FileService fileService;
 
     public Article save(Article article) {
         return noteRepository.save(article);
     }
 
-    public Article createNote(NoteCreateDto dto) {
+    public Article createNote(ArticleCreateDto dto) {
 
         List<ReceivedFile> files = new ArrayList<>();
         for (MultipartFile mpf : dto.getFiles()) {
@@ -42,47 +42,47 @@ public class NoteService {
             files.add(new ReceivedFile(FILE_GROUP, mpf.getOriginalFilename(), fileId));
         }
 
-        Article article = NoteMapper.INSTANCE.createToEntity(dto);
+        Article article = ArticleMapper.INSTANCE.createToEntity(dto);
         article.getAttachedFiles().addAll(files);
 
         return save(article);
     }
 
-    public Article update(NoteEditDto dto) {
+    public Article update(ArticleEditDto dto) {
 
         Optional<Article> noteOpt = noteRepository.findWithFilesAndUserById(dto.getId());
         return noteOpt.map(note -> {
-                NoteMapper.INSTANCE.createToEntity(dto, note);
+                ArticleMapper.INSTANCE.createToEntity(dto, note);
                 return save(note);
             }
         ).orElseThrow();
     }
 
-    public NoteReadDto read(Long id) {
+    public ArticleReadDto read(Long id) {
         return noteRepository.findWithFilesAndUserByIdAndStatus(id, NoteStatus.PUBLISHED)
-            .map(NoteMapper.INSTANCE::mapForRead)
+            .map(ArticleMapper.INSTANCE::mapForRead)
             .orElseThrow();
     }
 
-    public Page<NoteReadDto> readAll(Pageable pageable) {
+    public Page<ArticleReadDto> readAll(Pageable pageable) {
         return noteRepository.findWithFilesAndUserAllByStatus(pageable, NoteStatus.PUBLISHED)
-            .map(NoteMapper.INSTANCE::mapForRead);
+            .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
-    public Page<NoteReadDto> readAllByUser(Pageable pageable, Long userId) {
+    public Page<ArticleReadDto> readAllByUser(Pageable pageable, Long userId) {
         return noteRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, NoteStatus.PUBLISHED)
-            .map(NoteMapper.INSTANCE::mapForRead);
+            .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
-    public NoteReadDto readForReview(Long id) {
+    public ArticleReadDto readForReview(Long id) {
         return noteRepository.findWithFilesAndUserByIdAndStatus(id, NoteStatus.FLAGGED)
-            .map(NoteMapper.INSTANCE::mapForRead)
+            .map(ArticleMapper.INSTANCE::mapForRead)
             .orElseThrow();
     }
 
-    public Page<NoteReadDto> getAllToReview(Pageable pageable) {
+    public Page<ArticleReadDto> getAllToReview(Pageable pageable) {
         return noteRepository.findWithFilesAndUserAllByStatus(pageable, NoteStatus.FLAGGED)
-            .map(NoteMapper.INSTANCE::mapForRead);
+            .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
     public void delete(Long id) {
@@ -94,7 +94,7 @@ public class NoteService {
     }
 
 
-    public Optional<Article> handleReview(NoteReviewDto dto) {
+    public Optional<Article> handleReview(ArticleReviewDto dto) {
         return noteRepository.findWithFilesAndUserByIdAndStatus(dto.getId(), NoteStatus.FLAGGED)
             .map(n -> {
                 n.setStatus(dto.getVerdict());

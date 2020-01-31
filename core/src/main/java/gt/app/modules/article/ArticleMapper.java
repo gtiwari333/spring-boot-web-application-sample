@@ -1,4 +1,4 @@
-package gt.app.modules.note;
+package gt.app.modules.article;
 
 import gt.app.domain.Article;
 import gt.app.domain.ReceivedFile;
@@ -8,21 +8,21 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface NoteMapper {
+public interface ArticleMapper {
 
-    NoteMapper INSTANCE = Mappers.getMapper(NoteMapper.class);
+    ArticleMapper INSTANCE = Mappers.getMapper(ArticleMapper.class);
 
     @Mapping(source = "createdByUser.id", target = "userId")
     @Mapping(source = "createdByUser.uniqueId", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
-    NoteReadDto mapForRead(Article article);
+    ArticleReadDto mapForRead(Article article);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "attachedFiles", ignore = true)
-    void createToEntity(NoteEditDto dto, @MappingTarget Article article);
+    void createToEntity(ArticleEditDto dto, @MappingTarget Article article);
 
-    Article createToEntity(NoteCreateDto dto);
+    Article createToEntity(ArticleCreateDto dto);
 
     @Mapping(source = "originalFileName", target = "name")
-    NoteReadDto.FileInfo map(ReceivedFile receivedFile);
+    ArticleReadDto.FileInfo map(ReceivedFile receivedFile);
 }

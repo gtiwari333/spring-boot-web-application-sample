@@ -1,9 +1,9 @@
-package gt.app.modules.note;
+package gt.app.modules.article;
 
 import lombok.Data;
 
 @Data
-public class NoteEditDto {
+public class ArticleEditDto {
 
     private Long id;
     private String title;

@@ -1,9 +1,9 @@
 package gt.app.web.mvc;
 
 import gt.app.domain.Article;
-import gt.app.modules.note.NoteCreateDto;
-import gt.app.modules.note.NoteEditDto;
-import gt.app.modules.note.NoteService;
+import gt.app.modules.article.ArticleCreateDto;
+import gt.app.modules.article.ArticleEditDto;
+import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Slf4j
 public class NoteController {
 
-    final NoteService noteService;
+    final ArticleService articleService;
 
     @GetMapping("/add")
     public String startAddNote(Model model) {
@@ -31,11 +31,11 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public String finishAddNote(NoteCreateDto noteDto, RedirectAttributes redirectAttrs) {
+    public String finishAddNote(ArticleCreateDto noteDto, RedirectAttributes redirectAttrs) {
 
         //TODO:validate and return to GET:/add on errors
 
-        Article article = noteService.createNote(noteDto);
+        Article article = articleService.createNote(noteDto);
 
         redirectAttrs.addFlashAttribute("success", "Note with id " + article.getId() + " is created");
 
@@ -46,7 +46,7 @@ public class NoteController {
     @PreAuthorize("@permEvaluator.hasAccess(#id, 'Note' )")
     public String deleteNote(@PathVariable Long id, RedirectAttributes redirectAttrs) {
 
-        noteService.delete(id);
+        articleService.delete(id);
 
         redirectAttrs.addFlashAttribute("success", "Note with id " + id + " is deleted");
 
@@ -57,20 +57,20 @@ public class NoteController {
     @PreAuthorize("@permEvaluator.hasAccess(#id, 'Note' )")
     public String startEditNote(Model model, @PathVariable Long id) {
         model.addAttribute("msg", "Add a new note");
-        model.addAttribute("note", noteService.read(id));
+        model.addAttribute("note", articleService.read(id));
         return "note/edit-note";
     }
 
     @PostMapping("/edit")
     @PreAuthorize("@permEvaluator.hasAccess(#noteDto.id, 'Note' )")
-    public String finishEditNote(Model model, NoteEditDto noteDto, RedirectAttributes redirectAttrs) {
+    public String finishEditNote(Model model, ArticleEditDto noteDto, RedirectAttributes redirectAttrs) {
         model.addAttribute("msg", "Add a new note");
 
 
         //TODO:validate and return to GET:/edit/{id} on errors
 
 
-        noteService.update(noteDto);
+        articleService.update(noteDto);
 
         redirectAttrs.addFlashAttribute("success", "Note with id " + noteDto.getId() + " is updated");
 

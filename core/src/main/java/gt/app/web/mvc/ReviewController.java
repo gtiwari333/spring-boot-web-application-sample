@@ -2,8 +2,8 @@ package gt.app.web.mvc;
 
 import gt.app.domain.Article;
 import gt.app.domain.NoteStatus;
-import gt.app.modules.note.NoteReviewDto;
-import gt.app.modules.note.NoteService;
+import gt.app.modules.article.ArticleReviewDto;
+import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,18 +22,18 @@ import java.util.Optional;
 @Slf4j
 public class ReviewController {
 
-    final NoteService noteService;
+    final ArticleService articleService;
 
     @GetMapping("/review/{id}")
     public String startEditNote(Model model, @PathVariable Long id) {
-        model.addAttribute("note", noteService.readForReview(id));
+        model.addAttribute("note", articleService.readForReview(id));
         return "admin/review-note";
     }
 
     @PostMapping("/review")
-    public String finishEditNote(NoteReviewDto reviewResult, RedirectAttributes redirectAttrs) {
+    public String finishEditNote(ArticleReviewDto reviewResult, RedirectAttributes redirectAttrs) {
 
-        Optional<Article> noteOpt = noteService.handleReview(reviewResult);
+        Optional<Article> noteOpt = articleService.handleReview(reviewResult);
 
         String action = reviewResult.getVerdict() == NoteStatus.PUBLISHED ? "Approved" : "Rejected";
 

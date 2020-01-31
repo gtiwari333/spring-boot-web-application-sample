@@ -1,4 +1,4 @@
-package gt.app.modules.note;
+package gt.app.modules.article;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class NoteCreateDto {
+public class ArticleCreateDto {
 
     @NotNull
     MultipartFile[] files;

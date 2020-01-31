@@ -1,4 +1,4 @@
-package gt.app.modules.note;
+package gt.app.modules.article;
 
 import gt.app.domain.NoteStatus;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class NoteReadDto {
+public class ArticleReadDto {
 
     private Long id;
 

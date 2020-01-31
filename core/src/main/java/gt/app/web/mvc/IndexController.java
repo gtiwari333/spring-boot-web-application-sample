@@ -2,7 +2,7 @@ package gt.app.web.mvc;
 
 import gt.app.config.security.AppUserDetails;
 import gt.app.domain.Article;
-import gt.app.modules.note.NoteService;
+import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class IndexController {
 
-    private final NoteService noteService;
+    private final ArticleService articleService;
 
     @GetMapping({"/", ""})
     public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
 
-        model.addAttribute("notes", noteService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("notes", articleService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
         model.addAttribute("note", new Article());
 
         return "landing";
@@ -32,14 +32,14 @@ public class IndexController {
 
     @GetMapping("/admin")
     public String adminHome(Model model) {
-        model.addAttribute("notesToReview", noteService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("notesToReview", articleService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
         return "admin/admin-area";
     }
 
     @GetMapping("/note")
     public String userHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
-        model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
+        model.addAttribute("notes", articleService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
         model.addAttribute("note", new Article());
         return "note";
     }
