@@ -9,7 +9,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface ArticleMapper {
+interface ArticleMapper {
 
     ArticleMapper INSTANCE = Mappers.getMapper(ArticleMapper.class);
 
@@ -17,6 +17,11 @@ public interface ArticleMapper {
     @Mapping(source = "createdByUser.uniqueId", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
     ArticleReadDto mapForRead(Article article);
+
+    @Mapping(source = "createdByUser.id", target = "userId")
+    @Mapping(source = "createdByUser.uniqueId", target = "username")
+    @Mapping(source = "attachedFiles", target = "files")
+    ArticleListDto mapForListing(Article article);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "attachedFiles", ignore = true)

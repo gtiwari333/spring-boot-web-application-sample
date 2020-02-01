@@ -24,7 +24,7 @@ public class IndexController {
     public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
 
-        model.addAttribute("articles", articleService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("articles", articleService.previewAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
         model.addAttribute("article", new Article());
 
         return "landing";
@@ -39,7 +39,7 @@ public class IndexController {
     @GetMapping("/article")
     public String userHome(Model model, @AuthenticationPrincipal AppUserDetails principal) {
         model.addAttribute("message", getWelcomeMessage(principal));
-        model.addAttribute("articles", articleService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
+        model.addAttribute("articles", articleService.previewAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), principal.getId()));
         model.addAttribute("article", new Article());
         return "article";
     }

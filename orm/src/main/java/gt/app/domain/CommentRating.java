@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -12,9 +13,11 @@ import javax.persistence.ManyToOne;
 public class CommentRating extends BaseEntity {
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "comment_id")
     private Comment comment;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Type(type = "persistentEnum")

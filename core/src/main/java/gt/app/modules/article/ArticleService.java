@@ -60,7 +60,7 @@ public class ArticleService {
     }
 
     public ArticleReadDto read(Long id) {
-        return articleRepository.findWithFilesAndUserByIdAndStatus(id, ArticleStatus.PUBLISHED)
+        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead)
             .map(this::mapNested)
             .orElseThrow();
@@ -92,18 +92,18 @@ public class ArticleService {
             .findFirst().orElseThrow();
     }
 
-    public Page<ArticleReadDto> readAll(Pageable pageable) {
+    public Page<ArticleReadDto> previewAll(Pageable pageable) {
         return articleRepository.findWithAllByStatus(pageable, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForRead);
     }
 
-    public Page<ArticleReadDto> readAllByUser(Pageable pageable, Long userId) {
+    public Page<ArticleListDto> previewAllByUser(Pageable pageable, Long userId) {
         return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, ArticleStatus.PUBLISHED)
-            .map(ArticleMapper.INSTANCE::mapForRead);
+            .map(ArticleMapper.INSTANCE::mapForListing);
     }
 
     public ArticleReadDto readForReview(Long id) {
-        return articleRepository.findWithFilesAndUserByIdAndStatus(id, ArticleStatus.FLAGGED)
+        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.FLAGGED)
             .map(ArticleMapper.INSTANCE::mapForRead)
             .orElseThrow();
     }
@@ -123,10 +123,15 @@ public class ArticleService {
 
 
     public Optional<Article> handleReview(ArticleReviewDto dto) {
-        return articleRepository.findWithFilesAndUserByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)
+        return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)
             .map(n -> {
                 n.setStatus(dto.getVerdict());
                 return save(n);
             });
+    }
+
+
+    public Article getReference(Long id) {
+        return articleRepository.getOne(id);
     }
 }

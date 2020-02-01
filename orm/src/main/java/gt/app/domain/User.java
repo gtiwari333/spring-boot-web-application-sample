@@ -83,9 +83,10 @@ public class User extends BaseEntity implements UserDetails {
         return active;
     }
 
-    public User(){
+    public User() {
 
     }
+
     public User(String uniqueId, LocalDate dob, String firstName, String lastName, String email) {
         this.uniqueId = uniqueId;
         this.dateOfBirth = dob;
