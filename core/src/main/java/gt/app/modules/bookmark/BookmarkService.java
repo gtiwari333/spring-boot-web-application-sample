@@ -29,12 +29,12 @@ public class BookmarkService {
         return bookmarkRepository.save(bookmark);
     }
 
-    public void delete(Long subscriberId, Long authorUniqueId) {
-        bookmarkRepository.deleteBySubscriberIdAndArticleId(subscriberId, authorUniqueId);
+    public void delete(Long subscriberId, Long articleId) {
+        bookmarkRepository.deleteBySubscriberIdAndArticleId(subscriberId, articleId);
     }
 
-    public boolean isBookmarked(Long subscriberId, Long authorUniqueId) {
-        return bookmarkRepository.existsBySubscriberIdAndArticleId(subscriberId, authorUniqueId);
+    public boolean isBookmarked(Long subscriberId, Long articleId) {
+        return bookmarkRepository.existsBySubscriberIdAndArticleId(subscriberId, articleId);
     }
 
 }

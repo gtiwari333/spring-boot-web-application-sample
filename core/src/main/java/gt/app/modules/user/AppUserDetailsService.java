@@ -19,7 +19,7 @@ public class AppUserDetailsService implements org.springframework.security.core.
     public AppUserDetails loadUserByUsername(String email) {
         Optional<User> userFromDatabase = userService.findWithAuthoritiesByEmail(email);
 
-         return userFromDatabase
+        return userFromDatabase
             .map(this::getCustomUserDetails)
             .orElseThrow(() -> new UsernameNotFoundException(" User with login:" + email + " was not found in the " + " database "));
     }

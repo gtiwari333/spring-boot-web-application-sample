@@ -1,14 +1,12 @@
 package gt.app.modules.follow;
 
 import gt.app.domain.Follow;
-import gt.app.domain.User;
+import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +14,7 @@ import javax.persistence.EntityManager;
 public class FollowService { //candiate for caching
 
     private final FollowRepository followRepository;
-    private final EntityManager entityManager;
+    private final UserService userService;
 
     public Page<FollowDTO> findFollowerForUser(Long userId, Pageable pageable) {
         return followRepository.getFollowers(userId, pageable);
@@ -28,8 +26,8 @@ public class FollowService { //candiate for caching
 
     public Follow follow(Long userId, Long followerId) {
         Follow follow = new Follow();
-        follow.setFollower(entityManager.getReference(User.class, userId));
-        follow.setUser(entityManager.getReference(User.class, followerId));
+        follow.setFollower(userService.getReference(userId));
+        follow.setUser(userService.getReference(followerId));
         return followRepository.save(follow);
     }
 
@@ -37,7 +35,7 @@ public class FollowService { //candiate for caching
         followRepository.delete(userId, followerId);
     }
 
-    public boolean isFollowing( String authorId, Long followerId) {
-        return followRepository.existsByUser_UniqueIdAndFollowerId(authorId, followerId);
+    public boolean isFollowing(Long authorId, Long followerId) {
+        return followRepository.existsByUserIdAndFollowerId(authorId, followerId);
     }
 }

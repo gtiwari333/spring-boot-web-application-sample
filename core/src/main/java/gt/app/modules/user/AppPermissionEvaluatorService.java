@@ -1,7 +1,7 @@
 package gt.app.modules.user;
 
-import gt.app.config.security.SecurityUtils;
 import gt.app.config.security.AppUserDetails;
+import gt.app.config.security.SecurityUtils;
 import gt.app.domain.BaseEntity;
 import gt.app.exception.OperationNotAllowedException;
 import lombok.RequiredArgsConstructor;

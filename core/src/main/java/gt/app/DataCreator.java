@@ -2,8 +2,8 @@ package gt.app;
 
 import gt.app.config.Constants;
 import gt.app.domain.Article;
-import gt.app.domain.Authority;
 import gt.app.domain.ArticleStatus;
+import gt.app.domain.Authority;
 import gt.app.domain.User;
 import gt.app.modules.article.ArticleService;
 import gt.app.modules.user.AuthorityService;
