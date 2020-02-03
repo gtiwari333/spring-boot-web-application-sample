@@ -14,8 +14,7 @@ class WebAppIT extends BaseSeleniumTest {
     void testPublicPage() {
         new PublicPage().open()
             .body()
-            .shouldHave(text("Article App"))
-            .shouldNotHave(text("Logout"))
+            .shouldHave(text("Blog App"))
             .shouldNotHave(text("Post Article"))
 
             .shouldHave(text("User2 Article"))
@@ -39,10 +38,10 @@ class WebAppIT extends BaseSeleniumTest {
     void testAccessDenied(PublicPage publicPage) {
 
         publicPage.load("/article");
-        publicPage.body().shouldHave(text("Please sign in"));
+        publicPage.body().shouldHave(text("Log In"));
 
         publicPage.load("/admin");
-        publicPage.body().shouldHave(text("Please sign in"));
+        publicPage.body().shouldHave(text("Log In"));
     }
 
     @Test
@@ -88,7 +87,7 @@ class WebAppIT extends BaseSeleniumTest {
     private void testLoggedInHomePage(LoggedInHomePage page, String username) {
         //common home page for any user
         page.body()
-            .shouldHave(text("Logout"))
+            .shouldHave(text(username))
             .shouldHave(text("Post Article"))
             .shouldHave(text(username + "'s Articles"));
 
@@ -101,7 +100,6 @@ class WebAppIT extends BaseSeleniumTest {
 
     private void testUser1Page(UserPage page) {
         page.body()
-            .shouldHave(text("Logout"))
             .shouldHave(text("Post Article"))
             .shouldHave(text("User1's Articles"))
             //should not see other user's articles

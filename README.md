@@ -62,9 +62,11 @@ And open   `http://localhost:8080` on your browser
 - e2e with Selenide, fixtures. default data generated using Spring
 - Architecture test using ArchUnit
 - jOOQ integration with code generation based on JPA entity 
+- Account management with KeyCloak
+- Testcontainers to perform realistic integration test with KeyCloak 
+- favicon handler
 
 Future: do more stuff
-- Account management with KeyCloak
 - Email
 - background jobs with Quartz
 - Liquibase/Flyway change log

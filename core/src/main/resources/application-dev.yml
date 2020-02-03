@@ -20,13 +20,12 @@ spring:
 
 
 keycloak:
-    realm: seed-app
+    realm: blogapp
     auth-server-url: http://localhost:8080/auth/
     ssl-required: external
-    resource: seed-app-core
+    resource: gateway-app-client
     public-client: true # for gateway app
     principal-attribute: name
-
 
 
 

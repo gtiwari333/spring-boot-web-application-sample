@@ -8,5 +8,5 @@
 
 ## we must shutdown the KC server before export
 
-./standalone.sh -Dkeycloak.migration.realmName=seed-app -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home/gbuntu/Desktop/
+./standalone.sh -Dkeycloak.migration.realmName=blogapp -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home/gbuntu/Desktop/
 

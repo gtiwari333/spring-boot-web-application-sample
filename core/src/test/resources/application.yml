@@ -15,6 +15,15 @@ spring:
     main:
         banner-mode: off
 
+keycloak:
+    realm: blogapp
+    auth-server-url: http://localhost:8080/auth/
+    ssl-required: external
+    resource: gateway-app-client
+    public-client: true # for gateway app
+    principal-attribute: name
+
+
 server:
     port: 8081
 

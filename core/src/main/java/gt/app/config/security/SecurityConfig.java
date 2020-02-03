@@ -31,6 +31,7 @@ public class SecurityConfig {
         "/v2/api-docs",
         "/h2-console/**",
         "/webjars/**",
+        "/favicon.ico",
         "/static/**",
         "/" //landing page is allowed for all
     };

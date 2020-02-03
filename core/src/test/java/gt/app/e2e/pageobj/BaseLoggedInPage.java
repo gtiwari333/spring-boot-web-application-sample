@@ -15,6 +15,7 @@ public abstract class BaseLoggedInPage<U extends BaseLoggedInPage> extends BaseP
     }
 
     public PublicPage logout() {
+        $("#navbarDropdownMenuLink").click();
         $("#logout-link").click();
         return new PublicPage();
     }
