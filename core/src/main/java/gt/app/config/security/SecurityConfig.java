@@ -64,7 +64,7 @@ public class SecurityConfig {
 
         @Override
         protected KeycloakLogoutHandler keycloakLogoutHandler() throws Exception {
-             return new LogoutHandler(adapterDeploymentContext());
+            return new LogoutHandler(adapterDeploymentContext());
         }
 
 
@@ -89,7 +89,7 @@ public class SecurityConfig {
 
         }
 
-        static class LogoutHandler extends KeycloakLogoutHandler{
+        static class LogoutHandler extends KeycloakLogoutHandler {
 
             public LogoutHandler(AdapterDeploymentContext adapterDeploymentContext) {
                 super(adapterDeploymentContext);
@@ -99,7 +99,7 @@ public class SecurityConfig {
             @Override
             protected void handleSingleSignOut(HttpServletRequest request, HttpServletResponse response, KeycloakAuthenticationToken authenticationToken) {
                 super.handleSingleSignOut(request, response, authenticationToken);
-                response.sendRedirect("/?logout=true" );
+                response.sendRedirect("/?logout=true");
             }
         }
 
