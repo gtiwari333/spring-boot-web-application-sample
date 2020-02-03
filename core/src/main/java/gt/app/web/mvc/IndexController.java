@@ -2,8 +2,8 @@ package gt.app.web.mvc;
 
 import gt.app.config.security.CurrentUser;
 import gt.app.config.security.CurrentUserToken;
-import gt.app.domain.Note;
-import gt.app.modules.note.NoteService;
+import gt.app.domain.Article;
+import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -18,31 +18,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class IndexController {
 
-    private final NoteService noteService;
+    private final ArticleService articleService;
 
     @GetMapping({"/", ""})
     public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
 
-        model.addAttribute("notes", noteService.readAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
-        model.addAttribute("note", new Note());
+        model.addAttribute("articles", articleService.previewAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("article", new Article());
 
         return "landing";
     }
 
     @GetMapping("/admin")
     public String adminHome(Model model) {
-        model.addAttribute("notesToReview", noteService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("articlesToReview", articleService.getAllToReview(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
         return "admin/admin-area";
     }
 
-    @GetMapping("/note")
+    @GetMapping("/article")
     public String userHome(Model model, @CurrentUser CurrentUserToken u) {
-
         model.addAttribute("message", getWelcomeMessage(u));
-        model.addAttribute("notes", noteService.readAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
-        model.addAttribute("note", new Note());
-        return "note";
+        model.addAttribute("articles", articleService.previewAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
+        model.addAttribute("article", new Article());
+        return "article";
     }
 
     private String getWelcomeMessage(CurrentUserToken curUser) {

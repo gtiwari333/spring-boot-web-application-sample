@@ -1,9 +1,9 @@
 package gt.app;
 
-import gt.app.domain.Note;
-import gt.app.domain.NoteStatus;
+import gt.app.domain.Article;
+import gt.app.domain.ArticleStatus;
 import gt.app.domain.User;
-import gt.app.modules.note.NoteService;
+import gt.app.modules.article.ArticleService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-import static gtapp.jooq.Tables.NOTE;
+import static gtapp.jooq.Tables.ARTICLE;
 
 @Component
 @Profile({"dev", "test"})
@@ -25,7 +25,7 @@ import static gtapp.jooq.Tables.NOTE;
 public class DataCreator {
 
     final UserService userService;
-    final NoteService noteService;
+    final ArticleService articleService;
     final DSLContext dsl;
 
 
@@ -46,40 +46,40 @@ public class DataCreator {
         User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel");
         userService.save(user2);
 
-        dsl.insertInto(NOTE)
-            .setNull(NOTE.ID)
-            .set(NOTE.CONTENT, "DSL Content Flagged ")
-            .set(NOTE.CREATED_BY_USER_ID, user1.getId().toString())
-            .set(NOTE.TITLE, "DSL Title Flagged")
-            .set(NOTE.STATUS, NoteStatus.FLAGGED.name())
-            .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
+        dsl.insertInto(ARTICLE)
+            .setNull(ARTICLE.ID)
+            .set(ARTICLE.CONTENT, "DSL Content Flagged ")
+            .set(ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
+            .set(ARTICLE.TITLE, "DSL Title Flagged")
+            .set(ARTICLE.STATUS, ArticleStatus.FLAGGED.name())
+            .set(ARTICLE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 
-        dsl.insertInto(NOTE)
-            .setNull(NOTE.ID)
-            .set(NOTE.CONTENT, "DSL Content Blocked... ")
-            .set(NOTE.CREATED_BY_USER_ID, user1.getId().toString())
-            .set(NOTE.TITLE, "DSL Title Blocked")
-            .set(NOTE.STATUS, NoteStatus.BLOCKED.name())
-            .set(NOTE.CREATED_DATE, Timestamp.from(Instant.now()))
+        dsl.insertInto(ARTICLE)
+            .setNull(ARTICLE.ID)
+            .set(ARTICLE.CONTENT, "DSL Content Blocked... ")
+            .set(ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
+            .set(ARTICLE.TITLE, "DSL Title Blocked")
+            .set(ARTICLE.STATUS, ArticleStatus.BLOCKED.name())
+            .set(ARTICLE.CREATED_DATE, Timestamp.from(Instant.now()))
             .execute();
 
 
-        createNote(adminUser, "Admin's First Note", "Content1 Admin");
-        createNote(adminUser, "Admin's Second Note", "Content2 Admin");
-        createNote(user1, "User1 Note", "Content User 1");
-        createNote(user2, "User2 Note", "Content User 2");
+        createArticle(adminUser, "Admin's First Article", "Content1 Admin");
+        createArticle(adminUser, "Admin's Second Article", "Content2 Admin");
+        createArticle(user1, "User1 Article", "Content User 1");
+        createArticle(user2, "User2 Article", "Content User 2");
 
 
     }
 
-    void createNote(User user, String title, String content) {
-        var n = new Note();
+    void createArticle(User user, String title, String content) {
+        var n = new Article();
         n.setCreatedByUser(user);
         n.setTitle(title);
         n.setContent(content);
 
-        noteService.save(n);
+        articleService.save(n);
     }
 
 

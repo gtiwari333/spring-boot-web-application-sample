@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
+    <title> Articles</title>
+    <!-- we can do the following to add extra css on this page -->
+    <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
+</head>
+
+<body>
+
+<div th:replace="_fragments/header :: headerbar"></div>
+
+
+<div class="container">
+    <div class="card-deck mb-3">
+        <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
+
+            <h3>
+                <span th:text="${message}"></span>
+            </h3>
+
+            <div th:if="${success} != null">
+                <div class="alert alert-success" role="alert">
+                    <span th:text="${success}"></span>
+                </div>
+            </div>
+
+            <form action="#" method="post" th:action="@{/article/add}" th:object="${article}" enctype="multipart/form-data">
+                <div th:replace="article/_articles :: article-editor"></div>
+
+                <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">Post Article</button>
+            </form>
+
+            <hr/>
+
+            <h2>Articles</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Files</th>
+                    <th>Created On</th>
+                    <th colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="article : ${articles}">
+                    <td th:text="${article.status}"></td>
+                    <td th:text="${article.title}"></td>
+                    <td th:text="${article.content}"></td>
+                    <td>
+                            <span th:each="file : ${article.files}">
+                                <a th:href="@{/download/file/{id}(id=${file.id})}"> <span th:text="${file.name}"></span> </a>
+                            </span>
+                    </td>
+                    <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                            <span th:if="${#authentication.userId == article.userId}">
+                                <a th:href="@{/article/edit/{id}(id=${article.id})}">Edit</a>
+                            </span>
+                    </td>
+                    <td>
+                            <span th:if="${#authentication.userId == article.userId}">
+                                <a th:href="@{/article/delete/{id}(id=${article.id})}">Delete</a>
+                            </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div th:replace="_fragments/footer :: page-footer"></div>
+
+</div>
+
+<div th:replace="_fragments/footer :: js-imports(~{::.custom-script})">
+    <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
+</div>
+
+</body>
+</html>

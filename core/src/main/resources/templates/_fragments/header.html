@@ -30,8 +30,8 @@
             <ul class="navbar-nav w-100 justify-content-center">
 
                 <li class="nav-item" sec:authorize="hasRole('USER')">
-                    <a class="nav-link" th:href="@{/note}" id="user-note-link">
-                        <span sec:authentication="user.username">Notes</span>'s Notes
+                    <a class="nav-link" th:href="@{/article}" id="user-article-link">
+                        <span sec:authentication="user.username">USERNAME</span>'s Articles
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">

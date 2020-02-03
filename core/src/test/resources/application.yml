@@ -6,6 +6,8 @@ spring:
     jpa:
         show-sql: false
         open-in-view: false
+        database-platform: gt.app.config.BugFixedH2Dialect
+
     mvc:
         static-path-pattern: /static/**
     jooq:

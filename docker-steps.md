@@ -20,7 +20,7 @@ Run on AWS EC2:
 ### 3. Create repo
     $aws ecr create-repository --repository-name MY_REPOSITORY --region REGION
 
-    The above returns Output: note repositorUri
+    The above returns Output: article repositorUri
     {
         "repository": {
             "repositoryArn": "arn:aws:ecr:us-east-1:159931644654:repository/noteapp",
@@ -41,7 +41,7 @@ Run on AWS EC2:
 ### 6. Push to repo
     $docker push repositoryUri   << repositoryUri from above output
 
-### 7. View ECR Repository to verify, note the region on url
+### 7. View ECR Repository to verify, article the region on url
     https://us-east-1.console.aws.amazon.com/ecr/repositories?region=us-east-1
 
 Example

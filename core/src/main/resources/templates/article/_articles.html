@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<th:block th:fragment="article-editor">
+    <div class="row">
+        <input class="form-control" id="id" placeholder="" required="" th:field="*{id}" type="hidden">
+
+        <div class="col-md-4 mb-3">
+            <label for="title">Title</label>
+            <input class="form-control" id="title" placeholder="" required="" th:field="*{title}" type="text"
+                   value="">
+            <span th:errors="*{title}" th:if="${#fields.hasErrors('title')}"></span>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="content">Content</label>
+            <input class="form-control" id="content" placeholder="" required="" th:field="*{content}"
+                   type="text" value="">
+            <span th:errors="*{content}" th:if="${#fields.hasErrors('content')}"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="files">File</label>
+            <input class="btn btn-secondary btn-sm btn-block" id="files" type="file" value="" name="files">
+        </div>
+
+    </div>
+
+</th:block>
+
+
+
+<th:block th:fragment="article-comment">
+    <ul>
+        <li th:each="comment : ${comments}">
+            <span th:text="${comment.content}"></span>
+            <span class="text-muted">
+                 At <span th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}"></span>,
+                        By <span th:text="${comment.username}"></span>
+            </span>
+
+            <div th:if="${comment.childComments.size()>0}">
+                <section th:insert="article/_articles :: article-comment"
+                         th:with="comments=${comment.childComments}">
+                </section>
+            </div>
+
+        </li>
+    </ul>
+</th:block>
+
+
+<th:block th:fragment="article-box">
+
+    <div class="card  shadow-sm article-box">
+        <div class="card-header">
+            <h5 class="card-title"><span th:text="${article.title}"></span></h5>
+        </div>
+
+        <div class="card-body">
+            <p class="card-text"><span th:text="${article.content}"></span></p>
+            <div th:if="${article.files.size()>0}">
+                <hr/>
+                Attachments:
+                <span th:each="file : ${article.files}">
+                    <a th:href="@{/article/download/file/{id}(id=${file.id})}">
+                        <span th:text="${file.name}"></span>
+                    </a>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card-footer text-muted">
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By <span
+            th:text="${article.username}"></span>
+        </div>
+
+        <div th:if="${article.comments.size()>0}">
+            <div class="card-body">
+                Comments:
+                <hr/>
+                <div th:insert="article/_articles :: article-comment" th:with="comments=${article.comments}">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</th:block>
+
+</body>
+</html>
+

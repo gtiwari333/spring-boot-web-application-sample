@@ -12,7 +12,7 @@ public class LoggedInHomePage extends BaseLoggedInPage<LoggedInHomePage> {
     }
 
 
-    public LoggedInHomePage postNote(String title, String content) {
+    public LoggedInHomePage postArticle(String title, String content) {
         getTitle().setValue(title);
         getContent().setValue(content);
 
@@ -30,7 +30,7 @@ public class LoggedInHomePage extends BaseLoggedInPage<LoggedInHomePage> {
     }
 
     public SelenideElement getPostButton() {
-        return $("#postNote-btn");
+        return $("#postArticle-btn");
     }
 
 }

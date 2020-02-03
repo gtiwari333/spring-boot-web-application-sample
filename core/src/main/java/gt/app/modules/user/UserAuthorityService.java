@@ -1,8 +1,8 @@
 package gt.app.modules.user;
 
 import gt.app.config.security.AppUserDetails;
-import gt.app.domain.Note;
-import gt.app.modules.note.NoteService;
+import gt.app.domain.Article;
+import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class UserAuthorityService {
 
-    private final NoteService noteService;
+    private final ArticleService articleService;
 
     public boolean hasAccess(AppUserDetails curUser, Long id, String entity) {
 
@@ -25,9 +25,9 @@ public class UserAuthorityService {
         }
 
 
-        if (Note.class.getSimpleName().equalsIgnoreCase(entity)) {
+        if (Article.class.getSimpleName().equalsIgnoreCase(entity)) {
 
-            UUID createdById = noteService.findCreatedByUserIdById(id);
+            UUID createdById = articleService.findCreatedByUserIdById(id);
 
             return createdById.equals(curUser.getUser().getId());
         }

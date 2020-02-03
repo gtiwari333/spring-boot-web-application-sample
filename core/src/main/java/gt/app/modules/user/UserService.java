@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -27,5 +29,9 @@ public class UserService {
         }
 
 
+    }
+
+    public User getReference(UUID id) {
+        return userRepository.getOne(id);
     }
 }

@@ -1,7 +1,7 @@
 # A Spring Boot Web Application Seed with tons of Ready to use features
 
 ### Intro
-This is a simple micro blogging application where you can post a note/blog and other can view it.
+This is a simple micro blogging application where you can post a blog article and other can view it.
 
 The default username/passwords are listed on : gt.app.Application.initData, which are:
 
@@ -70,7 +70,7 @@ Future: do more stuff
 - Liquibase/Flyway change log
 - Integrate Markdown editor for writing notes
 - search service using elastic search -- search into uploaded files as well
-- rate limit by IP on public API ( note api )
+- rate limit by IP on public API ( article api )
 
 ## Screenshots:
 

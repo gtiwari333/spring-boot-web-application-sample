@@ -14,14 +14,14 @@ class WebAppIT extends BaseSeleniumTest {
     void testPublicPage() {
         new PublicPage().open()
             .body()
-            .shouldHave(text("Note App"))
+            .shouldHave(text("Article App"))
             .shouldNotHave(text("Logout"))
-            .shouldNotHave(text("Post Note"))
+            .shouldNotHave(text("Post Article"))
 
-            .shouldHave(text("User2 Note"))
-            .shouldHave(text("User1 Note"))
-            .shouldHave(text("Admin's First Note"))
-            .shouldHave(text("Admin's Second Note"))
+            .shouldHave(text("User2 Article"))
+            .shouldHave(text("User1 Article"))
+            .shouldHave(text("Admin's First Article"))
+            .shouldHave(text("Admin's Second Article"))
             .shouldNotHave(text("DSL Title Flagged"))
             .shouldNotHave(text("DSL Title Blocked"))
 
@@ -38,7 +38,7 @@ class WebAppIT extends BaseSeleniumTest {
 
     void testAccessDenied(PublicPage publicPage) {
 
-        publicPage.load("/note");
+        publicPage.load("/article");
         publicPage.body().shouldHave(text("Please sign in"));
 
         publicPage.load("/admin");
@@ -89,10 +89,10 @@ class WebAppIT extends BaseSeleniumTest {
         //common home page for any user
         page.body()
             .shouldHave(text("Logout"))
-            .shouldHave(text("Post Note"))
-            .shouldHave(text(username + "'s Notes"));
+            .shouldHave(text("Post Article"))
+            .shouldHave(text(username + "'s Articles"));
 
-        page.postNote("New Title", "New Content");
+        page.postArticle("New Title", "New Content");
 
         page.body()
             .shouldHave(text("New Title"))
@@ -102,14 +102,14 @@ class WebAppIT extends BaseSeleniumTest {
     private void testUser1Page(UserPage page) {
         page.body()
             .shouldHave(text("Logout"))
-            .shouldHave(text("Post Note"))
-            .shouldHave(text("User1's Notes"))
-            //should not see other user's notes
+            .shouldHave(text("Post Article"))
+            .shouldHave(text("User1's Articles"))
+            //should not see other user's articles
             .shouldNotHave(text("Content1 Admin"))
             .shouldNotHave(text("Content2 Admin"))
-            .shouldNotHave(text("User2 Note"))
+            .shouldNotHave(text("User2 Article"))
 
-            //flagged and blocked note
+            //flagged and blocked article
             .shouldNotHave(text("DSL Title Flagged"))
             .shouldNotHave(text("DSL Title Blocked"))
 
@@ -117,12 +117,12 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("DSL Content Blocked"))
 
 
-            //previously created note
+            //previously created article
             .shouldHave(text("New Title"))
             .shouldHave(text("New Content"));
 
         //user gets redirected to home page after posting
-        LoggedInHomePage homePage = page.postNote("Another Title", "Another Content");
+        LoggedInHomePage homePage = page.postArticle("Another Title", "Another Content");
 
         homePage.body()
             .shouldHave(text("Another Title"))
@@ -131,11 +131,11 @@ class WebAppIT extends BaseSeleniumTest {
         //go back to user page again
         page = homePage.openUserPage();
 
-        //edit newly created note
-        NoteEditPage editPage = page.editNote(1);
-        editPage.body().shouldHave(text("Update Note"));
+        //edit newly created article
+        ArticleEditPage editPage = page.editArticle(1);
+        editPage.body().shouldHave(text("Update Article"));
 
-        homePage = editPage.updateNote("Updated Title", "Updated Content");
+        homePage = editPage.updateArticle("Updated Title", "Updated Content");
 
         homePage.body()
             .shouldHave(text("Updated Title"))
@@ -149,7 +149,7 @@ class WebAppIT extends BaseSeleniumTest {
         //delete
         PublicPage publicPage = page.deletePage(1);
         publicPage.body()
-            .shouldHave(text("Note with id"))
+            .shouldHave(text("Article with id"))
             .shouldHave(text("is deleted"))
             .shouldNotHave(text("Updated Title"))
             .shouldNotHave(text("Updated Content"));

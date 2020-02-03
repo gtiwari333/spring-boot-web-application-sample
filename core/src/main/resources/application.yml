@@ -9,6 +9,7 @@ spring:
     jpa:
         show-sql: true
         open-in-view: false
+        database-platform: gt.app.config.BugFixedH2Dialect
 
 server:
     port: 8081
