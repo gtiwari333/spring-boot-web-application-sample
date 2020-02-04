@@ -1,36 +1,6 @@
 # A Spring Boot Web Application Seed with tons of Ready to use features
 
-### Intro
-This is a simple micro blogging application where you can post a note/blog and other can view it.
-
-The default username/passwords are listed on : gt.app.Application.initData, which are:
-
-- system/pass
-- user1/pass
-- user2/pass
-
-### Requirements
-- JDK 11+
-- Lombok configured on IDE
-    - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
-    - For eclipse, download the lombok jar, run it, and point to eclipse installation
-- Maven (optional)
-
-### How to Run
-- Clone/Download and Import project into your IDE, compile and run Application.java 
-
-OR
-
-- mvnw compile spring-boot:run   //if you don't have maven installed in your PC
-
-OR
-
-- mvn compile spring-boot:run //if you have maven  installed in your PC
-
-And open   `http://localhost:8080` on your browser
-
-
-### Included Features/Samples
+## Included Features/Samples
 - Modular application
 - Data JPA with User/Authority/Note/ReceivedFile entities, example of EntityGraph
 - Default test data created while running the app
@@ -71,6 +41,35 @@ Future: do more stuff
 - Integrate Markdown editor for writing notes
 - search service using elastic search -- search into uploaded files as well
 - rate limit by IP on public API ( note api )
+
+### Intro
+This is a simple micro blogging application where you can post a note/blog and other can view it.
+
+The default username/passwords are listed on : gt.app.Application.initData, which are:
+
+- system/pass
+- user1/pass
+- user2/pass
+
+### Requirements
+- JDK 11+
+- Lombok configured on IDE
+    - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
+    - For eclipse, download the lombok jar, run it, and point to eclipse installation
+- Maven (optional)
+
+### How to Run
+- Clone/Download and Import project into your IDE, compile and run Application.java 
+
+OR
+
+- mvnw compile spring-boot:run   //if you don't have maven installed in your PC
+
+OR
+
+- mvn compile spring-boot:run //if you have maven  installed in your PC
+
+And open   `http://localhost:8080` on your browser
 
 ## Screenshots:
 
