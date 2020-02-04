@@ -17,7 +17,7 @@ spring:
 
 keycloak:
     realm: blogapp
-    auth-server-url: http://localhost:8080/auth/
+    auth-server-url: http://localhost:${KEYCLOAK_PORT:8080}/auth/
     ssl-required: external
     resource: gateway-app-client
     public-client: true # for gateway app

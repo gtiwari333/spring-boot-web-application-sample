@@ -1,7 +1,7 @@
 {
   "id" : "seed-app",
   "realm" : "blogapp",
-  "displayName" : "See App IAM",
+  "displayName" : "Blog App IAM",
   "notBefore" : 1580089862,
   "revokeRefreshToken" : false,
   "refreshTokenMaxReuse" : 0,
@@ -302,6 +302,102 @@
   "webAuthnPolicyCreateTimeout" : 0,
   "webAuthnPolicyAvoidSameAuthenticatorRegister" : false,
   "webAuthnPolicyAcceptableAaguids" : [ ],
+  "users" : [ {
+    "id" : "eeefadeb-340e-4416-ab0f-68a9da67a0e9",
+    "createdTimestamp" : 1580092657614,
+    "username" : "gtiwari",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Ganesh",
+    "lastName" : "Tiwari",
+    "email" : "gtiwari@email",
+    "credentials" : [ {
+      "id" : "4d636339-31c2-47a7-8024-c1e6fdb08462",
+      "type" : "password",
+      "createdDate" : 1580092657696,
+      "secretData" : "{\"value\":\"vgLtDly2/bzpi0DMGn33wrTQrGV2KBV2e2GTiwhaUIT+BJVQ5XwoLRJbFU5ZaJXBmzdLv1/iO/NLmSeuYmiOQQ==\",\"salt\":\"GMaMEZT1aXSLCY1JiA7ivw==\"}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "a621ac4c-6172-4103-9050-b27c053b11eb",
+    "createdTimestamp" : 1580005071465,
+    "username" : "system",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "credentials" : [ {
+      "id" : "85153370-dac3-4c4e-ad0f-d56be0989ac1",
+      "type" : "password",
+      "createdDate" : 1580005084934,
+      "secretData" : "{\"value\":\"UAFe+kqnvwEM0ZXifVch3M/i6e5baljh/D7tgX9+UqlLywqf5ANulu7e6Qy/qYs/6nYFy/DxE88H+BWUlgHS3A==\",\"salt\":\"L6BvFcInxqsOBvS/itv6pQ==\"}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "ROLE_ADMIN", "offline_access", "uma_authorization", "ROLE_USER" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "d1460f56-7f7e-43e1-8396-bddf39dba08f",
+    "createdTimestamp" : 1580005095668,
+    "username" : "user1",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "User 1",
+    "lastName" : "Tiwari",
+    "credentials" : [ {
+      "id" : "e9ee782e-ba45-4b26-94e0-0a9125dcd3c5",
+      "type" : "password",
+      "createdDate" : 1580005125789,
+      "secretData" : "{\"value\":\"SJONVU1ktBTDrsDZ8U15g/gYsYvLFVy7IcVFd4IrDtEwau9DqznYdJZp+wOqzTI3VF4YQV2Mih/pVciljgTnHQ==\",\"salt\":\"jxoPcDGtujZ0cO44I75mgA==\"}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization", "ROLE_USER" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "fa6820a5-cf39-4cbf-9e50-89cc832bebee",
+    "createdTimestamp" : 1580005143120,
+    "username" : "user2",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "User 2",
+    "lastName" : "Tiwari",
+    "credentials" : [ {
+      "id" : "20f32b3e-1ee2-49f2-8484-0d7dcb555ea8",
+      "type" : "password",
+      "createdDate" : 1580005153215,
+      "secretData" : "{\"value\":\"9j7daptNaNi46sh5GVnKbFesTVvrdYjzYFmS1CM5+TlvElOPeeQjHNMou/a//rTm527taKAkaqxPzmAMd98/SA==\",\"salt\":\"sj7WlqvcbmItkmpeNRDfBA==\"}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization", "ROLE_USER" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ],
   "scopeMappings" : [ {
     "clientScope" : "offline_access",
     "roles" : [ "offline_access" ]

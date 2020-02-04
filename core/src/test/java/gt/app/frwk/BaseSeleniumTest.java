@@ -14,7 +14,7 @@ public abstract class BaseSeleniumTest {
 
     @Container
     private static KeycloakContainer keycloak = new KeycloakContainer()
-        .withRealmImportFile("keycloak/blogapp-realm.json");
+        .withRealmImportFile("keycloak/keycloak-export.json");
 
     @BeforeAll
     public static void init() {
@@ -25,6 +25,8 @@ public abstract class BaseSeleniumTest {
         Configuration.baseUrl = "http://localhost:8081"; //same as server port
 
         keycloak.start();
+
+        System.setProperty("KEYCLOAK_PORT", Integer.toString(keycloak.getHttpPort()));
     }
 
     @AfterEach
