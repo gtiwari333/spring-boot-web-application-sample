@@ -70,6 +70,7 @@ public class DataCreator {
         createArticle(user1, "User1 Article", "Content User 1");
         createArticle(user2, "User2 Article", "Content User 2");
 
+        articleService.testCountStatuses();
 
     }
 

@@ -1,4 +1,4 @@
-package gt.app.domain.enums;
+package gt.app.domain;
 
 public enum CommentStatus {
     AWAITING_APPROVAL, SHOWING, HIDDEN, DELETED

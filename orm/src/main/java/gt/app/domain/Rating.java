@@ -1,4 +1,4 @@
-package gt.app.domain.enums;
+package gt.app.domain;
 
 import gt.app.domain.customtype.PersistentEnum;
 

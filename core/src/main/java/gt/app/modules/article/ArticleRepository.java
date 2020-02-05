@@ -2,17 +2,17 @@ package gt.app.modules.article;
 
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
+import gt.app.modules.common.AbstractRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 import java.util.UUID;
 
-interface ArticleRepository extends JpaRepository<Article, Long> {
+interface ArticleRepository extends AbstractRepository<Article>, ArticleRepositoryCustom {
 
     @EntityGraph(attributePaths = {"attachedFiles", "createdByUser"})
     Optional<Article> findWithFilesAndUserById(Long id);

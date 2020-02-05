@@ -1,6 +1,5 @@
 package gt.app.domain;
 
-import gt.app.domain.enums.Rating;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 

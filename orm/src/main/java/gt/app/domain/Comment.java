@@ -2,9 +2,7 @@ package gt.app.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -13,17 +11,14 @@ import java.util.Objects;
 public class Comment extends BaseAuditingEntity {
     private String content;
 
-    private Status status = Status.ACTIVE; //temporary
+    @Enumerated(EnumType.STRING)
+    private CommentStatus status = CommentStatus.SHOWING; //temporary
 
     @JoinColumn(nullable = false)
     private Long articleId;
 
     @JoinColumn(nullable = true)
     private Long parentCommentId;
-
-    enum Status {
-        AWAITING_APPROVAL, REJECTED, ACTIVE, DELETED
-    }
 
     public Comment() {
     }

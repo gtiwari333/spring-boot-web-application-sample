@@ -135,4 +135,9 @@ public class ArticleService {
     public Article getReference(Long id) {
         return articleRepository.getOne(id);
     }
+
+    public void testCountStatuses() {
+        log.info("Size of flagged articles {}", articleRepository.findArticles(ArticleStatus.FLAGGED).size());
+        log.info("Size of flagged articles {}", articleRepository.countArticles(ArticleStatus.FLAGGED));
+    }
 }

@@ -36,13 +36,54 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <configuration>
+                    <defaultOutputDirectory>
+                        ${project.build.directory}/generated-sources
+                    </defaultOutputDirectory>
+                    <processors>
+                        <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                    </processors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>${querydsl.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
