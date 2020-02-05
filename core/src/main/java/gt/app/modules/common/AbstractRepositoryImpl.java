@@ -23,7 +23,7 @@ public abstract class AbstractRepositoryImpl<T extends BaseEntity, R extends Abs
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.notNull(repository, "Repository must not be null.\nAutowire repository with Setter Injection.");
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractRepositoryImpl<T extends BaseEntity, R extends Abs
         }
 
         if (list.size() > 1) {
-            throw new RuntimeException("Expecting single result but the query returned more than 1");
+            throw new BadQueryException("Expecting single result but the query returned more than 1");
         }
 
         return Optional.of(list.get(0));
