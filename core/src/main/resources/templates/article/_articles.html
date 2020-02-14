@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
 
 <body>
 
@@ -30,7 +32,6 @@
     </div>
 
 </th:block>
-
 
 
 <th:block th:fragment="article-comment">
@@ -75,8 +76,9 @@
         </div>
 
         <div class="card-footer text-muted">
-            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By <span
-            th:text="${article.username}"></span>
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By
+            <span sec:authorize="isAnonymous()" th:text="${article.username}"></span>
+            <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link" th:text="${article.username}"></span>
         </div>
 
         <div th:if="${article.comments.size()>0}">

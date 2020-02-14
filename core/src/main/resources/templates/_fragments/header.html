@@ -55,11 +55,20 @@
                         <span sec:authentication="user.username">USER_NAME</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" th:href="@{/sso/logout}" id="logout-link">
-                            Logout
+                        <a class="dropdown-item" th:href="@{/account/followers}" id="my-follower">
+                            Followers
+                        </a>
+                        <a class="dropdown-item" th:href="@{/account/mefollowing}" id="me-following">
+                            Following
+                        </a>
+                        <a class="dropdown-item" th:href="@{/account/subscriptions}" id="my-subscriptions">
+                            Subscriptions
                         </a>
                         <a class="dropdown-item" th:href="@{/auth/change-password}" id="logout-link">
                             Change Password
+                        </a>
+                        <a class="dropdown-item" th:href="@{/sso/logout}" id="logout-link">
+                            Logout
                         </a>
                     </div>
                 </li>
