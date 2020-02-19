@@ -29,9 +29,10 @@ keycloak:
 
 
 
-#    "realm": "seed-app",
-#    "auth-server-url": "http://localhost:8080/auth/",
-#    "ssl-required": "external",
-#    "resource": "seed-app-core",
-#    "public-client": true,
-#    "confidential-port": 0
+wro4j:
+    jmx-enabled: false
+    debug: true
+    manager-factory:
+        post-processors: cssVariables,cssMinJawr,jsMin
+        pre-processors: cssUrlRewriting,cssImport,semicolonAppender,removeSourceMaps,singlelineStripper
+    filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls

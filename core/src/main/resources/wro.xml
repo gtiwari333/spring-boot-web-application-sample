@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+    <group name="commons">
+        <js>classpath:/static/js/app.js</js>
+        <css>classpath:/static/css/common.js</css>
+    </group>
+</groups>
