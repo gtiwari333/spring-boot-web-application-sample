@@ -9,8 +9,13 @@
 </head>
 <body>
 
-<div th:fragment="user-summary">
+<div th:fragment="user-summary" class="tooltip">
 
+    <span th:text="${name}"></span>
+    <hr/>
+    <span>Total articles: <span th:text="${stat.numArticle}"></span></span>
+    <span>Total comments: <span th:text="${stat.numComments}"></span></span>
+    <span>Rating: <span th:text="${stat.userRating}"></span></span>
 
 
 </div>

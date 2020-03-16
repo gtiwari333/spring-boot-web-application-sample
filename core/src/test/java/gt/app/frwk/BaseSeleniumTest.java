@@ -13,7 +13,7 @@ import org.testcontainers.junit.jupiter.Container;
 public abstract class BaseSeleniumTest {
 
     @Container
-    private static KeycloakContainer keycloak = new KeycloakContainer()
+    private static KeycloakContainer keycloak = new KeycloakContainer( "quay.io/keycloak/keycloak:9.0.0")
         .withRealmImportFile("keycloak/keycloak-export.json");
 
     @BeforeAll
