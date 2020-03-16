@@ -33,7 +33,7 @@
         <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>8.28</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>8.29</puppycrawl.checkstyle.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
 
 
