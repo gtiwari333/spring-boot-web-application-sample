@@ -19,8 +19,9 @@
         <springfox.version>2.9.2</springfox.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
 
-        <selenide.version>5.7.0</selenide.version>
+        <selenide.version>5.9.0</selenide.version>
         <google-guava.version>28.2-jre</google-guava.version>
+        <keycloak.version>9.0.0</keycloak.version>
         <keycloak.version>8.0.2</keycloak.version>
         <wro4j.version>1.9.0</wro4j.version>
         <wro4j-sb-starter.version>0.6.2</wro4j-sb-starter.version>
@@ -28,7 +29,7 @@
         <!-- client deps -->
         <webjar-jquery.version>3.4.1</webjar-jquery.version>
         <webjar-bootstrap.version>4.4.1</webjar-bootstrap.version>
-        <webjar-popperjs.version>1.15.0</webjar-popperjs.version>
+        <webjar-popperjs.version>2.0.2</webjar-popperjs.version>
 
 
         <!-- code quality -->
@@ -36,7 +37,7 @@
         <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>8.29</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>8.30</puppycrawl.checkstyle.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
 
 
@@ -48,7 +49,7 @@
         <jacoco.itReportFile>${jacoco.itReportFolder}/integrationTest.exec</jacoco.itReportFile>
         <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
-        <testcontainers.version>1.12.5</testcontainers.version>
+        <testcontainers.version>1.13.0</testcontainers.version>
         <testcontainers-keycloak.version>1.3.0</testcontainers-keycloak.version>
 
     </properties>
