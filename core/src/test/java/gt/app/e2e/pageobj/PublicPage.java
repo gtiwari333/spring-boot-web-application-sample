@@ -7,7 +7,11 @@ import static com.codeborne.selenide.Selenide.$;
 public class PublicPage extends BasePage<PublicPage> {
 
     public PublicPage open() {
-        Selenide.open("/");
+        return open("");
+    }
+
+    public PublicPage open(String urlParam) {
+        Selenide.open("/"+urlParam);
         return this;
     }
 

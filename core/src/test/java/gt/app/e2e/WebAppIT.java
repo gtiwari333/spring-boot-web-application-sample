@@ -3,15 +3,21 @@ package gt.app.e2e;
 import gt.app.e2e.pageobj.*;
 import gt.app.frwk.BaseSeleniumTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.codeborne.selenide.Condition.text;
 
 @DirtiesContext
 class WebAppIT extends BaseSeleniumTest {
 
+
     @Test
-    void testPublicPage() {
+    void testPublicPage(@Autowired MessageSource ms) {
         new PublicPage().open()
             .body()
             .shouldHave(text("Blog App"))
@@ -31,6 +37,14 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("DSL Content Flagged"))
             .shouldNotHave(text("DSL Content Blocked"))
         ;
+
+        new PublicPage().open("?lang=np")
+            .body()
+            .shouldHave(text(ms.getMessage("blogapp.title", new Object[]{}, Locale.forLanguageTag("np"))));
+
+        new PublicPage().open("?lang=en")
+            .body()
+            .shouldHave(text(ms.getMessage("blogapp.title", new Object[]{}, Locale.forLanguageTag("en"))));
 
         testAccessDenied(new PublicPage().open());
     }
