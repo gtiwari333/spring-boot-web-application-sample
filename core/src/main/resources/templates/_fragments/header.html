@@ -21,7 +21,7 @@
 <div th:fragment="headerbar">
 
     <nav class="navbar navbar-dark bg-dark navbar-expand-md bg-faded justify-content-center">
-        <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}">Blog App</a>
+        <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}"><span th:text="#{blogapp.title}">Blog App<span></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
             <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
 
                 <li class="nav-item" sec:authorize="hasRole('USER')">
                     <a class="nav-link" th:href="@{/article}" id="user-article-link">
-                        <span sec:authentication="user.username">USERNAME</span>'s Articles
+                        <span th:text="#{blogapp.user-articles(${#authentication.user.username})}"></span>
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
