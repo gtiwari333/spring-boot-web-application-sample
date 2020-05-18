@@ -20,7 +20,7 @@ public abstract class BaseSeleniumTest {
     int localServerPort = -1;
 
     @Container
-    private static KeycloakContainer keycloak = new KeycloakContainer( "quay.io/keycloak/keycloak:9.0.0")
+    protected static final KeycloakContainer keycloak = new KeycloakContainer("quay.io/keycloak/keycloak:10.0.1")
         .withRealmImportFile("keycloak/keycloak-export.json");
 
     @BeforeAll

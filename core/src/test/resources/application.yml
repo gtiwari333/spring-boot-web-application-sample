@@ -28,7 +28,6 @@ logging.level:
     ROOT: WARN
     gt: INFO
 
-
 app-properties:
     file-storage:
         upload-folder: /X/uploads

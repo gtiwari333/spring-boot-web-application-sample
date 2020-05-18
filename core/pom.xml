@@ -21,7 +21,7 @@
 
         <selenide.version>5.10.0</selenide.version>
         <google-guava.version>28.2-jre</google-guava.version>
-        <keycloak.version>9.0.0</keycloak.version>
+        <keycloak.version>10.0.1</keycloak.version>
         <wro4j.version>1.9.0</wro4j.version>
         <wro4j-sb-starter.version>0.6.2</wro4j-sb-starter.version>
 
@@ -48,7 +48,7 @@
         <jacoco.itReportFile>${jacoco.itReportFolder}/integrationTest.exec</jacoco.itReportFile>
         <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
-        <testcontainers.version>1.13.0</testcontainers.version>
+        <testcontainers.version>1.14.1</testcontainers.version>
         <testcontainers-keycloak.version>1.3.0</testcontainers-keycloak.version>
 
     </properties>
@@ -200,6 +200,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
