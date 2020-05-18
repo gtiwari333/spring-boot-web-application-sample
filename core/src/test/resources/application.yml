@@ -24,9 +24,6 @@ keycloak:
     principal-attribute: name
 
 
-server:
-    port: 8081
-
 logging.level:
     ROOT: WARN
     gt: INFO

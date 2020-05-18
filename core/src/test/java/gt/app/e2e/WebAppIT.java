@@ -8,7 +8,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static com.codeborne.selenide.Condition.text;
 

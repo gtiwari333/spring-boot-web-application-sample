@@ -6,11 +6,18 @@ import com.codeborne.selenide.Selenide;
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = "server.port=8081")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Testcontainers
 public abstract class BaseSeleniumTest {
+
+    @LocalServerPort
+    int localServerPort = -1;
 
     @Container
     private static KeycloakContainer keycloak = new KeycloakContainer( "quay.io/keycloak/keycloak:9.0.0")
@@ -22,11 +29,14 @@ public abstract class BaseSeleniumTest {
         Configuration.browser = Browsers.FIREFOX;
 
 
-        Configuration.baseUrl = "http://localhost:8081"; //same as server port
-
         keycloak.start();
 
         System.setProperty("KEYCLOAK_PORT", Integer.toString(keycloak.getHttpPort()));
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        Configuration.baseUrl = "http://localhost:" + localServerPort; //same as server port
     }
 
     @AfterEach
