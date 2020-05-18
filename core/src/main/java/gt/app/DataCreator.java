@@ -16,9 +16,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static gtapp.jooq.Tables.ARTICLE;
 
@@ -71,7 +70,7 @@ public class DataCreator {
             .set(ARTICLE.CREATED_BY_USER_ID, user1.getId())
             .set(ARTICLE.TITLE, "DSL Title Flagged")
             .set(ARTICLE.STATUS, ArticleStatus.FLAGGED.name())
-            .set(ARTICLE.CREATED_DATE, Timestamp.from(Instant.now()))
+            .set(ARTICLE.CREATED_DATE, LocalDateTime.now())
             .execute();
 
         dsl.insertInto(ARTICLE)
@@ -80,7 +79,7 @@ public class DataCreator {
             .set(ARTICLE.CREATED_BY_USER_ID, user1.getId())
             .set(ARTICLE.TITLE, "DSL Title Blocked")
             .set(ARTICLE.STATUS, ArticleStatus.BLOCKED.name())
-            .set(ARTICLE.CREATED_DATE, Timestamp.from(Instant.now()))
+            .set(ARTICLE.CREATED_DATE, LocalDateTime.now())
             .execute();
 
 
