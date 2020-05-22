@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 @Getter
 public class AppUserDetails {
 
-    private User user;
+    private final User user;
 
-    private Collection<GrantedAuthority> authorities;
+    private final Collection<GrantedAuthority> authorities;
 
     AppUserDetails(User user, Collection<GrantedAuthority> authorities) {
         this.user = user;
@@ -43,5 +43,10 @@ public class AppUserDetails {
     public Collection<String> getGrantedAuthorities() {
         Collection<GrantedAuthority> authorities = getAuthorities();
         return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+    }
+
+    @JsonIgnore
+    public Collection<GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 }

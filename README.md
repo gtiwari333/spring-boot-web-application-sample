@@ -12,7 +12,7 @@
 - webjar - bootstrap4 + jquery
 - Custom Error page
 - Request logger filter
-- Swagger API Docs with UI  ( http://localhost:8080/swagger-ui.html)
+- Swagger API Docs with UI  ( http://localhost:8081/swagger-ui.html)
 - @RestControllerAdvice, @ControllerAdvice demo
 - CRUD Note + File upload
 - Spring / Maven profiles for dev/prod/docker ...
@@ -20,7 +20,7 @@
 - Docker maven plugin to publish images (follow docker-steps.md)
 - Deploy to Amazon EC2 ( follow docker-steps.md )
 - Code Generation: lombok,  mapstruct 
-- H2 db for local, Console enabled for local ( http://localhost:8080/h2-console/, db url: jdbc:h2:mem:testdb, username: sa)
+- H2 db for local, Console enabled for local ( http://localhost:8081/h2-console/, db url: jdbc:h2:mem:testdb, username: sa)
 - MySQL or any other SQL db can be configured for prod/docker etc profiles
 - User/User_Authority entity and repository/services
     - login, logout, home pages based on user role
@@ -43,6 +43,11 @@ Future: do more stuff
 - Integrate Markdown editor for writing notes
 - search service using elastic search -- search into uploaded files as well
 - rate limit by IP on public API ( article api )
+- MySQL/Postgres using testcontainer
+- Fetch user's avatar
+- UI improvement
+- S3 file upload, test with localstack testcontainer
+ 
 
 ### Intro
 This is a simple micro blogging application where you can post a note/blog and other can view it.
@@ -59,6 +64,7 @@ The default username/passwords are listed on : gt.app.Application.initData, whic
     - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
     - For eclipse, download the lombok jar, run it, and point to eclipse installation
 - Maven (optional)
+- Docker
 
 ### How to Run
 - Clone/Download and Import project into your IDE, compile and run Application.java 
@@ -71,7 +77,17 @@ OR
 
 - mvn compile spring-boot:run //if you have maven  installed in your PC
 
-And open   `http://localhost:8080` on your browser
+And open   `http://localhost:8081` on your browser
+
+# Keykloak Docker Setup
+```
+docker run -p 8082:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:10.0.1
+```
+- Run the above to start the container
+- Open localhost:8082
+- Select Admin Console
+- Login using admin/admin. 
+- Add realm using core/src/test/resources/keycloak/keycloak-export.json
 
 ## Screenshots:
 
