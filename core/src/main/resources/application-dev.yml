@@ -18,6 +18,14 @@ spring:
     jooq:
         sql-dialect: H2
 
+    data:
+        elasticsearch:
+            repositories:
+                enabled: true
+    elasticsearch:
+        rest:
+            uris: http://localhost:9200
+
 
 keycloak:
     realm: blogapp

@@ -33,7 +33,7 @@ class ArticleServiceTest {
          */
 
         ArticleReadDto flat = getTestArticle();
-        var service = new ArticleService(null, null);
+        var service = new ArticleService(null, null, null);
 
         ArticleReadDto nested = service.mapNested(flat);
 

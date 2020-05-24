@@ -42,6 +42,7 @@ Future: do more stuff
 - Liquibase/Flyway change log
 - Integrate Markdown editor for writing notes
 - search service using elastic search -- search into uploaded files as well
+    - WIP
 - rate limit by IP on public API ( article api )
 - MySQL/Postgres using testcontainer
 - Fetch user's avatar
@@ -89,6 +90,15 @@ docker run -p 8082:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.i
 - Login using admin/admin. 
 - Add realm using core/src/test/resources/keycloak/keycloak-export.json
 
+# ElasticSearch 
+```
+docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+
+Or
+
+docker-compose -f _config/docker-compose-elastic.yml up
+
+```
 ## Screenshots:
 
 #### Public View

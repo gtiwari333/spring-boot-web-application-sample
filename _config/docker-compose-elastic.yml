@@ -1,0 +1,33 @@
+version: '3'
+services:
+    elastichq:
+        image: 'elastichq/elasticsearch-hq'
+        container_name: elastichq
+        ports:
+            - 5000:5000
+        networks:
+            - esnet
+
+    elasticsearch:
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.7.0'
+        container_name: elasticsearch
+        environment:
+            - discovery.type=single-node
+        volumes:
+            - esdata1:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+            - 9300:9300
+        networks:
+            - esnet
+
+volumes:
+    esdata1:
+        driver: local
+networks:
+    esnet:
+        driver: bridge
+
+
+#run using
+#docker-compose -f docker-compose-elastic.yml up
