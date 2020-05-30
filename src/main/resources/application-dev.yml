@@ -3,9 +3,9 @@ spring:
         active: dev
     thymeleaf:
         cache: false
-        prefix: file:core/src/main/resources/templates/  #directly serve from src folder instead of target
+        prefix: file:src/main/resources/templates/  #directly serve from src folder instead of target
     resources:
-        static-locations: file:core/src/main/resources/static/ #directly serve from src folder instead of target
+        static-locations: file:src/main/resources/static/ #directly serve from src folder instead of target
         cache:
             period: 0
     mvc:
