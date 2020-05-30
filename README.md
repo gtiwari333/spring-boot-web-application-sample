@@ -1,6 +1,6 @@
 # A Spring Boot Web Application Seed with tons of Ready to use features
 
-### Version without KeyCloak is here https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
+##### Version without KeyCloak is here https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 
 ## Included Features/Samples
 - Modular application
