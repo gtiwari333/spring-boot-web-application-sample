@@ -1,6 +1,10 @@
 # A Spring Boot Web Application Seed with tons of Ready to use features
 
-##### Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
+### Variations
+- Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
+- Version without KeyCloak and multi-modules is on 'single-module-no-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/single-module-no-keycloak
+
+##### 
 
 ## Included Features/Samples
 - Modular application
