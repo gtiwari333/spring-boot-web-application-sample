@@ -21,7 +21,7 @@
 
         <selenide.version>5.12.2</selenide.version>
         <google-guava.version>29.0-jre</google-guava.version>
-        <keycloak.version>10.0.1</keycloak.version>
+        <keycloak.version>10.0.2</keycloak.version>
         <wro4j.version>1.9.0</wro4j.version>
         <wro4j-sb-starter.version>0.7.1</wro4j-sb-starter.version>
 
@@ -35,8 +35,8 @@
         <archunit-junit5.version>0.14.1</archunit-junit5.version>
         <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>8.32</puppycrawl.checkstyle.version>
+        <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
+        <puppycrawl.checkstyle.version>8.33</puppycrawl.checkstyle.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
 
 

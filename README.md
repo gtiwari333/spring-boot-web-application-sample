@@ -84,7 +84,7 @@ And open   `http://localhost:8081` on your browser
 
 # Keykloak Docker Setup
 ```
-docker run -p 8082:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:10.0.1
+docker run -p 8082:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:10.0.2
 ```
 - Run the above to start the container
 - Open localhost:8082
