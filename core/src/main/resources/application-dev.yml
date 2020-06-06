@@ -18,10 +18,6 @@ spring:
     jooq:
         sql-dialect: H2
 
-    data:
-        elasticsearch:
-            repositories:
-                enabled: true
     elasticsearch:
         rest:
             uris: http://localhost:9200
@@ -36,13 +32,3 @@ keycloak:
     principal-attribute: name
     credentials.secret: dc168f0c-3c7f-47b9-b700-43d746978566
 
-
-
-
-wro4j:
-    jmx-enabled: false
-    debug: true
-    manager-factory:
-        post-processors: cssVariables,cssMinJawr,jsMin
-        pre-processors: cssUrlRewriting,cssImport,semicolonAppender,removeSourceMaps,singlelineStripper
-    filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls

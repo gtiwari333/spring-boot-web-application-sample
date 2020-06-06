@@ -10,6 +10,10 @@ spring:
         show-sql: true
         open-in-view: false
         database-platform: gt.app.config.BugFixedH2Dialect
+    data:
+        elasticsearch:
+            repositories:
+                enabled: true
 
 server:
     port: 8081
@@ -26,3 +30,14 @@ logging.level:
 app-properties:
     file-storage:
         upload-folder: /X/uploads
+
+
+
+
+wro4j:
+    jmx-enabled: false
+    debug: true
+    manager-factory:
+        post-processors: cssVariables,cssMinJawr,jsMin
+        pre-processors: cssUrlRewriting,cssImport,semicolonAppender,removeSourceMaps,singlelineStripper
+    filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls

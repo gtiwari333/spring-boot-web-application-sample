@@ -1,3 +1,13 @@
 spring:
     profiles:
         active: prod
+
+keycloak:
+    realm: blogapp
+    auth-server-url: http://TODO:8082/auth/
+    ssl-required: external
+    resource: gateway-app-client
+    public-client: true # for gateway app
+    principal-attribute: name
+    credentials.secret: TODO
+
