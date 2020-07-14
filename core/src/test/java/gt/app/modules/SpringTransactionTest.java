@@ -1,6 +1,7 @@
-package gt.app.misc;
+package gt.app.modules;
 
 import gt.app.domain.BaseEntity;
+import gt.app.frwk.BaseIntegrationTest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
-class SpringTransactionTest {
+class SpringTransactionTest extends BaseIntegrationTest {
     private static final String TEST_PERSON = "ram";
 
     @Test

@@ -4,13 +4,13 @@ import gt.app.config.Constants;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.keycloak.adapters.AdapterDeploymentContext;
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.*;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakLogoutHandler;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.adapters.config.AdapterConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -40,8 +40,24 @@ public class SecurityConfig {
 
 
     @Bean
-    public KeycloakSpringBootConfigResolver kcSBConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
+    public KeycloakConfigResolver kcSBConfigResolver(AdapterConfig adapterConfig) {
+        //FIXME: temporary fix until 11.0.0 is released  https://stackoverflow.com/questions/61228097/npe-when-loading-custom-securityconfig-for-keycloak-in-webmvctest
+        return new SpringBootKeycloakConfigResolver(adapterConfig);
+    }
+
+    @RequiredArgsConstructor
+    static class SpringBootKeycloakConfigResolver implements KeycloakConfigResolver {
+        private KeycloakDeployment keycloakDeployment;
+        private final AdapterConfig adapterConfig;
+
+        @Override
+        public KeycloakDeployment resolve(OIDCHttpFacade.Request request) {
+            if (keycloakDeployment != null) {
+                return keycloakDeployment;
+            }
+            keycloakDeployment = KeycloakDeploymentBuilder.build(adapterConfig);
+            return keycloakDeployment;
+        }
     }
 
     @KeycloakConfiguration

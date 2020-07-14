@@ -1,6 +1,7 @@
-package gt.app.misc;
+package gt.app.modules;
 
 import gt.app.domain.BaseEntity;
+import gt.app.frwk.BaseIntegrationTest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
-class JPAManyRelationCRUD {
+class JPAManyRelationCRUD extends BaseIntegrationTest {
 
     /*
      * Reference: http://ganeshtiwaridotcomdotnp.blogspot.com/2016/09/hibernate-create-update-delete-child.html
