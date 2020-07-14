@@ -14,7 +14,7 @@
 
     <properties>
         <profile.tls/>
-
+        <profile.withTestContainer/>
         <app.version>${parent.version}</app.version>
         <springfox.version>2.9.2</springfox.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
@@ -50,6 +50,8 @@
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
         <testcontainers.version>1.14.3</testcontainers.version>
         <testcontainers-keycloak.version>1.3.1</testcontainers-keycloak.version>
+        <testcontainer.scope>provided</testcontainer.scope>
+
 
     </properties>
 
@@ -225,7 +227,7 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <version>${testcontainers.version}</version>
-            <scope>test</scope>
+            <scope>${testcontainer.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -237,6 +239,13 @@
             <groupId>com.github.dasniko</groupId>
             <artifactId>testcontainers-keycloak</artifactId>
             <version>${testcontainers-keycloak.version}</version>
+            <scope>${testcontainers.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>${testcontainer.scope}</scope>
         </dependency>
         <!-- test only dependencies -->
     </dependencies>
@@ -402,29 +411,32 @@
                 </dependency>
             </dependencies>
             <properties>
-                <spring.profiles.active>dev${profile.tls}</spring.profiles.active>
+                <spring.profiles.active>dev${profile.tls}${profile.withTestContainer}</spring.profiles.active>
                 <build.profile>dev</build.profile>
             </properties>
         </profile>
         <profile>
-            <id>docker</id>
+            <id>withTestContainer</id>
             <dependencies>
                 <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <scope>runtime</scope>
+                    <groupId>org.testcontainers</groupId>
+                    <artifactId>testcontainers</artifactId>
+                    <version>${testcontainers.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.github.dasniko</groupId>
+                    <artifactId>testcontainers-keycloak</artifactId>
+                    <version>${testcontainers-keycloak.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.testcontainers</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                    <version>${testcontainers.version}</version>
                 </dependency>
             </dependencies>
             <properties>
-                <spring.profiles.active>docker</spring.profiles.active>
-                <build.profile>docker</build.profile>
-            </properties>
-        </profile>
-        <profile>
-            <id>staging</id>
-            <properties>
-                <spring.profiles.active>staging</spring.profiles.active>
-                <build.profile>staging</build.profile>
+                <profile.withTestContainer>,withTestContainer</profile.withTestContainer>
+                <testcontainer.scope>compile</testcontainer.scope>
             </properties>
         </profile>
         <profile>
