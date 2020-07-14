@@ -38,4 +38,4 @@ logging.level:
 
 app-properties:
     file-storage:
-        upload-folder: /X/uploads
+        upload-folder: ${java.io.tmpdir}/uploads
