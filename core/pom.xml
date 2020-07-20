@@ -16,7 +16,7 @@
         <profile.tls/>
         <profile.withTestContainer/>
         <app.version>${parent.version}</app.version>
-        <springfox.version>2.10.5</springfox.version>
+        <springdoc-openapi-ui.version>1.4.3</springdoc-openapi-ui.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
 
         <selenide.version>5.13.0</selenide.version>
@@ -149,17 +149,10 @@
         <!-- end processor/code generators -->
 
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.webjars</groupId>

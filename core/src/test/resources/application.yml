@@ -22,6 +22,11 @@ spring:
     elasticsearch:
         rest:
             uris: http://${ELASTICSEARCH_HOSTADDR:localhost:9200}
+
+springdoc:
+    swagger-ui:
+        enabled: false
+
 keycloak:
     realm: blogapp
     auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/auth/
