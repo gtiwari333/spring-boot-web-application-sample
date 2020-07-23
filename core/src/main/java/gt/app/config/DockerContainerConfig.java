@@ -12,7 +12,7 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 public class DockerContainerConfig {
 
     static {
-        var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.7.1");
+        var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.8.0");
         es.start();
 
 
