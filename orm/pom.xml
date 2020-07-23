@@ -25,20 +25,16 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
+            <artifactId>spring-data-envers</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
+            <artifactId>spring-data-elasticsearch</artifactId>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
@@ -62,6 +58,7 @@
             <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
+                <version>4.0</version>
                 <configuration>
                     <defaultOutputDirectory>
                         ${project.build.directory}/generated-sources

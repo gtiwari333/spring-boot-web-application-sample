@@ -3,6 +3,8 @@ package gt.app.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +16,8 @@ import java.util.UUID;
 @Entity
 @Data
 @NoArgsConstructor
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+
 public class ReceivedFile {
 
     @Id
