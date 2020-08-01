@@ -1,5 +1,6 @@
 package gt.mail.config;
 
+import gt.common.config.ReqLogFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

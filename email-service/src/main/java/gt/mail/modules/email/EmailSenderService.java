@@ -1,6 +1,6 @@
 package gt.mail.modules.email;
 
-import gt.mail.utils.Utils;
+import gt.common.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

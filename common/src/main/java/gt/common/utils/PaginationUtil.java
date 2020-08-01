@@ -1,4 +1,4 @@
-package gt.app.web.util;
+package gt.common.utils;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;

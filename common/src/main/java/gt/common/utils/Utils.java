@@ -1,4 +1,4 @@
-package gt.mail.utils;
+package gt.common.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

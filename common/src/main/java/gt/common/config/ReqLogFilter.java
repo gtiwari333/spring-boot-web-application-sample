@@ -1,4 +1,4 @@
-package gt.mail.config;
+package gt.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
+public
 class ReqLogFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
