@@ -12,6 +12,8 @@
         <module>orm</module>
         <module>orm-jooq</module>
         <module>core</module>
+        <module>email-service</module>
+        <module>common</module>
     </modules>
 
     <parent>
@@ -27,6 +29,7 @@
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <springdoc-openapi-ui.version>1.4.3</springdoc-openapi-ui.version>
     </properties>
 
 

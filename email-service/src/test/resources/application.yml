@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: Integration Test
+    profiles:
+        active: test
+    jpa:
+        show-sql: false
+        open-in-view: false
+        database-platform: org.hibernate.dialect.H2Dialect
+    mail:
+        host: localhost
+        port: 25
+        username:
+        password:
+
+logging.level:
+    ROOT: WARN
+    gt: INFO
+
+
+app-properties:
+    file-storage:
+        temp-folder: ${java.io.tmpdir}/email
