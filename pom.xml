@@ -16,6 +16,7 @@
         <module>email-service-api</module>
         <module>common</module>
         <module>report-service</module>
+        <module>trend-service</module>
     </modules>
 
     <parent>
