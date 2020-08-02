@@ -11,7 +11,7 @@
     <modules>
         <module>orm</module>
         <module>orm-jooq</module>
-        <module>core</module>
+        <module>main-app</module>
         <module>email-service</module>
         <module>email-service-api</module>
         <module>common</module>

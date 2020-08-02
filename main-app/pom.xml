@@ -224,7 +224,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>${build.profile}-${project.version}-app</finalName>
+        <finalName>${build.profile}-${artifactId}-${project.version}</finalName>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
 
