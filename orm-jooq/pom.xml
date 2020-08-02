@@ -12,12 +12,15 @@
         <version>1.0</version>
     </parent>
 
+    <properties>
+        <app.version>${parent.version}</app.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
             <artifactId>orm</artifactId>
             <groupId>gt.app</groupId>
-            <version>1.0</version>
         </dependency>
 
         <!-- Database access -->
