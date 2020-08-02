@@ -15,6 +15,7 @@
         <module>email-service</module>
         <module>email-service-api</module>
         <module>common</module>
+        <module>report-service</module>
     </modules>
 
     <parent>
