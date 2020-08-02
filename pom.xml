@@ -13,6 +13,7 @@
         <module>orm-jooq</module>
         <module>core</module>
         <module>email-service</module>
+        <module>email-service-api</module>
         <module>common</module>
     </modules>
 
@@ -30,6 +31,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <springdoc-openapi-ui.version>1.4.3</springdoc-openapi-ui.version>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
     </properties>
 
 

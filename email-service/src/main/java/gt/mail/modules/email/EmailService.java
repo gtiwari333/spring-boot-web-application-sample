@@ -1,5 +1,6 @@
 package gt.mail.modules.email;
 
+import gt.api.email.EmailDto;
 import gt.mail.config.AppProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,12 +8,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +34,7 @@ public class EmailService {
 
     @Transactional
     public void queue(Collection<InternetAddress> to, Collection<InternetAddress> cc, Collection<InternetAddress> bcc, InternetAddress fromAddress,
-                      String subject, String content, MultipartFile[] files, boolean isHtml) {
+                      String subject, String content, EmailDto.FileBArray[] files, boolean isHtml) {
 
         try {
             QueuedEmail email = new QueuedEmail();
@@ -45,12 +46,12 @@ public class EmailService {
             email.setFrom(EmailAddress.from(fromAddress.getAddress(), fromAddress.getPersonal()));
 
 
-            for (MultipartFile file : files) {
-                String newFileName = UUID.randomUUID() + "_" + file.getName();
-                saveEmailAttachment(file, newFileName);
+            for (var fileBArray : files) {
+                String newFileName = UUID.randomUUID() + "_" + fileBArray.getFilename();
+                saveEmailAttachment(fileBArray, newFileName);
 
                 var attachment = new QueuedEmailAttachment();
-                attachment.setFileName(file.getName());
+                attachment.setFileName(fileBArray.getFilename());
                 attachment.setSavedFileName(newFileName);
                 email.addAttachment(attachment);
             }
@@ -67,7 +68,7 @@ public class EmailService {
     public void deQueue(QueuedEmail email) throws UnsupportedEncodingException, MessagingException {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
+        var message = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
 
         message.setTo(toInetArray(email.getRecipient().getTos()));
         message.setCc(toInetArray(email.getRecipient().getCcs()));
@@ -92,18 +93,24 @@ public class EmailService {
         return new File(appProperties.getFileStorage().getTempFolder() + File.separator + "emails", savedFileName);
     }
 
-    public void saveEmailAttachment(MultipartFile file, String savedFileName) throws IOException {
+    public void saveEmailAttachment(EmailDto.FileBArray reqFileBArray, String savedFileName) throws IOException {
 
-        File copyTo = new File(appProperties.getFileStorage().getTempFolder() + File.separator + "emails", savedFileName);
+        File destFile = new File(appProperties.getFileStorage().getTempFolder() + File.separator + "emails", savedFileName);
         try {
-            copyTo.getParentFile().mkdirs();
+            destFile.getParentFile().mkdirs();
         } catch (SecurityException ex) {
             log.error("Could not create directory " + ex.getMessage(), ex);
             throw ex;
         }
 
-        file.transferTo(copyTo);
+        transferTo(destFile, reqFileBArray.getData());
 
+    }
+
+    public void transferTo(File destination, byte[] bytes) throws IOException {
+        try (var outputStream = new FileOutputStream(destination)) {
+            outputStream.write(bytes);
+        }
     }
 
 }

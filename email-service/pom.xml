@@ -13,6 +13,7 @@
     </parent>
 
     <properties>
+        <app.version>${parent.version}</app.version>
         <!-- code quality -->
         <archunit-junit5.version>0.14.1</archunit-junit5.version>
         <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
@@ -35,7 +36,12 @@
         <dependency>
             <artifactId>common</artifactId>
             <groupId>gt.app</groupId>
-            <version>1.0</version>
+            <version>${app.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>email-service-api</artifactId>
+            <groupId>gt.app</groupId>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

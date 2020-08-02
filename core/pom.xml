@@ -17,6 +17,7 @@
         <profile.withTestContainer/>
         <app.version>${parent.version}</app.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
 
         <selenide.version>5.13.0</selenide.version>
         <google-guava.version>29.0-jre</google-guava.version>
@@ -52,7 +53,6 @@
 
     </properties>
 
-
     <dependencies>
         <dependency>
             <artifactId>orm</artifactId>
@@ -67,7 +67,12 @@
         <dependency>
             <artifactId>common</artifactId>
             <groupId>gt.app</groupId>
-            <version>1.0</version>
+            <version>${app.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>email-service-api</artifactId>
+            <groupId>gt.app</groupId>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,6 +83,10 @@
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -121,7 +130,6 @@
             <artifactId>keycloak-spring-boot-starter</artifactId>
             <version>${keycloak.version}</version>
         </dependency>
-
 
         <!-- processors/code generators -->
         <dependency>
@@ -177,7 +185,6 @@
             <artifactId>guava</artifactId>
             <version>${google-guava.version}</version>
         </dependency>
-
 
         <!-- test dependencies -->
         <dependency>
@@ -237,6 +244,18 @@
         </dependency>
         <!-- test only dependencies -->
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <finalName>${build.profile}-${project.version}-app</finalName>

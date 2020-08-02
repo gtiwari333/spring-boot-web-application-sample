@@ -1,10 +1,12 @@
 package gt.mail.web.rest;
 
+import gt.api.email.EmailDto;
 import gt.mail.modules.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -16,14 +18,14 @@ import static gt.mail.utils.EmailUtil.toInternetAddr;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class EmailController {
+public class EmailController implements gt.api.email.EmailService {
     private final EmailService emailService;
 
     @PostMapping("/sendEmail")
-    public ResponseEntity<?> sendEmailWithAttachments(@Valid @NotNull EmailDto email) {
+    public ResponseEntity<Void> sendEmailWithAttachments(@RequestBody @Valid @NotNull EmailDto email) {
 
-        emailService.queue(toInternetAddr(email.to), toInternetAddr(email.cc), toInternetAddr(email.bcc),
-            toInternetAddr().apply(email.from), email.subject, email.content, email.files, email.isHtml);
+        emailService.queue(toInternetAddr(email.getTo()), toInternetAddr(email.getCc()), toInternetAddr(email.getBcc()),
+            toInternetAddr().apply(email.getFrom()), email.getSubject(), email.getContent(), email.getFiles(), email.isHtml());
 
         return ResponseEntity.ok().build();
     }

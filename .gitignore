@@ -41,3 +41,6 @@ nbdist/
 # Logs
 ######################
 *.log*
+.dmp
+.trc
+.txt

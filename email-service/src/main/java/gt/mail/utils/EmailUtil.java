@@ -32,14 +32,23 @@ public class EmailUtil {
     }
 
     public static Set<InternetAddress> toInternetAddr(Collection<String> to) {
+        if (to == null) {
+            return Set.of();
+        }
         return to.stream().map(EmailUtil.toInternetAddr()).collect(Collectors.toSet());
     }
 
     public static Set<EmailAddress> toPlainStr(Collection<InternetAddress> to) {
+        if (to == null) {
+            return Set.of();
+        }
         return to.stream().map(it -> EmailAddress.from(it.getAddress(), it.getPersonal())).collect(Collectors.toSet());
     }
 
     public static InternetAddress[] toInetArray(Collection<EmailAddress> tos) {
+        if (tos == null) {
+            return new InternetAddress[0];
+        }
         return tos.stream().map(EmailUtil.fromEmailAddress()).toArray(InternetAddress[]::new);
     }
 
