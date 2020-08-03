@@ -1,7 +1,7 @@
 package gt.app.web.rest;
 
-import gt.api.email.EmailClient;
 import gt.api.email.EmailDto;
+import gt.app.api.EmailClient;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
