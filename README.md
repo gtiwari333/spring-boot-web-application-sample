@@ -41,9 +41,10 @@
 - Account management with KeyCloak
 - Testcontainers to perform realistic integration test with KeyCloak 
 - favicon handler
+- Separate email microservice to handle massive load 
+- Spring Cloud - Open Feign, Sleuth integration
 
 Future: do more stuff
-- Email
 - background jobs with Quartz
 - Liquibase/Flyway change log
 - Integrate Markdown editor for writing notes
