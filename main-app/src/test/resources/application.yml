@@ -44,3 +44,8 @@ logging.level:
 app-properties:
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
+
+
+feign-clients:
+    email-service:
+        url: http://localhost:00/  #TODO: find a better way to handle this
