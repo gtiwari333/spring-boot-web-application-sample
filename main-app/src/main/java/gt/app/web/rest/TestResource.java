@@ -3,6 +3,7 @@ package gt.app.web.rest;
 import gt.api.email.EmailDto;
 import gt.app.api.EmailClient;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +15,15 @@ import java.util.List;
 @RequestMapping("tests")
 @AllArgsConstructor
 @Profile("dev")
+@Slf4j
 public class TestResource {
 
     final EmailClient emailClient;
 
     @GetMapping("/email")
     void testEmail() {
+
+        log.debug("Sending email ...");
 
         EmailDto email = new EmailDto();
         email.setTo(List.of("email@local.com"));

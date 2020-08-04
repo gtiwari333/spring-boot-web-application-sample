@@ -23,6 +23,7 @@ public class EmailController implements gt.api.email.EmailService {
 
     @PostMapping("/sendEmail")
     public ResponseEntity<Void> sendEmailWithAttachments(@RequestBody @Valid @NotNull EmailDto email) {
+        log.debug("Sending email ...");
 
         emailService.queue(toInternetAddr(email.getTo()), toInternetAddr(email.getCc()), toInternetAddr(email.getBcc()),
             toInternetAddr().apply(email.getFrom()), email.getSubject(), email.getContent(), email.getFiles(), email.isHtml());

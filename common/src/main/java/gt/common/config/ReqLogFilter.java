@@ -29,6 +29,10 @@ class ReqLogFilter implements Filter {
             req.put("req.req.queryString", httpServletRequest.getQueryString());
             req.put("req.userAgent", httpServletRequest.getHeader("User-Agent"));
             req.put("req.xForwardedFor", httpServletRequest.getHeader("X-Forwarded-For"));
+//            req.put("req.x-b3-sampled", httpServletRequest.getHeader("x-b3-sampled"));
+//            req.put("req.x-b3-parentspanid", httpServletRequest.getHeader("x-b3-parentspanid"));
+            req.put("req.x-b3-spanid", httpServletRequest.getHeader("x-b3-spanid"));
+            req.put("req.x-b3-traceid", httpServletRequest.getHeader("x-b3-traceid"));
         }
 
         log.debug("Received request {} ", req);
