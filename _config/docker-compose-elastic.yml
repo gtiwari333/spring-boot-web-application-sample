@@ -9,7 +9,7 @@ services:
             - esnet
 
     elasticsearch:
-        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.7.0'
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.8.1'
         container_name: elasticsearch
         environment:
             - discovery.type=single-node
@@ -20,7 +20,19 @@ services:
             - 9300:9300
         networks:
             - esnet
-
+    keycloak:
+        image: 'quay.io/keycloak/keycloak:10.0.0'
+        container_name: keycloak
+        environment:
+            - KEYCLOAK_USER=admin
+            - KEYCLOAK_PASSWORD=admin
+            - KEYCLOAK_IMPORT=/tmp/test-realm.json
+        volumes:
+            - ../main-app/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json
+        ports:
+            - 8082:8080
+        networks:
+            - esnet
 volumes:
     esdata1:
         driver: local
