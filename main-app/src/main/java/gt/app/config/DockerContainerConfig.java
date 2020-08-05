@@ -11,6 +11,19 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 @Slf4j
 public class DockerContainerConfig {
 
+    /*
+
+    Started by Docker TestContainer in withTestContainer profile
+    - ElasticSearch
+    - Keycloak
+
+    Embedded Apps - started in dev profile
+    - Postgres/H2
+    - Artemis MQ
+
+     */
+
+
     static {
         var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.8.0");
         es.start();
