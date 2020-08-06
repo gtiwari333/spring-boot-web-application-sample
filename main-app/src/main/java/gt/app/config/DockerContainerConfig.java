@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
+import java.util.List;
+
 @Profile("withTestContainer")
 @Configuration
 @Slf4j
@@ -30,6 +32,7 @@ public class DockerContainerConfig {
         es.start();
 
         var activeMQ = new GenericContainer("vromero/activemq-artemis");
+        activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
         activeMQ.start(); //using default ports
 
         var kc = new KeycloakContainer("quay.io/keycloak/keycloak:11.0.0").withRealmImportFile("keycloak/keycloak-export.json");
@@ -37,6 +40,8 @@ public class DockerContainerConfig {
 
         System.setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress());
         System.setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
+        System.setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
+        System.setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
     }
 
 }

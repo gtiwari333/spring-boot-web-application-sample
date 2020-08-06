@@ -19,7 +19,5 @@ public class ArticleCreatedEventDto implements Serializable {
 
     private String content;
 
-    private Set<String> topics;
-
     private String username;
 }

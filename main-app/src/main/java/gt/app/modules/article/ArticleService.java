@@ -57,7 +57,7 @@ public class ArticleService {
 
         save(article);
 
-        articleRepository.findOneWithTopicAndUserById(article.getId()).ifPresent(a -> jmsTemplate.convertAndSend("article-published", ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a)));
+        articleRepository.findOneWithUserById(article.getId()).ifPresent(a -> jmsTemplate.convertAndSend("article-published", ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a)));
 
         return article;
     }
@@ -142,11 +142,6 @@ public class ArticleService {
                 n.setStatus(dto.getVerdict());
                 return save(n);
             });
-    }
-
-
-    public Article getReference(Long id) {
-        return articleRepository.getOne(id);
     }
 
     public void testCountStatuses() {

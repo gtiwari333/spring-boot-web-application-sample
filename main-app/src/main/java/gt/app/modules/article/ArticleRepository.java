@@ -25,8 +25,8 @@ interface ArticleRepository extends AbstractRepository<Article>, ArticleReposito
     Optional<Article> findOneWithAllByIdAndStatus(Long id, ArticleStatus status);
 
 
-    @EntityGraph(attributePaths = {"createdByUser", "topics"})
-    Optional<Article> findOneWithTopicAndUserById(Long id);
+    @EntityGraph(attributePaths = {"createdByUser"})
+    Optional<Article> findOneWithUserById(Long id);
 
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
