@@ -1,10 +1,8 @@
-# A Spring Boot Web Application Seed with tons of Ready to use features
+# A Spring Boot Web Application Seed with tons of Ready to use features. It can be used as starter for BIG projects.
 
 ### Variations
 - Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 - Version without KeyCloak and multi-modules is on 'single-module-no-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/single-module-no-keycloak
-
-##### 
 
 ## Included Features/Samples
 - Modular application
@@ -41,12 +39,14 @@
 - Account management with KeyCloak
 - Testcontainers to perform realistic integration test with KeyCloak 
 - favicon handler
-- Separate email microservice to handle massive load 
+- Microservices
 - Spring Cloud - Open Feign, Sleuth integration
+- Message Queue using ActiveMQ Artemis
 
 Future: do more stuff
-- background jobs with Quartz
-- Liquibase/Flyway change log
+- Spring Cloud Contract integration
+- Example of background jobs with Quartz with a basic API/UI
+- Liquibase/Flyway DB change log
 - Integrate Markdown editor for writing notes
 - search service using elastic search -- search into uploaded files as well
     - WIP
@@ -55,57 +55,43 @@ Future: do more stuff
 - Fetch user's avatar
 - UI improvement
 - S3 file upload, test with localstack testcontainer
+
  
-
-### Intro
-This is a simple micro blogging application where you can post a note/blog and other can view it.
-
-The default username/passwords are listed on : gt.app.Application.initData, which are:
-
-- system/pass
-- user1/pass
-- user2/pass
-
 ### Requirements
 - JDK 11+
 - Lombok configured on IDE
     - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
     - For eclipse, download the lombok jar, run it, and point to eclipse installation
-- Maven (optional)
+- Maven
 - Docker
 
 ### How to Run
-- Clone/Download and Import project into your IDE, compile and run Application.java 
 
-OR
+It contains following applications:
 
-- mvnw compile spring-boot:run   //if you don't have maven installed in your PC
+- main-app
+- email-service (optional)
+- report-service (optional)
+- trend-service (optional)
 
-OR
+Option 1 - run with manually started KeyCloak, ElasticSearch and ActiveMQ servers
+- Run ```mvn clean install``` at root 
+- Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
+- Go to main-app folder and run ```mvn``` to start the application
 
-- mvn compile spring-boot:run //if you have maven  installed in your PC
+Option 2 - automatically start KeyCloak, ElasticSearch and ActiveMQ using TestContainer while application is starting
+- Run ```mvn clean install``` at root 
+- Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
+- Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
-And open   `http://localhost:8081` on your browser
+Option 3 - import into your IDE and compile the full project and run the Application.java on main-app module
 
-# Keykloak Docker Setup
-```
-docker run -p 8082:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:11.0.0
-```
-- Run the above to start the container
-- Open localhost:8082
-- Select Admin Console
-- Login using admin/admin. 
-- Add realm using core/src/test/resources/keycloak/keycloak-export.json
+Once the application starts, open  `http://localhost:8081` on your browser. The default username/passwords are listed on : gt.app.Application.initData, which are:
 
-# ElasticSearch 
-```
-docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+- system/pass
+- user1/pass
+- user2/pass
 
-Or
-
-docker-compose -f _config/docker-compose-elastic.yml up
-
-```
 ## Screenshots:
 
 #### Public View
@@ -116,4 +102,3 @@ docker-compose -f _config/docker-compose-elastic.yml up
 
 #### Logged in List View
 ![](screenshots/logged-in-note-list-view.png)
-
