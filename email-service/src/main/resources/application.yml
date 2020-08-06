@@ -6,10 +6,6 @@ spring:
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: '@spring.profiles.active@'
-    jpa:
-        show-sql: true
-        open-in-view: false
-        database-platform: org.hibernate.dialect.H2Dialect
     mail:
         host: localhost
         port: 25
@@ -21,11 +17,5 @@ server:
 
 logging.level:
     org.springframework.web: INFO
-    org.hibernate: INFO
     ROOT: WARN
     gt: DEBUG
-
-
-app-properties:
-    file-storage:
-        temp-folder: ${java.io.tmpdir}/email

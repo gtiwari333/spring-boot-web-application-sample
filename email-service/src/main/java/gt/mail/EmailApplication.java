@@ -1,12 +1,9 @@
 package gt.mail;
 
-import gt.mail.config.AppProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,8 +11,6 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @Slf4j
-@EnableConfigurationProperties(AppProperties.class)
-@EnableScheduling
 public class EmailApplication {
 
     public static void main(String[] args) throws UnknownHostException {

@@ -34,8 +34,4 @@ public class Article extends BaseAuditingEntity implements Serializable {
     private Set<Comment> comments = new HashSet<>();
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Topic> topics;
-
-
 }

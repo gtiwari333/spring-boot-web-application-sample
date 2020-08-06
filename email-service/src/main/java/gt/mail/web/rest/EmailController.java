@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import static gt.mail.utils.EmailUtil.toInternetAddr;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -25,8 +23,7 @@ public class EmailController implements gt.api.email.EmailService {
     public ResponseEntity<Void> sendEmailWithAttachments(@RequestBody @Valid @NotNull EmailDto email) {
         log.debug("Sending email ...");
 
-        emailService.queue(toInternetAddr(email.getTo()), toInternetAddr(email.getCc()), toInternetAddr(email.getBcc()),
-            toInternetAddr().apply(email.getFrom()), email.getSubject(), email.getContent(), email.getFiles(), email.isHtml());
+        emailService.sendEmail(email);
 
         return ResponseEntity.ok().build();
     }
