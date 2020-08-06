@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "article")
 @Data
-public class Article extends BaseAuditingEntity {
+public class Article extends BaseAuditingEntity implements Serializable {
 
     @NotEmpty
     private String title;

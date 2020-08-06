@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -22,12 +24,14 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class ArticleService {
 
     private static final ReceivedFile.FileGroup FILE_GROUP = ReceivedFile.FileGroup.NOTE_ATTACHMENT;
     private final ArticleRepository articleRepository;
     private final FileService fileService;
     private final ArticleElasticSearchService articleSearchService;
+    private final JmsTemplate jmsTemplate;
 
     public Article save(Article article) {
         Article a = articleRepository.save(article);
@@ -51,7 +55,11 @@ public class ArticleService {
         Article article = ArticleMapper.INSTANCE.createToEntity(dto);
         article.getAttachedFiles().addAll(files);
 
-        return save(article);
+        save(article);
+
+        articleRepository.findOneWithTopicAndUserById(article.getId()).ifPresent(a -> jmsTemplate.convertAndSend("article-published", ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a)));
+
+        return article;
     }
 
     public Article update(ArticleEditDto dto) {

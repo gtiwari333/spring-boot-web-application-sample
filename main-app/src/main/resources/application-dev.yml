@@ -21,7 +21,11 @@ spring:
     elasticsearch:
         rest:
             uris: http://${ELASTICSEARCH_HOSTADDR:localhost:9200}
-
+    artemis:
+        host: ${ACTIVEMQ_ARTEMIS_HOST:localhost}
+        port: ${ACTIVEMQ_ARTEMIS_PORT:61616}
+        user: admin
+        password: admin
 
 keycloak:
     realm: blogapp
