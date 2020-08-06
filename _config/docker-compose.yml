@@ -34,6 +34,17 @@ services:
             - 8082:8080
         networks:
             - esnet
+    activemq_artemis:
+        image: 'vromero/activemq-artemis'
+        container_name: activemqArtemis
+        environment:
+            - ARTEMIS_USERNAME=admin
+            - ARTEMIS_PASSWORD=admin
+        ports:
+            - 8161:8161  # use this to login
+            - 61616:61616
+        networks:
+                - esnet
 volumes:
     esdata1:
         driver: local
@@ -43,4 +54,5 @@ networks:
 
 
 #run using
-#docker-compose -f docker-compose-elastic.yml up
+#docker-compose -f docker-compose.yml up
+# or just docker-compose up

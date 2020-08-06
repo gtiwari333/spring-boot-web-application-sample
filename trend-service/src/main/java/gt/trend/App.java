@@ -1,10 +1,14 @@
 package gt.trend;
 
+import gt.common.dtos.ArticleCreatedEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
+import org.springframework.jms.annotation.JmsListener;
 
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -28,6 +32,11 @@ public class App {
             env.getProperty("server.port"),
             Arrays.toString(env.getActiveProfiles())
         );
+    }
+
+    @JmsListener(destination = "article-published")
+    void onMessage(ArticleCreatedEventDto msg) {
+        log.info("Received msg for trend calculation {}", msg);
     }
 
 }
