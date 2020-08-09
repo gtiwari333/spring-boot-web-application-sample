@@ -17,6 +17,7 @@
         <module>common</module>
         <module>report-service</module>
         <module>trend-service</module>
+        <module>trend-service-api</module>
     </modules>
 
     <parent>
@@ -82,6 +83,11 @@
             </dependency>
             <dependency>
                 <artifactId>email-service-api</artifactId>
+                <groupId>gt.app</groupId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>trend-service-api</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>
