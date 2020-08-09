@@ -224,6 +224,11 @@
             <artifactId>elasticsearch</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- test only dependencies -->
     </dependencies>
 
@@ -382,8 +387,8 @@
                     <optional>true</optional>
                 </dependency>
                 <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -398,31 +403,30 @@
                 <dependency>
                     <groupId>org.testcontainers</groupId>
                     <artifactId>testcontainers</artifactId>
-                    <version>${testcontainers.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>com.github.dasniko</groupId>
                     <artifactId>testcontainers-keycloak</artifactId>
-                    <version>${testcontainers-keycloak.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.testcontainers</groupId>
                     <artifactId>elasticsearch</artifactId>
-                    <version>${testcontainers.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.testcontainers</groupId>
+                    <artifactId>mysql</artifactId>
                 </dependency>
             </dependencies>
             <properties>
                 <profile.withTestContainer>,withTestContainer</profile.withTestContainer>
-                <testcontainer.scope>compile</testcontainer.scope>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <dependencies>
                 <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <scope>runtime</scope>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
                 </dependency>
             </dependencies>
             <properties>

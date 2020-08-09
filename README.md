@@ -42,6 +42,7 @@
 - Microservices
 - Spring Cloud - Open Feign, Sleuth integration
 - Message Queue using ActiveMQ Artemis
+- MySQL using testcontainer
 
 Future: do more stuff
 - Spring Cloud Contract integration
@@ -51,7 +52,6 @@ Future: do more stuff
 - search service using elastic search -- search into uploaded files as well
     - WIP
 - rate limit by IP on public API ( article api )
-- MySQL/Postgres using testcontainer
 - Fetch user's avatar
 - UI improvement
 - S3 file upload, test with localstack testcontainer

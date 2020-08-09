@@ -11,12 +11,17 @@ spring:
     mvc:
         static-path-pattern: /static/**
 
-    #Access from http://localhost:8080/h2-console/, db url: jdbc:h2:mem:testdb, username: sa
-    h2:
-        console:
-            enabled: true
+    datasource:
+        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}
+        username: ${MYSQL_USERNAME:root}
+        password: ${MYSQL_PASSWORD:password}
+    jpa:
+        show-sql: true
+        hibernate:
+            #ddl-auto: update # for the very first time!
+            ddl-auto: none  # we use liquibase
     jooq:
-        sql-dialect: H2
+        sql-dialect: MySQL
 
     elasticsearch:
         rest:
@@ -24,8 +29,8 @@ spring:
     artemis:
         host: ${ACTIVEMQ_ARTEMIS_HOST:localhost}
         port: ${ACTIVEMQ_ARTEMIS_PORT:61616}
-        user: admin
-        password: admin
+        user: ${ACTIVEMQ_ARTEMIS_USERNAME:admin}
+        password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
 
 keycloak:
     realm: blogapp

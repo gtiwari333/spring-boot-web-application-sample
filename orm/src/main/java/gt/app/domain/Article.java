@@ -15,13 +15,14 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "G_ARTICLE")
 public class Article extends BaseAuditingEntity implements Serializable {
 
     @NotEmpty
     private String title;
 
     @NotEmpty
-    @Lob
+    @Lob //postgres saves as 'text', must use select lo_get(content::oid) from article; to retrieve
     private String content;
 
     @NotNull

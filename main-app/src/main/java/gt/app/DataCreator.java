@@ -13,11 +13,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
-import static gtapp.jooq.Tables.ARTICLE;
+import static gtapp.jooq.Tables.G_ARTICLE;
 
 @Component
 @Profile({"dev", "test"})
@@ -47,22 +45,22 @@ public class DataCreator {
         User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel");
         userService.save(user2);
 
-        dsl.insertInto(ARTICLE)
-            .setNull(ARTICLE.ID)
-            .set(ARTICLE.CONTENT, "DSL Content Flagged ")
-            .set(ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
-            .set(ARTICLE.TITLE, "DSL Title Flagged")
-            .set(ARTICLE.STATUS, ArticleStatus.FLAGGED.name())
-            .set(ARTICLE.CREATED_DATE, LocalDateTime.now())
+        dsl.insertInto(G_ARTICLE)
+            .setNull(G_ARTICLE.ID)
+            .set(G_ARTICLE.CONTENT, "DSL Content Flagged ")
+            .set(G_ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
+            .set(G_ARTICLE.TITLE, "DSL Title Flagged")
+            .set(G_ARTICLE.STATUS, ArticleStatus.FLAGGED.name())
+            .set(G_ARTICLE.CREATED_DATE, LocalDateTime.now())
             .execute();
 
-        dsl.insertInto(ARTICLE)
-            .setNull(ARTICLE.ID)
-            .set(ARTICLE.CONTENT, "DSL Content Blocked... ")
-            .set(ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
-            .set(ARTICLE.TITLE, "DSL Title Blocked")
-            .set(ARTICLE.STATUS, ArticleStatus.BLOCKED.name())
-            .set(ARTICLE.CREATED_DATE, LocalDateTime.now())
+        dsl.insertInto(G_ARTICLE)
+            .setNull(G_ARTICLE.ID)
+            .set(G_ARTICLE.CONTENT, "DSL Content Blocked... ")
+            .set(G_ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
+            .set(G_ARTICLE.TITLE, "DSL Title Blocked")
+            .set(G_ARTICLE.STATUS, ArticleStatus.BLOCKED.name())
+            .set(G_ARTICLE.CREATED_DATE, LocalDateTime.now())
             .execute();
 
 

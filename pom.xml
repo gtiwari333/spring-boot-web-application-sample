@@ -153,7 +153,11 @@
                 <artifactId>elasticsearch</artifactId>
                 <version>${testcontainers.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>mysql</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>

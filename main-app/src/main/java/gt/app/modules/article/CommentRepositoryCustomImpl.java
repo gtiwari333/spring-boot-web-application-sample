@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.List;
 
 import static gt.app.domain.QComment.comment;
-import static gtapp.jooq.tables.JComment.COMMENT;
+import static gtapp.jooq.tables.GComment.G_COMMENT;
 
 class CommentRepositoryCustomImpl extends AbstractRepositoryImpl<Comment, CommentRepository> implements CommentRepositoryCustom {
 
@@ -36,6 +36,6 @@ class CommentRepositoryCustomImpl extends AbstractRepositoryImpl<Comment, Commen
 
     @Override
     public long findFlaggedComments(CommentStatus status) {
-        return jooq.fetchCount(COMMENT.where(COMMENT.STATUS.eq(status.name())));
+        return jooq.fetchCount(G_COMMENT.where(G_COMMENT.STATUS.eq(status.name())));
     }
 }

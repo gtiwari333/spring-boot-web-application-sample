@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.List;
 
 import static gt.app.domain.QArticle.article;
-import static gtapp.jooq.tables.JArticle.ARTICLE;
+import static gtapp.jooq.tables.GArticle.G_ARTICLE;
 
 class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, ArticleRepository> implements ArticleRepositoryCustom {
 
@@ -36,6 +36,6 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
 
     @Override
     public long countArticles(ArticleStatus status) {
-        return jooq.fetchCount(ARTICLE.where(ARTICLE.STATUS.eq(status.name())));
+        return jooq.fetchCount(G_ARTICLE.where(G_ARTICLE.STATUS.eq(status.name())));
     }
 }

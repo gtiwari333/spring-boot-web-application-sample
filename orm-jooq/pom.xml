@@ -86,7 +86,7 @@
                 <configuration>
                     <generator>
                         <strategy>
-                            <name>org.jooq.codegen.example.JPrefixGeneratorStrategy</name>
+                            <name>org.jooq.codegen.DefaultGeneratorStrategy</name>
                         </strategy>
                         <database>
                             <name>org.jooq.meta.extensions.jpa.JPADatabase</name>

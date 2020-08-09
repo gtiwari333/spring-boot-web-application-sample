@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Data
+@Table(name = "G_COMMENT")
 public class Comment extends BaseAuditingEntity {
     private String content;
 

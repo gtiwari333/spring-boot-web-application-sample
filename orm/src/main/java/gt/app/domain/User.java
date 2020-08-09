@@ -13,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "G_USER") //'user' is reserved keyword in postgres
+@Table(name = "G_USER") //'user' is reserved keyword in postgres/mysql
 public class User {
 
     @Id

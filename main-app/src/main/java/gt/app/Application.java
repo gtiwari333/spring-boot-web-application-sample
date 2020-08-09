@@ -26,7 +26,7 @@ public class Application {
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
                 "Local: \t\t\thttp://localhost:{}\n\t" +
                 "External: \t\thttp://{}:{}\n\t" +
-                "Environment: \t{} \n\t" +
+                "Environment: \t{} \n" +
                 "----------------------------------------------------------",
             env.getProperty("server.port"),
             InetAddress.getLocalHost().getHostAddress(),
