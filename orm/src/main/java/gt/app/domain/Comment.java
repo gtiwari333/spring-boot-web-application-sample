@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "comment")
 @Data
 public class Comment extends BaseAuditingEntity {
     private String content;

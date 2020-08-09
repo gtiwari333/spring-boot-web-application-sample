@@ -1,6 +1,7 @@
 package gt.app.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -12,8 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "article")
-@Data
+@Getter
+@Setter
 public class Article extends BaseAuditingEntity implements Serializable {
 
     @NotEmpty

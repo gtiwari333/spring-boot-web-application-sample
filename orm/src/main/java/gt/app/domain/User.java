@@ -1,15 +1,19 @@
 package gt.app.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Table(name = "G_USER") //'user' is reserved keyword in postgres
 public class User {
 
     @Id
