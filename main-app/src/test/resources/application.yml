@@ -7,7 +7,10 @@ spring:
         show-sql: false
         open-in-view: false
         database-platform: gt.app.config.BugFixedH2Dialect
-
+        hibernate:
+            naming:
+                physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     mvc:
         static-path-pattern: /static/**
     jooq:

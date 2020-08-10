@@ -2,12 +2,14 @@ package gt.app.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import java.util.Objects;
 
 @Entity
 @Data
-@Table(name = "G_COMMENT")
 public class Comment extends BaseAuditingEntity {
     private String content;
 

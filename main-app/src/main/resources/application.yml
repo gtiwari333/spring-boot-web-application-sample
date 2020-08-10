@@ -8,6 +8,10 @@ spring:
         active: '@spring.profiles.active@'
     jpa:
         open-in-view: false
+        hibernate:
+            naming:
+                physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     data:
         elasticsearch:
             repositories:

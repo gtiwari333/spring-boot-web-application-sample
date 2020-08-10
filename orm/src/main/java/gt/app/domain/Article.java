@@ -15,7 +15,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "G_ARTICLE")
 public class Article extends BaseAuditingEntity implements Serializable {
 
     @NotEmpty
