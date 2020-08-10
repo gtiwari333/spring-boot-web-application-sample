@@ -6,6 +6,10 @@ spring:
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: '@spring.profiles.active@'
+
+    liquibase:
+        enabled: true
+        change-log: classpath:/liquibase/master.xml
     jpa:
         open-in-view: false
         hibernate:

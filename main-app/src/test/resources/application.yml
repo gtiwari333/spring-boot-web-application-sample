@@ -3,10 +3,12 @@ spring:
         name: Integration Test
     profiles:
         active: test
+    liquibase:
+        enabled: true
+        change-log: classpath:/liquibase/master.xml
     jpa:
         show-sql: false
         open-in-view: false
-        database-platform: gt.app.config.BugFixedH2Dialect
         hibernate:
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy

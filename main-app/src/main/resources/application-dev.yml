@@ -11,9 +11,6 @@ spring:
     mvc:
         static-path-pattern: /static/**
 
-    liquibase:
-        enabled: true
-        change-log: classpath:/liquibase/master.xml
     datasource:
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
