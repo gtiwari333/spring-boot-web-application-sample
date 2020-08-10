@@ -4,7 +4,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <include file="liquibase/changelog/20200809220300_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/20200810015320_changelog.xml" relativeToChangelogFile="false"/>
 
 
 </databaseChangeLog>

@@ -1,0 +1,119 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <changeSet author="gbuntu (generated)" id="1597024403823-1">
+        <createTable tableName="G_ARTICLE">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="G_ARTICLEPK"/>
+            </column>
+            <column name="created_date" type="datetime(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="content" type="LONGTEXT"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="created_by_user_id" type="VARCHAR(255)"/>
+            <column name="last_modified_by_user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-2">
+        <createTable tableName="G_ARTICLE_ATTACHED_FILES">
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attached_files_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-3">
+        <createTable tableName="G_COMMENT">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="G_COMMENTPK"/>
+            </column>
+            <column name="created_date" type="datetime(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="article_id" type="BIGINT"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="parent_comment_id" type="BIGINT"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="created_by_user_id" type="VARCHAR(255)"/>
+            <column name="last_modified_by_user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-4">
+        <createTable tableName="G_RECEIVED_FILE">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="G_RECEIVED_FILEPK"/>
+            </column>
+            <column name="file_group" type="VARCHAR(255)"/>
+            <column name="original_file_name" type="VARCHAR(255)"/>
+            <column name="received_date" type="datetime(6)"/>
+            <column name="stored_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-5">
+        <createTable tableName="G_USER">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="G_USERPK"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-6">
+        <addUniqueConstraint columnNames="attached_files_id" constraintName="UK_rr03qqbqybd6nb9gs74r3otby"
+                             tableName="G_ARTICLE_ATTACHED_FILES"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-7">
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id" baseTableName="G_COMMENT"
+                                 constraintName="FKankhsf13kylp4pabrbrel41l9" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="G_USER"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-8">
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_user_id" baseTableName="G_ARTICLE"
+                                 constraintName="FKb9fmj05bc4l9la6kvy3viebey" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="G_USER"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-9">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="G_ARTICLE_ATTACHED_FILES"
+                                 constraintName="FKc6gr3yijnp18qba0jvhtcx745" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="G_ARTICLE"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-10">
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id" baseTableName="G_ARTICLE"
+                                 constraintName="FKe9lsitqth7fyin1xheqr065c" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="G_USER"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-11">
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_user_id" baseTableName="G_COMMENT"
+                                 constraintName="FKiamjjye8s373sgosvrhhdo3ls" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="G_USER"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-12">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="G_COMMENT"
+                                 constraintName="FKneqj4snrvhf1p0brg8y5gm9v6" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="G_ARTICLE"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1597024403823-13">
+        <addForeignKeyConstraint baseColumnNames="attached_files_id" baseTableName="G_ARTICLE_ATTACHED_FILES"
+                                 constraintName="FKnk3oifir3wa8s4t8teffbvl9i" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="G_RECEIVED_FILE" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

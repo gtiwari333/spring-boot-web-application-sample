@@ -35,8 +35,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -72,8 +72,59 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.0.0</version>
+                <configuration>
+
+                    <diffChangeLogFile>src/main/resources/liquibase/changelog/${maven.build.timestamp}_changelog.xml
+                    </diffChangeLogFile>
+                    <outputChangeLogFile>src/main/resources/liquibase/changelog/${maven.build.timestamp}_changelog.xml
+                    </outputChangeLogFile>
+
+                    <!--  uncomment the propertyFile and run the goal that you want -->
+
+                    <!-- liquibase:diff -->
+                    <!--<propertyFile>src/main/resources/liquibase-db-diff.properties</propertyFile>-->
+                    <propertyFile>src/main/resources/liquibase-jpa-diff.properties</propertyFile>
+
+                    <!-- liquibase:generateChangeLog-->
+                    <!--<propertyFile>src/main/resources/liquibase-existing-db.properties</propertyFile>-->
+
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate5</artifactId>
+                        <version>4.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                        <version>${spring-framework.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-data-jpa</artifactId>
+                        <version>${spring-boot.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                        <version>${javax-validation.version}</version>
+                    </dependency>
+                    <!-- required for diff between two database -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
+                <version>4.2</version>
                 <configuration>
                     <defaultOutputDirectory>
                         ${project.build.directory}/generated-sources

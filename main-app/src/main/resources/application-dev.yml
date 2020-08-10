@@ -11,6 +11,9 @@ spring:
     mvc:
         static-path-pattern: /static/**
 
+    liquibase:
+        enabled: true
+        change-log: classpath:/liquibase/master.xml
     datasource:
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
@@ -18,8 +21,7 @@ spring:
     jpa:
         show-sql: true
         hibernate:
-            #ddl-auto: update # for the very first time!
-            ddl-auto: update  # we use liquibase
+            ddl-auto: none  # we use liquibase
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
