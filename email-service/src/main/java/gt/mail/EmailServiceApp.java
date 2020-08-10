@@ -11,17 +11,17 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @Slf4j
-public class EmailApplication {
+public class EmailServiceApp {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        SpringApplication app = new SpringApplication(EmailApplication.class);
+        SpringApplication app = new SpringApplication(EmailServiceApp.class);
         Environment env = app.run(args).getEnvironment();
 
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
                 "Local: \t\t\thttp://localhost:{}\n\t" +
                 "External: \t\thttp://{}:{}\n\t" +
-                "Environment: \t{} \n\t" +
+                "Environment: \t{} \n" +
                 "----------------------------------------------------------",
             env.getProperty("server.port"),
             InetAddress.getLocalHost().getHostAddress(),

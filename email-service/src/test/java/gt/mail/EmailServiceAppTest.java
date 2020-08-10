@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Slf4j
-class EmailApplicationTest {
+class EmailServiceAppTest {
 
     @Test
     void contextLoads() {

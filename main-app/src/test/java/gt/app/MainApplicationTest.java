@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ApplicationTest extends BaseIntegrationTest {
+class MainApplicationTest extends BaseIntegrationTest {
 
     @Test
     void contextLoads() {

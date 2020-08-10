@@ -16,11 +16,11 @@ import java.util.Arrays;
 @Slf4j
 @EnableConfigurationProperties(AppProperties.class)
 @EnableFeignClients
-public class Application {
+public class MainApplication {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        SpringApplication app = new SpringApplication(Application.class);
+        SpringApplication app = new SpringApplication(MainApplication.class);
         Environment env = app.run(args).getEnvironment();
 
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +

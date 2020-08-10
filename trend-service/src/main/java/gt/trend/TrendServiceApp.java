@@ -7,25 +7,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 import org.springframework.jms.annotation.JmsListener;
 
-import javax.jms.Message;
-import javax.jms.ObjectMessage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
 @SpringBootApplication
 @Slf4j
-public class App {
+public class TrendServiceApp {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        SpringApplication app = new SpringApplication(App.class);
+        SpringApplication app = new SpringApplication(TrendServiceApp.class);
         Environment env = app.run(args).getEnvironment();
 
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
                 "Local: \t\t\thttp://localhost:{}\n\t" +
                 "External: \t\thttp://{}:{}\n\t" +
-                "Environment: \t{} \n\t" +
+                "Environment: \t{} \n" +
                 "----------------------------------------------------------",
             env.getProperty("server.port"),
             InetAddress.getLocalHost().getHostAddress(),
