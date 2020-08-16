@@ -85,6 +85,7 @@
                     <!--  uncomment the propertyFile and run the goal that you want -->
 
                     <!-- liquibase:diff -->
+                    <!-- also the updateSQL, rollbackSQL, futureRollbackSQL etc are supported -->
                     <!--<propertyFile>src/main/resources/liquibase-db-diff.properties</propertyFile>-->
                     <propertyFile>src/main/resources/liquibase-jpa-diff.properties</propertyFile>
 
