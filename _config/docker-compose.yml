@@ -22,12 +22,13 @@ services:
         networks:
             - seedappnet
     keycloak:
-        image: 'quay.io/keycloak/keycloak:10.0.0'
+        image: 'quay.io/keycloak/keycloak:11.0.1'
         container_name: keycloak
         environment:
             - KEYCLOAK_USER=admin
             - KEYCLOAK_PASSWORD=admin
             - KEYCLOAK_IMPORT=/tmp/test-realm.json
+            - DB_VENDOR=h2 # don't try to discover mysql in the network
         volumes:
             - ../main-app/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json
         ports:
