@@ -2,9 +2,11 @@ package gt.app.modules.article;
 
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
+import gt.app.domain.CommentStatus;
 import gt.app.modules.common.AbstractRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,9 +22,11 @@ interface ArticleRepository extends AbstractRepository<Article>, ArticleReposito
     @EntityGraph(attributePaths = {"createdByUser", "comments", "attachedFiles"})
     Page<Article> findWithAllByStatus(Pageable pageable, ArticleStatus status);
 
+    @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
+    Optional<Article> findOneWithUserAndAttachedFilesByIdAndStatus(Long id, ArticleStatus status);
 
     @EntityGraph(attributePaths = {"createdByUser", "comments", "attachedFiles"})
-    Optional<Article> findOneWithAllByIdAndStatus(Long id, ArticleStatus status);
+    Optional<Article> findOneWithAllByIdAndStatus(Long id, ArticleStatus status,  Sort sort);
 
 
     @EntityGraph(attributePaths = {"createdByUser"})

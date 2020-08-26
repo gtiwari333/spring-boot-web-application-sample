@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class ArticleReadDto {
+public class ArticleReviewReadDto {
 
     private Long id;
 
@@ -28,8 +28,6 @@ public class ArticleReadDto {
 
     private List<FileInfo> files = new ArrayList<>();
 
-    private List<CommentDto> comments = new LinkedList<>();
-
     @Data
     @NoArgsConstructor
     public static class FileInfo {
@@ -37,21 +35,4 @@ public class ArticleReadDto {
         String name;
     }
 
-
-    @Data
-    @NoArgsConstructor
-    public static class CommentDto {
-        Long id;
-        String content;
-
-        UUID userId;
-        String username;
-
-        Instant createdDate;
-
-        Long articleId;
-        Long parentCommentId;
-
-        List<CommentDto> childComments = new LinkedList<>();
-    }
 }

@@ -14,7 +14,7 @@ public class Comment extends BaseAuditingEntity {
     private String content;
 
     @Enumerated(EnumType.STRING)
-    private CommentStatus status = CommentStatus.SHOWING; //temporary
+    private CommentStatus status = CommentStatus.AWAITING_APPROVAL;
 
     @JoinColumn(nullable = false)
     private Long articleId;
@@ -25,9 +25,15 @@ public class Comment extends BaseAuditingEntity {
     public Comment() {
     }
 
-    public Comment(String content, Article article) {
+    public Comment(String content, Long articleId) {
         this.content = content;
-        this.articleId = article.id;
+        this.articleId = articleId;
+    }
+
+    public Comment(String content, Long parentCommentId, Long articleId) {
+        this.content = content;
+        this.articleId = articleId;
+        this.parentCommentId = parentCommentId;
     }
 
     public void addChildComment(Comment childComment) {

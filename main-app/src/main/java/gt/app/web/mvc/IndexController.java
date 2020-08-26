@@ -36,16 +36,4 @@ public class IndexController {
         return "admin/admin-area";
     }
 
-    @GetMapping("/article")
-    public String userHome(Model model, @CurrentUser CurrentUserToken u) {
-        model.addAttribute("message", getWelcomeMessage(u));
-        model.addAttribute("articles", articleService.previewAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
-        model.addAttribute("article", new Article());
-        return "article";
-    }
-
-    private String getWelcomeMessage(CurrentUserToken curUser) {
-        return "Hello " + curUser.getUsername() + "!";
-    }
-
 }

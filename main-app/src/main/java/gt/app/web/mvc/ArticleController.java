@@ -1,11 +1,13 @@
 package gt.app.web.mvc;
 
+import gt.app.config.security.CurrentUser;
+import gt.app.config.security.CurrentUserToken;
 import gt.app.domain.Article;
-import gt.app.modules.article.ArticleCreateDto;
-import gt.app.modules.article.ArticleEditDto;
-import gt.app.modules.article.ArticleService;
+import gt.app.modules.article.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/article")
 @RequiredArgsConstructor
@@ -22,12 +27,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ArticleController {
 
     final ArticleService articleService;
+    final CommentService commentService;
 
-    @GetMapping("/add")
-    public String startAddArticle(Model model) {
-        model.addAttribute("msg", "Add a new article");
-        model.addAttribute("article", new Article());
-        return "article/add-article";
+
+    @GetMapping({"/", ""})
+    public String userHome(Model model, @CurrentUser CurrentUserToken u) {
+        model.addAttribute("message", getWelcomeMessage(u));
+        model.addAttribute("articles", articleService.previewAllByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
+        model.addAttribute("article", new Article()); //new article box at top
+        return "article";
+    }
+
+    private String getWelcomeMessage(CurrentUserToken curUser) {
+        return "Hello " + curUser.getUsername() + "!";
     }
 
     @PostMapping("/add")
@@ -75,5 +87,28 @@ public class ArticleController {
         redirectAttrs.addFlashAttribute("success", "Article with id " + articleDto.getId() + " is updated");
 
         return "redirect:/article/";
+    }
+
+    @PostMapping("/addComment")
+    public String addComment(NewCommentDto dto, RedirectAttributes redirectAttrs) {
+        //TODO:validate and return to GET:/add on errors
+
+        commentService.save(dto);
+
+        redirectAttrs.addFlashAttribute("success", "Comment saved. Its currently under review.");
+
+        return "redirect:/article/read/" + dto.getArticleId();
+    }
+
+    @GetMapping("/read/{id}")
+    public String read(@PathVariable Long id, Model model) {
+        ArticleReadDto dto = articleService.read(id);
+
+        //TODO: fix ordering -- ordering is not consistent
+        List<String> ids = dto.getComments().stream().map(commentDto -> commentDto.getId() + " " + commentDto.getParentCommentId()).collect(Collectors.toList());
+        log.info("{}", ids);
+        model.addAttribute("article", dto);
+
+        return "article/read-article";
     }
 }

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,7 +74,8 @@ public class ArticleService {
     }
 
     public ArticleReadDto read(Long id) {
-        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED)
+        //TODO: filter out unpublished comments - write a jooq or querydsl query
+        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
             .map(ArticleMapper.INSTANCE::mapForRead)
             .map(this::mapNested)
             .orElseThrow();
@@ -115,15 +117,15 @@ public class ArticleService {
             .map(ArticleMapper.INSTANCE::mapForListing);
     }
 
-    public ArticleReadDto readForReview(Long id) {
-        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.FLAGGED)
-            .map(ArticleMapper.INSTANCE::mapForRead)
+    public ArticleReviewReadDto readForReview(Long id) {
+        return articleRepository.findOneWithUserAndAttachedFilesByIdAndStatus(id, ArticleStatus.FLAGGED)
+            .map(ArticleMapper.INSTANCE::mapForReviewRead)
             .orElseThrow();
     }
 
-    public Page<ArticleReadDto> getAllToReview(Pageable pageable) {
+    public Page<ArticleReviewReadDto> getAllToReview(Pageable pageable) {
         return articleRepository.findWithAllByStatus(pageable, ArticleStatus.FLAGGED)
-            .map(ArticleMapper.INSTANCE::mapForRead);
+            .map(ArticleMapper.INSTANCE::mapForReviewRead);
     }
 
     public void delete(Long id) {
@@ -136,7 +138,7 @@ public class ArticleService {
     }
 
 
-    public Optional<Article> handleReview(ArticleReviewDto dto) {
+    public Optional<Article> handleReview(ArticleReviewResultDto dto) {
         return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)
             .map(n -> {
                 n.setStatus(dto.getVerdict());

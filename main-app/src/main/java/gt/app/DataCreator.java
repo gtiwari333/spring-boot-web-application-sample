@@ -1,9 +1,8 @@
 package gt.app;
 
-import gt.app.domain.Article;
-import gt.app.domain.ArticleStatus;
-import gt.app.domain.User;
+import gt.app.domain.*;
 import gt.app.modules.article.ArticleService;
+import gt.app.modules.article.CommentService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +13,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static gtapp.jooq.Tables.G_ARTICLE;
 
@@ -25,6 +25,7 @@ public class DataCreator {
 
     final UserService userService;
     final ArticleService articleService;
+    final CommentService commentService;
     final DSLContext dsl;
 
 
@@ -33,9 +34,15 @@ public class DataCreator {
 
         log.info("Context Refreshed !!, Initializing Data... ");
 
-        //ID and login are linked with the keycloak export json
+        String systemUserId = "a621ac4c-6172-4103-9050-b27c053b11eb";
 
-        User adminUser = new User("a621ac4c-6172-4103-9050-b27c053b11eb", "system", "System", "Tiwari");
+        if (userService.exists(UUID.fromString(systemUserId))) {
+            log.info("DB already initialized !!!");
+            return;
+        }
+
+        //ID and login are linked with the keycloak export json
+        User adminUser = new User(systemUserId, "system", "System", "Tiwari");
         userService.save(adminUser);
 
         User user1 = new User("d1460f56-7f7e-43e1-8396-bddf39dba08f", "user1", "Ganesh", "Tiwari");
@@ -80,6 +87,14 @@ public class DataCreator {
         n.setContent(content);
 
         articleService.save(n);
+
+        Comment c = new Comment();
+        c.setStatus(CommentStatus.SHOWING);
+        c.setContent("Test comment for " + title);
+        c.setArticleId(n.getId());
+        c.setCreatedByUser(user); //self
+        commentService.save(c);
+
     }
 
 

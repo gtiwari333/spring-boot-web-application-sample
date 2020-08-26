@@ -35,6 +35,10 @@ logging.level:
 
 
 app-properties:
+    jms:
+        profanity-checker-request-queue: jms-profanity-checker-requestqueue
+        profanity-checker-callback-response-queue: jms-profanity-checker-callback-responsequeue
+
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
 

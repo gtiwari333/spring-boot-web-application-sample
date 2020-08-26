@@ -17,6 +17,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public boolean exists(UUID id) {
+        return userRepository.existsById(id);
+    }
+
     public User save(User u) {
         return userRepository.save(u);
     }

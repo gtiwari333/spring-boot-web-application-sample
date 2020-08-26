@@ -1,7 +1,7 @@
 package gt.app.modules.article;
 
-import gt.app.domain.Article;
 import gt.app.domain.Comment;
+import gt.app.exception.RecordNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,27 +14,31 @@ public class CommentService {
 
     final ArticleRepository articleRepository;
     final CommentRepository commentRepository;
+    final ProfanityChecker profanityChecker;
 
-    public void addToArticle(NewCommentDto com, Long articleId) {
-        Article article = articleRepository.getOne(articleId);
-        Comment comment = new Comment(com.content, article);
-
-        commentRepository.save(comment);
+    public void save(Comment c) {
+        commentRepository.save(c);
     }
 
-    public void addChildComment(Long parentCommentId, NewCommentDto com, Long articleId) {
-        Article article = articleRepository.getOne(articleId);
-        Comment parentComment = commentRepository.getOne(parentCommentId);
+    public void save(NewCommentDto com) {
+        Comment comment = new Comment(com.content, com.articleId);
 
-        parentComment.addChildComment(new Comment(com.content, article));
+        if (com.parentCommentId != null && com.parentCommentId > 0) {
+            //checks if the requested parentCommentId actually belong to the articleId in request
+            if (!commentRepository.existsByIdAndArticleId(com.parentCommentId, com.articleId)) {
+                throw new RecordNotFoundException("The given parent comment id " + com.parentCommentId + " doesn't belong to article" + com.articleId);
+            }
+            comment.setParentCommentId(com.parentCommentId);
+        }
 
-        commentRepository.save(parentComment);
+        save(comment);
+
+        profanityChecker.handleProfanityCheck(comment);
     }
 
 
     public List<ArticleReadDto.CommentDto> readComments(Long articleId) {
         return commentRepository.findAllByArticleId(articleId).stream().map(ArticleMapper.INSTANCE::map).collect(Collectors.toList());
     }
-
 
 }

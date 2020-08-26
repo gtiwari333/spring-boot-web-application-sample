@@ -4,7 +4,7 @@ import gt.app.domain.ArticleStatus;
 import lombok.Data;
 
 @Data
-public class ArticleReviewDto {
+public class ArticleReviewResultDto {
 
     private Long id;
     private ArticleStatus verdict;

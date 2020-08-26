@@ -8,9 +8,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AppProperties {
 
     final FileStorage fileStorage = new FileStorage();
+    final JmsProps jms = new JmsProps();
 
     @Data
     public static class FileStorage {
         String uploadFolder;
     }
+
+    @Data
+    public static class JmsProps {
+        String profanityCheckerRequestQueue;
+        String profanityCheckerCallBackResponseQueue;
+    }
+
+
 }

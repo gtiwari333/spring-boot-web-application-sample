@@ -34,27 +34,98 @@
 </th:block>
 
 
-<th:block th:fragment="article-comment">
-    <ul>
-        <li th:each="comment : ${comments}">
-            <span th:text="${comment.content}"></span>
-            <span class="text-muted">
-                 At <span th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}"></span>,
-                        By <span th:text="${comment.username}"></span>
-            </span>
-
-            <div th:if="${comment.childComments.size()>0}">
-                <section th:insert="article/_articles :: article-comment"
-                         th:with="comments=${comment.childComments}">
-                </section>
+<th:block th:fragment="view-article-comments">
+    <div class="row" th:each="comment : ${comments}">
+        <div class="col-12  " style="margin-left: 15px;">
+            <small><span th:text="${comment.content}"></span></small>
+            <div class="text-muted">
+                <small>
+                    At
+                    <span th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                    ,
+                    By <span th:text="${comment.username}"></span>
+                </small>
             </div>
+            <div sec:authorize="isAuthenticated()" th:insert="article/_articles :: add-article-comment"
+                 th:with="article=${article},parentComment=${comment}">
+            </div>
+            <div class="row">
+                <div th:if="${comment.childComments.size()>0}">
+                    <div class="col-12">
+                        <section th:insert="article/_articles :: view-article-comments"
+                                 th:with="comments=${comment.childComments}">
+                        </section>
+                    </div>
+                </div>
 
-        </li>
-    </ul>
+            </div>
+        </div>
+    </div>
 </th:block>
 
 
-<th:block th:fragment="article-box">
+<th:block th:fragment="add-article-comment">
+    <form action="#" method="post" th:action="@{/article/addComment}" enctype="multipart/form-data">
+        <div class="row">
+            <input class="form-control" id="articleId" name="articleId" required="" th:value="${article.id}"
+                   type="hidden">
+
+            <input th:if="${comment}" class="form-control" id="parentCommentId" name="parentCommentId"
+                   th:value="${comment.id}"
+                   type="hidden">
+
+            <div class="col-10">
+                <input class="form-control" id="content" name="content"
+                       required="" type="text">
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</th:block>
+
+
+<th:block th:fragment="article-preview-box">
+
+    <div class="card  shadow-sm article-preview-box">
+        <div class="card-header">
+            <a th:href="@{/article/read/{id}(id=${article.id})}">
+                <h5 class="card-title"><span th:text="${article.title}"></span></h5>
+            </a>
+
+        </div>
+
+        <div class="card-body">
+            <p class="card-text"><span th:text="${article.content}"></span></p>
+            <div th:if="${article.files.size()>0}">
+                <hr/>
+                Attachments:
+                <span th:each="file : ${article.files}">
+                    <a th:href="@{/article/download/file/{id}(id=${file.id})}">
+                        <span th:text="${file.name}"></span>
+                    </a>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card-footer text-muted">
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By
+            <span sec:authorize="isAnonymous()" th:text="${article.username}"></span>
+            <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link"
+                  th:text="${article.username}"></span>
+            <span>## comments</span>
+        </div>
+
+    </div>
+
+</th:block>
+
+
+<th:block th:fragment="article-read-box">
 
     <div class="card  shadow-sm article-box">
         <div class="card-header">
@@ -78,18 +149,26 @@
         <div class="card-footer text-muted">
             Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By
             <span sec:authorize="isAnonymous()" th:text="${article.username}"></span>
-            <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link" th:text="${article.username}"></span>
+            <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link"
+                  th:text="${article.username}"></span>
         </div>
 
         <div th:if="${article.comments.size()>0}">
             <div class="card-body">
-                Comments:
+                <strong>Comments:</strong>
                 <hr/>
-                <div th:insert="article/_articles :: article-comment" th:with="comments=${article.comments}">
+                <div th:insert="article/_articles :: view-article-comments"
+                     th:with="article=${article},comments=${article.comments}">
                 </div>
             </div>
         </div>
 
+        <div class="card-body">
+            <strong>Add a comment:</strong>
+            <hr/>
+            <div th:insert="article/_articles :: add-article-comment" th:with="article=${article}">
+            </div>
+        </div>
 
     </div>
 

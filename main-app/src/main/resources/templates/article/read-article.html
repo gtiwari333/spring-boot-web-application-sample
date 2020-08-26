@@ -16,15 +16,13 @@
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
 
-            <form action="#" method="post" th:action=@{/admin/review} th:object="${article}" enctype="multipart/form-data">
-                <input class="form-control" id="id" placeholder="" required="" th:field="*{id}" type="hidden">
+            <div th:if="${success} != null">
+                <div class="alert alert-success" role="alert">
+                    <span th:text="${success}"></span>
+                </div>
+            </div>
 
-                <div th:replace="article/_articles :: article-preview-box"></div>
-
-                <button class="btn btn-primary btn-sm btn-block" type="submit" name="verdict" value="PUBLISHED" id="updateArticle-btn">Accept</button>
-                <button class="btn btn-danger btn-sm btn-block" type="submit"  name="verdict" value="BLOCKED" id="updateArticle-btn">Reject</button>
-            </form>
-
+            <div th:replace="article/_articles :: article-read-box"></div>
 
         </div>
     </div>

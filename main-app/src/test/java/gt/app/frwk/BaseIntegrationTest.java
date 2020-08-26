@@ -30,7 +30,7 @@ public abstract class BaseIntegrationTest {
 
         activeMQ.start(); //using default ports
 
-        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:11.0.0").withRealmImportFile("keycloak/keycloak-export.json");
+        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:11.0.1").withRealmImportFile("keycloak/keycloak-export.json");
         kc.start();
 
         System.setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress());

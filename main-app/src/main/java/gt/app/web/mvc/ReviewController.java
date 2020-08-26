@@ -2,7 +2,7 @@ package gt.app.web.mvc;
 
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
-import gt.app.modules.article.ArticleReviewDto;
+import gt.app.modules.article.ArticleReviewResultDto;
 import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class ReviewController {
     }
 
     @PostMapping("/review")
-    public String finishEditArticle(ArticleReviewDto reviewResult, RedirectAttributes redirectAttrs) {
+    public String finishEditArticle(ArticleReviewResultDto reviewResult, RedirectAttributes redirectAttrs) {
 
         Optional<Article> articleOpt = articleService.handleReview(reviewResult);
 

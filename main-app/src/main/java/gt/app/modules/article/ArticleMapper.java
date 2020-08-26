@@ -23,6 +23,11 @@ interface ArticleMapper {
     @Mapping(source = "createdByUser.id", target = "userId")
     @Mapping(source = "createdByUser.username", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
+    ArticleReviewReadDto mapForReviewRead(Article article);
+
+    @Mapping(source = "createdByUser.id", target = "userId")
+    @Mapping(source = "createdByUser.username", target = "username")
+    @Mapping(source = "attachedFiles", target = "files")
     ArticleListDto mapForListing(Article article);
 
     @Mapping(target = "id", ignore = true)
