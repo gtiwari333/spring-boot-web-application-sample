@@ -18,6 +18,8 @@
         <module>report-service</module>
         <module>trend-service</module>
         <module>trend-service-api</module>
+        <module>profanity-checker-service</module>
+        <module>profanity-checker-service-model</module>
     </modules>
 
     <parent>
@@ -88,6 +90,11 @@
             </dependency>
             <dependency>
                 <artifactId>trend-service-api</artifactId>
+                <groupId>gt.app</groupId>
+                <version>${app.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>profanity-checker-service-model</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>
