@@ -55,6 +55,7 @@ Future: do more stuff
 - Fetch user's avatar
 - UI improvement
 - S3 file upload, test with localstack testcontainer
+- approval/flagging api - message based
 
  
 ### Requirements
