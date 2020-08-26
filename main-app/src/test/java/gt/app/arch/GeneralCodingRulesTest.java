@@ -94,7 +94,7 @@ public class GeneralCodingRulesTest extends ArchitectureTest {
     void noClassesShouldHaveMainMethods() {
         ArchRule rule = ArchRuleDefinition.methods()
             .that().areDeclaredInClassesThat().resideInAPackage("gt.app..")
-            .and().areDeclaredInClassesThat().doNotHaveFullyQualifiedName("gt.app.Application")
+            .and().areDeclaredInClassesThat().doNotHaveFullyQualifiedName("gt.app.MainApplication")
             .and().arePublic()
             .and().areStatic()
             .should().notHaveName("main")
