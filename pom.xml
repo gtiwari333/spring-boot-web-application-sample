@@ -37,6 +37,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <springdoc-openapi-ui.version>1.4.4</springdoc-openapi-ui.version>
         <spring-cloud.version>Hoxton.SR7</spring-cloud.version>
+        <spring-cloud-contract.version>2.2.4.RELEASE</spring-cloud-contract.version>
 
         <hibernate-types52.version>2.9.13</hibernate-types52.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
