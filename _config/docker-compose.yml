@@ -22,7 +22,7 @@ services:
         networks:
             - seedappnet
     keycloak:
-        image: 'quay.io/keycloak/keycloak:11.0.1'
+        image: 'quay.io/keycloak/keycloak:11.0.2'
         container_name: keycloak
         environment:
             - KEYCLOAK_USER=admin
