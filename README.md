@@ -5,12 +5,25 @@
 - Version without KeyCloak and multi-modules is on 'single-module-no-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/single-module-no-keycloak
 
 ## Included Features/Samples
-- Modular application
-- Data JPA with User/Authority/Note/ReceivedFile entities, example of EntityGraph
+
+App Architecture:
+- Multi-module Maven app
+- Modular Service/Repository components
 - Default test data created while running the app
+- Spring / Maven profiles for dev/prod/docker ...
+- Dockerfile to run images
+- Docker maven plugin to publish images (follow docker-steps.md)
+- TestContainer in both runtime(optional) and test
+- Deploy to Amazon EC2 ( follow docker-steps.md )
+
+MicroService:
+- Spring Sleuth based tracing
+- Exposing and implementing Open Feign clients
+- Spring Cloud Contract
+
+Spring MVC:
 - Public and internal pages
 - MVC with thymeleaf templating
-- File upload/download
 - Live update of thymeleaf templates for local development
 - HTML fragments
 - webjar - bootstrap4 + jquery
@@ -18,40 +31,42 @@
 - Request logger filter
 - Swagger API Docs with UI  ( http://localhost:8081/swagger-ui.html)
 - @RestControllerAdvice, @ControllerAdvice demo
-- CRUD Note + File upload
-- Spring / Maven profiles for dev/prod/docker ...
-- Dockerfile to run images
-- Docker maven plugin to publish images (follow docker-steps.md)
-- Deploy to Amazon EC2 ( follow docker-steps.md )
-- Code Generation: lombok,  mapstruct 
-- H2 db for local, Console enabled for local ( http://localhost:8081/h2-console/, db url: jdbc:h2:mem:testdb, username: sa)
-- MySQL or any other SQL db can be configured for prod/docker etc profiles
+- CRUD UI + File upload/download
+- favicon handler
+
+
+Security:
+- Account management with KeyCloak
+- Spring Security 
 - User/User_Authority entity and repository/services
     - login, logout, home pages based on user role
-- Security with basic config
 - Domain object Access security check on update/delete using custom PermissionEvaluator
-- public home page -- view all notes by all 
 - private pages based on user roles
-- Test cases - unit/integration with JUnit 5, Mockito and Spring Test
+- public home page -- view all notes by all 
+
+Persistence/Search:
+- Data JPA with User/Authority/Note/ReceivedFile entities, example of EntityGraph
+- MySQL or any other SQL db can be configured for prod/docker etc profiles
+- (in old code) H2 db for local, Console enabled for local ( http://localhost:8081/h2-console/, db url: jdbc:h2:mem:testdb, username: sa)
+- jOOQ integration with code generation based on JPA entity 
+- Liquibase database migration
+- Search service using elastic search -- search into uploaded files as well (WIP)
+
+Test:
+- Unit/integration with JUnit 5, Mockito and Spring Test
 - e2e with Selenide, fixtures. default data generated using Spring
 - file upload/download e2e test with Selenide
 - Architecture test using ArchUnit
-- jOOQ integration with code generation based on JPA entity 
-- Account management with KeyCloak
-- Testcontainers to perform realistic integration test with KeyCloak 
-- favicon handler
-- Microservices
-- Spring Cloud - Open Feign, Sleuth integration
+- Testcontainers to perform realistic integration test
+
+Misc:
+- Code Generation: lombok,  mapstruct 
 - Message Queue using ActiveMQ Artemis
-- MySQL using testcontainer
 
 Future: do more stuff
-- Spring Cloud Contract integration
+- Spring Cloud Contract integration (WIP)
 - Example of background jobs with Quartz with a basic API/UI
-- Liquibase/Flyway DB change log
 - Integrate Markdown editor for writing notes
-- search service using elastic search -- search into uploaded files as well
-    - WIP
 - rate limit by IP on public API ( article api )
 - Fetch user's avatar
 - UI improvement
