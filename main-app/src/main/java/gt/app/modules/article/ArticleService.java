@@ -107,25 +107,25 @@ public class ArticleService {
             .findFirst().orElseThrow();
     }
 
-    public Page<ArticleReadDto> previewAll(Pageable pageable) {
-        return articleRepository.findWithAllByStatus(pageable, ArticleStatus.PUBLISHED)
-            .map(ArticleMapper.INSTANCE::mapForRead);
+    public Page<ArticleReviewReadDto> previewForPublicHomePage(Pageable pageable) {
+        return articleRepository.findWithUserAndAttachedFilesByStatus(pageable, ArticleStatus.PUBLISHED)
+            .map(ArticleMapper.INSTANCE::mapForPreview);
     }
 
-    public Page<ArticleListDto> previewAllByUser(Pageable pageable, UUID userId) {
+    public Page<ArticleListDto> previewAllWithFilesByUser(Pageable pageable, UUID userId) {
         return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, ArticleStatus.PUBLISHED)
             .map(ArticleMapper.INSTANCE::mapForListing);
     }
 
     public ArticleReviewReadDto readForReview(Long id) {
         return articleRepository.findOneWithUserAndAttachedFilesByIdAndStatus(id, ArticleStatus.FLAGGED)
-            .map(ArticleMapper.INSTANCE::mapForReviewRead)
+            .map(ArticleMapper.INSTANCE::mapForPreview)
             .orElseThrow();
     }
 
     public Page<ArticleReviewReadDto> getAllToReview(Pageable pageable) {
-        return articleRepository.findWithAllByStatus(pageable, ArticleStatus.FLAGGED)
-            .map(ArticleMapper.INSTANCE::mapForReviewRead);
+        return articleRepository.findWithUserAndAttachedFilesByStatus(pageable, ArticleStatus.FLAGGED)
+            .map(ArticleMapper.INSTANCE::mapForPreview);
     }
 
     public void delete(Long id) {

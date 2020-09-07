@@ -38,7 +38,14 @@ public class ReceivedFile {
     }
 
     public enum FileGroup {
-        NOTE_ATTACHMENT,
+        NOTE_ATTACHMENT("attachments"),
+        ;
         //add other
+        public final String path;
+
+        FileGroup(String path) {
+            this.path = path;
+
+        }
     }
 }

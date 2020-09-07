@@ -1,5 +1,6 @@
 package gt.app;
 
+import gt.app.config.AppProperties;
 import gt.app.domain.*;
 import gt.app.modules.article.ArticleService;
 import gt.app.modules.article.CommentService;
@@ -12,8 +13,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static gtapp.jooq.Tables.G_ARTICLE;
 
@@ -27,12 +30,21 @@ public class DataCreator {
     final ArticleService articleService;
     final CommentService commentService;
     final DSLContext dsl;
-
+    final AppProperties appProperties;
 
     @EventListener
     public void ctxRefreshed(ContextRefreshedEvent evt) {
 
-        log.info("Context Refreshed !!, Initializing Data... ");
+        log.info("Context Refreshed !!, Initializing environment (db, folders etc)... ");
+
+        File uploadFilder = new File(appProperties.getFileStorage().getUploadFolder());
+        if (!uploadFilder.exists()) {
+            if (uploadFilder.mkdirs() && Stream.of(ReceivedFile.FileGroup.values()).allMatch(f -> new File(uploadFilder.getAbsolutePath() + File.separator + f.path).mkdir())) {
+                log.info("Upload folder created successfully");
+            } else {
+                log.info("Failure to create upload folder");
+            }
+        }
 
         String systemUserId = "a621ac4c-6172-4103-9050-b27c053b11eb";
 

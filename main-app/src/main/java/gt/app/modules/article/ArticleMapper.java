@@ -23,7 +23,7 @@ interface ArticleMapper {
     @Mapping(source = "createdByUser.id", target = "userId")
     @Mapping(source = "createdByUser.username", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
-    ArticleReviewReadDto mapForReviewRead(Article article);
+    ArticleReviewReadDto mapForPreview(Article article);
 
     @Mapping(source = "createdByUser.id", target = "userId")
     @Mapping(source = "createdByUser.username", target = "username")
@@ -41,7 +41,13 @@ interface ArticleMapper {
     ArticleReadDto.CommentDto map(Comment comment);
 
     @Mapping(source = "originalFileName", target = "name")
-    ArticleReadDto.FileInfo map(ReceivedFile receivedFile);
+    ArticleReadDto.FileInfo mapRead(ReceivedFile receivedFile);
+
+    @Mapping(source = "originalFileName", target = "name")
+    ArticleReviewReadDto.FileInfo map(ReceivedFile receivedFile);
+
+    @Mapping(source = "originalFileName", target = "name")
+    ArticleListDto.FileInfo mapList(ReceivedFile receivedFile);
 
     @Mapping(source = "createdByUser.username", target = "username")
     @Transactional

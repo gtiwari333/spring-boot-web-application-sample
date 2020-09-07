@@ -1,7 +1,5 @@
 package gt.app.web.mvc;
 
-import gt.app.config.security.CurrentUser;
-import gt.app.config.security.CurrentUserToken;
 import gt.app.domain.Article;
 import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,7 @@ public class IndexController {
     public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
 
-        model.addAttribute("articles", articleService.previewAll(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
+        model.addAttribute("articles", articleService.previewForPublicHomePage(PageRequest.of(0, 20, Sort.by("createdDate").descending())));
         model.addAttribute("article", new Article());
 
         return "landing";

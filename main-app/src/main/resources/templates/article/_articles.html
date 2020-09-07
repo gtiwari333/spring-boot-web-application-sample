@@ -105,7 +105,7 @@
                 Attachments:
                 <span th:each="file : ${article.files}">
                     <a th:href="@{/article/download/file/{id}(id=${file.id})}">
-                        <span th:text="${file.name}"></span>
+                        <span th:text="${file.name}">Download</span>
                     </a>
                 </span>
             </div>
@@ -117,7 +117,6 @@
             <span sec:authorize="isAnonymous()" th:text="${article.username}"></span>
             <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link"
                   th:text="${article.username}"></span>
-            <span>## comments</span>
         </div>
 
     </div>
