@@ -62,7 +62,7 @@ public class ArticleController {
 
         redirectAttrs.addFlashAttribute("success", "Article with id " + id + " is deleted");
 
-        return "redirect:/";
+        return "redirect:/article/";
     }
 
     @GetMapping("/edit/{id}")

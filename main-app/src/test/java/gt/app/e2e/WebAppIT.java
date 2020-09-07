@@ -2,6 +2,7 @@ package gt.app.e2e;
 
 import gt.app.e2e.pageobj.*;
 import gt.app.frwk.BaseSeleniumTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -132,6 +133,10 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldHave(text("New Title"))
             .shouldHave(text("New Content"));
 
+
+        /*
+         POST article
+         */
         //user gets redirected to home page after posting
         LoggedInHomePage homePage = page.postArticle("Another Title", "Another Content");
 
@@ -154,11 +159,29 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("Another Title"))
             .shouldNotHave(text("Another Content"));
 
+
+
+        /*
+        POST article with attachment
+         */
+        //user gets redirected to home page after posting
+        homePage = page.postArticle("Title with file", "Content with file", "blob/test.txt", "blob/test2.txt");
+
+        homePage.body()
+            .shouldHave(text("Title with file"))
+            .shouldHave(text("Content with file"))
+            .shouldHave(text("test2.txt"))
+            .shouldHave(text("test.txt"));
+
         //go back to user page again
         page = homePage.openUserPage();
 
+        Assertions.assertEquals(2, page.downloadFiles(1).size());
+
         //delete
-        PublicPage publicPage = page.deletePage(1);
+        UserPage publicPage = page
+            .deletePage(1)
+            .deletePage(1);
         publicPage.body()
             .shouldHave(text("Article with id"))
             .shouldHave(text("is deleted"))

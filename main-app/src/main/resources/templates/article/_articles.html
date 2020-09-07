@@ -25,8 +25,9 @@
         </div>
 
         <div class="col-md-4 mb-3">
-            <label for="files">File</label>
-            <input class="btn btn-secondary btn-sm btn-block" id="files" type="file" value="" name="files">
+            <label for="fileUploadBtn">File</label>
+            <input class="btn btn-secondary btn-sm btn-block" id="fileUploadBtn" type="file" multiple value=""
+                   name="files">
         </div>
 
     </div>
@@ -104,7 +105,7 @@
                 <hr/>
                 Attachments:
                 <span th:each="file : ${article.files}">
-                    <a th:href="@{/article/download/file/{id}(id=${file.id})}">
+                    <a th:href="@{/download/file/{id}(id=${file.id})}">
                         <span th:text="${file.name}">Download</span>
                     </a>
                 </span>
@@ -137,7 +138,7 @@
                 <hr/>
                 Attachments:
                 <span th:each="file : ${article.files}">
-                    <a th:href="@{/article/download/file/{id}(id=${file.id})}">
+                    <a th:href="@{/download/file/{id}(id=${file.id})}">
                         <span th:text="${file.name}"></span>
                     </a>
                 </span>
