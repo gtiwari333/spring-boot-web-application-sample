@@ -35,7 +35,7 @@ class ReqLogFilter implements Filter {
             req.put("req.x-b3-traceid", httpServletRequest.getHeader("x-b3-traceid"));
         }
 
-        log.debug("Received request {} ", req);
+        log.trace("Received request {} ", req);
 
 
         chain.doFilter(request, response);
