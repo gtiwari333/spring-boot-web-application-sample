@@ -34,6 +34,7 @@
 - private pages based on user roles
 - Test cases - unit/integration with JUnit 5, Mockito and Spring Test
 - e2e with Selenide, fixtures. default data generated using Spring
+- file upload/download e2e test with Selenide
 - Architecture test using ArchUnit
 - jOOQ integration with code generation based on JPA entity 
 - Account management with KeyCloak
@@ -82,7 +83,6 @@ Option 1 - run with manually started KeyCloak, ElasticSearch and ActiveMQ server
 
 Option 2 - automatically start KeyCloak, ElasticSearch and ActiveMQ using TestContainer while application is starting
 - Run ```mvn clean install``` at root 
-- Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
 Option 3 - import into your IDE and compile the full project and run the Application.java on main-app module
