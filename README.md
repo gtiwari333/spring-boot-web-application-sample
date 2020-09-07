@@ -50,28 +50,39 @@ Persistence/Search:
 - (in old code) H2 db for local, Console enabled for local ( http://localhost:8081/h2-console/, db url: jdbc:h2:mem:testdb, username: sa)
 - jOOQ integration with code generation based on JPA entity 
 - Liquibase database migration
-- Search service using elastic search -- search into uploaded files as well (WIP)
 
 Test:
 - Unit/integration with JUnit 5, Mockito and Spring Test
 - e2e with Selenide, fixtures. default data generated using Spring
 - file upload/download e2e test with Selenide
 - Architecture test using ArchUnit
-- Testcontainers to perform realistic integration test
+- TestContainers to perform realistic integration test
 
 Misc:
 - Code Generation: lombok,  mapstruct 
 - Message Queue using ActiveMQ Artemis
+- approval/flagging api - message based
+
 
 Future: do more stuff
 - Spring Cloud Contract integration (WIP)
+- Search service using elastic search -- search into uploaded files as well (WIP)
+- Docker-compose deploy/kubernetes 
+- Caching impl
+- Geo-Spatial query for visitors
+- Grafana Dashboard, @Timed and more ...
+- logback LevelChangePropagator integration
+- logback error email
+- logback rolling policy
 - Example of background jobs with Quartz with a basic API/UI
 - Integrate Markdown editor for writing notes
 - rate limit by IP on public API ( article api )
 - Fetch user's avatar
 - UI improvement
-- S3 file upload, test with localstack testcontainer
-- approval/flagging api - message based
+- S3 file upload, test with localstack TestContainers
+- nested comment query/performance fix 
+- Signup UI
+- vendor neutral security with OIDC
 
  
 ### Requirements
