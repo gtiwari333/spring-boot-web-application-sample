@@ -85,6 +85,8 @@ public class SecurityConfig {
                     .antMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
                     .antMatchers("/api/**").authenticated()//individual api will be secured differently
                     .antMatchers("/public/**").permitAll()
+                    .antMatchers("/article/read/**").permitAll()
+                    .antMatchers("/download/file/**").permitAll()
                     .anyRequest().authenticated() //this one will catch the rest patterns
                 .and()
                     .csrf().disable();
