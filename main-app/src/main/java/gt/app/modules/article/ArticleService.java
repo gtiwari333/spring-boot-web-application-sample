@@ -33,6 +33,7 @@ public class ArticleService {
     private final FileService fileService;
     private final ArticleElasticSearchService articleSearchService;
     private final JmsTemplate jmsTemplate;
+    private final CommentRepository commentRepo;
 
     public Article save(Article article) {
         Article a = articleRepository.save(article);
@@ -128,7 +129,9 @@ public class ArticleService {
             .map(ArticleMapper.INSTANCE::mapForPreview);
     }
 
+    @Transactional
     public void delete(Long id) {
+        commentRepo.deleteByArticleId(id);
         articleRepository.deleteById(id);
         articleSearchService.deleteById(id);
     }
