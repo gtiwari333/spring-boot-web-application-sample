@@ -7,6 +7,7 @@ import gt.app.modules.article.search.ArticleElasticSearchService;
 import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.Record7;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -151,5 +153,9 @@ public class ArticleService {
     public void testCountStatuses() {
         log.info("Size of flagged articles {}", articleRepository.findArticles(ArticleStatus.FLAGGED).size());
         log.info("Size of flagged articles {}", articleRepository.countArticles(ArticleStatus.FLAGGED));
+    }
+
+    public Page<Record7<Long, String, String, String, String, String, LocalDateTime>> testJooqPaginationQuery(Pageable p, UUID userId) {
+        return articleRepository.testJooqPaginationQuery(p, userId, ArticleStatus.PUBLISHED);
     }
 }
