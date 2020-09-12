@@ -29,17 +29,17 @@ public class ArticleController {
     final ArticleService articleService;
     final CommentService commentService;
 
-
     @GetMapping({"/", ""})
     public String userHome(Model model, @CurrentUser CurrentUserToken u) {
-        model.addAttribute("message", getWelcomeMessage(u));
         model.addAttribute("articles", articleService.previewAllWithFilesByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
         model.addAttribute("article", new Article()); //new article box at top
         return "article";
     }
 
-    private String getWelcomeMessage(CurrentUserToken curUser) {
-        return "Hello " + curUser.getUsername() + "!";
+    @GetMapping("/new")
+    public String startNewArticle(Model model, @CurrentUser CurrentUserToken u) {
+        model.addAttribute("article", new Article()); //new article box at top
+        return "article/new-article";
     }
 
     @PostMapping("/add")
@@ -49,7 +49,7 @@ public class ArticleController {
 
         Article article = articleService.createArticle(articleDto);
 
-        redirectAttrs.addFlashAttribute("success", "Article with id " + article.getId() + " is created");
+        redirectAttrs.addFlashAttribute("success", "Article with title " + article.getTitle() + " is created");
 
         return "redirect:/";
     }
@@ -84,7 +84,7 @@ public class ArticleController {
 
         articleService.update(articleDto);
 
-        redirectAttrs.addFlashAttribute("success", "Article with id " + articleDto.getId() + " is updated");
+        redirectAttrs.addFlashAttribute("success", "Article with title " + articleDto.getTitle() + " is updated");
 
         return "redirect:/article/";
     }

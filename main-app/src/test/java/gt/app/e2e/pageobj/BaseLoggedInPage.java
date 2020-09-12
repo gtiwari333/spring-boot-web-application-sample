@@ -4,9 +4,14 @@ import static com.codeborne.selenide.Selenide.$;
 
 public abstract class BaseLoggedInPage<U extends BaseLoggedInPage> extends BasePage<BaseLoggedInPage> {
 
-    public UserPage openUserPage() {
+    public UserArticleListingPage openUsersArticlePage() {
         $("#user-article-link").click();
-        return new UserPage();
+        return new UserArticleListingPage();
+    }
+
+    public NewArticlePage newArticlePage() {
+        $("#new-article-link").click();
+        return new NewArticlePage();
     }
 
     public AdminPage openAdminPage() {

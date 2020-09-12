@@ -16,13 +16,12 @@
 
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
-            <h4>Edit Article:</h4>
+            <h2>New Article:</h2>
 
-            <form action="#" method="post" th:action=@{/article/edit} th:object="${article}" enctype="multipart/form-data">
-
+            <form action="#" method="post" th:action="@{/article/add}" th:object="${article}" enctype="multipart/form-data">
                 <div th:replace="article/_articles :: article-editor"></div>
 
-                <button class="btn btn-primary btn-sm btn-block" type="submit" id="updateArticle-btn">Update Article</button>
+                <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">Post Article</button>
             </form>
 
 

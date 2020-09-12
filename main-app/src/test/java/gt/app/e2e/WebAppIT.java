@@ -66,8 +66,8 @@ class WebAppIT extends BaseSeleniumTest {
         LoggedInHomePage loggedInHomePage = loginPage.login("user1", "pass");
         testLoggedInHomePage(loggedInHomePage, "user1");
 
-        UserPage userPage = loggedInHomePage.openUserPage();
-        testUser1Page(userPage);
+        UserArticleListingPage userArticleListingPage = loggedInHomePage.openUsersArticlePage();
+        testUser1Page(userArticleListingPage);
 
         PublicPage publicPage = loggedInHomePage.logout();
         publicPage.body()
@@ -112,10 +112,9 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldHave(text("New Content"));
     }
 
-    private void testUser1Page(UserPage page) {
-        page.body()
-            .shouldHave(text("Post Article"))
-            .shouldHave(text("User1's Articles"))
+    private void testUser1Page(UserArticleListingPage userArticleListingPage) {
+        userArticleListingPage.body()
+            .shouldHave(text("My Articles"))
             //should not see other user's articles
             .shouldNotHave(text("Content1 Admin"))
             .shouldNotHave(text("Content2 Admin"))
@@ -128,7 +127,6 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("DSL Content Flagged"))
             .shouldNotHave(text("DSL Content Blocked"))
 
-
             //previously created article
             .shouldHave(text("New Title"))
             .shouldHave(text("New Content"));
@@ -138,17 +136,18 @@ class WebAppIT extends BaseSeleniumTest {
          POST article
          */
         //user gets redirected to home page after posting
-        LoggedInHomePage homePage = page.postArticle("Another Title", "Another Content");
+        NewArticlePage newArticlePage = userArticleListingPage.newArticlePage();
+        LoggedInHomePage homePage = newArticlePage.postArticle("Another Title", "Another Content");
 
         homePage.body()
             .shouldHave(text("Another Title"))
             .shouldHave(text("Another Content"));
 
         //go back to user page again
-        page = homePage.openUserPage();
+        userArticleListingPage = homePage.openUsersArticlePage();
 
         //edit newly created article
-        ArticleEditPage editPage = page.editArticle(1);
+        ArticleEditPage editPage = userArticleListingPage.editArticle(1);
         editPage.body().shouldHave(text("Update Article"));
 
         homePage = editPage.updateArticle("Updated Title", "Updated Content");
@@ -165,7 +164,8 @@ class WebAppIT extends BaseSeleniumTest {
         POST article with attachment
          */
         //user gets redirected to home page after posting
-        homePage = page.postArticle("Title with file", "Content with file", "blob/test.txt", "blob/test2.txt");
+        newArticlePage = userArticleListingPage.newArticlePage();
+        homePage = newArticlePage.postArticle("Title with file", "Content with file", "blob/test.txt", "blob/test2.txt");
 
         homePage.body()
             .shouldHave(text("Title with file"))
@@ -174,12 +174,12 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldHave(text("test.txt"));
 
         //go back to user page again
-        page = homePage.openUserPage();
+        userArticleListingPage = homePage.openUsersArticlePage();
 
-        Assertions.assertEquals(2, page.downloadFiles(1).size());
+        Assertions.assertEquals(2, userArticleListingPage.downloadFiles(1).size());
 
         //delete
-        UserPage publicPage = page
+        UserArticleListingPage publicPage = userArticleListingPage
             .deletePage(1)
             .deletePage(1);
         publicPage.body()

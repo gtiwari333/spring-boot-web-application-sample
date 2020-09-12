@@ -4,11 +4,11 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ArticleEditPage extends BaseLoggedInPage<UserPage> {
+public class ArticleEditPage extends BaseLoggedInPage<UserArticleListingPage> {
 
     @Override
-    public UserPage open() {
-        return new UserPage();
+    public UserArticleListingPage open() {
+        return new UserArticleListingPage();
     }
 
     public LoggedInHomePage updateArticle(String title, String content) {

@@ -1,6 +1,6 @@
 package gt.app.e2e.pageobj;
 
-public class AdminPage extends BaseLoggedInPage<UserPage> {
+public class AdminPage extends BaseLoggedInPage<UserArticleListingPage> {
 
     @Override
     public AdminPage open() {

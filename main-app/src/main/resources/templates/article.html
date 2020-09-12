@@ -16,25 +16,13 @@
     <div class="card-deck mb-3">
         <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
 
-            <h3>
-                <span th:text="${message}"></span>
-            </h3>
-
             <div th:if="${success} != null">
                 <div class="alert alert-success" role="alert">
                     <span th:text="${success}"></span>
                 </div>
             </div>
 
-            <form action="#" method="post" th:action="@{/article/add}" th:object="${article}" enctype="multipart/form-data">
-                <div th:replace="article/_articles :: article-editor"></div>
-
-                <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">Post Article</button>
-            </form>
-
-            <hr/>
-
-            <h2>Articles</h2>
+            <h2>My Articles:</h2>
             <table class="table table-striped">
                 <thead>
                 <tr>
