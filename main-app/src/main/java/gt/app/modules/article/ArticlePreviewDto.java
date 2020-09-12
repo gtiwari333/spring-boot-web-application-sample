@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class ArticleListDto {
+public class ArticlePreviewDto {
 
     private Long id;
 

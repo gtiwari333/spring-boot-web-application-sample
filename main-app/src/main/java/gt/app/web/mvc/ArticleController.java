@@ -32,7 +32,6 @@ public class ArticleController {
     @GetMapping({"/", ""})
     public String userHome(Model model, @CurrentUser CurrentUserToken u) {
         model.addAttribute("articles", articleService.previewAllWithFilesByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
-        model.addAttribute("article", new Article()); //new article box at top
         return "article";
     }
 

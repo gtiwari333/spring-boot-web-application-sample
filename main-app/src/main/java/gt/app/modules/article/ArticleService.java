@@ -101,32 +101,31 @@ public class ArticleService {
         return d;
     }
 
-
     private ArticleReadDto.CommentDto findParentWithId(ArticleReadDto d, Long parentCommentId) {
         return d.getComments().stream()
             .filter(c -> c.id.equals(parentCommentId))
             .findFirst().orElseThrow();
     }
 
-    public Page<ArticleReviewReadDto> previewForPublicHomePage(Pageable pageable) {
+    public Page<ArticlePreviewDto> previewForPublicHomePage(Pageable pageable) {
         return articleRepository.findWithUserAndAttachedFilesByStatus(pageable, ArticleStatus.PUBLISHED)
-            .map(ArticleMapper.INSTANCE::mapForPreview);
+            .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
-    public Page<ArticleListDto> previewAllWithFilesByUser(Pageable pageable, UUID userId) {
+    public Page<ArticlePreviewDto> previewAllWithFilesByUser(Pageable pageable, UUID userId) {
         return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, ArticleStatus.PUBLISHED)
-            .map(ArticleMapper.INSTANCE::mapForListing);
+            .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
-    public ArticleReviewReadDto readForReview(Long id) {
+    public ArticlePreviewDto readForReview(Long id) {
         return articleRepository.findOneWithUserAndAttachedFilesByIdAndStatus(id, ArticleStatus.FLAGGED)
-            .map(ArticleMapper.INSTANCE::mapForPreview)
+            .map(ArticleMapper.INSTANCE::mapForReview)
             .orElseThrow();
     }
 
-    public Page<ArticleReviewReadDto> getAllToReview(Pageable pageable) {
+    public Page<ArticlePreviewDto> getAllToReview(Pageable pageable) {
         return articleRepository.findWithUserAndAttachedFilesByStatus(pageable, ArticleStatus.FLAGGED)
-            .map(ArticleMapper.INSTANCE::mapForPreview);
+            .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
     @Transactional

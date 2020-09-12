@@ -25,7 +25,7 @@ public class ReviewController {
     final ArticleService articleService;
 
     @GetMapping("/review/{id}")
-    public String startEditArticle(Model model, @PathVariable Long id) {
+    public String startReview(Model model, @PathVariable Long id) {
         model.addAttribute("article", articleService.readForReview(id));
         return "admin/review-article";
     }

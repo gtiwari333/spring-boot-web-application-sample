@@ -7,6 +7,7 @@ import gt.common.dtos.ArticleCreatedEventDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +24,13 @@ interface ArticleMapper {
     @Mapping(source = "createdByUser.id", target = "userId")
     @Mapping(source = "createdByUser.username", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
-    ArticleReviewReadDto mapForPreview(Article article);
+    @Mapping(target = "content", qualifiedByName = {"substringArticleContent"})
+    ArticlePreviewDto mapForPreviewListing(Article article);
 
     @Mapping(source = "createdByUser.id", target = "userId")
     @Mapping(source = "createdByUser.username", target = "username")
     @Mapping(source = "attachedFiles", target = "files")
-    ArticleListDto mapForListing(Article article);
+    ArticlePreviewDto mapForReview(Article article);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "attachedFiles", ignore = true)
@@ -44,13 +46,18 @@ interface ArticleMapper {
     ArticleReadDto.FileInfo mapRead(ReceivedFile receivedFile);
 
     @Mapping(source = "originalFileName", target = "name")
-    ArticleReviewReadDto.FileInfo map(ReceivedFile receivedFile);
-
-    @Mapping(source = "originalFileName", target = "name")
-    ArticleListDto.FileInfo mapList(ReceivedFile receivedFile);
+    ArticlePreviewDto.FileInfo map(ReceivedFile receivedFile);
 
     @Mapping(source = "createdByUser.username", target = "username")
     @Transactional
     ArticleCreatedEventDto mapForPublishedEvent(Article article);
 
+    @Named("substringArticleContent")//will do custom transformation once we move to  Markdown format
+    default String substringArticleContent(String content) {
+        if (content.length() < 200) {
+            return content;
+        }
+
+        return content.substring(0, 200) + " ...";
+    }
 }
