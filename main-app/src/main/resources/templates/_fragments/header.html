@@ -21,7 +21,7 @@
 <div th:fragment="headerbar">
 
     <nav class="navbar navbar-dark bg-dark navbar-expand-md bg-faded justify-content-center">
-        <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}"><span th:text="#{blogapp.title}">Blog App<span></a>
+        <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}"><span th:text="#{blogapp.title}">Blog App</span></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
             <span class="navbar-toggler-icon"></span>
@@ -29,6 +29,11 @@
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="navbar-nav w-100 justify-content-center">
 
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link" th:href="@{/}" id="home-link">
+                        <span th:text="#{blogapp.home-link-text}"></span>
+                    </a>
+                </li>
                 <li class="nav-item" sec:authorize="hasRole('USER')">
                     <a class="nav-link" th:href="@{/article/new}" id="new-article-link">
                         <span th:text="#{blogapp.new-article-link}"></span>

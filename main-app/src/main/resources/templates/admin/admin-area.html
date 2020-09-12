@@ -13,18 +13,18 @@
 
 
 <div class="container">
+    <div th:if="${success} != null">
+        <div class="alert alert-success" role="alert">
+            <span th:text="${success}"></span>
+        </div>
+    </div>
+
     <div class="card-deck mb-3">
-        <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
+        <div class="px-3 py-3  mx-auto">
 
             <h3>
                 <span th:text="${message}"></span>
             </h3>
-
-            <div th:if="${success} != null">
-                <div class="alert alert-success" role="alert">
-                    <span th:text="${success}"></span>
-                </div>
-            </div>
 
 
             <h2><span th:text="${articlesToReview.getTotalElements()}">##</span> Articles to review</h2>

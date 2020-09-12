@@ -12,19 +12,21 @@
 
 
 <div class="container">
-    <div class="card-deck mb-3">
-        <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
-            <div th:if="${param.logout} != null">
-                <div class="alert alert-success" role="alert">
-                    <span>You have been signed out</span>
-                </div>
-            </div>
 
-            <div th:if="${success} != null">
-                <div class="alert alert-success" role="alert">
-                    <span th:text="${success}"></span>
-                </div>
-            </div>
+    <div th:if="${param.logout} != null">
+        <div class="alert alert-success" role="alert">
+            <span>You have been signed out</span>
+        </div>
+    </div>
+
+    <div th:if="${success} != null">
+        <div class="alert alert-success" role="alert">
+            <span th:text="${success}"></span>
+        </div>
+    </div>
+
+    <div class="card-deck mb-3">
+        <div class="px-3 py-3  mx-auto">
 
             <div sec:authorize="isAuthenticated()">
                 <form action="#" method="post" th:action="@{/article/add}" th:object="${article}"
