@@ -16,7 +16,7 @@
 #### Logged in Feed View
 ![](screenshots/logged-in-home-page.png)
 
-#### Logged in List View
+#### Logged in User's Article List View
 ![](screenshots/users-home-page.png)
 
 #### Admin User's Review Page to approve/disapprove flagged posts
