@@ -1,10 +1,35 @@
-# A Spring Boot Web Application Seed with tons of Ready to use features. It can be used as starter for BIG projects.
+### A Spring Boot Web Application Seed with tons of Ready to use features. Can be used as starter for bigger projects.
 
-### Variations
+#### Variations
 - Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 - Version without KeyCloak and multi-modules is on 'single-module-no-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/single-module-no-keycloak
 
-## Included Features/Samples
+
+#### Screenshots:
+
+#### Public View
+![](screenshots/public-page.png)
+
+#### Read Article with nested comment/discussion
+![](screenshots/read-article-with-nested-comment.png)
+
+#### Logged in Feed View
+![](screenshots/logged-in-home-page.png)
+
+#### Logged in List View
+![](screenshots/users-home-page.png)
+
+#### Admin User's Review Page to approve/disapprove flagged posts
+![](screenshots/admin-user-review-page.png)
+
+#### Review Page
+![](screenshots/review-flagged-content.png)
+
+#### New Article
+![](screenshots/new-article-page.png)
+
+
+#### Included Features/Samples
 
 App Architecture:
 - Multi-module Maven app
@@ -25,7 +50,7 @@ Spring MVC:
 - Public and internal pages
 - MVC with thymeleaf templating
 - Live update of thymeleaf templates for local development
-- HTML fragments
+- HTML fragments, reusable pagination component using Thymeleaf parameterized fragments
 - webjar - bootstrap4 + jquery
 - Custom Error page
 - Request logger filter
@@ -33,7 +58,6 @@ Spring MVC:
 - @RestControllerAdvice, @ControllerAdvice demo
 - CRUD UI + File upload/download
 - favicon handler
-
 
 Security:
 - Account management with KeyCloak
@@ -43,6 +67,7 @@ Security:
 - Domain object Access security check on update/delete using custom PermissionEvaluator
 - private pages based on user roles
 - public home page -- view all notes by all 
+- Limit max number of record in a paged request
 
 Persistence/Search:
 - Data JPA with User/Authority/Note/ReceivedFile entities, example of EntityGraph
@@ -62,7 +87,7 @@ Misc:
 - Code Generation: lombok,  mapstruct 
 - Message Queue using ActiveMQ Artemis
 - approval/flagging api - message based
-
+- Nested comment
 
 Future: do more stuff
 - Spring Cloud Contract integration (WIP)
@@ -93,7 +118,7 @@ Future: do more stuff
 - Maven
 - Docker
 
-### How to Run
+#### How to Run
 
 It contains following applications:
 
@@ -118,14 +143,3 @@ Once the application starts, open  `http://localhost:8081` on your browser. The 
 - system/pass
 - user1/pass
 - user2/pass
-
-## Screenshots:
-
-#### Public View
-![](screenshots/public-view.png)
-
-#### Logged in Feed View
-![](screenshots/logged-in-feed-view.png)
-
-#### Logged in List View
-![](screenshots/logged-in-note-list-view.png)
