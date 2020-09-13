@@ -33,7 +33,9 @@
                       enctype="multipart/form-data">
                     <div th:replace="article/_articles :: article-editor"></div>
 
-                    <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">Post Article</button>
+                    <button class="btn btn-primary btn-sm btn-block" type="submit" id="postArticle-btn">
+                        Post Article
+                    </button>
                 </form>
                 <hr/>
             </div>
@@ -42,6 +44,11 @@
                 <th:block th:replace="article/_articles :: article-preview-box">
 
                 </th:block>
+            </th:block>
+
+
+            <th:block th:replace="_fragments/_utils :: pagination(${articles})">
+
             </th:block>
 
             <div th:if="${articles.getTotalElements() ==0}">

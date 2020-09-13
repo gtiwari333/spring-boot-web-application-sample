@@ -110,12 +110,12 @@ public class ArticleService {
     }
 
     public Page<ArticlePreviewDto> previewForPublicHomePage(Pageable pageable) {
-        return articleRepository.findWithUserAndAttachedFilesByStatus(pageable, ArticleStatus.PUBLISHED)
+        return articleRepository.findWithUserAndAttachedFilesByStatus(ArticleStatus.PUBLISHED, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
     public Page<ArticlePreviewDto> previewAllWithFilesByUser(Pageable pageable, UUID userId) {
-        return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(pageable, userId, ArticleStatus.PUBLISHED)
+        return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(userId, ArticleStatus.PUBLISHED, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
@@ -126,7 +126,7 @@ public class ArticleService {
     }
 
     public Page<ArticlePreviewDto> getAllToReview(Pageable pageable) {
-        return articleRepository.findWithUserAndAttachedFilesByStatus(pageable, ArticleStatus.FLAGGED)
+        return articleRepository.findWithUserAndAttachedFilesByStatus(ArticleStatus.FLAGGED, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 

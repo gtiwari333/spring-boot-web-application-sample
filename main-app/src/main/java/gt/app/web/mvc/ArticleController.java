@@ -7,6 +7,7 @@ import gt.app.modules.article.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,8 @@ public class ArticleController {
     final CommentService commentService;
 
     @GetMapping({"/", ""})
-    public String userHome(Model model, @CurrentUser CurrentUserToken u) {
-        model.addAttribute("articles", articleService.previewAllWithFilesByUser(PageRequest.of(0, 20, Sort.by("createdDate").descending()), u.getUserId()));
+    public String userHome(Model model, @CurrentUser CurrentUserToken u, Pageable pageable) {
+        model.addAttribute("articles", articleService.previewAllWithFilesByUser(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()), u.getUserId()));
         return "article";
     }
 

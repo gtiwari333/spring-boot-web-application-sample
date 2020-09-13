@@ -51,7 +51,7 @@
                                 th:text="${file.name}"></span> </a>
                         </span>
                         </td>
-                        <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td class="nowrap" th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                         <td th:text="${article.username}"></td>
                         <td>
                             <a th:href="@{/admin/review/{id}(id=${article.id})}">Review</a>
@@ -60,6 +60,12 @@
                     </tbody>
                 </table>
             </div>
+
+
+            <th:block th:replace="_fragments/_utils :: pagination(${articlesToReview})">
+
+            </th:block>
+
         </div>
 
     </div>

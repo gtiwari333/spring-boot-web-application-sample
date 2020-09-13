@@ -19,7 +19,7 @@ interface ArticleRepository extends AbstractRepository<Article>, ArticleReposito
     Optional<Article> findWithFilesAndUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithUserAndAttachedFilesByStatus(Pageable pageable, ArticleStatus status);
+    Page<Article> findWithUserAndAttachedFilesByStatus(ArticleStatus status, Pageable pageable);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
     Optional<Article> findOneWithUserAndAttachedFilesByIdAndStatus(Long id, ArticleStatus status);
@@ -31,7 +31,7 @@ interface ArticleRepository extends AbstractRepository<Article>, ArticleReposito
     Optional<Article> findOneWithUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Pageable pageable, UUID userId, ArticleStatus status);
+    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc( UUID userId, ArticleStatus status, Pageable pageable);
 
     @Query("select n.createdByUser.id from Article n where n.id=:id ")
     UUID findCreatedByUserIdById(@Param("id") Long id);
