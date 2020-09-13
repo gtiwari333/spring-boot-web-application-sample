@@ -1,9 +1,11 @@
 package gt.app.config;
 
+import gt.common.config.PaginationCustomizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -44,4 +46,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return slr;
     }
 
+    @Bean
+    public PageableHandlerMethodArgumentResolverCustomizer paginationCustomizer() {
+        return new PaginationCustomizer();
+    }
 }
