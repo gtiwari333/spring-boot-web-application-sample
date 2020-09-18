@@ -11,9 +11,9 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import static gt.profanity.Request.withArticle;
 import static gt.profanity.Request.RequestType.ARTICLE;
 import static gt.profanity.Request.RequestType.COMMENT;
+import static gt.profanity.Request.withArticle;
 
 @Component
 @RequiredArgsConstructor

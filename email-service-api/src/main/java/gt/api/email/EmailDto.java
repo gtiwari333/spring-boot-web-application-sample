@@ -27,4 +27,14 @@ public class EmailDto {
         String filename;
     }
 
+    @Override
+    public String toString() {
+        return "EmailDto{" +
+            "from='" + from + '\'' +
+            ", to=" + to +
+            ", cc=" + cc +
+            ", bcc=" + bcc +
+            ", subject='" + subject + '\'' +
+            '}';
+    }
 }
