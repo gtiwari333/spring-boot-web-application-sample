@@ -3,7 +3,10 @@ package gt.app.modules.article;
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
 import gt.app.modules.common.AbstractRepositoryImpl;
-import org.jooq.*;
+import org.jooq.Condition;
+import org.jooq.DSLContext;
+import org.jooq.Record7;
+import org.jooq.SelectConditionStep;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -44,7 +47,7 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
             where.and(G_ARTICLE.CREATED_BY_USER_ID.eq(userId.toString()));
         }
 
-        SelectConditionStep<Record> countQuery = jooq
+        SelectConditionStep<org.jooq.Record> countQuery = jooq
             .select()
             .from(G_ARTICLE)
             .where(where); //FIXME: handle enum conversion for @Enumerated in JOOQ
