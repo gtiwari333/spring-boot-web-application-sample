@@ -12,7 +12,7 @@
     <artifactId>report-service</artifactId>
 
     <properties>
-        <app.version>${parent.version}</app.version>
+        <app.version>${project.parent.version}</app.version>
 
         <!-- code quality -->
         <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>

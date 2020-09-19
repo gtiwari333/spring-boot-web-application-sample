@@ -13,7 +13,7 @@
     <artifactId>trend-service</artifactId>
 
     <properties>
-        <app.version>${parent.version}</app.version>
+        <app.version>${project.parent.version}</app.version>
     </properties>
 
 

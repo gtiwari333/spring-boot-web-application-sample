@@ -12,11 +12,10 @@ import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.text;
 
-@DirtiesContext
 class WebAppIT extends BaseSeleniumTest {
 
-
     @Test
+    @DirtiesContext
     void testPublicPage(@Autowired MessageSource ms) {
         new PublicPage().open()
             .body()
@@ -59,6 +58,7 @@ class WebAppIT extends BaseSeleniumTest {
     }
 
     @Test
+    @DirtiesContext
     void testLoggedInUserPage() {
 
         var loginPage = new LoginPage().open();
@@ -77,6 +77,7 @@ class WebAppIT extends BaseSeleniumTest {
     }
 
     @Test
+    @DirtiesContext
     void testAdminPage() {
 
         var loginPage = new LoginPage().open();

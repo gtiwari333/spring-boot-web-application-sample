@@ -15,7 +15,7 @@
     <properties>
         <profile.tls/>
         <profile.withTestContainer/>
-        <app.version>${parent.version}</app.version>
+        <app.version>${project.parent.version}</app.version>
 
 
         <!-- client deps -->
