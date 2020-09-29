@@ -49,7 +49,7 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
         QArticle qArticle = QArticle.article;
         QUser qUser = QUser.user;
 
-        //find articles that have length > 15 and the users with more than 5 articles
+        //find articles that have title length > 15 and the users with more than 5 articles
 
         var subquery1 = JPAExpressions
             .select(qArticle.createdByUser.id)
