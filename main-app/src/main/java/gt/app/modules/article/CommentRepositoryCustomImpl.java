@@ -29,32 +29,6 @@ class CommentRepositoryCustomImpl extends AbstractRepositoryImpl<Comment, Commen
         this.repository = repository;
     }
 
-    public void doTestQuery() {
-        QArticle qArticle = QArticle.article;
-        QUser user = QUser.user;
-
-        //find articles that have length > 15 and the users with more than 5 articles
-
-        var subquery1 = JPAExpressions
-            .select(qArticle.createdByUser.id)
-            .from(qArticle)
-            .groupBy(qArticle.createdByUser.id)
-            .having(qArticle.id.count().gt(5));
-
-        var exp = user.id.in(subquery1);
-
-        var exp2 = qArticle.title.length().lt(15);
-
-        List<Article> articles = from(qArticle)
-            .join(user).on(qArticle.createdByUser.id.eq(user.id))
-            .select(qArticle)
-            .where(exp.and(exp2))
-            .fetch();
-
-        log.debug("All Articles {} ", articles);
-    }
-
-
     @Override
     public List<Comment> findComments(CommentStatus status) {
         return from(comment)

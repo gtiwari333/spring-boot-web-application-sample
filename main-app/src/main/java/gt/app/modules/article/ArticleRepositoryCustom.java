@@ -17,4 +17,6 @@ interface ArticleRepositoryCustom {
     List<Article> findArticles(ArticleStatus status);
 
     long countArticles(ArticleStatus status);
+
+    void doTestQuery();
 }

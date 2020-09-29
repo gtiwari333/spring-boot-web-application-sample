@@ -1,8 +1,12 @@
 package gt.app.modules.article;
 
+import com.querydsl.jpa.JPAExpressions;
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
+import gt.app.domain.QArticle;
+import gt.app.domain.QUser;
 import gt.app.modules.common.AbstractRepositoryImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record7;
@@ -25,6 +29,7 @@ import static gt.app.domain.QArticle.article;
 import static gtapp.jooq.tables.GArticle.G_ARTICLE;
 import static gtapp.jooq.tables.GUser.G_USER;
 
+@Slf4j
 class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, ArticleRepository> implements ArticleRepositoryCustom {
 
     private final DSLContext jooq;
@@ -38,6 +43,31 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
     @Lazy
     public void setRepository(ArticleRepository repository) {
         this.repository = repository;
+    }
+
+    public void doTestQuery() {
+        QArticle qArticle = QArticle.article;
+        QUser user = QUser.user;
+
+        //find articles that have length > 15 and the users with more than 5 articles
+
+        var subquery1 = JPAExpressions
+            .select(qArticle.createdByUser.id)
+            .from(qArticle)
+            .groupBy(qArticle.createdByUser.id)
+            .having(qArticle.id.count().gt(5));
+
+        var exp = user.id.in(subquery1);
+
+        var exp2 = qArticle.title.length().lt(15);
+
+        List<Article> articles = from(qArticle)
+            .join(user).on(qArticle.createdByUser.id.eq(user.id))
+            .select(qArticle)
+            .where(exp.and(exp2))
+            .fetch();
+
+        log.debug("All Articles {} ", articles);
     }
 
     @Override

@@ -10,6 +10,4 @@ interface CommentRepositoryCustom {
     List<Comment> findComments(CommentStatus status);
 
     long findFlaggedComments(CommentStatus status);
-
-    void doTestQuery();
 }
