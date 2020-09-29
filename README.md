@@ -2,7 +2,7 @@
 
 #### Variations
 - Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
-- Version without KeyCloak and multi-modules is on 'single-module-no-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/single-module-no-keycloak
+- Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
 
 
 #### Screenshots:
