@@ -47,7 +47,7 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
 
     public void doTestQuery() {
         QArticle qArticle = QArticle.article;
-        QUser user = QUser.user;
+        QUser qUser = QUser.user;
 
         //find articles that have length > 15 and the users with more than 5 articles
 
@@ -57,12 +57,12 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
             .groupBy(qArticle.createdByUser.id)
             .having(qArticle.id.count().gt(5));
 
-        var exp = user.id.in(subquery1);
+        var exp = qUser.id.in(subquery1);
 
         var exp2 = qArticle.title.length().lt(15);
 
         List<Article> articles = from(qArticle)
-            .join(user).on(qArticle.createdByUser.id.eq(user.id))
+            .join(qUser).on(qArticle.createdByUser.id.eq(qUser.id))
             .select(qArticle)
             .where(exp.and(exp2))
             .fetch();
