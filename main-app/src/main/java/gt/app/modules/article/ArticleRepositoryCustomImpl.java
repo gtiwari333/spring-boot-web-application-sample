@@ -34,7 +34,7 @@ class ArticleRepositoryCustomImpl extends AbstractRepositoryImpl<Article, Articl
 
     private final DSLContext jooq;
 
-    public ArticleRepositoryCustomImpl(DSLContext jooq) {
+    ArticleRepositoryCustomImpl(DSLContext jooq) {
         super(Article.class);
         this.jooq = jooq;
     }
