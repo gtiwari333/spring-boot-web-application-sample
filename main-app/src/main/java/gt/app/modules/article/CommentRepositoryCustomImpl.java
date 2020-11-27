@@ -1,7 +1,7 @@
 package gt.app.modules.article;
 
-import com.querydsl.jpa.JPAExpressions;
-import gt.app.domain.*;
+import gt.app.domain.Comment;
+import gt.app.domain.CommentStatus;
 import gt.app.modules.common.AbstractRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
