@@ -2,7 +2,7 @@ package gt.app.config;
 
 import gt.common.config.PaginationCustomizer;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
@@ -20,7 +20,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final ResourceProperties resourceProperties;
+    private final WebProperties.Resources resourceProperties;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
