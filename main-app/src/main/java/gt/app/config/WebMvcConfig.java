@@ -1,10 +1,13 @@
 package gt.app.config;
 
 import gt.common.config.PaginationCustomizer;
+import gt.common.config.ReqLogFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
@@ -49,5 +52,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public PageableHandlerMethodArgumentResolverCustomizer paginationCustomizer() {
         return new PaginationCustomizer();
+    }
+
+    @Bean
+    public FilterRegistrationBean<ReqLogFilter> loggingFilter() {
+        FilterRegistrationBean<ReqLogFilter> registrationBean = new FilterRegistrationBean<>();
+
+        registrationBean.setFilter(new ReqLogFilter());
+        registrationBean.setOrder((Ordered.HIGHEST_PRECEDENCE));
+
+        return registrationBean;
     }
 }
