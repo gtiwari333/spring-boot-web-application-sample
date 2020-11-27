@@ -102,10 +102,6 @@
             <artifactId>wro4j-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
         </dependency>

@@ -36,18 +36,17 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.4.0</spring-boot.version>
-        <springdoc-openapi-ui.version>1.4.8</springdoc-openapi-ui.version>
+        <springdoc-openapi-ui.version>1.5.0</springdoc-openapi-ui.version>
         <spring-cloud.version>2020.0.0-M4</spring-cloud.version>
         <spring-cloud-contract.version>3.0.0-M4</spring-cloud-contract.version>
 
         <hibernate-types52.version>2.10.0</hibernate-types52.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
 
-        <selenide.version>5.15.1</selenide.version>
+        <selenide.version>5.16.2</selenide.version>
         <google-guava.version>30.0-jre</google-guava.version>
         <keycloak.version>11.0.3</keycloak.version>
-        <wro4j.version>1.9.0</wro4j.version>
-        <wro4j-sb-starter.version>0.7.2</wro4j-sb-starter.version>
+        <wro4j-sb-starter.version>0.8.1</wro4j-sb-starter.version>
 
         <archunit-junit5.version>0.14.1</archunit-junit5.version>
         <testcontainers.version>1.15.0</testcontainers.version>
@@ -114,11 +113,6 @@
                 <groupId>eu.michael-simons</groupId>
                 <artifactId>wro4j-spring-boot-starter</artifactId>
                 <version>${wro4j-sb-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-core</artifactId>
-                <version>${wro4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.keycloak</groupId>
