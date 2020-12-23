@@ -1,3 +1,5 @@
+package contracts.hello
+
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
