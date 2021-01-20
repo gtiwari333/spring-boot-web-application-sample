@@ -1,13 +1,12 @@
 spring:
-    profiles:
-        active: dev
     thymeleaf:
         cache: false # uncomment this if you are working on UI
         prefix: file:main-app/src/main/resources/templates/  #directly serve from src folder instead of target
-    resources:
-        static-locations: file:main-app/src/main/resources/static/ #directly serve from src folder instead of target
-        cache:
-            period: 0
+    web:
+        resources:
+            static-locations: file:main-app/src/main/resources/static/ #directly serve from src folder instead of target
+            cache:
+                period: 0
     mvc:
         static-path-pattern: /static/**
 
