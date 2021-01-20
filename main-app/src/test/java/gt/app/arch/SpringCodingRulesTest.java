@@ -110,19 +110,7 @@ public class SpringCodingRulesTest extends ArchitectureTest {
             .that().areAnnotatedWith(Controller.class)
             .or().areAnnotatedWith(RestController.class)
             .should().dependOnClassesThat()
-            .areAnnotatedWith(Controller.class);
-
-        rule.check(classes);
-    }
-
-
-    @Test
-    void controllerClassesShouldNotDependOnEachOther2() {
-        ArchRule rule = ArchRuleDefinition.noClasses()
-            .that().areAnnotatedWith(Controller.class)
-            .or().areAnnotatedWith(RestController.class)
-            .should().dependOnClassesThat()
-            .areAnnotatedWith(RestController.class);
+            .resideInAPackage(WEB_LAYER_CLASSES);
 
         rule.check(classes);
     }
