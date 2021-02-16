@@ -29,8 +29,9 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
         "/swagger-resources/**",
-        "/v2/api-docs",
+        "/swagger-ui/**",
         "/swagger-ui.html",
+        "/v3/api-docs/**",
         "/h2-console/**",
         "/webjars/**",
         "/favicon.ico",
@@ -38,7 +39,6 @@ public class SecurityConfig {
         "/wro4j/**",
         "/" //landing page is allowed for all
     };
-
 
     @Bean
     public KeycloakConfigResolver kcSBConfigResolver() {
@@ -71,7 +71,6 @@ public class SecurityConfig {
             return new LogoutHandler(adapterDeploymentContext());
         }
 
-
         @Override
         protected void configure(HttpSecurity http) throws Exception {
 
@@ -91,8 +90,6 @@ public class SecurityConfig {
                     .anyRequest().authenticated() //this one will catch the rest patterns
                 .and()
                     .csrf().disable();
-
-
         }
 
         static class LogoutHandler extends KeycloakLogoutHandler {
@@ -108,7 +105,6 @@ public class SecurityConfig {
                 response.sendRedirect("/?logout=true");
             }
         }
-
 
     }
 
