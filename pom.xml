@@ -20,6 +20,7 @@
         <module>trend-service-api</module>
         <module>profanity-checker-service</module>
         <module>profanity-checker-service-model</module>
+        <module>load-tester</module>
     </modules>
 
     <parent>
