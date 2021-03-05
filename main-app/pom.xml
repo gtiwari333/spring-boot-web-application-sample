@@ -21,10 +21,6 @@
         <!-- client deps -->
 
         <!-- code quality -->
-        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>8.34</puppycrawl.checkstyle.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
 
 
@@ -233,6 +229,30 @@
             <artifactId>mysql</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- spock deps -->
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-junit4</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Optional dependencies for using Spock -->
+        <dependency> <!-- enables mocking of classes without default constructor (together with ByteBuddy or CGLIB) -->
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- test only dependencies -->
     </dependencies>
 
@@ -267,23 +287,33 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- this will execute **/Test*.java, **/*Test.java, and **/*TestCase.java  classes -->
                 <!-- we need to do mvn  compiler:testCompile resources:testResources  surefire:test-->
                 <configuration>
                     <runOrder>alphabetical</runOrder>
                     <reportsDirectory>${junit.utReportFolder}</reportsDirectory>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <!-- .groovy won't find the groovy class -->
+                        <include>**/*Spec.java</include>
+                    </includes>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <!-- this will execute **/IT*.java, **/*IT.java, and **/*ITCase.java classes -->
                 <!-- we need to do mvn  compiler:testCompile resources:testResources  failsafe:integration-test -->
                 <configuration>
                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                     <runOrder>alphabetical</runOrder>
                     <reportsDirectory>${junit.itReportFolder}</reportsDirectory>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*IT.java</include>
+                        <!-- .groovy won't find the groovy class -->
+                        <include>**/*ITSpec.java</include>
+                    </includes>
                 </configuration>
                 <executions>
                     <execution>
@@ -368,6 +398,23 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>${gmavenplus.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
 
         </plugins>
     </build>

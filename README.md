@@ -4,31 +4,6 @@
 - Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
 
-
-#### Screenshots:
-
-#### Public View
-![](screenshots/public-page.png)
-
-#### Read Article with nested comment/discussion
-![](screenshots/read-article-with-nested-comment.png)
-
-#### Logged in Feed View
-![](screenshots/logged-in-home-page.png)
-
-#### Logged in User's Article List View
-![](screenshots/users-home-page.png)
-
-#### Admin User's Review Page to approve/disapprove flagged posts
-![](screenshots/admin-user-review-page.png)
-
-#### Review Page
-![](screenshots/review-flagged-content.png)
-
-#### New Article
-![](screenshots/new-article-page.png)
-
-
 #### Included Features/Samples
 
 App Architecture:
@@ -82,6 +57,8 @@ Test:
 - file upload/download e2e test with Selenide
 - Architecture test using ArchUnit
 - TestContainers to perform realistic integration test
+- Tests with Spock Framework (Groovy 3, Spock 2)
+- Load test with Gatling
 
 Misc:
 - Code Generation: lombok,  mapstruct 
@@ -143,3 +120,27 @@ Once the application starts, open  `http://localhost:8081` on your browser. The 
 - system/pass
 - user1/pass
 - user2/pass
+
+
+#### Screenshots:
+
+#### Public View
+![](screenshots/public-page.png)
+
+#### Read Article with nested comment/discussion
+![](screenshots/read-article-with-nested-comment.png)
+
+#### Logged in Feed View
+![](screenshots/logged-in-home-page.png)
+
+#### Logged in User's Article List View
+![](screenshots/users-home-page.png)
+
+#### Admin User's Review Page to approve/disapprove flagged posts
+![](screenshots/admin-user-review-page.png)
+
+#### Review Page
+![](screenshots/review-flagged-content.png)
+
+#### New Article
+![](screenshots/new-article-page.png)

@@ -46,7 +46,7 @@ public class DataCreator {
             }
         }
 
-        String systemUserId = "a621ac4c-6172-4103-9050-b27c053b11eb";
+        String systemUserId = "a621ac4c-6172-4103-9050-b27c053b11eb"; //matches with keycloak user id
 
         if (userService.exists(UUID.fromString(systemUserId))) {
             log.info("DB already initialized !!!");
