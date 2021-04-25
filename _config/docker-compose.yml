@@ -10,7 +10,7 @@ services:
 
     ## we can connect to elasticsearch by connecting to http://elasticsearch:9200 on HQ (http://localhost:5000)
     elasticsearch:
-        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.8.1'
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
         container_name: elasticsearch
         environment:
             - discovery.type=single-node
@@ -22,7 +22,7 @@ services:
         networks:
             - seedappnet
     keycloak:
-        image: 'quay.io/keycloak/keycloak:12.0.1'
+        image: 'quay.io/keycloak/keycloak:12.0.4'
         container_name: keycloak
         environment:
             - KEYCLOAK_USER=admin

@@ -20,7 +20,7 @@ Embedded Apps - started in dev profile
  */
 
     static {
-        def es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.8.0")
+        def es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.12.0")
         es.start()
 
         def activeMQ = new GenericContainer("vromero/activemq-artemis")
@@ -28,7 +28,7 @@ Embedded Apps - started in dev profile
 
         activeMQ.start() //using default ports
 
-        def kc = new KeycloakContainer("quay.io/keycloak/keycloak:12.0.1").withRealmImportFile("keycloak/keycloak-export.json")
+        def kc = new KeycloakContainer("quay.io/keycloak/keycloak:12.0.4").withRealmImportFile("keycloak/keycloak-export.json")
         kc.start()
 
         System.setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress())

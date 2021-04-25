@@ -33,7 +33,7 @@ public class DockerContainerConfig {
     static {
         String userPwd = "admin";//use same for all
 
-        var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.8.0");
+        var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.12.0");
         es.start();
 
         var mysql = new MySQLContainer<>("mysql").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
@@ -43,7 +43,7 @@ public class DockerContainerConfig {
         activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
         activeMQ.start(); //using default ports
 
-        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:12.0.1").withRealmImportFile("keycloak/keycloak-export.json");
+        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:12.0.4").withRealmImportFile("keycloak/keycloak-export.json");
         kc.start();
 
         setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress());
