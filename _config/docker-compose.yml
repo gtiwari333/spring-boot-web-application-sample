@@ -1,13 +1,5 @@
 version: '3'
 services:
-    elastichq:
-        image: 'elastichq/elasticsearch-hq'
-        container_name: elastichq
-        ports:
-            - 5000:5000
-        networks:
-            - seedappnet
-
     ## we can connect to elasticsearch by connecting to http://elasticsearch:9200 on HQ (http://localhost:5000)
     elasticsearch:
         image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
@@ -30,13 +22,13 @@ services:
             - KEYCLOAK_IMPORT=/tmp/test-realm.json
             - DB_VENDOR=h2 # don't try to discover mysql in the network
         volumes:
-            - ../main-app/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json
+            - ../main-app/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json  #might need to delete volume to avoid dup user error
         ports:
             - 8082:8080
         networks:
             - seedappnet
     activemq_artemis:
-        image: 'vromero/activemq-artemis'
+        image: 'vromero/activemq-artemis:2.16.0'
         container_name: activemqArtemis
         environment:
             - ARTEMIS_USERNAME=admin
@@ -47,9 +39,7 @@ services:
         networks:
             - seedappnet
     mysql:
-        image: mysql
-        volumes:
-            - ~/volumes/seedapp/mysql/:/var/lib/mysql/
+        image: 'mysql:8.0.25'
         environment:
             - MYSQL_ROOT_PASSWORD=password
             - MYSQL_DATABASE=seedapp

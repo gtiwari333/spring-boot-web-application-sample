@@ -36,10 +36,10 @@ public class DockerContainerConfig {
         var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.12.0");
         es.start();
 
-        var mysql = new MySQLContainer<>("mysql").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
+        var mysql = new MySQLContainer<>("mysql:8.0.25").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
         mysql.start();
 
-        var activeMQ = new GenericContainer<>("vromero/activemq-artemis");
+        var activeMQ = new GenericContainer<>("vromero/activemq-artemis:2.16.0");
         activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
         activeMQ.start(); //using default ports
 

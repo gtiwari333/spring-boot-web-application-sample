@@ -6,6 +6,8 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 import java.util.List;
 
+import static java.lang.System.setProperty;
+
 public abstract class BaseIntegrationTest {
 
 
@@ -25,7 +27,7 @@ public abstract class BaseIntegrationTest {
         var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.12.0");
         es.start();
 
-        var activeMQ = new GenericContainer("vromero/activemq-artemis");
+        var activeMQ = new GenericContainer<>("vromero/activemq-artemis:2.16.0");
         activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
 
         activeMQ.start(); //using default ports
@@ -33,10 +35,10 @@ public abstract class BaseIntegrationTest {
         var kc = new KeycloakContainer("quay.io/keycloak/keycloak:12.0.4").withRealmImportFile("keycloak/keycloak-export.json");
         kc.start();
 
-        System.setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress());
-        System.setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
-        System.setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
-        System.setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
+        setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress());
+        setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
+        setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
+        setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
 
     }
 }
