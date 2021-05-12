@@ -40,7 +40,7 @@
         <springdoc-openapi-ui.version>1.5.8</springdoc-openapi-ui.version>
         <spring-cloud.version>2020.0.2</spring-cloud.version>
         <spring-cloud-contract.version>3.0.0</spring-cloud-contract.version>
-        <hibernate-types52.version>2.10.4</hibernate-types52.version>
+        <hibernate-types52.version>2.11.1</hibernate-types52.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
 
         <selenide.version>5.20.4</selenide.version>
