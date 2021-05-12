@@ -46,8 +46,7 @@
         <selenide.version>5.20.4</selenide.version>
         <google-guava.version>30.1.1-jre</google-guava.version>
         <keycloak.version>12.0.4</keycloak.version>
-        <wro4j-sb-starter.version>0.8.1</wro4j-sb-starter.version>
-
+        <wro4j.version>1.8.0</wro4j.version>
         <archunit-junit5.version>0.18.0</archunit-junit5.version>
         <testcontainers.version>1.15.3</testcontainers.version>
         <testcontainers-keycloak.version>1.6.1</testcontainers-keycloak.version>
@@ -125,11 +124,6 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>eu.michael-simons</groupId>
-                <artifactId>wro4j-spring-boot-starter</artifactId>
-                <version>${wro4j-sb-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.keycloak</groupId>

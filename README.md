@@ -113,7 +113,11 @@ Option 2 - automatically start KeyCloak, ElasticSearch and ActiveMQ using TestCo
 - Run ```mvn clean install``` at root 
 - Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
-Option 3 - import into your IDE and compile the full project and run the Application.java on main-app module
+Option 3 - run from IDE
+- import into your IDE and compile the full project and run the Application.java on main-app module
+- Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
+
+
 
 Once the application starts, open  `http://localhost:8081` on your browser. The default username/passwords are listed on : gt.app.Application.initData, which are:
 

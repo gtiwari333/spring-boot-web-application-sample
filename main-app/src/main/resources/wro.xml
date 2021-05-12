@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <groups xmlns="http://www.isdc.ro/wro">
-    <group name="commons">
+    <group name="wro-commons">
+        <!-- add list of js/css files that goes under this group -->
+        <!-- we can access these by importing /wro-commons.js|.css -->
         <js>classpath:static/js/app.js</js>
         <css>classpath:static/css/common.css</css>
+        <css>classpath:static/css/app2.css</css>
     </group>
 
-    <!-- add more -->
+    <!-- add more groups -->
 </groups>

@@ -36,7 +36,6 @@ public class SecurityConfig {
         "/webjars/**",
         "/favicon.ico",
         "/static/**",
-        "/wro4j/**",
         "/" //landing page is allowed for all
     };
 
