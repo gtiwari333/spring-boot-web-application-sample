@@ -51,9 +51,8 @@
         <testcontainers.version>1.15.3</testcontainers.version>
         <testcontainers-keycloak.version>1.6.1</testcontainers-keycloak.version>
 
-        <webjar-jquery.version>3.5.1</webjar-jquery.version>
-        <webjar-bootstrap.version>4.5.2</webjar-bootstrap.version>
-        <webjar-popperjs.version>2.0.2</webjar-popperjs.version>
+        <webjar-jquery.version>3.6.0</webjar-jquery.version>
+        <webjar-bootstrap.version>5.0.0</webjar-bootstrap.version>
 
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <groovy.version>3.0.7</groovy.version>
@@ -194,13 +193,6 @@
                 <artifactId>bootstrap</artifactId>
                 <version>${webjar-bootstrap.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>popper.js</artifactId>
-                <version>${webjar-popperjs.version}</version>
-            </dependency>
-
 
             <!-- Optional dependencies for using Spock -->
             <dependency> <!-- enables mocking of classes without default constructor (together with ByteBuddy or CGLIB) -->
