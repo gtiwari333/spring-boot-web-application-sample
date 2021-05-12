@@ -54,3 +54,7 @@ feign-clients:
 logging:
     level:
         org.jooq.tools.LoggerListener: DEBUG
+
+
+logging.level:
+    gt: TRACE

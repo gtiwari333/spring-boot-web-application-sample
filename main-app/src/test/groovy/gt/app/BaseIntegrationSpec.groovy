@@ -30,7 +30,7 @@ Embedded Apps - started in dev profile
 
         activeMQ.start() //using default ports
 
-        def kc = new KeycloakContainer("quay.io/keycloak/keycloak:12.0.4").withRealmImportFile("keycloak/keycloak-export.json")
+        def kc = new KeycloakContainer("quay.io/keycloak/keycloak:13.0.0").withRealmImportFile("keycloak/keycloak-export.json")
         kc.start()
 
         setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress())
