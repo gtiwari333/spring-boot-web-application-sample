@@ -18,7 +18,7 @@
 
         <gatling.version>3.5.1</gatling.version>
         <gatling-maven-plugin.version>3.1.2</gatling-maven-plugin.version>
-        <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
+        <scala-maven-plugin.version>4.5.1</scala-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -52,7 +52,6 @@
                         <include>gt.simulations.*</include>
                     </includes>
                 </configuration>
-
             </plugin>
 
             <plugin>
