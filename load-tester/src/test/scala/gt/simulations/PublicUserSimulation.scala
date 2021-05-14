@@ -15,11 +15,18 @@ class PublicUserSimulation extends Simulation {
     //scenario
     val scn = scenario("open public home page read article and navigate to other pages")
         .exec(HomePageScenario.homePage())
-        .exec(ArticleScenario.readArticle(68))
-        .exec(ArticleScenario.readArticle(67))
-        .exec(ArticleScenario.readArticle(66))
+        .exec(ArticleScenario.readArticle(6))
+        .pause(10.milliseconds, 500.milliseconds)
+        .exec(ArticleScenario.readArticle(5))
+        .pause(100.milliseconds, 500.milliseconds)
+        .exec(ArticleScenario.readArticle(4))
+        .pause(100.milliseconds, 500.milliseconds)
+        .exec(ArticleScenario.readArticle(3))
+        .pause(100.milliseconds, 500.milliseconds)
         .exec(HomePageScenario.openPage(2))
+        .pause(100.milliseconds, 500.milliseconds)
         .exec(HomePageScenario.openPage(3))
+        .pause(100.milliseconds, 500.milliseconds)
 
     before {
         //data prep

@@ -10,7 +10,7 @@ object Environment {
 
     val profile: String = envOrElse("profile", "local")
     val rampUpTime: FiniteDuration = envOrElse("rampUpTIme", "10").toInt seconds
-    val maxUsers: Int = envOrElse("users", "10000").toInt
+    val maxUsers: Int = envOrElse("users", "500").toInt
 
     var baseUrl: String = ""
     var publicHomePage: String = ""
