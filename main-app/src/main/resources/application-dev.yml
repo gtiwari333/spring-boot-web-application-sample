@@ -57,4 +57,4 @@ logging:
 
 
 logging.level:
-    gt: TRACE
+    gt: DEBUG

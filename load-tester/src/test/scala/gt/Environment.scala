@@ -12,11 +12,16 @@ object Environment {
     val rampUpTime: FiniteDuration = envOrElse("rampUpTIme", "10").toInt seconds
     val maxUsers: Int = envOrElse("users", "500").toInt
 
-    var baseUrl: String = ""
-    var publicHomePage: String = ""
+    val keycloakUrl = "http://localhost:8082/"
+    val appLogoutUrl = "http://localhost:8081/sso/logout"
+    val appLoginUrl = "http://localhost:8081/sso/login"
+    var baseUrl: String = "/"
+    var publicHomePage: String = "/"
+    var userArticlesPage: String = "/article"
 
     if (profile == "local") {
         baseUrl = "http://localhost:8081"
         publicHomePage = "/"
     }
+    //customize for another profile...
 }
