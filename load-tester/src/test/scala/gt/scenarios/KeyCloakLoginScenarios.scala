@@ -16,7 +16,7 @@ object KeyCloakLoginScenarios {
         )
     })
 
-    def loadLoginPage(): HttpRequestBuilder = http("keycloak_get_login-page")
+    def loadLoginPage(): HttpRequestBuilder = http("app-login-page")
         .get(Environment.appLoginUrl)
         .check(status.is(200))
         .check(css("#kc-form-login")
@@ -25,14 +25,14 @@ object KeyCloakLoginScenarios {
                 n.getAttribute("action")
             }).saveAs("keycloak_auth_url"))
 
-    def keyCloakAuthenticate(): HttpRequestBuilder = http("keycloak_post_authentication")
+    def keyCloakAuthenticate(): HttpRequestBuilder = http("keycloak-authentication")
         .post("${keycloak_auth_url}")
         .formParam("username", "${userName}")
         .formParam("password", "pass")
         .check(status.is(200))
 
 
-    def logout(): HttpRequestBuilder = http("client-application_get_logout")
+    def logout(): HttpRequestBuilder = http("app-logout")
         .get(Environment.appLogoutUrl)
         .check(status.is(200))
 

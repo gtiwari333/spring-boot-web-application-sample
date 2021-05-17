@@ -1,5 +1,5 @@
 //import gt.simulations.PublicUserSimulation
-//import gt.simulations.KeyCloakLoginFlowSimulation
+import gt.simulations.LoginAndCreateReadArticlesSimulation
 import io.gatling.app.Gatling
 import io.gatling.core.config.GatlingPropertiesBuilder
 
@@ -17,7 +17,7 @@ object Engine extends App {
         runMultipleSimulations is true
      */
 
-    //.simulationClass(classOf[KeyCloakLoginFlowSimulation].getName)//
+    .simulationClass(classOf[LoginAndCreateReadArticlesSimulation].getName)//
 
     Gatling.fromMap(props.build)
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class ArticleCreateDto {
 
     @NotNull
-    MultipartFile[] files;
+    MultipartFile[] files = {};
     private String title;
     private String content;
 }
