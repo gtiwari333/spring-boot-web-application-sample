@@ -21,68 +21,80 @@
 <div th:fragment="headerbar">
 
     <nav class="navbar navbar-dark bg-dark navbar-expand-md bg-faded justify-content-center">
-        <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}"><span th:text="#{blogapp.title}">Blog App</span></a>
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex w-50 mr-auto" th:href="@{/}"><span th:text="#{blogapp.title}">Blog App</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
+                <ul class="navbar-nav w-100 justify-content-center">
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
-            <ul class="navbar-nav w-100 justify-content-center">
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
+                        <a class="nav-link" th:href="@{/}" id="home-link">
+                            <span th:text="#{blogapp.home-link-text}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
+                        <a class="nav-link" th:href="@{/article/new}" id="new-article-link">
+                            <span th:text="#{blogapp.new-article-link}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
+                        <a class="nav-link" th:href="@{/article}" id="user-article-link">
+                            <span th:text="#{blogapp.user-articles(${#authentication.user.username})}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{/admin}" id="admin-area-link">
+                            Admin Area
+                        </a>
+                    </li>
+                </ul>
 
-                <li class="nav-item" sec:authorize="hasRole('USER')">
-                    <a class="nav-link" th:href="@{/}" id="home-link">
-                        <span th:text="#{blogapp.home-link-text}"></span>
-                    </a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('USER')">
-                    <a class="nav-link" th:href="@{/article/new}" id="new-article-link">
-                        <span th:text="#{blogapp.new-article-link}"></span>
-                    </a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('USER')">
-                    <a class="nav-link" th:href="@{/article}" id="user-article-link">
-                        <span th:text="#{blogapp.user-articles(${#authentication.user.username})}"></span>
-                    </a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link" th:href="@{/admin}" id="admin-area-link">
-                        Admin Area
-                    </a>
-                </li>
-            </ul>
+                <ul class="navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAnonymous()">
+                    <li class="nav-item">
+                        <a class="nav-link " th:href="@{/sso/login}" id="login-link">
+                            Login
+                        </a>
+                    </li>
+                </ul>
 
-            <ul class="nav navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAnonymous()">
-                <li class="nav-item">
-                    <a class="nav-link " th:href="@{/sso/login}" id="login-link">
-                        Login
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAuthenticated()">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
-                        <span sec:authentication="user.username">USER_NAME</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" th:href="@{/account/followers}" id="my-follower">
-                            Followers
+                <ul class="navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAuthenticated()">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdownMenuLink"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="user.username">USER_NAME</span>
                         </a>
-                        <a class="dropdown-item" th:href="@{/account/mefollowing}" id="me-following">
-                            Following
-                        </a>
-                        <a class="dropdown-item" th:href="@{/account/subscriptions}" id="my-subscriptions">
-                            Subscriptions
-                        </a>
-                        <a class="dropdown-item" th:href="@{/auth/change-password}" id="change-password">
-                            Change Password
-                        </a>
-                        <a class="dropdown-item" th:href="@{/sso/logout}" id="logout-link">
-                            Logout
-                        </a>
-                    </div>
-                </li>
-            </ul>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/account/followers}" id="my-follower">
+                                    Followers
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/account/mefollowing}" id="me-following">
+                                    Following
+                                </a>
+                            </li>
+                            <a class="dropdown-item" th:href="@{/account/subscriptions}" id="my-subscriptions">
+                                Subscriptions
+                            </a>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/auth/change-password}" id="change-password">
+                                    Change Password
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/sso/logout}" id="logout-link">
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
