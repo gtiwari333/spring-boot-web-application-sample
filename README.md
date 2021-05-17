@@ -148,3 +148,7 @@ Once the application starts, open  `http://localhost:8081` on your browser. The 
 
 #### New Article
 ![](screenshots/new-article-page.png)
+
+
+Note:
+ - `mvn versions:display-dependency-updates`
