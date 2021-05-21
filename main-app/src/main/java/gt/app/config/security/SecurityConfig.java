@@ -17,8 +17,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,10 +75,29 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
 
-            super.configure(http);
-
+            /*
+                removing `.addFilterAfter(keycloakAuthenticatedActionsRequestFilter(), KeycloakSecurityContextRequestFilter.class)` from base
+                --> might get fixed in future keycloak adapter
+                --> issues with keycloak adapter 13(based on Spring Security 3.2.7.RELEASE) + spring security 5.5(from SB 2.5)
+             */
             http
-                .headers().frameOptions().sameOrigin()
+                .csrf().requireCsrfProtectionMatcher(keycloakCsrfRequestMatcher())
+                .and()
+                    .sessionManagement()
+                    .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
+                .and()
+                    .addFilterBefore(keycloakPreAuthActionsFilter(), LogoutFilter.class)
+                    .addFilterBefore(keycloakAuthenticationProcessingFilter(), LogoutFilter.class)
+                    .addFilterAfter(keycloakSecurityContextRequestFilter(), SecurityContextHolderAwareRequestFilter.class)
+                    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+                .and()
+                    .logout()
+                    .addLogoutHandler(keycloakLogoutHandler())
+                    .logoutUrl("/sso/logout").permitAll()
+                    .logoutSuccessUrl("/")
+
+                .and()
+                    .headers().frameOptions().sameOrigin()
                 .and()
                     .authorizeRequests()
                     .antMatchers(AUTH_WHITELIST).permitAll()

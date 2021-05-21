@@ -74,7 +74,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.0.0</version>
+                <version>4.3.5</version>
                 <configuration>
 
                     <diffChangeLogFile>src/main/resources/liquibase/changelog/${maven.build.timestamp}_changelog.xml
@@ -97,7 +97,7 @@
                     <dependency>
                         <groupId>org.liquibase.ext</groupId>
                         <artifactId>liquibase-hibernate5</artifactId>
-                        <version>4.0.0</version>
+                        <version>4.3.5</version>
                     </dependency>
                     <dependency>
                         <groupId>org.springframework</groupId>
