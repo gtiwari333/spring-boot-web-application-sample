@@ -3,7 +3,6 @@ package gt.app.modules.article;
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
 import gt.app.domain.ReceivedFile;
-import gt.app.modules.article.search.ArticleElasticSearchService;
 import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,14 +30,11 @@ public class ArticleService {
     private static final ReceivedFile.FileGroup FILE_GROUP = ReceivedFile.FileGroup.NOTE_ATTACHMENT;
     private final ArticleRepository articleRepository;
     private final FileService fileService;
-    private final ArticleElasticSearchService articleSearchService;
     private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
 
     public Article save(Article article) {
-        Article a = articleRepository.save(article);
-        articleSearchService.save(article);
-        return a;
+        return articleRepository.save(article);
     }
 
     public Article createArticle(ArticleCreateDto dto) {
@@ -132,13 +128,11 @@ public class ArticleService {
     public void delete(Long id) {
         commentRepo.deleteByArticleId(id);
         articleRepository.deleteById(id);
-        articleSearchService.deleteById(id);
     }
 
     public UUID findCreatedByUserIdById(Long articleId) {
         return articleRepository.findCreatedByUserIdById(articleId);
     }
-
 
     public Optional<Article> handleReview(ArticleReviewResultDto dto) {
         return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)

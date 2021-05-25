@@ -1,9 +1,6 @@
 package gt.app.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,9 +8,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaAuditing //now @CreatedBy, @LastModifiedBy works
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "gt.app.modules", excludeFilters = {
-    @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "gt.app.modules.article.search.*")
-})
-@EnableElasticsearchRepositories(basePackages = {"gt.app.modules.article.search"})
+@EnableJpaRepositories(basePackages = "gt.app.modules")
 public class JpaConfig {
 }

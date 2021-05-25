@@ -69,11 +69,6 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
@@ -208,11 +203,6 @@
         <dependency>
             <groupId>com.github.dasniko</groupId>
             <artifactId>testcontainers-keycloak</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>elasticsearch</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -477,10 +467,6 @@
                 <dependency>
                     <groupId>com.github.dasniko</groupId>
                     <artifactId>testcontainers-keycloak</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.testcontainers</groupId>
-                    <artifactId>elasticsearch</artifactId>
                 </dependency>
                 <dependency>
                     <groupId>org.testcontainers</groupId>

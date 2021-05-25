@@ -1,17 +1,5 @@
 version: '3'
 services:
-    ## we can connect to elasticsearch by connecting to http://elasticsearch:9200 on HQ (http://localhost:5000)
-    # https://github.com/robcowart/elastiflow/issues/616 - at Mac, we need to increase docker memory to ~4GB (Settings -> Resources --> Advanced --> Memory)
-    elasticsearch:
-        image: 'docker.elastic.co/elasticsearch/elasticsearch:7.12.0'
-        container_name: elasticsearch
-        environment:
-            - discovery.type=single-node
-        ports:
-            - 9200:9200
-            - 9300:9300
-        networks:
-            - seedappnet
     keycloak:
         image: 'quay.io/keycloak/keycloak:13.0.0'
         container_name: keycloak

@@ -104,12 +104,12 @@ It contains following applications:
 - report-service (optional)
 - trend-service (optional)
 
-Option 1 - run with manually started KeyCloak, ElasticSearch and ActiveMQ servers
+Option 1 - run with manually started KeyCloak and ActiveMQ servers
 - Run ```mvn clean install``` at root 
 - Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
-Option 2 - automatically start KeyCloak, ElasticSearch and ActiveMQ using TestContainer while application is starting
+Option 2 - automatically start KeyCloak and ActiveMQ using TestContainer while application is starting
 - Run ```mvn clean install``` at root 
 - Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 

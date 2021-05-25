@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class DockerContainerConfig {
     /*
 
     Started by Docker TestContainer in withTestContainer profile
-    - ElasticSearch
     - ActiveMQ Artemis
     - Keycloak
 
@@ -33,9 +31,6 @@ public class DockerContainerConfig {
     static {
         String userPwd = "admin";//use same for all
 
-        var es = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch:7.12.0");
-        es.start();
-
         var mysql = new MySQLContainer<>("mysql:8.0.25").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
         mysql.start();
 
@@ -46,7 +41,6 @@ public class DockerContainerConfig {
         var kc = new KeycloakContainer("quay.io/keycloak/keycloak:13.0.0").withRealmImportFile("keycloak/keycloak-export.json");
         kc.start();
 
-        setProperty("ELASTICSEARCH_HOSTADDR", es.getHttpHostAddress());
         setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
         setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
         setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
