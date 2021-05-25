@@ -32,6 +32,12 @@ class KeyCloakLoginFlowSimulation extends Simulation {
         .exec(KeyCloakLoginScenarios.logout())
 
 
+    //TODO:
+    //perform create article
+    //grab id of newly created article
+        // use data feeder use -- Java Faker
+    //read new articles based on id
+
     before {
         //data prep
     }
