@@ -3,23 +3,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>article-app</artifactId>
+    <artifactId>article-app-parent</artifactId>
     <groupId>gt.app</groupId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
     <modules>
-        <module>orm</module>
-        <module>orm-jooq</module>
         <module>main-app</module>
-        <module>email-service</module>
-        <module>email-service-api</module>
+        <module>email</module>
         <module>common</module>
         <module>report-service</module>
-        <module>trend-service</module>
-        <module>trend-service-api</module>
-        <module>profanity-checker-service</module>
-        <module>profanity-checker-service-model</module>
+        <module>trend</module>
+        <module>profanity-checker</module>
     </modules>
 
     <parent>

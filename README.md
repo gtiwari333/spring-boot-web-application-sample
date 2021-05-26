@@ -103,6 +103,7 @@ It contains following applications:
 - email-service (optional)
 - report-service (optional)
 - trend-service (optional)
+- profanity-checker (optional)
 
 Option 1 - run with manually started KeyCloak and ActiveMQ servers
 - Run ```mvn clean install``` at root 
@@ -150,5 +151,6 @@ Once the application starts, open  `http://localhost:8081` on your browser. The 
 ![](screenshots/new-article-page.png)
 
 
-Note:
+#### Dependency/plugin version checker
  - `mvn versions:display-dependency-updates`
+ - `mvn versions:display-plugin-updates`

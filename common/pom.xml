@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>gt.app</groupId>
-        <artifactId>article-app</artifactId>
+        <artifactId>article-app-parent</artifactId>
         <version>1.0</version>
     </parent>
 

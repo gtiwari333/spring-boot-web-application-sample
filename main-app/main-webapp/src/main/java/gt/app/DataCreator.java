@@ -1,7 +1,6 @@
 package gt.app;
 
 import gt.app.config.AppProperties;
-import gt.app.domain.*;
 import gt.app.modules.article.ArticleService;
 import gt.app.modules.article.CommentService;
 import gt.app.modules.user.UserService;

@@ -5,31 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>article-app</artifactId>
+        <artifactId>profanity-checker</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
-    <artifactId>email-service-api</artifactId>
+
+    <artifactId>profanity-checker-service-model</artifactId>
 
     <properties>
         <app.version>${project.parent.version}</app.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
+
     </dependencies>
 
 </project>

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>article-app</artifactId>
+        <artifactId>trend</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>

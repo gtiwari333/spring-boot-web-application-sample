@@ -3,20 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>main-app</artifactId>
+    <artifactId>trend</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
-
-    <modules>
-        <module>main-orm</module>
-        <module>main-orm-jooq</module>
-        <module>main-webapp</module>
-    </modules>
 
     <parent>
         <artifactId>article-app-parent</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
+
+    <modules>
+        <module>trend-service</module>
+        <module>trend-service-api</module>
+    </modules>
 
 </project>

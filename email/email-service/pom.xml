@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>email-service</artifactId>
+
     <parent>
-        <artifactId>article-app</artifactId>
+        <artifactId>email</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
-
-    <artifactId>trend-service</artifactId>
 
     <properties>
         <app.version>${project.parent.version}</app.version>
@@ -23,7 +23,7 @@
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
-            <artifactId>trend-service-api</artifactId>
+            <artifactId>email-service-api</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
@@ -36,14 +36,17 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-artemis</artifactId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+
+        <!-- processors/code generators -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>
+        <!-- end processor/code generators -->
 
         <!-- test dependencies -->
         <dependency>
@@ -51,16 +54,45 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- test only dependencies -->
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <finalName>${build.profile}-${artifactId}-${project.version}</finalName>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring-cloud-contract.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <baseClassForTests>gt.mail.BaseTestCloudContract</baseClassForTests>
+                    <testFramework>JUNIT5</testFramework>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -74,9 +106,15 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <scope>runtime</scope>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-ui</artifactId>
+                    <version>${springdoc-openapi-ui.version}</version>
+                    <optional>true</optional>
                 </dependency>
             </dependencies>
             <properties>
@@ -86,13 +124,6 @@
         </profile>
         <profile>
             <id>prod</id>
-            <dependencies>
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
                 <build.profile>prod</build.profile>

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>article-app</artifactId>
+        <artifactId>profanity-checker</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
@@ -67,8 +67,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <dependencies>
-            </dependencies>
             <properties>
                 <spring.profiles.active>dev</spring.profiles.active>
                 <build.profile>dev</build.profile>
@@ -77,8 +75,6 @@
 
         <profile>
             <id>prod</id>
-            <dependencies>
-            </dependencies>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
                 <build.profile>prod</build.profile>

@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>orm</artifactId>
+    <artifactId>main-orm</artifactId>
 
     <parent>
-        <artifactId>article-app</artifactId>
+        <artifactId>main-app</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
@@ -123,7 +123,7 @@
                 <version>${maven-processor-plugin.version}</version>
                 <configuration>
                     <defaultOutputDirectory>
-                        ${project.build.directory}/generated-sources
+                        ../../orm/target/generated-sources
                     </defaultOutputDirectory>
                     <processors>
                         <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
