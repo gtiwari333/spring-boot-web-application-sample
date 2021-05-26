@@ -78,12 +78,12 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <artifactId>orm</artifactId>
+                <artifactId>main-orm</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>
             <dependency>
-                <artifactId>orm-jooq</artifactId>
+                <artifactId>main-orm-jooq</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>

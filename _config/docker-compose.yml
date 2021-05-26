@@ -9,7 +9,7 @@ services:
             - KEYCLOAK_IMPORT=/tmp/test-realm.json
             - DB_VENDOR=h2 # don't try to discover mysql in the network
         volumes:
-            - ../main-app/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json  #might need to delete volume to avoid dup user error
+            - ../main-app/main-webapp/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json  #might need to delete volume to avoid dup user error
         ports:
             - 8082:8080
         networks:

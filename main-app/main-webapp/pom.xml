@@ -37,11 +37,11 @@
 
     <dependencies>
         <dependency>
-            <artifactId>orm</artifactId>
+            <artifactId>main-orm</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
-            <artifactId>orm-jooq</artifactId>
+            <artifactId>main-orm-jooq</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
@@ -396,8 +396,8 @@
                     <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
                     <cssDestinationFolder>${project.build.directory}/classes/static/css</cssDestinationFolder>
                     <jsDestinationFolder>${project.build.directory}/classes/static/js</jsDestinationFolder>
-                    <wroFile>srcrces/wro.xml</wroFile>
-                    <extraConfigFile>srcrces/wro.properties</extraConfigFile>
+                    <wroFile>${basedir}/src/main/resources/wro.xml</wroFile>
+                    <extraConfigFile>${basedir}/src/main/resources/wro.properties</extraConfigFile>
                 </configuration>
                 <dependencies>
                     <!-- For Java 11 compatibility -->

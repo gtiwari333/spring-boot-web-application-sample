@@ -19,7 +19,7 @@
     <dependencies>
 
         <dependency>
-            <artifactId>orm</artifactId>
+            <artifactId>main-orm</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
 
@@ -124,7 +124,7 @@
                 <dependencies>
                     <!-- This is needed for the JPADatabase -->
                     <dependency>
-                        <artifactId>orm</artifactId>
+                        <artifactId>main-orm</artifactId>
                         <groupId>gt.app</groupId>
                         <version>${app.version}</version>
                     </dependency>

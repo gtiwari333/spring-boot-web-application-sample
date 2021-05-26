@@ -1,7 +1,7 @@
 spring:
     thymeleaf:
         cache: false # uncomment this if you are working on UI
-        prefix: file:main-app/src/main/resources/templates/  #directly serve from src folder instead of target
+        prefix: file:main-app/main-webapp/src/main/resources/templates/  #directly serve from src folder instead of target
     web:
         resources:
             static-locations:

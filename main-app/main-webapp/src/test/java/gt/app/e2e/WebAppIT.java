@@ -51,10 +51,10 @@ class WebAppIT extends BaseSeleniumTest {
     void testAccessDenied(PublicPage publicPage) {
 
         publicPage.load("/article");
-        publicPage.body().shouldHave(text("Log In"));
+        publicPage.body().shouldHave(text("Sign in to your account"));
 
         publicPage.load("/admin");
-        publicPage.body().shouldHave(text("Log In"));
+        publicPage.body().shouldHave(text("Sign in to your account"));
     }
 
     @Test

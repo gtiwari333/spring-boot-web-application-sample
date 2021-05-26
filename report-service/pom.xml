@@ -22,7 +22,7 @@
 
     <dependencies>
         <dependency>
-            <artifactId>orm-jooq</artifactId>
+            <artifactId>main-orm-jooq</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
