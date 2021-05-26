@@ -1,4 +1,4 @@
-### A Spring Boot Web Application Seed with tons of Ready to use features. Can be used as starter for bigger projects.
+### A Spring Boot Web Application Sample with tons of ready-to-use features. This can be used as starter for bigger projects.
 
 #### Variations
 - Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
