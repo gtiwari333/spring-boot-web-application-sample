@@ -12,7 +12,6 @@
         <module>main-app</module>
         <module>email</module>
         <module>common</module>
-        <module>report-service</module>
         <module>trend</module>
         <module>profanity-checker</module>
     </modules>

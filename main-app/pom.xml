@@ -11,6 +11,7 @@
         <module>main-orm</module>
         <module>main-orm-jooq</module>
         <module>main-webapp</module>
+        <module>report-service</module>
     </modules>
 
     <parent>
