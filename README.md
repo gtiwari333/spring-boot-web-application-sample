@@ -67,10 +67,14 @@ Misc:
 - Nested comment
 
 Future: do more stuff
+- CQRS
+- CQRS with event store/streaming  
 - Spring Cloud Contract integration (WIP)
-- Search service using elastic search -- search into uploaded files as well (WIP)
 - Docker-compose deploy/kubernetes 
 - Caching impl
+- Visitors log - IP, browser, etc
+- Centralized error reporting
+- Visual Tracing   
 - Geo-Spatial query for visitors
 - Grafana Dashboard, @Timed and more ...
 - logback LevelChangePropagator integration
@@ -85,8 +89,8 @@ Future: do more stuff
 - nested comment query/performance fix 
 - Signup UI
 - vendor neutral security with OIDC
+- realtime approval UI 
 
- 
 ### Requirements
 - JDK 11+
 - Lombok configured on IDE
