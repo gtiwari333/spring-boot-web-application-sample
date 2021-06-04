@@ -31,8 +31,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.5.0</spring-boot.version>
         <springdoc-openapi-ui.version>1.5.8</springdoc-openapi-ui.version>
-        <spring-cloud.version>2020.0.2</spring-cloud.version>
-        <spring-cloud-contract.version>3.0.0</spring-cloud-contract.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud-contract.version>3.0.3</spring-cloud-contract.version>
         <hibernate-types52.version>2.11.1</hibernate-types52.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
 
