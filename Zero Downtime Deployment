@@ -1,0 +1,11 @@
+Our application is deployed that way if you can successfully introduce a new version of your application to production without making the user see that the application went down in the meantime. From the user’s and the company’s point of view it’s the best possible scenario of deployment since new features can be introduced and bugs can be eliminated without any outage.
+
+There are number of ways but one of them is just to:
+
+deploy version 1 of your service
+
+migrate your application to a new version
+
+deploy version 2 of your service in parallel to the version 1
+
+once you see that version 2 works like a charm just bring down version 1.
