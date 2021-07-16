@@ -5,6 +5,8 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy;
 
 public class PrefixedNamingStrategy extends SpringPhysicalNamingStrategy {
+
+    @Override
     public Identifier toPhysicalTableName(Identifier name, JdbcEnvironment jdbcEnvironment) {
         Identifier identifier = super.toPhysicalTableName(name, jdbcEnvironment);
 

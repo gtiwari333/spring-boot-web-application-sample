@@ -2,7 +2,9 @@ package gt.app.e2e;
 
 import gt.app.e2e.pageobj.*;
 import gt.app.frwk.BaseSeleniumTest;
+import gt.app.frwk.TestDataManager;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,8 +16,15 @@ import static com.codeborne.selenide.Condition.text;
 
 class WebAppIT extends BaseSeleniumTest {
 
+    @Autowired
+    TestDataManager testDataManager;
+
+    @BeforeEach
+    void cleanDB(){
+        testDataManager.truncateTablesAndRecreate();
+    }
+
     @Test
-    @DirtiesContext
     void testPublicPage(@Autowired MessageSource ms) {
         new PublicPage().open()
             .body()
@@ -58,7 +67,6 @@ class WebAppIT extends BaseSeleniumTest {
     }
 
     @Test
-    @DirtiesContext
     void testLoggedInUserPage() {
 
         var loginPage = new LoginPage().open();
@@ -77,7 +85,6 @@ class WebAppIT extends BaseSeleniumTest {
     }
 
     @Test
-    @DirtiesContext
     void testAdminPage() {
 
         var loginPage = new LoginPage().open();

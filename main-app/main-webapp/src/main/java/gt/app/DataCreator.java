@@ -32,8 +32,13 @@ public class DataCreator {
     final DSLContext dsl;
     final AppProperties appProperties;
 
+
     @EventListener
     public void ctxRefreshed(ContextRefreshedEvent evt) {
+        initData();
+    }
+
+    public void initData(){
 
         log.info("Context Refreshed !!, Initializing environment (db, folders etc)... ");
 

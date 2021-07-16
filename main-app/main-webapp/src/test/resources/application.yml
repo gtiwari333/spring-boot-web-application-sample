@@ -7,7 +7,7 @@ spring:
         enabled: true
         change-log: classpath:/liquibase/master.xml
     jpa:
-        show-sql: false
+        show-sql: true
         open-in-view: false
         hibernate:
             naming:
