@@ -24,6 +24,8 @@
     </parent>
 
     <properties>
+        <artemis.version>2.16.0</artemis.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>

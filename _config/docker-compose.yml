@@ -1,7 +1,7 @@
 version: '3'
 services:
     keycloak:
-        image: 'quay.io/keycloak/keycloak:13.0.0'
+        image: 'quay.io/keycloak/keycloak:14.0.0'
         container_name: keycloak
         environment:
             - KEYCLOAK_USER=admin

@@ -38,7 +38,7 @@ public class DockerContainerConfig {
         activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
         activeMQ.start(); //using default ports
 
-        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:13.0.0").withRealmImportFile("keycloak/keycloak-export.json");
+        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:14.0.0").withRealmImportFile("keycloak/keycloak-export.json");
         kc.start();
 
         setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
