@@ -21,7 +21,7 @@ public class AuthController {
 
     @GetMapping("/change-password")
     public String changePwd(RedirectAttributes redirectAttributes, HttpServletRequest req, HttpServletResponse resp) {
-        return getKeyCloakAccountUrl(redirectAttributes, req, resp) + "/password";
+        return getKeyCloakAccountUrl(redirectAttributes, req, resp);
     }
 
     @GetMapping("/settings")

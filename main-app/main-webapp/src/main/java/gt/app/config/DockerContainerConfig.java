@@ -34,11 +34,12 @@ public class DockerContainerConfig {
         var mysql = new MySQLContainer<>("mysql:8.0.25").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
         mysql.start();
 
-        var activeMQ = new GenericContainer<>("vromero/activemq-artemis:2.16.0");
+        var activeMQ = new GenericContainer<>("jhatdv/activemq-artemis:2.18.0");
         activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
+        activeMQ.withExposedPorts(61616);
         activeMQ.start(); //using default ports
 
-        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:14.0.0").withRealmImportFile("keycloak/keycloak-export.json");
+        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:15.0.2").withRealmImportFile("keycloak/keycloak-export.json");
         kc.start();
 
         setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));

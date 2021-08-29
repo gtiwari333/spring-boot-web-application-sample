@@ -1,7 +1,7 @@
 version: '3'
 services:
     keycloak:
-        image: 'quay.io/keycloak/keycloak:14.0.0'
+        image: 'quay.io/keycloak/keycloak:15.0.2'
         container_name: keycloak
         environment:
             - KEYCLOAK_USER=admin
@@ -15,7 +15,7 @@ services:
         networks:
             - seedappnet
     activemq_artemis:
-        image: 'vromero/activemq-artemis:2.16.0'
+        image: 'jhatdv/activemq-artemis:2.18.0'
         container_name: activemqArtemis
         environment:
             - ARTEMIS_USERNAME=admin

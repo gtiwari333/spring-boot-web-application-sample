@@ -26,12 +26,12 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final WebProperties.Resources resourceProperties;
+    private final WebProperties webProperties;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("favicon.ico")
-            .addResourceLocations(this.resourceProperties.getStaticLocations());
+            .addResourceLocations(this.webProperties.getResources().getStaticLocations());
     }
 
     @Override
