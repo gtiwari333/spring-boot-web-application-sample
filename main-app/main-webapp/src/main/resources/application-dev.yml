@@ -1,6 +1,6 @@
 spring:
     thymeleaf:
-        cache: false # uncomment this if you are working on UI
+        cache: false # set to false, this if you are working on UI
         prefix: file:main-app/main-webapp/src/main/resources/templates/  #directly serve from src folder instead of target
     web:
         resources:
@@ -10,8 +10,10 @@ spring:
                 - classpath:/resources/
                 - classpath:/static/
                 - classpath:/public/
-            cache:
-                period: 0
+#            cache:
+#                period: 500000
+#            chain:
+#                cache: true
     mvc:
         static-path-pattern: /static/**
 

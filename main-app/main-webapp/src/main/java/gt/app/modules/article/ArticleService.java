@@ -7,6 +7,9 @@ import gt.app.modules.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,10 +36,22 @@ public class ArticleService {
     private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
 
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = {"articleForReview"}, key = "#article.id"),
+            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
+        }
+    )
     public Article save(Article article) {
         return articleRepository.save(article);
     }
 
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = {"articleForReview"}, key = "#result.id"),
+            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
+        }
+    )
     public Article createArticle(ArticleCreateDto dto) {
 
         List<ReceivedFile> files = new ArrayList<>();
@@ -60,6 +75,12 @@ public class ArticleService {
         return article;
     }
 
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = {"articleForReview"}, key = "#result.id"),
+            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
+        }
+    )
     public Article update(ArticleEditDto dto) {
 
         Optional<Article> articleOpt = articleRepository.findWithFilesAndUserById(dto.getId());
@@ -70,6 +91,7 @@ public class ArticleService {
         ).orElseThrow();
     }
 
+    @Cacheable(cacheNames = "articleRead", key = "#id")
     public ArticleReadDto read(Long id) {
         //TODO: filter out unpublished comments - write a jooq or querydsl query
         return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
@@ -103,16 +125,19 @@ public class ArticleService {
             .findFirst().orElseThrow();
     }
 
+    @Cacheable(cacheNames = "previewForPublicHomePage")
     public Page<ArticlePreviewDto> previewForPublicHomePage(Pageable pageable) {
         return articleRepository.findWithUserAndAttachedFilesByStatus(ArticleStatus.PUBLISHED, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
+    @Cacheable(cacheNames = "previewAllWithFilesByUser")
     public Page<ArticlePreviewDto> previewAllWithFilesByUser(Pageable pageable, UUID userId) {
         return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(userId, ArticleStatus.PUBLISHED, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
+    @Cacheable(cacheNames = "articleForReview", key = "#id")
     public ArticlePreviewDto readForReview(Long id) {
         return articleRepository.findOneWithUserAndAttachedFilesByIdAndStatus(id, ArticleStatus.FLAGGED)
             .map(ArticleMapper.INSTANCE::mapForReview)
@@ -125,15 +150,28 @@ public class ArticleService {
     }
 
     @Transactional
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = {"articleForReview"}, key = "#id"),
+            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
+        }
+    )
     public void delete(Long id) {
         commentRepo.deleteByArticleId(id);
         articleRepository.deleteById(id);
     }
 
+    @Cacheable(cacheNames = {"article-findCreatedByUserIdById"})
     public UUID findCreatedByUserIdById(Long articleId) {
         return articleRepository.findCreatedByUserIdById(articleId);
     }
 
+    @Caching(
+        evict = {
+            @CacheEvict(cacheNames = {"articleForReview"}, key = "#dto.id"),
+            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
+        }
+    )
     public Optional<Article> handleReview(ArticleReviewResultDto dto) {
         return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)
             .map(n -> {

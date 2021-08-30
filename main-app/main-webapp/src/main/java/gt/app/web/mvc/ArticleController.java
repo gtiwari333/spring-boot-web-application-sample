@@ -105,8 +105,6 @@ public class ArticleController {
         ArticleReadDto dto = articleService.read(id);
 
         //TODO: fix ordering -- ordering is not consistent
-        List<String> ids = dto.getComments().stream().map(commentDto -> commentDto.getId() + " " + commentDto.getParentCommentId()).collect(Collectors.toList());
-        log.info("{}", ids);
         model.addAttribute("article", dto);
 
         return "article/read-article";

@@ -7,3 +7,12 @@ keycloak:
     principal-attribute: name
     credentials.secret: TODO
 
+spring:
+    thymeleaf:
+        cache: true
+    web:
+        resources:
+            cache:
+                period: PT10H
+            chain:
+                cache: true

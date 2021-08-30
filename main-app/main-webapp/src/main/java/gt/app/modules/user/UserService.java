@@ -26,20 +26,14 @@ public class UserService {
     }
 
     public void updateUserIfNeeded(User user) {
-
-        //TODO: cache
-
         if (!userRepository.existsById(user.getId())) {
             save(user);
         }
-
-
     }
 
     public User getReference(UUID id) {
-        return userRepository.getOne(id);
+        return userRepository.getById(id);
     }
-
 
     public Optional<User> find(UUID id) {
         return userRepository.findById(id);

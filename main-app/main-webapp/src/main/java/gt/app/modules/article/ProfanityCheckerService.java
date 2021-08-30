@@ -18,7 +18,7 @@ import static gt.profanity.Request.withArticle;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-class ProfanityChecker {
+class ProfanityCheckerService {
 
     private final JmsTemplate jmsTemplate;
     private final AppProperties appProperties;
