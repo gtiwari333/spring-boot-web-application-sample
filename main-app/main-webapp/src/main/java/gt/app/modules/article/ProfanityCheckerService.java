@@ -10,12 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import static gt.profanity.Request.RequestType.ARTICLE;
 import static gt.profanity.Request.RequestType.COMMENT;
 import static gt.profanity.Request.withArticle;
 
-@Component
+@Service
 @RequiredArgsConstructor
 @Slf4j
 class ProfanityCheckerService {
