@@ -16,8 +16,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class AppKeycloakAuthProvider extends KeycloakAuthenticationProvider {
-    private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
     final UserService userService;
+    private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
 
     public AppKeycloakAuthProvider(UserService userService) {
         this.userService = userService;

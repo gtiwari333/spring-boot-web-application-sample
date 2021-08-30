@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Locale;
 
@@ -20,7 +19,7 @@ class WebAppIT extends BaseSeleniumTest {
     TestDataManager testDataManager;
 
     @BeforeEach
-    void cleanDB(){
+    void cleanDB() {
         testDataManager.truncateTablesAndRecreate();
     }
 

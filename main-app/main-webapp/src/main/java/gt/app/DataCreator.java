@@ -38,13 +38,13 @@ public class DataCreator {
         initData();
     }
 
-    public void initData(){
+    public void initData() {
 
         log.info("Context Refreshed !!, Initializing environment (db, folders etc)... ");
 
-        File uploadFilder = new File(appProperties.getFileStorage().getUploadFolder());
-        if (!uploadFilder.exists()) {
-            if (uploadFilder.mkdirs() && Stream.of(ReceivedFile.FileGroup.values()).allMatch(f -> new File(uploadFilder.getAbsolutePath() + File.separator + f.path).mkdir())) {
+        File uploadFolder = new File(appProperties.getFileStorage().getUploadFolder());
+        if (!uploadFolder.exists()) {
+            if (uploadFolder.mkdirs() && Stream.of(ReceivedFile.FileGroup.values()).allMatch(f -> new File(uploadFolder.getAbsolutePath() + File.separator + f.path).mkdir())) {
                 log.info("Upload folder created successfully");
             } else {
                 log.info("Failure to create upload folder");

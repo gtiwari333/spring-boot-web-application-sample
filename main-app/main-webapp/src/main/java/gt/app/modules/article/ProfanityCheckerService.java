@@ -20,9 +20,9 @@ import static gt.profanity.Request.withArticle;
 @Slf4j
 class ProfanityCheckerService {
 
+    final CommentRepository commentRepository;
     private final JmsTemplate jmsTemplate;
     private final AppProperties appProperties;
-    final CommentRepository commentRepository;
 
     void handleProfanityCheck(Article a) {
         var req = withArticle(a.getContent(), appProperties.getJms().getProfanityCheckerCallBackResponseQueue(), Long.toString(a.getId()), ARTICLE);

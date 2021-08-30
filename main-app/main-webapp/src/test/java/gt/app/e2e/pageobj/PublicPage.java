@@ -11,7 +11,7 @@ public class PublicPage extends BasePage<PublicPage> {
     }
 
     public PublicPage open(String urlParam) {
-        Selenide.open("/"+urlParam);
+        Selenide.open("/" + urlParam);
         return this;
     }
 

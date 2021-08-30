@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableConfigurationProperties(AppProperties.class)
-class HelloResourceIT extends BaseIntegrationTest{
+class HelloResourceIT extends BaseIntegrationTest {
 
     @Test
     void sayHello2(@Autowired MockMvc mvc) throws Exception {
