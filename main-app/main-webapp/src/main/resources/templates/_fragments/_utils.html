@@ -19,6 +19,8 @@
                 <a class="page-link"
                    th:href="@{''(size=${pagedObject.getSize()}, page=${pagedObject.getNumber() -1})}">&larr;</a>
             </li>
+
+            <!-- TODO: handle big page sizes -->
             <li th:classappend="${pagedObject.getNumber() == (page  )} ? 'active pointer-disabled'"
                 th:each="page : ${#numbers.sequence(0, pagedObject.getTotalPages() -1)}" class="page-item">
                 <a class="page-link" th:href="@{''(size=${pagedObject.getSize()}, page=${page})}"
