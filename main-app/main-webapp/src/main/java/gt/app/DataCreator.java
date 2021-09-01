@@ -7,18 +7,14 @@ import gt.app.modules.article.CommentService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jooq.DSLContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.stream.Stream;
-
-import static gtapp.jooq.Tables.G_ARTICLE;
 
 @Component
 @Profile({"dev", "test"})
@@ -29,9 +25,7 @@ public class DataCreator {
     final UserService userService;
     final ArticleService articleService;
     final CommentService commentService;
-    final DSLContext dsl;
     final AppProperties appProperties;
-
 
     @EventListener
     public void ctxRefreshed(ContextRefreshedEvent evt) {
@@ -68,25 +62,6 @@ public class DataCreator {
 
         User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel");
         userService.save(user2);
-
-        dsl.insertInto(G_ARTICLE)
-            .setNull(G_ARTICLE.ID)
-            .set(G_ARTICLE.CONTENT, "DSL Content Flagged ")
-            .set(G_ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
-            .set(G_ARTICLE.TITLE, "DSL Title Flagged")
-            .set(G_ARTICLE.STATUS, ArticleStatus.FLAGGED.name())
-            .set(G_ARTICLE.CREATED_DATE, LocalDateTime.now())
-            .execute();
-
-        dsl.insertInto(G_ARTICLE)
-            .setNull(G_ARTICLE.ID)
-            .set(G_ARTICLE.CONTENT, "DSL Content Blocked... ")
-            .set(G_ARTICLE.CREATED_BY_USER_ID, user1.getId().toString())
-            .set(G_ARTICLE.TITLE, "DSL Title Blocked")
-            .set(G_ARTICLE.STATUS, ArticleStatus.BLOCKED.name())
-            .set(G_ARTICLE.CREATED_DATE, LocalDateTime.now())
-            .execute();
-
 
         createArticle(adminUser, "Admin's First Article", "Content1 Admin");
         createArticle(adminUser, "Admin's Second Article", "Content2 Admin");
