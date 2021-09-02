@@ -1,7 +1,6 @@
 package gt.app.web.rest;
 
 import gt.app.config.AppProperties;
-import gt.app.frwk.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableConfigurationProperties(AppProperties.class)
-class HelloResourceIT extends BaseIntegrationTest {
+class HelloResourceIT   {
 
     @Test
     void sayHello2(@Autowired MockMvc mvc) throws Exception {

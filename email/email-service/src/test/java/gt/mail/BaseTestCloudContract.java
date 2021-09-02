@@ -9,7 +9,6 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest(classes = EmailServiceApp.class)
 public abstract class BaseTestCloudContract {
 
-
     @Autowired
     private WebApplicationContext context;
 

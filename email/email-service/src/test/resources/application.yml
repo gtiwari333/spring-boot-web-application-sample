@@ -9,7 +9,7 @@ spring:
         database-platform: org.hibernate.dialect.H2Dialect
     mail:
         host: localhost
-        port: 25
+        port: ${MAILHOG_PORT:1025}
         username:
         password:
 

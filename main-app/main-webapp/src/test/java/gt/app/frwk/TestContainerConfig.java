@@ -1,14 +1,15 @@
 package gt.app.frwk;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
+import org.springframework.context.annotation.Configuration;
 import org.testcontainers.containers.GenericContainer;
 
 import java.util.List;
 
 import static java.lang.System.setProperty;
 
-public abstract class BaseIntegrationTest {
-
+@Configuration
+public class TestContainerConfig {
 
     /*
 

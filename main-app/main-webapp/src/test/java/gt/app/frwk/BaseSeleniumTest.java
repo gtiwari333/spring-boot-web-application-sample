@@ -10,11 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class BaseSeleniumTest extends BaseIntegrationTest {
+public abstract class BaseSeleniumTest {
 
     @LocalServerPort
     int localServerPort = -1;
-
 
     @BeforeAll
     public static void init() {

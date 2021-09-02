@@ -1,6 +1,5 @@
 package gt.app.web.rest;
 
-import gt.app.frwk.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserResourceIT extends BaseIntegrationTest {
+class UserResourceIT   {
 
     @Test
     void getAccount3xx(@Autowired MockMvc mvc) throws Exception {

@@ -1,6 +1,6 @@
 package gt.app.modules.file;
 
-import gt.app.frwk.TestUtil;
+import gt.common.test.TestUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.util.MimeTypeUtils;

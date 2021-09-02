@@ -334,6 +334,8 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
+      "firstName" : "System",
+      "lastName" : "Tiwari",
     "credentials" : [ {
       "id" : "85153370-dac3-4c4e-ad0f-d56be0989ac1",
       "type" : "password",
