@@ -11,4 +11,4 @@ server:
     port: 8083
 
 jms:
-    profanity-checker-request-queue: jms-profanity-checker-requestqueue
+    content-checkerrequest-queue: jms-content-checkerrequestqueue

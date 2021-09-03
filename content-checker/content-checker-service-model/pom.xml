@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>profanity-checker</artifactId>
+        <artifactId>content-checker</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>profanity-checker-service-model</artifactId>
+    <artifactId>content-checkerservice-model</artifactId>
 
     <properties>
         <app.version>${project.parent.version}</app.version>

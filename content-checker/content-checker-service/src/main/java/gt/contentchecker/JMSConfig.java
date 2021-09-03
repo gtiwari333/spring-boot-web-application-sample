@@ -1,4 +1,4 @@
-package gt.profanity;
+package gt.contentchecker;
 
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;

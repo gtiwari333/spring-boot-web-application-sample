@@ -13,7 +13,7 @@
         <module>email</module>
         <module>common</module>
         <module>trend</module>
-        <module>profanity-checker</module>
+        <module>content-checker</module>
     </modules>
 
     <parent>
@@ -101,7 +101,7 @@
                 <version>${app.version}</version>
             </dependency>
             <dependency>
-                <artifactId>profanity-checker-service-model</artifactId>
+                <artifactId>content-checkerservice-model</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>

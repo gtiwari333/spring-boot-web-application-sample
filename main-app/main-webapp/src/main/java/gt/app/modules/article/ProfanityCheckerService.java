@@ -4,17 +4,16 @@ import gt.app.config.AppProperties;
 import gt.app.domain.Article;
 import gt.app.domain.Comment;
 import gt.app.domain.CommentStatus;
-import gt.profanity.Response;
+import gt.contentchecker.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import static gt.profanity.Request.RequestType.ARTICLE;
-import static gt.profanity.Request.RequestType.COMMENT;
-import static gt.profanity.Request.withArticle;
+import static gt.contentchecker.Request.RequestType.ARTICLE;
+import static gt.contentchecker.Request.RequestType.COMMENT;
+import static gt.contentchecker.Request.withArticle;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ class ProfanityCheckerService {
         jmsTemplate.convertAndSend(appProperties.getJms().getProfanityCheckerRequestQueue(), req);
     }
 
-    @JmsListener(destination = "${app-properties.jms.profanity-checker-callback-response-queue}")
+    @JmsListener(destination = "${app-properties.jms.content-checkercallback-response-queue}")
     void handleProfanityResponse(Response resp) {
 
         switch (resp.getRequestType()) {

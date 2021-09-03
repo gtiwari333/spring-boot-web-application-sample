@@ -1,4 +1,4 @@
-package gt.profanity;
+package gt.contentchecker;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +17,11 @@ import java.util.stream.Stream;
 
 @SpringBootApplication
 @Slf4j
-public class ProfanityCheckerApp {
+public class ContentCheckerService {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        SpringApplication app = new SpringApplication(ProfanityCheckerApp.class);
+        SpringApplication app = new SpringApplication(ContentCheckerService.class);
         Environment env = app.run(args).getEnvironment();
 
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
@@ -40,12 +40,12 @@ public class ProfanityCheckerApp {
 @Component
 @Slf4j
 @RequiredArgsConstructor
-class ProfanityCheckHandler {
+class ContentCheckHandler {
 
     final JmsTemplate jmsTemplate;
-    final ProfanityChecker checker;
+    final ContentChecker checker;
 
-    @JmsListener(destination = "${jms.profanity-checker-request-queue}")
+    @JmsListener(destination = "${jms.content-checkerrequest-queue}")
     void onMessage(Request msg) {
         log.info("Received msg for profanity check {}", msg);
 
@@ -59,7 +59,7 @@ class ProfanityCheckHandler {
 @Component
 @Slf4j
 @RequiredArgsConstructor
-class ProfanityChecker {
+class ContentChecker {
 
     private final List<String> badWords = List.of("fuck", "suck", "ass");
 

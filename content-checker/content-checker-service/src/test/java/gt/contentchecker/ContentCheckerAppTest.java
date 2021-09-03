@@ -1,4 +1,4 @@
-package gt.profanity;
+package gt.contentchecker;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Slf4j
-class ProfanityCheckerAppTest {
+class ContentCheckerAppTest {
 
     @Test
     void contextLoads() {

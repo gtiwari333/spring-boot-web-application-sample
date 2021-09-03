@@ -1,4 +1,4 @@
-package gt.profanity;
+package gt.contentchecker;
 
 import lombok.Data;
 

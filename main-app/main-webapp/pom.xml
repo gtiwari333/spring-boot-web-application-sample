@@ -57,7 +57,7 @@
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
-            <artifactId>profanity-checker-service-model</artifactId>
+            <artifactId>content-checkerservice-model</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
@@ -402,7 +402,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory
+                    </wroManagerFactory>
                     <cssDestinationFolder>${project.build.directory}/classes/static/css</cssDestinationFolder>
                     <jsDestinationFolder>${project.build.directory}/classes/static/js</jsDestinationFolder>
                     <wroFile>${basedir}/src/main/resources/wro.xml</wroFile>
@@ -431,7 +432,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
 
         </plugins>
