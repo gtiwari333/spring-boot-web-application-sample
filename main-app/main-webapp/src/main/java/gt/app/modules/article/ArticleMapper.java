@@ -3,16 +3,15 @@ package gt.app.modules.article;
 import gt.app.domain.Article;
 import gt.app.domain.Comment;
 import gt.app.domain.ReceivedFile;
-import gt.common.dtos.ArticleCreatedEventDto;
+import gt.common.dtos.ArticleSummaryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-import org.springframework.transaction.annotation.Transactional;
 
 @Mapper
-interface ArticleMapper {
+public interface ArticleMapper {
 
     ArticleMapper INSTANCE = Mappers.getMapper(ArticleMapper.class);
 
@@ -49,8 +48,9 @@ interface ArticleMapper {
     ArticlePreviewDto.FileInfo map(ReceivedFile receivedFile);
 
     @Mapping(source = "createdByUser.username", target = "username")
-    @Transactional
-    ArticleCreatedEventDto mapForPublishedEvent(Article article);
+    ArticleSummaryDto mapForPublishedEvent(Article article);
+
+    ArticleSummaryDto mapForPublishedEvent(ArticleReadDto article);
 
     @Named("substringArticleContent")//will do custom transformation once we move to  Markdown format
     default String substringArticleContent(String content) {

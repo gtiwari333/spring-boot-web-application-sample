@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class ArticleCreatedEventDto implements Serializable {
+public class ArticleSummaryDto implements Serializable {
 
     private static final long serialVersionUID = -1007949715L;
 

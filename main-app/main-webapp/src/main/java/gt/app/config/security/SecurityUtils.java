@@ -58,8 +58,9 @@ public final class SecurityUtils {
             String userId = idToken.getPreferredUsername();
             String firstName = idToken.getGivenName();
             String lastName = idToken.getFamilyName();
+            String email = idToken.getEmail();
 
-            userDetailsOpt = new AppUserDetails(new User(id, userId, firstName, lastName), kcToken.getAuthorities());
+            userDetailsOpt = new AppUserDetails(new User(id, userId, firstName, lastName, email), kcToken.getAuthorities());
         }
 
         return userDetailsOpt;

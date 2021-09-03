@@ -14,8 +14,8 @@
     </parent>
 
     <modules>
-        <module>content-checkerservice</module>
-        <module>content-checkerservice-model</module>
+        <module>content-checker-service</module>
+        <module>content-checker-service-model</module>
     </modules>
 
 </project>

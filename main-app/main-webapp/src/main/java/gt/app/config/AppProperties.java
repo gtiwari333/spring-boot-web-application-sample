@@ -9,6 +9,7 @@ public class AppProperties {
 
     final FileStorage fileStorage = new FileStorage();
     final JmsProps jms = new JmsProps();
+    final Email email = new Email();
 
     @Data
     public static class FileStorage {
@@ -17,9 +18,14 @@ public class AppProperties {
 
     @Data
     public static class JmsProps {
-        String profanityCheckerRequestQueue;
-        String profanityCheckerCallBackResponseQueue;
+        String contentCheckerRequestQueue;
+        String contentCheckerCallBackResponseQueue;
     }
 
+    @Data
+    public static class Email {
+        String authorNotificationsFromEmail = "no-reply@system";
+        String authorNotificationsFromName = "Article App";
+    }
 
 }

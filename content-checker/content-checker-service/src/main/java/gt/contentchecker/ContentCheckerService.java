@@ -45,9 +45,9 @@ class ContentCheckHandler {
     final JmsTemplate jmsTemplate;
     final ContentChecker checker;
 
-    @JmsListener(destination = "${jms.content-checkerrequest-queue}")
+    @JmsListener(destination = "${jms.content-checker-request-queue}")
     void onMessage(Request msg) {
-        log.info("Received msg for profanity check {}", msg);
+        log.info("Received msg for content check {}", msg);
 
         var result = checker.isOkay(msg.text);
 
@@ -62,9 +62,18 @@ class ContentCheckHandler {
 class ContentChecker {
 
     private final List<String> badWords = List.of("fuck", "suck", "ass");
+    private final List<String> controversial = List.of("party", "politics", "libtard", "freedom", "conspiracy", "snowflake");
 
-    boolean isOkay(String text) {
-        return Stream.of(text.split(" ")).anyMatch(badWords::contains);
+    ContentCheckOutcome isOkay(String text) {
+        if (Stream.of(text.split(" ")).anyMatch(badWords::contains)) {
+            return ContentCheckOutcome.FAILED;
+        }
+
+        if (Stream.of(text.split(" ")).anyMatch(controversial::contains)) {
+            return ContentCheckOutcome.MANUAL_REVIEW_NEEDED;
+        }
+
+        return ContentCheckOutcome.PASSED;
     }
 
 }

@@ -57,7 +57,7 @@
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
-            <artifactId>content-checkerservice-model</artifactId>
+            <artifactId>content-checker-service-model</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
@@ -243,6 +243,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!--spring cloud contract stubs -->
+<!--        <dependency>-->
+<!--            <groupId>gt.app</groupId>-->
+<!--            <artifactId>email-service</artifactId>-->
+<!--            <classifier>stub</classifier>-->
+<!--            <version>${project.parent.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>*</groupId>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
         <!-- test only dependencies -->
     </dependencies>
 

@@ -1,6 +1,6 @@
 package gt.trend;
 
-import gt.common.dtos.ArticleCreatedEventDto;
+import gt.common.dtos.ArticleSummaryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,7 +33,13 @@ public class TrendServiceApp {
     }
 
     @JmsListener(destination = "article-published")
-    void onMessage(ArticleCreatedEventDto msg) {
+    void onArticlePublished(ArticleSummaryDto msg) {
+        log.info("Received msg for trend calculation {}", msg);
+    }
+
+
+    @JmsListener(destination = "article-read")
+    void onArticleRead(ArticleSummaryDto msg) {
         log.info("Received msg for trend calculation {}", msg);
     }
 

@@ -49,7 +49,7 @@ app-properties:
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
     jms:
-        content-checkerrequest-queue: jms-content-checkerrequestqueue
+        content-checkerrequest-queue: jms-content-checker-requestqueue
         content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
 
 

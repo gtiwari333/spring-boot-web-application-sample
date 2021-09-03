@@ -101,7 +101,7 @@
                 <version>${app.version}</version>
             </dependency>
             <dependency>
-                <artifactId>content-checkerservice-model</artifactId>
+                <artifactId>content-checker-service-model</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>

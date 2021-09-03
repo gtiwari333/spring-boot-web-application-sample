@@ -11,4 +11,4 @@ server:
     port: 8083
 
 jms:
-    content-checkerrequest-queue: jms-content-checkerrequestqueue
+    content-checkerrequest-queue: jms-content-checker-requestqueue

@@ -1,7 +1,9 @@
 package gt.app.modules.article
 
+
 import gt.app.domain.Article
 import gt.app.modules.file.FileService
+import gt.app.modules.review.ContentCheckRequestService
 import org.springframework.jms.core.JmsTemplate
 import spock.lang.Specification
 
@@ -12,14 +14,16 @@ class ArticleServiceSpec extends Specification {
     JmsTemplate jmsTemplate;
     CommentRepository commentRepo;
     ArticleService articleService
+    ContentCheckRequestService contentCheckRequestService
 
     def setup() {
-        articleRepository = Mock();
+        articleRepository = Mock()
         fileService = Mock()
         jmsTemplate = Mock()
         commentRepo = Mock()
         commentRepo = Mock()
-        articleService = new ArticleService(articleRepository, fileService, jmsTemplate, commentRepo)
+        contentCheckRequestService = Mock()
+        articleService = new ArticleService(articleRepository, fileService, jmsTemplate, commentRepo, contentCheckRequestService)
     }
 
     def 'save article'() {

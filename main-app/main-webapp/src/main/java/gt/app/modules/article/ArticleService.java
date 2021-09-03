@@ -4,6 +4,7 @@ import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
+import gt.app.modules.review.ContentCheckRequestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +24,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -35,6 +35,7 @@ public class ArticleService {
     private final FileService fileService;
     private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
+    private final ContentCheckRequestService contentCheckRequestService;
 
     @Caching(
         evict = {
@@ -67,10 +68,11 @@ public class ArticleService {
 
         Article article = ArticleMapper.INSTANCE.createToEntity(dto);
         article.getAttachedFiles().addAll(files);
+        article.setStatus(ArticleStatus.UNDER_AUTO_REVIEW);
 
         save(article);
 
-        articleRepository.findOneWithUserById(article.getId()).ifPresent(a -> jmsTemplate.convertAndSend("article-published", ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a)));
+        contentCheckRequestService.sendForAutoContentReview(article);
 
         return article;
     }
@@ -94,12 +96,15 @@ public class ArticleService {
     @Cacheable(cacheNames = "articleRead", key = "#id")
     public ArticleReadDto read(Long id) {
         //TODO: filter out unpublished comments - write a jooq or querydsl query
-        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
+        ArticleReadDto dto = articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
             .map(ArticleMapper.INSTANCE::mapForRead)
             .map(this::mapNested)
             .orElseThrow();
-    }
 
+        jmsTemplate.convertAndSend("article-read", ArticleMapper.INSTANCE.mapForPublishedEvent(dto));
+
+        return dto;
+    }
 
     protected ArticleReadDto mapNested(ArticleReadDto s) {
         ArticleReadDto d = new ArticleReadDto();
@@ -113,7 +118,6 @@ public class ArticleService {
                 ArticleReadDto.CommentDto parent = findParentWithId(s, c.parentCommentId);
                 parent.getChildComments().add(c);
             }
-
         }
 
         return d;
@@ -139,13 +143,13 @@ public class ArticleService {
 
     @Cacheable(cacheNames = "articleForReview", key = "#id")
     public ArticlePreviewDto readForReview(Long id) {
-        return articleRepository.findOneWithUserAndAttachedFilesByIdAndStatus(id, ArticleStatus.FLAGGED)
+        return articleRepository.findOneWithUserAndAttachedFilesByIdAndStatus(id, ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW)
             .map(ArticleMapper.INSTANCE::mapForReview)
             .orElseThrow();
     }
 
     public Page<ArticlePreviewDto> getAllToReview(Pageable pageable) {
-        return articleRepository.findWithUserAndAttachedFilesByStatus(ArticleStatus.FLAGGED, pageable)
+        return articleRepository.findWithUserAndAttachedFilesByStatus(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
 
@@ -173,7 +177,7 @@ public class ArticleService {
         }
     )
     public Optional<Article> handleReview(ArticleReviewResultDto dto) {
-        return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED)
+        return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW)
             .map(n -> {
                 n.setStatus(dto.getVerdict());
                 return save(n);
@@ -181,8 +185,15 @@ public class ArticleService {
     }
 
     public void testCountStatuses() {
-        log.info("Size of flagged articles {}", articleRepository.findArticles(ArticleStatus.FLAGGED).size());
-        log.info("Size of flagged articles {}", articleRepository.countArticles(ArticleStatus.FLAGGED));
+        log.info("Size of flagged articles {}", articleRepository.findArticles(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW).size());
+        log.info("Size of flagged articles {}", articleRepository.countArticles(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW));
     }
 
+    public Optional<Article> findById(Long id) {
+        return articleRepository.findById(id);
+    }
+
+    public Optional<Article> findOneWithUserById(Long id) {
+        return articleRepository.findOneWithUserById(id);
+    }
 }

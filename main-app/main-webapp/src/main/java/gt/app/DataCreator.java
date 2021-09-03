@@ -53,14 +53,14 @@ public class DataCreator {
         }
 
         //ID and login are linked with the keycloak export json
-        User adminUser = new User(systemUserId, "system", "System", "Tiwari");
+        User adminUser = new User(systemUserId, "system", "System", "Tiwari", "system@email");
         userService.save(adminUser);
 
-        User user1 = new User("d1460f56-7f7e-43e1-8396-bddf39dba08f", "user1", "Ganesh", "Tiwari");
+        User user1 = new User("d1460f56-7f7e-43e1-8396-bddf39dba08f", "user1", "Ganesh", "Tiwari", "user1@email");
         userService.save(user1);
 
 
-        User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel");
+        User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel", "user2@email");
         userService.save(user2);
 
         createArticle(adminUser, "Admin's First Article", "Content1 Admin");

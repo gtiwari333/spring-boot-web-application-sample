@@ -32,7 +32,7 @@ logging.level:
 
 app-properties:
     jms:
-        content-checkerrequest-queue: jms-content-checkerrequestqueue
+        content-checkerrequest-queue: jms-content-checker-requestqueue
         content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
 
     file-storage:

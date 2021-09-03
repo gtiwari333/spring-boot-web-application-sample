@@ -2,11 +2,13 @@ package gt.app.modules.article;
 
 import gt.app.domain.Comment;
 import gt.app.exception.RecordNotFoundException;
+import gt.app.modules.review.ContentCheckRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,7 +17,11 @@ public class CommentService {
 
     final ArticleRepository articleRepository;
     final CommentRepository commentRepository;
-    final ProfanityCheckerService profanityChecker;
+    final ContentCheckRequestService contentCheckRequestService;
+
+    public Optional<Comment> findById(Long id) {
+        return commentRepository.findById(id);
+    }
 
     @CacheEvict(cacheNames = {"articleRead"}, key = "#c.articleId")
     public Comment save(Comment c) {
@@ -36,7 +42,7 @@ public class CommentService {
 
         save(comment);
 
-        profanityChecker.handleProfanityCheck(comment);
+        contentCheckRequestService.sendForAutoContentReview(comment);
     }
 
 

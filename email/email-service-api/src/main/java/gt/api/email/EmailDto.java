@@ -1,6 +1,7 @@
 package gt.api.email;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,9 +9,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Data
+@Builder
 public class EmailDto {
 
-    String from;
+    String fromName;
+    String fromEmail;
     Collection<String> to = new HashSet<>();
     Collection<String> cc = new HashSet<>();
     Collection<String> bcc = new HashSet<>();
@@ -22,6 +25,7 @@ public class EmailDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     public static class FileBArray {
         byte[] data;
         String filename;
@@ -30,7 +34,8 @@ public class EmailDto {
     @Override
     public String toString() {
         return "EmailDto{" +
-            "from='" + from + '\'' +
+            "fromName='" + fromName + '\'' +
+            "fromEmail='" + fromEmail + '\'' +
             ", to=" + to +
             ", cc=" + cc +
             ", bcc=" + bcc +

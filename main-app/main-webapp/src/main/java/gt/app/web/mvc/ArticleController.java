@@ -46,7 +46,7 @@ public class ArticleController {
 
         Article article = articleService.createArticle(articleDto);
 
-        redirectAttrs.addFlashAttribute("success", "Article with title " + article.getTitle() + " is created");
+        redirectAttrs.addFlashAttribute("success", "Article with title " + article.getTitle() + " is received and being analyzed");
 
         return "redirect:/";
     }

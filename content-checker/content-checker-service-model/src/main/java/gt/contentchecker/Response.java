@@ -6,13 +6,13 @@ import java.io.Serializable;
 
 @Data
 public class Response implements Serializable {
-    boolean allowed;
+    ContentCheckOutcome contentCheckOutcome;
     String entityId;
     Request.RequestType requestType;
 
-    public static Response withResult(Request msg, boolean result) {
+    public static Response withResult(Request msg, ContentCheckOutcome result) {
         var resp = new Response();
-        resp.setAllowed(result);
+        resp.setContentCheckOutcome(result);
         resp.setEntityId(msg.entityId);
         resp.setRequestType(msg.requestType);
 

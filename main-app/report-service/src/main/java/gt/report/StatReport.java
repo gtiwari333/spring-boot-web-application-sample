@@ -21,7 +21,7 @@ public class StatReport {
     @Scheduled(fixedRate = 1000)
     public void run() {
         Result<GArticleRecord> a = db.selectFrom(G_ARTICLE)
-            .where(G_ARTICLE.STATUS.eq(ArticleStatus.FLAGGED.name()))
+            .where(G_ARTICLE.STATUS.eq(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW.name()))
             .fetch();
 
         System.out.println(a.size());

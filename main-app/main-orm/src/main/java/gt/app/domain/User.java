@@ -26,15 +26,19 @@ public class User {
     @Column(nullable = false)
     private String username; //doesn't need to be unique (multi-tenacy)
 
+    @Column(nullable = false)
+    private String email; //doesn't need to be unique (multi-tenacy)
+
     public User() {
 
     }
 
-    public User(String id, String username, String firstName, String lastName) {
+    public User(String id, String username, String firstName, String lastName, String email) {
         this.id = UUID.fromString(id);
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 
     @Override
@@ -44,6 +48,7 @@ public class User {
             "username='" + username + '\'' +
             "firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
             '}';
     }
 }

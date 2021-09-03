@@ -10,7 +10,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>content-checkerservice-model</artifactId>
+    <artifactId>content-checker-service-model</artifactId>
 
     <properties>
         <app.version>${project.parent.version}</app.version>
