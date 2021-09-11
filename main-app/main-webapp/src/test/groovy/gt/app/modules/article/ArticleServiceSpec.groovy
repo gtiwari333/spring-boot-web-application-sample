@@ -31,7 +31,7 @@ class ArticleServiceSpec extends Specification {
         def article = new Article()
 
         when:
-        Article created = articleService.save(article)
+        Article created = articleRepository.save(article)
 
         then:
         1 * articleRepository.save(article)
