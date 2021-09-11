@@ -1,4 +1,4 @@
-package gt.app.frwk;
+package gt.app.config;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import lombok.extern.slf4j.Slf4j;

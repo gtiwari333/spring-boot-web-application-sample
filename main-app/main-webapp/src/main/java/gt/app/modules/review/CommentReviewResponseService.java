@@ -2,7 +2,7 @@ package gt.app.modules.review;
 
 import gt.app.domain.Comment;
 import gt.app.domain.CommentStatus;
-import gt.app.modules.article.CommentService;
+import gt.app.modules.article.CommentRepository;
 import gt.contentchecker.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 class CommentReviewResponseService {
 
-    private final CommentService commentService;
+    private final CommentRepository commentRepository;
 
     void handle(Response resp) {
-        Comment c = commentService.findById(Long.valueOf(resp.getEntityId())).orElseThrow();
+        Comment c = commentRepository.findById(Long.valueOf(resp.getEntityId())).orElseThrow();
         switch (resp.getContentCheckOutcome()) {
 
             case PASSED:
@@ -30,6 +30,6 @@ class CommentReviewResponseService {
                 throw new UnsupportedOperationException();
         }
 
-        commentService.save(c);
+        commentRepository.save(c);
     }
 }

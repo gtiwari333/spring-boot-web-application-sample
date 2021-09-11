@@ -2,13 +2,11 @@ package gt.app.modules.article;
 
 import gt.app.domain.Comment;
 import gt.app.exception.RecordNotFoundException;
-import gt.app.modules.review.ContentCheckRequestService;
+import gt.app.modules.review.ContentCheckService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,18 +15,8 @@ public class CommentService {
 
     final ArticleRepository articleRepository;
     final CommentRepository commentRepository;
-    final ContentCheckRequestService contentCheckRequestService;
+    final ContentCheckService contentCheckService;
 
-    public Optional<Comment> findById(Long id) {
-        return commentRepository.findById(id);
-    }
-
-    @CacheEvict(cacheNames = {"articleRead"}, key = "#c.articleId")
-    public Comment save(Comment c) {
-        return commentRepository.save(c);
-    }
-
-    @CacheEvict(cacheNames = {"articleRead"}, key = "#c.articleId")
     public void save(NewCommentDto c) {
         Comment comment = new Comment(c.content, c.articleId);
 
@@ -40,9 +28,9 @@ public class CommentService {
             comment.setParentCommentId(c.parentCommentId);
         }
 
-        save(comment);
+        commentRepository.save(comment);
 
-        contentCheckRequestService.sendForAutoContentReview(comment);
+        contentCheckService.sendForAutoContentReview(comment);
     }
 
 

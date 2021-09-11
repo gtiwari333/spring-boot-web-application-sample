@@ -6,7 +6,7 @@ import gt.app.config.AppProperties;
 import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
 import gt.app.modules.article.ArticleMapper;
-import gt.app.modules.article.ArticleService;
+import gt.app.modules.article.ArticleRepository;
 import gt.contentchecker.ContentCheckOutcome;
 import gt.contentchecker.Response;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 class ArticleReviewResponseService {
-    private final ArticleService articleService;
+    private final ArticleRepository articleRepository;
     private final JmsTemplate jmsTemplate;
     private final EmailClient emailClient;
     private final AppProperties appProperties;
 
     void handle(Response resp) {
-        Article a = articleService.findOneWithUserById(Long.valueOf(resp.getEntityId())).orElseThrow();
+        Article a = articleRepository.findOneWithUserById(Long.valueOf(resp.getEntityId())).orElseThrow();
         switch (resp.getContentCheckOutcome()) {
 
             case PASSED:
@@ -43,7 +43,7 @@ class ArticleReviewResponseService {
                 throw new UnsupportedOperationException();
         }
 
-        articleService.save(a);
+        articleRepository.save(a);
 
         if (resp.getContentCheckOutcome() == ContentCheckOutcome.PASSED) {
             jmsTemplate.convertAndSend("article-published", ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a));

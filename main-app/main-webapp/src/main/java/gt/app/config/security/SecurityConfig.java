@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig {
+class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
         "/swagger-resources/**",

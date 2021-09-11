@@ -3,7 +3,6 @@ package gt.app.e2e;
 import gt.app.e2e.pageobj.*;
 import gt.app.frwk.BaseSeleniumTest;
 import gt.app.frwk.TestDataManager;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +114,9 @@ class WebAppIT extends BaseSeleniumTest {
         page.postArticle("New Title", "New Content");
 
         page.body()
-            .shouldHave(text("Article with title New Title is received and being analyzed"));
+            .shouldHave(text("Article with title New Title is received and being analyzed"))
+            .shouldHave(text("New Content"));
+
     }
 
     private void testUser1Page(UserArticleListingPage userArticleListingPage) {
@@ -131,8 +132,11 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("DSL Title Blocked"))
 
             .shouldNotHave(text("DSL Content Flagged"))
-            .shouldNotHave(text("DSL Content Blocked"));
+            .shouldNotHave(text("DSL Content Blocked"))
 
+            //previously created article
+            .shouldHave(text("New Title"))
+            .shouldHave(text("New Content"));
 
         /*
          POST article
@@ -142,12 +146,13 @@ class WebAppIT extends BaseSeleniumTest {
         LoggedInHomePage homePage = newArticlePage.postArticle("Another Title", "Another Content");
 
         homePage.body()
-            .shouldHave(text("Article with title Another Title is received and being analyzed"));
+            .shouldHave(text("Article with title Another Title is received and being analyzed"))
+            .shouldHave(text("Another Content"));
 
         //go back to user page again
         userArticleListingPage = homePage.openUsersArticlePage();
 
-        //edit newly created article
+        //edit previously created article - newly created article might be
         ArticleEditPage editPage = userArticleListingPage.editArticle(1);
         editPage.body().shouldHave(text("Update Article"));
 
@@ -169,16 +174,17 @@ class WebAppIT extends BaseSeleniumTest {
         homePage = newArticlePage.postArticle("Title with file", "Content with file", "blob/test.txt", "blob/test2.txt");
 
         homePage.body()
-            .shouldHave(text("Article with title Title with file is received and being analyzed"));
-
+            .shouldHave(text("Article with title Title with file is received and being analyzed"))
+            .shouldHave(text("Title with file"))
+            .shouldHave(text("Content with file"))
+            .shouldHave(text("test2.txt"))
+            .shouldHave(text("test.txt"));
         //go back to user page again
         userArticleListingPage = homePage.openUsersArticlePage();
 
-        //preload an article with attached files
-//        Assertions.assertEquals(2, userArticleListingPage.downloadFiles(1).size());
-
         //delete
         UserArticleListingPage publicPage = userArticleListingPage
+            .deletePage(1)
             .deletePage(1);
         publicPage.body()
             .shouldHave(text("Article with id"))

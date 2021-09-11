@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class SecurityAuditorResolver implements AuditorAware<User> {
+class SecurityAuditorResolver implements AuditorAware<User> {
 
     private final EntityManager entityManager;
 

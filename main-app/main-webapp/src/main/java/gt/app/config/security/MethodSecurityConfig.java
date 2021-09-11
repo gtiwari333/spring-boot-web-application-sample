@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
+class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     private final AppPermissionEvaluatorService permissionEvaluator;
     private final ApplicationContext applicationContext;

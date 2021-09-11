@@ -37,6 +37,9 @@ public class ReceivedFile {
         this.id = UUID.randomUUID();
     }
 
+    /**
+     * this can resemble S3 bucket
+     */
     public enum FileGroup {
         NOTE_ATTACHMENT("attachments"),
         ;

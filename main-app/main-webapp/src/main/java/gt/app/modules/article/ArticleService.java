@@ -4,13 +4,11 @@ import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
-import gt.app.modules.review.ContentCheckRequestService;
+import gt.app.modules.review.ContentCheckService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,24 +33,8 @@ public class ArticleService {
     private final FileService fileService;
     private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
-    private final ContentCheckRequestService contentCheckRequestService;
+    private final ContentCheckService contentCheckService;
 
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#article.id"),
-            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
-        }
-    )
-    public Article save(Article article) {
-        return articleRepository.save(article);
-    }
-
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#result.id"),
-            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
-        }
-    )
     public Article createArticle(ArticleCreateDto dto) {
 
         List<ReceivedFile> files = new ArrayList<>();
@@ -70,25 +52,19 @@ public class ArticleService {
         article.getAttachedFiles().addAll(files);
         article.setStatus(ArticleStatus.UNDER_AUTO_REVIEW);
 
-        save(article);
+        articleRepository.save(article);
 
-        contentCheckRequestService.sendForAutoContentReview(article);
+        contentCheckService.sendForAutoContentReview(article);
 
         return article;
     }
 
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#result.id"),
-            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
-        }
-    )
     public Article update(ArticleEditDto dto) {
 
         Optional<Article> articleOpt = articleRepository.findWithFilesAndUserById(dto.getId());
         return articleOpt.map(article -> {
                 ArticleMapper.INSTANCE.createToEntity(dto, article);
-                return save(article);
+                return articleRepository.save(article);
             }
         ).orElseThrow();
     }
@@ -154,12 +130,6 @@ public class ArticleService {
     }
 
     @Transactional
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#id"),
-            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
-        }
-    )
     public void delete(Long id) {
         commentRepo.deleteByArticleId(id);
         articleRepository.deleteById(id);
@@ -170,17 +140,11 @@ public class ArticleService {
         return articleRepository.findCreatedByUserIdById(articleId);
     }
 
-    @Caching(
-        evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#dto.id"),
-            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
-        }
-    )
     public Optional<Article> handleReview(ArticleReviewResultDto dto) {
         return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW)
             .map(n -> {
                 n.setStatus(dto.getVerdict());
-                return save(n);
+                return articleRepository.save(n);
             });
     }
 
@@ -189,11 +153,4 @@ public class ArticleService {
         log.info("Size of flagged articles {}", articleRepository.countArticles(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW));
     }
 
-    public Optional<Article> findById(Long id) {
-        return articleRepository.findById(id);
-    }
-
-    public Optional<Article> findOneWithUserById(Long id) {
-        return articleRepository.findOneWithUserById(id);
-    }
 }

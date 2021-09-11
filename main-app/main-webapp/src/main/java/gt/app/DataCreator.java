@@ -2,8 +2,8 @@ package gt.app;
 
 import gt.app.config.AppProperties;
 import gt.app.domain.*;
-import gt.app.modules.article.ArticleService;
-import gt.app.modules.article.CommentService;
+import gt.app.modules.article.ArticleRepository;
+import gt.app.modules.article.CommentRepository;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,8 @@ import java.util.stream.Stream;
 public class DataCreator {
 
     final UserService userService;
-    final ArticleService articleService;
-    final CommentService commentService;
+    final ArticleRepository articleRepository;
+    final CommentRepository commentRepository;
     final AppProperties appProperties;
 
     @EventListener
@@ -67,9 +67,6 @@ public class DataCreator {
         createArticle(adminUser, "Admin's Second Article", "Content2 Admin");
         createArticle(user1, "User1 Article", "Content User 1");
         createArticle(user2, "User2 Article", "Content User 2");
-
-        articleService.testCountStatuses();
-
     }
 
     void createArticle(User user, String title, String content) {
@@ -78,14 +75,14 @@ public class DataCreator {
         n.setTitle(title);
         n.setContent(content);
 
-        articleService.save(n);
+        articleRepository.save(n);
 
         Comment c = new Comment();
         c.setStatus(CommentStatus.SHOWING);
         c.setContent("Test comment for " + title);
         c.setArticleId(n.getId());
         c.setCreatedByUser(user); //self
-        commentService.save(c);
+        commentRepository.save(c);
 
     }
 
