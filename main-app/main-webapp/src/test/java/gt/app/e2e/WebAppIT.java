@@ -115,8 +115,7 @@ class WebAppIT extends BaseSeleniumTest {
         page.postArticle("New Title", "New Content");
 
         page.body()
-            .shouldHave(text("New Title"))
-            .shouldHave(text("New Content"));
+            .shouldHave(text("Article with title New Title is received and being analyzed"));
     }
 
     private void testUser1Page(UserArticleListingPage userArticleListingPage) {
@@ -132,11 +131,7 @@ class WebAppIT extends BaseSeleniumTest {
             .shouldNotHave(text("DSL Title Blocked"))
 
             .shouldNotHave(text("DSL Content Flagged"))
-            .shouldNotHave(text("DSL Content Blocked"))
-
-            //previously created article
-            .shouldHave(text("New Title"))
-            .shouldHave(text("New Content"));
+            .shouldNotHave(text("DSL Content Blocked"));
 
 
         /*
@@ -147,8 +142,7 @@ class WebAppIT extends BaseSeleniumTest {
         LoggedInHomePage homePage = newArticlePage.postArticle("Another Title", "Another Content");
 
         homePage.body()
-            .shouldHave(text("Another Title"))
-            .shouldHave(text("Another Content"));
+            .shouldHave(text("Article with title Another Title is received and being analyzed"));
 
         //go back to user page again
         userArticleListingPage = homePage.openUsersArticlePage();
@@ -175,19 +169,16 @@ class WebAppIT extends BaseSeleniumTest {
         homePage = newArticlePage.postArticle("Title with file", "Content with file", "blob/test.txt", "blob/test2.txt");
 
         homePage.body()
-            .shouldHave(text("Title with file"))
-            .shouldHave(text("Content with file"))
-            .shouldHave(text("test2.txt"))
-            .shouldHave(text("test.txt"));
+            .shouldHave(text("Article with title Title with file is received and being analyzed"));
 
         //go back to user page again
         userArticleListingPage = homePage.openUsersArticlePage();
 
-        Assertions.assertEquals(2, userArticleListingPage.downloadFiles(1).size());
+        //preload an article with attached files
+//        Assertions.assertEquals(2, userArticleListingPage.downloadFiles(1).size());
 
         //delete
         UserArticleListingPage publicPage = userArticleListingPage
-            .deletePage(1)
             .deletePage(1);
         publicPage.body()
             .shouldHave(text("Article with id"))

@@ -1,5 +1,5 @@
 package gt.app.domain;
 
 public enum ArticleStatus {
-    FLAGGED, UNDER_REVIEW, BLOCKED, PUBLISHED
+    FLAGGED_FOR_MANUAL_REVIEW, UNDER_AUTO_REVIEW, BLOCKED, PUBLISHED
 }

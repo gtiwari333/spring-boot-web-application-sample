@@ -1,6 +1,5 @@
 package contracts.email
 
-
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
@@ -10,15 +9,15 @@ Contract.make {
         url "/sendEmail"
         method POST()
         body([
-            from   : 'test@email.com',
-            subject: 'Test',
-            content: 'Body',
-            isHtml : false,
-            files  : [],
-            to     : ['recep@emai.com'],
-            cc     : [],
-            bcc    : [],
-
+            fromEmail: 'test@email.com',
+            fromName : 'test name',
+            subject  : 'Test',
+            content  : 'Body',
+            isHtml   : false,
+            files    : [],
+            to       : ['recep@emai.com'],
+            cc       : [],
+            bcc      : [],
         ])
         headers {
             contentType applicationJson()

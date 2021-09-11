@@ -29,6 +29,8 @@ public class DockerContainerConfig {
 
 
     static {
+        log.info("Starting docker containers using TestContainers");
+
         String userPwd = "admin";//use same for all
 
         var mysql = new MySQLContainer<>("mysql:8.0.25").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
@@ -54,6 +56,7 @@ public class DockerContainerConfig {
         setProperty("MYSQL_USERNAME", userPwd);
         setProperty("MYSQL_PASSWORD", userPwd);
 
+        log.info("Started docker containers using TestContainers");
     }
 
 }

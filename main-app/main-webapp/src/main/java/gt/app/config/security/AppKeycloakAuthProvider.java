@@ -37,6 +37,7 @@ public class AppKeycloakAuthProvider extends KeycloakAuthenticationProvider {
         String userId = idToken.getPreferredUsername();
         String firstName = idToken.getGivenName();
         String lastName = idToken.getFamilyName();
+        String email = idToken.getEmail();
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
@@ -44,7 +45,7 @@ public class AppKeycloakAuthProvider extends KeycloakAuthenticationProvider {
             grantedAuthorities.add(new KeycloakRole(role));
         }
 
-        User user = new User(id, userId, firstName, lastName);
+        User user = new User(id, userId, firstName, lastName, email);
         userService.updateUserIfNeeded(user);
 
         AppUserDetails userDetails = new AppUserDetails(user, grantedAuthorities);
