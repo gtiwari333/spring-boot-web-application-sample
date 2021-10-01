@@ -19,23 +19,23 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.0-M2</version>
+        <version>2.6.0-M3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.6.0-M2</spring-boot.version>
         <springdoc-openapi-ui.version>1.5.10</springdoc-openapi-ui.version>
         <spring-cloud.version>2021.0.0-M1</spring-cloud.version>
         <hibernate-types52.version>2.12.1</hibernate-types52.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.0.Beta1</mapstruct.version>
 
-        <selenide.version>5.24.2</selenide.version>
+        <selenide.version>5.24.4</selenide.version>
         <google-guava.version>30.1.1-jre</google-guava.version>
         <keycloak-spring-boot-starter.version>15.0.2</keycloak-spring-boot-starter.version>
         <wro4j.version>1.8.0</wro4j.version>
@@ -46,16 +46,18 @@
         <webjar-jquery.version>3.6.0</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
 
-        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <spock-version>2.0-groovy-3.0</spock-version>
         <objenesis.version>3.2</objenesis.version>
 
-        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <!-- plugins -->
+        <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>8.34</puppycrawl.checkstyle.version>
-        <gmavenplus.version>1.12.0</gmavenplus.version>
+        <puppycrawl.checkstyle.version>9.0</puppycrawl.checkstyle.version>
+        <gmavenplus.version>1.13.0</gmavenplus.version>
         <maven-processor-plugin.version>4.2</maven-processor-plugin.version>
+        <modernizer-maven-plugin.version>2.3.0</modernizer-maven-plugin.version>
     </properties>
 
 
@@ -196,6 +198,28 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.gaul</groupId>
+                <artifactId>modernizer-maven-plugin</artifactId>
+                <version>${modernizer-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>modernizer</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>modernizer</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <javaVersion>${java.version}</javaVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <repository>
