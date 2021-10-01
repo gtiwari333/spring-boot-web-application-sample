@@ -43,15 +43,10 @@ public final class SecurityUtils {
 
         AppUserDetails userDetailsOpt = null;
 
-        if (authentication instanceof CurrentUserToken) {
-            CurrentUserToken kcToken = (CurrentUserToken) authentication;
-
+        if (authentication instanceof CurrentUserToken kcToken) {
             return kcToken.getUser();
 
-        } else if (authentication instanceof KeycloakAuthenticationToken) {
-
-            KeycloakAuthenticationToken kcToken = (KeycloakAuthenticationToken) authentication;
-
+        } else if (authentication instanceof KeycloakAuthenticationToken kcToken) {
             IDToken idToken = kcToken.getAccount().getKeycloakSecurityContext().getIdToken();
 
             String id = idToken.getSubject();

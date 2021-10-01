@@ -18,16 +18,9 @@ public class ContentCheckResponseListenerService {
     void handleContentCheckResponse(Response resp) {
 
         switch (resp.getRequestType()) {
-            case COMMENT:
-                commentReviewResponseService.handle(resp);
-                break;
-
-            case ARTICLE:
-                articleReviewResponseService.handle(resp);
-                break;
-
-            default:
-                throw new UnsupportedOperationException("Article is not supported yet");
+            case COMMENT -> commentReviewResponseService.handle(resp);
+            case ARTICLE -> articleReviewResponseService.handle(resp);
+            default -> throw new UnsupportedOperationException("Article is not supported yet");
         }
 
     }

@@ -26,21 +26,10 @@ class ArticleReviewResponseService {
     void handle(Response resp) {
         Article a = articleRepository.findOneWithUserById(Long.valueOf(resp.getEntityId())).orElseThrow();
         switch (resp.getContentCheckOutcome()) {
-
-            case PASSED:
-                a.setStatus(ArticleStatus.PUBLISHED);
-                break;
-
-            case MANUAL_REVIEW_NEEDED:
-                a.setStatus(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW);
-                break;
-
-            case FAILED:
-                a.setStatus(ArticleStatus.BLOCKED);
-                break;
-
-            default:
-                throw new UnsupportedOperationException();
+            case PASSED -> a.setStatus(ArticleStatus.PUBLISHED);
+            case MANUAL_REVIEW_NEEDED -> a.setStatus(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW);
+            case FAILED -> a.setStatus(ArticleStatus.BLOCKED);
+            default -> throw new UnsupportedOperationException();
         }
 
         articleRepository.save(a);
