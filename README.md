@@ -122,6 +122,9 @@ Option 3 - run from IDE
 - import into your IDE and compile the full project and run the Application.java on main-app module
 - Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
 
+## Run Tests using Maven Daemon
+
+`mvnd test -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -o`
 
 
 Once the application starts, open  `http://localhost:8081` on your browser. The default username/passwords are listed on : gt.app.Application.initData, which are:
