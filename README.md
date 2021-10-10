@@ -4,22 +4,16 @@
 - Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
 
-#### Included Features/Samples
 
-App Architecture:
-- Multi-module Maven app
-- Modular Service/Repository components
-- Default test data created while running the app
-- Spring / Maven profiles for dev/prod/docker ...
-- Dockerfile to run images
-- Docker maven plugin to publish images (follow docker-steps.md)
-- TestContainer in both runtime(optional) and test
-- Deploy to Amazon EC2 ( follow docker-steps.md )
+### App Architecture:
+![](screenshots/architecture-diagram.png)
+
+#### Included Features/Samples
 
 MicroService:
 - Spring Sleuth based tracing
 - Exposing and implementing Open Feign clients
-- Spring Cloud Contract
+- Spring Cloud Contract (WIP)
 
 Spring MVC:
 - Public and internal pages
@@ -53,25 +47,24 @@ Persistence/Search:
 
 Test:
 - Unit/integration with JUnit 5, Mockito and Spring Test
-- e2e with Selenide, fixtures. default data generated using Spring
-- file upload/download e2e test with Selenide
-- Architecture test using ArchUnit
-- TestContainers to perform realistic integration test
 - Tests with Spock Framework (Groovy 3, Spock 2)
-- Load test with Gatling
+- e2e with Selenide, fixtures. default data generated using Spring
+- Load test with Gatling/Scala
+- Architecture test using ArchUnit
+- file upload/download e2e test with Selenide
+- TestContainers to perform realistic integration test
 
 Misc:
 - Code Generation: lombok,  mapstruct 
 - Message Queue using ActiveMQ Artemis
-- approval/flagging api - message based
+- Approval/flagging api - message based
 - Nested comment
+- Cache implemented
 
 Future: do more stuff
-- CQRS
 - CQRS with event store/streaming  
 - Spring Cloud Contract integration (WIP)
 - Docker-compose deploy/kubernetes 
-- Caching impl
 - Visitors log - IP, browser, etc
 - Centralized error reporting
 - Visual Tracing   
@@ -80,7 +73,7 @@ Future: do more stuff
 - logback LevelChangePropagator integration
 - logback error email
 - logback rolling policy
-- Example of background jobs with Quartz with a basic API/UI
+- Example of background jobs with Quartz with a basic API/UI (report-service)
 - Integrate Markdown editor for writing notes
 - rate limit by IP on public API ( article api )
 - Fetch user's avatar
@@ -90,7 +83,8 @@ Future: do more stuff
 - Signup UI
 - vendor neutral security with OIDC
 - realtime approval UI 
-
+- JfrUnit ( WIP )
+- 
 ### Requirements
 - JDK 17+
 - Lombok configured on IDE
