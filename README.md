@@ -6,8 +6,7 @@
 
 
 ### App Architecture:
-![](screenshots/architecture-diagram.png)
-
+[![Foo](https://lucid.app/publicSegments/view/8c2fa859-36bd-4559-80c7-12fb30997092/image.png)](https://lucid.app/documents/view/fa076c6e-86d3-412b-a9bc-1996dca86a1e)
 #### Included Features/Samples
 
 MicroService:
@@ -73,7 +72,6 @@ Future: do more stuff
 - logback LevelChangePropagator integration
 - logback error email
 - logback rolling policy
-- Example of background jobs with Quartz with a basic API/UI (report-service)
 - Integrate Markdown editor for writing notes
 - rate limit by IP on public API ( article api )
 - Fetch user's avatar
