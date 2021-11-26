@@ -1,8 +1,8 @@
-package gt.trend.web;
+package gt.analytics.web;
 
 import org.springframework.http.ResponseEntity;
-import trend.TrendDto;
-import trend.TrendService;
+import gt.analytics.TrendDto;
+import gt.analytics.TrendService;
 
 public class TrendController implements TrendService {
     @Override

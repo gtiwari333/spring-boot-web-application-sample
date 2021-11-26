@@ -2,8 +2,8 @@ package gt.app.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import trend.TrendDto;
-import trend.TrendService;
+import gt.analytics.TrendDto;
+import gt.analytics.TrendService;
 
 @Component
 public class TrendServiceMock implements TrendService {

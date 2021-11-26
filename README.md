@@ -98,7 +98,7 @@ It contains following applications:
 - main-app
 - email-service (optional)
 - report-service (optional)
-- trend-service (optional)
+- analytics-service (optional)
 - content-checker (optional)
 
 Option 1 - run with manually started KeyCloak and ActiveMQ servers

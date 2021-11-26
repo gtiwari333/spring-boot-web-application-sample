@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.List;
 
@@ -41,17 +43,23 @@ public class DockerContainerConfig {
         activeMQ.withExposedPorts(61616);
         activeMQ.start(); //using default ports
 
-        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:15.0.2").withRealmImportFile("keycloak/keycloak-export.json");
-        kc.start();
+        var keycloak = new KeycloakContainer("quay.io/keycloak/keycloak:15.0.2").withRealmImportFile("keycloak/keycloak-export.json");
+        keycloak.start();
 
-        setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
+        var kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
+        kafka.start();
+
+        setProperty("KAFKA_PORT", Integer.toString(kafka.getMappedPort(KafkaContainer.KAFKA_PORT)));
+
+        setProperty("KEYCLOAK_PORT", Integer.toString(keycloak.getHttpPort()));
+
         setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
         setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
         setProperty("ACTIVEMQ_ARTEMIS_USERNAME", userPwd);
         setProperty("ACTIVEMQ_ARTEMIS_PASSWORD", userPwd);
 
         setProperty("MYSQL_HOST", mysql.getHost());
-        setProperty("MYSQL_PORT", Integer.toString(mysql.getMappedPort(3306)));
+        setProperty("MYSQL_PORT", Integer.toString(mysql.getMappedPort(MySQLContainer.MYSQL_PORT)));
         setProperty("MYSQL_DB", "seedapp");
         setProperty("MYSQL_USERNAME", userPwd);
         setProperty("MYSQL_PASSWORD", userPwd);

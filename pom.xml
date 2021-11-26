@@ -12,7 +12,7 @@
         <module>main-app</module>
         <module>email</module>
         <module>common</module>
-        <module>trend</module>
+        <module>analytics</module>
         <module>content-checker</module>
     </modules>
 
@@ -98,7 +98,7 @@
                 <version>${app.version}</version>
             </dependency>
             <dependency>
-                <artifactId>trend-service-api</artifactId>
+                <artifactId>analytics-service-api</artifactId>
                 <groupId>gt.app</groupId>
                 <version>${app.version}</version>
             </dependency>
@@ -167,6 +167,11 @@
                 <version>${testcontainers.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>kafka</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${google-guava.version}</version>
@@ -216,6 +221,14 @@
                 </executions>
                 <configuration>
                     <javaVersion>${java.version}</javaVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>

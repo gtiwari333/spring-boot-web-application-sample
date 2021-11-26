@@ -1,4 +1,4 @@
-package gt.trend;
+package gt.analytics;
 
 import gt.common.dtos.ArticleSummaryDto;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +34,13 @@ public class TrendServiceApp {
 
     @JmsListener(destination = "article-published")
     void onArticlePublished(ArticleSummaryDto msg) {
-        log.info("Received msg for trend calculation {}", msg);
+        log.info("Received msg for gt.trend calculation {}", msg);
     }
 
 
     @JmsListener(destination = "article-read")
     void onArticleRead(ArticleSummaryDto msg) {
-        log.info("Received msg for trend calculation {}", msg);
+        log.info("Received msg for gt.trend calculation {}", msg);
     }
 
 }

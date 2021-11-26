@@ -1,4 +1,4 @@
-package gt.trend;
+package gt.analytics;
 
 
 import lombok.extern.slf4j.Slf4j;

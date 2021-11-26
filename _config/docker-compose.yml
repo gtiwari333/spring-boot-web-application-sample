@@ -13,7 +13,7 @@ services:
         ports:
             - 8082:8080
         networks:
-            - seedappnet
+            - appnetwork
     activemq_artemis:
         image: 'jhatdv/activemq-artemis:2.18.0'
         container_name: activemqArtemis
@@ -24,7 +24,7 @@ services:
             - 8161:8161  # use this to login
             - 61616:61616
         networks:
-            - seedappnet
+            - appnetwork
     mysql:
         image: 'mysql:8.0.25'
         environment:
@@ -34,12 +34,48 @@ services:
             - 3306:3306
         command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
         networks:
-            - seedappnet
+            - appnetwork
+    zookeeper1:
+        image: zookeeper:3.4.9
+        hostname: zookeeper1
+        ports:
+            - "2181:2181"
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_PORT: 2181
+            ZOO_SERVERS: server.1=zookeeper1:2888:3888
+        volumes:
+            - ./data/zookeeper1/data:/data
+            - ./data/zookeeper1/datalog:/datalog
+        networks:
+            - appnetwork
+    kafka1:
+        image: confluentinc/cp-kafka:5.4.3
+        hostname: kafka1
+        ports:
+            - "9093:9093"
+        environment:
+            KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093,BROKER://0.0.0.0:9092
+            KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19093,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9093
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: BROKER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+            KAFKA_INTER_BROKER_LISTENER_NAME: BROKER
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+            KAFKA_BROKER_ID: 1
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 1
+            KAFKA_LOG_FLUSH_INTERVAL_MESSAGES: 100000000000
+            KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+        volumes:
+            - ./data/kafka1/data:/var/lib/kafka/data
+        depends_on:
+            - zookeeper1
+        networks:
+            - appnetwork
 volumes:
     esdata1:
         driver: local
 networks:
-    seedappnet:
+    appnetwork:
         driver: bridge
 
 

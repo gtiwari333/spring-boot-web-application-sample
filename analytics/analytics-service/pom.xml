@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>trend</artifactId>
+        <artifactId>analytics</artifactId>
         <groupId>gt.app</groupId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>trend-service</artifactId>
+    <artifactId>analytics-service</artifactId>
 
     <properties>
         <app.version>${project.parent.version}</app.version>
@@ -23,7 +23,7 @@
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
-            <artifactId>trend-service-api</artifactId>
+            <artifactId>analytics-service-api</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
@@ -61,6 +61,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -1,4 +1,4 @@
-package trend;
+package gt.analytics;
 
 import lombok.Data;
 
