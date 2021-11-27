@@ -12,4 +12,5 @@ public class ArticleCreateDto {
     MultipartFile[] files = {};
     private String title;
     private String content;
+    private String[] tags = {};
 }

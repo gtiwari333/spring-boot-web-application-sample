@@ -34,5 +34,7 @@ public class Article extends BaseAuditingEntity implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "articleId")
     private Set<Comment> comments = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Tag> tags;
 
 }

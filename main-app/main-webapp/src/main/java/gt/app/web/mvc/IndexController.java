@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @Slf4j
@@ -20,9 +21,21 @@ public class IndexController {
 
     @GetMapping({"/", ""})
     public String index(Model model, Pageable pageable) {
-        model.addAttribute("greeting", "Hello Spring");
+        model.addAttribute("articles", articleService.previewForPublicHomePage(
+            PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending())
+        ));
+        model.addAttribute("article", new Article());
 
-        model.addAttribute("articles", articleService.previewForPublicHomePage(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending())));
+        return "landing";
+    }
+
+    @GetMapping("/tag/{name}")
+    public String byTag(Model model, Pageable pageable, @PathVariable String name) {
+        model.addAttribute("tag", name);
+
+        model.addAttribute("articles", articleService.previewForPublicHomePageByTag(
+            PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()), name
+        ));
         model.addAttribute("article", new Article());
 
         return "landing";
@@ -30,7 +43,9 @@ public class IndexController {
 
     @GetMapping("/admin")
     public String adminHome(Model model, Pageable pageable) {
-        model.addAttribute("articlesToReview", articleService.getAllToReview(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending())));
+        model.addAttribute("articlesToReview", articleService.getAllToReview(
+            PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending())
+        ));
         return "admin/admin-area";
     }
 

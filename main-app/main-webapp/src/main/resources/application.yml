@@ -24,7 +24,7 @@ logging.level:
     org.springframework.security: INFO
     org.springframework.security.web: INFO
     org.springframework.cloud: INFO
-    sql: INFO
+    sql: trace
     web: INFO
     ROOT: WARN
     gt: DEBUG

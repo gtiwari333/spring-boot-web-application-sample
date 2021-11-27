@@ -4,6 +4,7 @@ import gt.app.config.AppProperties;
 import gt.app.domain.*;
 import gt.app.modules.article.ArticleRepository;
 import gt.app.modules.article.CommentRepository;
+import gt.app.modules.tag.TagRepository;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -25,6 +28,7 @@ public class DataCreator {
     final UserService userService;
     final ArticleRepository articleRepository;
     final CommentRepository commentRepository;
+    final TagRepository tagRepository;
     final AppProperties appProperties;
 
     @EventListener
@@ -59,21 +63,27 @@ public class DataCreator {
         User user1 = new User("d1460f56-7f7e-43e1-8396-bddf39dba08f", "user1", "Ganesh", "Tiwari", "user1@email");
         userService.save(user1);
 
-
         User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel", "user2@email");
         userService.save(user2);
 
-        createArticle(adminUser, "Admin's First Article", "Content1 Admin");
-        createArticle(adminUser, "Admin's Second Article", "Content2 Admin");
-        createArticle(user1, "User1 Article", "Content User 1");
-        createArticle(user2, "User2 Article", "Content User 2");
+        Tag news = tagRepository.save(new Tag("news"));
+        Tag java = tagRepository.save(new Tag("java"));
+        Tag health = tagRepository.save(new Tag("health"));
+        Tag innovation = tagRepository.save(new Tag("innovation"));
+        Tag social = tagRepository.save(new Tag("social"));
+
+        createArticle(adminUser, "Admin's First Article", "Content1 Admin", news, java);
+        createArticle(adminUser, "Admin's Second Article", "Content2 Admin", news, java, innovation);
+        createArticle(user1, "User1 Article", "Content User 1", news, health);
+        createArticle(user2, "User2 Article", "Content User 2", news, social);
     }
 
-    void createArticle(User user, String title, String content) {
+    void createArticle(User user, String title, String content, Tag... tags) {
         var n = new Article();
         n.setCreatedByUser(user);
         n.setTitle(title);
         n.setContent(content);
+        n.setTags(Set.of(tags));
 
         articleRepository.save(n);
 

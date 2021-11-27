@@ -77,7 +77,8 @@
                     <outputChangeLogFile>src/main/resources/liquibase/changelog/${maven.build.timestamp}_changelog.xml
                     </outputChangeLogFile>
 
-                    <!--  uncomment the propertyFile and run the goal that you want -->
+                    <!--  uncomment the propertyFile and run the goal that you want,
+                    make sure to compile this module before running the liquibase goals -->
 
                     <!-- liquibase:diff -->
                     <!-- also the updateSQL, rollbackSQL, futureRollbackSQL etc are supported -->

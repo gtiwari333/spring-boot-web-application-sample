@@ -9,7 +9,14 @@
 
     <!-- works with org.springframework.data.domain.Page<pagedObject>, -->
 
-    <div th:if="${pagedObject.getTotalPages() != 1}" class="form-group col-md-11 pagination-centered">
+
+    <div th:if="${pagedObject.getTotalElements() ==0}">
+        <div class="alert alert-warning" role="alert">
+            <span>No items available.</span>
+        </div>
+    </div>
+
+    <div th:if="${pagedObject.getTotalPages() > 0}" class="form-group col-md-11 pagination-centered">
         <ul class="pagination">
             <!-- page number start with 0, totalPages returns actual number of pages -->
             <li th:classappend="${pagedObject.getNumber() == 0} ? disabled" class="page-item">
@@ -44,13 +51,6 @@
             Total: <span th:text="${pagedObject.getTotalElements()}"></span>.
 
         </p>
-    </div>
-
-
-    <div th:if="${pagedObject.getTotalElements() ==0}">
-        <div class="alert alert-warning" role="alert">
-            <span>No items available.</span>
-        </div>
     </div>
 
 

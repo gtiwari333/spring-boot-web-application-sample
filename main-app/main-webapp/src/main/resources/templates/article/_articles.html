@@ -23,12 +23,19 @@
             <span th:errors="*{content}" th:if="${#fields.hasErrors('content')}"></span>
         </div>
 
+        <!-- TODO: display previously uploaded files -->
         <div class="col-md-2 mb-3">
             <label for="fileUploadBtn">Attach Files</label>
         </div>
         <div class="col-md-3 mb-3">
             <input class="btn btn-secondary btn-sm btn-block" id="fileUploadBtn" type="file" multiple value=""
                    name="files">
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label for="title">Tags</label>
+            <input class="form-control" id="tags" placeholder="" required="" th:field="*{tags}" type="text"
+                   value="">
         </div>
 
     </div>
@@ -94,14 +101,17 @@
 
     <div class="card  shadow-sm article-preview-box">
         <div class="card-header">
-            <a th:href="@{/article/read/{id}(id=${article.id})}">
-                <h5 class="card-title"><span th:text="${article.title}"></span></h5>
-            </a>
+            <h5 class="card-title"><span th:text="${article.title}"></span></h5>
 
         </div>
 
         <div class="card-body">
-            <p class="card-text"><span th:text="${article.content}"></span></p>
+            <p class="card-text"><span th:text="${article.content}"></span>
+                <a th:href="@{/article/read/{id}(id=${article.id})}">
+                    ... Read All
+                </a>
+            </p>
+
             <div th:if="${article.files.size()>0}">
                 <hr/>
                 Attachments:
@@ -115,10 +125,14 @@
         </div>
 
         <div class="card-footer text-muted">
-            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            | By
             <span sec:authorize="isAnonymous()" th:text="${article.username}"></span>
             <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link"
                   th:text="${article.username}"></span>
+            | Tags: <span th:each="tag : ${article.tags}">
+                    <a th:href="@{/tag/{name}(name=${tag})}"><span th:text="${tag}">Tag</span></a>&nbsp;
+                </span>
         </div>
 
     </div>
@@ -148,10 +162,14 @@
         </div>
 
         <div class="card-footer text-muted">
-            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>, By
+            Posted on <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            | By
             <span sec:authorize="isAnonymous()" th:text="${article.username}"></span>
             <span sec:authorize="isAuthenticated()" th:attr="data-userid=${article.userId}" class="username-link"
                   th:text="${article.username}"></span>
+            | Tags: <span th:each="tag : ${article.tags}">
+                    <a th:href="@{/tag/{name}(name=${tag})}"><span th:text="${tag}">Tag</span></a>&nbsp;
+                </span>
         </div>
 
         <div th:if="${article.comments.size()>0}">

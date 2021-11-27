@@ -10,7 +10,6 @@
 
 <div th:replace="_fragments/header :: headerbar"></div>
 
-
 <div class="container">
 
     <div th:if="${param.logout} != null">
@@ -40,22 +39,20 @@
                 <hr/>
             </div>
 
+            <div th:if="${tag} != null">
+                <h3> Tag: <span th:text="${tag}"></span></h3>
+            </div>
+
             <th:block th:each="article : ${articles}">
                 <th:block th:replace="article/_articles :: article-preview-box">
 
                 </th:block>
             </th:block>
 
-
             <th:block th:replace="_fragments/_utils :: pagination(${articles})">
 
             </th:block>
 
-            <div th:if="${articles.getTotalElements() ==0}">
-                <div class="alert alert-warning" role="alert">
-                    <span>No articles available.</span>
-                </div>
-            </div>
         </div>
     </div>
 

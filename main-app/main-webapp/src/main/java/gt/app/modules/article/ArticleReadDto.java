@@ -27,7 +27,7 @@ public class ArticleReadDto {
     private Instant createdDate;
 
     private List<FileInfo> files = new ArrayList<>();
-
+    private String[] tags = {};
     private List<CommentDto> comments = new LinkedList<>();
 
     @Data

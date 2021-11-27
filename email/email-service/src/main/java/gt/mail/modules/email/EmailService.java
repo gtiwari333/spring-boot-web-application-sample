@@ -36,8 +36,10 @@ public class EmailService {
             message.setSubject(email.getSubject());
             message.setText(email.getContent(), email.isHtml());
 
-            for (var file : email.getFiles()) {
-                message.addAttachment(file.getFilename(), new ByteArrayResource(file.getData()));
+            if (email.getFiles() != null) {
+                for (var file : email.getFiles()) {
+                    message.addAttachment(file.getFilename(), new ByteArrayResource(file.getData()));
+                }
             }
 
             javaMailSender.send(mimeMessage);

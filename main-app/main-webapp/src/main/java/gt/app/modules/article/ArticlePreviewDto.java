@@ -26,7 +26,7 @@ public class ArticlePreviewDto {
     private Instant createdDate;
 
     private List<FileInfo> files = new ArrayList<>();
-
+    private String[] tags = {};
     @Data
     @NoArgsConstructor
     public static class FileInfo {

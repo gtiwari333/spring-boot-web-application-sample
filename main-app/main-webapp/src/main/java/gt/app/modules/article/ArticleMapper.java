@@ -3,12 +3,15 @@ package gt.app.modules.article;
 import gt.app.domain.Article;
 import gt.app.domain.Comment;
 import gt.app.domain.ReceivedFile;
+import gt.app.domain.Tag;
 import gt.common.dtos.ArticleSummaryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+
+import java.util.Set;
 
 @Mapper
 public interface ArticleMapper {
@@ -59,5 +62,18 @@ public interface ArticleMapper {
         }
 
         return content.substring(0, 200) + " ...";
+    }
+
+    Set<Tag> map(String[] value);
+
+    String[] map(Set<Tag> t);
+
+    default Tag map(String value){
+        return new Tag(value);
+    }
+
+
+    default String map(Tag t) {
+        return t.getName();
     }
 }
