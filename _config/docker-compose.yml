@@ -55,10 +55,10 @@ services:
         ports:
             - "9093:9093"
         environment:
-            KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093,BROKER://0.0.0.0:9092
-            KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19093,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9093
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: BROKER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-            KAFKA_INTER_BROKER_LISTENER_NAME: BROKER
+            KAFKA_LISTENERS: OUTSIDE://0.0.0.0:9093,INTERNAL://0.0.0.0:9092
+            KAFKA_ADVERTISED_LISTENERS: 'OUTSIDE://localhost:9093,INTERNAL://kafka1:9092'
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
+            KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
             KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
             KAFKA_BROKER_ID: 1
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -69,6 +69,17 @@ services:
             - ./data/kafka1/data:/var/lib/kafka/data
         depends_on:
             - zookeeper1
+        networks:
+            - appnetwork
+
+    kafka-ui:
+        image: provectuslabs/kafka-ui:latest
+        ports:
+            - "8089:8080"
+        environment:
+            KAFKA_CLUSTERS_0_NAME: kafka1
+            KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9092 # internal access
+            KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper1:2181
         networks:
             - appnetwork
 volumes:
