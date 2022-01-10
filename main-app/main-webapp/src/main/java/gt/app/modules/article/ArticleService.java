@@ -14,7 +14,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +31,6 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
     private final FileService fileService;
-    private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
     private final ContentCheckService contentCheckService;
 
@@ -94,14 +92,10 @@ public class ArticleService {
     @Cacheable(cacheNames = "articleRead", key = "#id")
     public ArticleReadDto read(Long id) {
         //TODO: filter out unpublished comments - write a jooq or querydsl query
-        ArticleReadDto dto = articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
+        return articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
             .map(ArticleMapper.INSTANCE::mapForRead)
             .map(this::mapNested)
             .orElseThrow();
-
-        jmsTemplate.convertAndSend("article-read", ArticleMapper.INSTANCE.mapForPublishedEvent(dto));
-
-        return dto;
     }
 
     protected ArticleReadDto mapNested(ArticleReadDto s) {

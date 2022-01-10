@@ -7,10 +7,12 @@ import gt.app.domain.Article;
 import gt.app.domain.ArticleStatus;
 import gt.app.modules.article.ArticleMapper;
 import gt.app.modules.article.ArticleRepository;
+import gt.common.config.CommonKafkaTopics;
+import gt.common.dtos.ArticleEventDto;
 import gt.contentchecker.ContentCheckOutcome;
 import gt.contentchecker.Response;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jms.core.JmsTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +21,12 @@ import java.util.List;
 @Service
 class ArticleReviewResponseService {
     private final ArticleRepository articleRepository;
-    private final JmsTemplate jmsTemplate;
+    private final KafkaTemplate<String, ArticleEventDto> kafkaTemplate;
     private final EmailClient emailClient;
     private final AppProperties appProperties;
 
     void handle(Response resp) {
-        Article a = articleRepository.findOneWithUserById(Long.valueOf(resp.getEntityId())).orElseThrow();
+        Article a = articleRepository.findOneWithUserAndTagsById(Long.valueOf(resp.getEntityId())).orElseThrow();
         switch (resp.getContentCheckOutcome()) {
             case PASSED -> a.setStatus(ArticleStatus.PUBLISHED);
             case MANUAL_REVIEW_NEEDED -> a.setStatus(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW);
@@ -35,7 +37,9 @@ class ArticleReviewResponseService {
         articleRepository.save(a);
 
         if (resp.getContentCheckOutcome() == ContentCheckOutcome.PASSED) {
-            jmsTemplate.convertAndSend("article-published", ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a));
+            kafkaTemplate.send(CommonKafkaTopics.ARTICLE_PUBLISHED_TOPIC, ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a));
+        } else {
+            kafkaTemplate.send(CommonKafkaTopics.ARTICLE_REJECTED_TOPIC, ArticleMapper.INSTANCE.INSTANCE.mapForPublishedEvent(a));
         }
 
         sendNotificationToAuthor(a, resp.getContentCheckOutcome());
@@ -55,5 +59,3 @@ class ArticleReviewResponseService {
     }
 
 }
-
-

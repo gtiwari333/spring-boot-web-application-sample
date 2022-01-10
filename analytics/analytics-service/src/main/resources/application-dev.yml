@@ -4,3 +4,5 @@ spring:
         port: ${ACTIVEMQ_ARTEMIS_PORT:61616}
         user: admin
         password: admin
+    kafka:
+        bootstrap-servers: localhost:${KAFKA_PORT:9093}

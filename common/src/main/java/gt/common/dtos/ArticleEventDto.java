@@ -5,11 +5,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ToString
-public class ArticleSummaryDto implements Serializable {
+public class ArticleEventDto implements Serializable {
 
     private static final long serialVersionUID = -1007949715L;
 
@@ -19,4 +21,7 @@ public class ArticleSummaryDto implements Serializable {
     private String content;
 
     private String username;
+    private String[] tags;
+
+    private LocalDateTime date = LocalDateTime.now();
 }

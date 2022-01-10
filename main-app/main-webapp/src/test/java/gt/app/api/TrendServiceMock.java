@@ -13,8 +13,4 @@ public class TrendServiceMock implements TrendService {
         return ResponseEntity.ok(new TrendDto());
     }
 
-    @Override
-    public ResponseEntity<TrendDto> getCurrentTrends(String category) {
-        return ResponseEntity.ok(new TrendDto());
-    }
 }

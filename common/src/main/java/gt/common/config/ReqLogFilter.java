@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 @Slf4j
 public
 class ReqLogFilter implements Filter {
+
+    private Consumer<PageView> logConsumer;
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -18,28 +21,39 @@ class ReqLogFilter implements Filter {
 
         req.put("req.remoteHost", request.getRemoteHost());
 
-        if (request instanceof HttpServletRequest) {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-            req.put("req.requestURI", httpServletRequest.getRequestURI());
-            StringBuffer requestURL = httpServletRequest.getRequestURL();
+        if (request instanceof HttpServletRequest sreq) {
+            req.put("req.requestURI", sreq.getRequestURI());
+
+            StringBuffer requestURL = sreq.getRequestURL();
             if (requestURL != null) {
                 req.put("req.requestURL", requestURL.toString());
             }
-            req.put("req.method", httpServletRequest.getMethod());
-            req.put("req.req.queryString", httpServletRequest.getQueryString());
-            req.put("req.userAgent", httpServletRequest.getHeader("User-Agent"));
-            req.put("req.xForwardedFor", httpServletRequest.getHeader("X-Forwarded-For"));
-//            req.put("req.x-b3-sampled", httpServletRequest.getHeader("x-b3-sampled"));
-//            req.put("req.x-b3-parentspanid", httpServletRequest.getHeader("x-b3-parentspanid"));
-            req.put("req.x-b3-spanid", httpServletRequest.getHeader("x-b3-spanid"));
-            req.put("req.x-b3-traceid", httpServletRequest.getHeader("x-b3-traceid"));
+            req.put("req.method", sreq.getMethod());
+            req.put("req.req.queryString", sreq.getQueryString());
+            req.put("req.userAgent", sreq.getHeader("User-Agent"));
+            req.put("req.xForwardedFor", sreq.getHeader("X-Forwarded-For"));
+            req.put("req.x-b3-spanid", sreq.getHeader("x-b3-spanid"));
+            req.put("req.x-b3-traceid", sreq.getHeader("x-b3-traceid"));
+
+            if (logConsumer != null) {
+                logConsumer.accept(new PageView(
+                    request.getRemoteHost(),
+                    sreq.getRequestURI(),
+                    req.get("req.requestURL"),
+                    sreq.getMethod(),
+                    sreq.getQueryString(),
+                    sreq.getHeader("User-Agent"),
+                    sreq.getHeader("X-Forwarded-For")
+                ));
+            }
         }
 
-        log.trace("Received request {} ", req);
-
+        log.info("Received request {} ", req);
 
         chain.doFilter(request, response);
-
     }
 
+    public void setLogConsumer(Consumer<PageView> logConsumer) {
+        this.logConsumer = logConsumer;
+    }
 }

@@ -4,7 +4,7 @@ import gt.app.domain.Article;
 import gt.app.domain.Comment;
 import gt.app.domain.ReceivedFile;
 import gt.app.domain.Tag;
-import gt.common.dtos.ArticleSummaryDto;
+import gt.common.dtos.ArticleEventDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -51,9 +51,9 @@ public interface ArticleMapper {
     ArticlePreviewDto.FileInfo map(ReceivedFile receivedFile);
 
     @Mapping(source = "createdByUser.username", target = "username")
-    ArticleSummaryDto mapForPublishedEvent(Article article);
+    ArticleEventDto mapForPublishedEvent(Article article);
 
-    ArticleSummaryDto mapForPublishedEvent(ArticleReadDto article);
+    ArticleEventDto mapForPublishedEvent(ArticleReadDto article);
 
     @Named("substringArticleContent")//will do custom transformation once we move to  Markdown format
     default String substringArticleContent(String content) {

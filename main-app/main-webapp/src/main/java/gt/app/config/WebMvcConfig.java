@@ -1,6 +1,8 @@
 package gt.app.config;
 
 import gt.app.config.security.CurrentUserArgResolver;
+import gt.common.config.CommonKafkaTopics;
+import gt.common.config.PageView;
 import gt.common.config.PaginationCustomizer;
 import gt.common.config.ReqLogFilter;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
@@ -64,11 +67,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public FilterRegistrationBean<ReqLogFilter> loggingFilter() {
+    public FilterRegistrationBean<ReqLogFilter> loggingFilter(KafkaTemplate<String, PageView> kafkaTemplate) {
         FilterRegistrationBean<ReqLogFilter> registrationBean = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(new ReqLogFilter());
+        ReqLogFilter filter = new ReqLogFilter();
+        filter.setLogConsumer(pageView -> kafkaTemplate.send(CommonKafkaTopics.PAGE_VIEW, pageView.uri(), pageView));
+
+        registrationBean.setFilter(filter);
         registrationBean.setOrder((Ordered.HIGHEST_PRECEDENCE));
+        registrationBean.setUrlPatterns(List.of("/", "/article/", "/article/*", "/tag/*"));
 
         return registrationBean;
     }

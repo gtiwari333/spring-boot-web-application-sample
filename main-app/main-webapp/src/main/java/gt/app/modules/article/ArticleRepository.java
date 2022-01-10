@@ -32,8 +32,8 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @EntityGraph(attributePaths = {"createdByUser", "comments", "comments.createdByUser", "attachedFiles", "tags"})
     Optional<Article> findOneWithAllByIdAndStatus(Long id, ArticleStatus status, Sort sort);
 
-    @EntityGraph(attributePaths = {"createdByUser"})
-    Optional<Article> findOneWithUserById(Long id);
+    @EntityGraph(attributePaths = {"createdByUser", "tags"})
+    Optional<Article> findOneWithUserAndTagsById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles", "tags"})
     Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(UUID userId, ArticleStatus status, Pageable pageable);

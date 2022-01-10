@@ -35,6 +35,9 @@ spring:
         user: ${ACTIVEMQ_ARTEMIS_USERNAME:admin}
         password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
+    kafka:
+        bootstrap-servers: localhost:${KAFKA_PORT:9093}
+
 
 keycloak:
     realm: blogapp

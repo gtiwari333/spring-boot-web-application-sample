@@ -1,14 +1,18 @@
 package gt.app.web.mvc;
 
+import gt.app.config.KafkaConfig;
 import gt.app.config.security.CurrentUser;
 import gt.app.config.security.CurrentUserToken;
 import gt.app.domain.Article;
 import gt.app.modules.article.*;
+import gt.common.config.CommonKafkaTopics;
+import gt.common.dtos.ArticleEventDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +30,7 @@ public class ArticleController {
 
     final ArticleService articleService;
     final CommentService commentService;
+    private final KafkaTemplate<String, ArticleEventDto> kafkaTemplate;
 
     @GetMapping({"/", ""})
     public String userHome(Model model, @CurrentUser CurrentUserToken u, Pageable pageable) {
@@ -101,7 +106,8 @@ public class ArticleController {
     public String read(@PathVariable Long id, Model model) {
         ArticleReadDto dto = articleService.read(id);
 
-        //TODO: fix ordering -- ordering is not consistent
+        kafkaTemplate.send(CommonKafkaTopics.ARTICLE_READ_TOPIC, ArticleMapper.INSTANCE.mapForPublishedEvent(dto));
+
         model.addAttribute("article", dto);
 
         return "article/read-article";

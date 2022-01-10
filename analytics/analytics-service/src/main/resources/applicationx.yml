@@ -1,0 +1,131 @@
+spring:
+    application:
+        name: Trend-Service
+    profiles:
+        # The commented value for `active` can be replaced with valid spring profiles to load.
+        # Otherwise, it will be filled in by maven when building the WAR file
+        # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+        active: '@spring.profiles.active@'
+#    kafka:
+#        consumer:
+#            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#            properties:
+#                "spring.json.trusted.packages": "gt.common.config"
+
+
+
+
+
+    cloud:
+        stream:
+#            bindings:
+#                printer-in-0:
+#                    destination: page-view
+#                printer1-in-0:
+#                    destination: page-view
+#                getUri-in-0:
+#                    destination: page-view
+#                getUri-out-0:
+#                    destination: page-uri
+#                upperCase-in-0:
+#                    destination: page-uri
+#                upperCase-out-0:
+#                    destination: page-uri-upper
+
+            function:
+                definition: printer;printer1;getUri;upperCase
+                bindings:
+                    printer-in-0: page-view
+                    printer1-in-0: page-view
+                    getUri-in-0: page-view
+                    getUri-out-0: page-uri
+                    upperCase-in-0: page-uri
+                    upperCase-out-0: page-uri-upper
+
+
+
+    main:
+        allow-bean-definition-overriding: true
+
+
+
+
+#spring.cloud.stream.binders.kafka0.type: kafka
+#spring.cloud.stream.binders.kafka0.environment.spring.cloud.stream.kafka.streams.binder.brokers: localhost:${KAFKA_PORT:9093}
+#spring.cloud.stream.bindings.printer1-in-0.destination: page-view
+#spring.cloud.stream.bindings.printer1-in-0.binder: kafka0
+#
+#
+#spring.cloud.stream.binders.kafka1.type: kstream
+#spring.cloud.stream.binders.kafka1.environment.spring.cloud.stream.kafka.streams.binder.brokers: localhost:${KAFKA_PORT:9093}
+#spring.cloud.stream.bindings.printer-in-0.destination: page-view
+#spring.cloud.stream.bindings.printer-in-0.binder: kafka1
+#spring.cloud.stream.bindings.getUri-in-0.destination: page-view
+#spring.cloud.stream.bindings.getUri-in-0.binder: kafka1
+#spring.cloud.stream.bindings.getUri-out-0.destination: page-uri
+#spring.cloud.stream.bindings.getUri-out-0.binder: kafka1
+#spring.cloud.stream.bindings.upperCase-in-0.destination: page-uri
+#spring.cloud.stream.bindings.upperCase-in-0.binder: kafka1
+#spring.cloud.stream.bindings.upperCase-out-0.destination: page-uri-upper
+#spring.cloud.stream.bindings.upperCase-out-0.binder: kafka1
+
+
+
+
+
+
+
+
+# need to use multiple binders : https://cloud.spring.io/spring-cloud-stream/reference/html/spring-cloud-stream.html#spring-cloud-stream-overview-binders
+# https://docs.spring.io/spring-cloud-stream-binder-kafka/docs/3.2.0-RC1/reference/html/spring-cloud-stream-binder-kafka.html#_multi_binders_with_kafka_streams_based_binders_and_regular_kafka_binder
+# https://docs.spring.io/spring-cloud-stream-binder-kafka/docs/3.2.0-RC1/reference/html/spring-cloud-stream-binder-kafka.html#_multi_binders_with_kafka_streams_based_binders_and_regular_kafka_binder
+#
+#
+#    cloud:
+#        stream:
+#            function:
+#                definition: printer;getUri;upperCase
+##                bindings:
+##                    printer-in-0: page-view
+##                    getUri-in-0: page-view
+##                    getUri-out-0: page-uri
+##                    uppercase-in-0: page-uri
+##                    uppercase-out-0: page-uri-upper
+#            kafka:
+#                streams:
+#                    bindings:
+#                        printer-in-0:
+#                            consumer:
+#                                keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+#                        getUri-in-0:
+#                            consumer:
+#                                keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+#                        getUri-out-0:
+#                            producer:
+#                                keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                        upperCase-in-0:
+#                            consumer:
+#                                keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                        upperCase-out-0:
+#                            producer:
+#                                keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#
+#                binder:
+#                    configuration:
+#                        "spring.json.trusted.packages": "gt.common.config"
+
+server:
+    port: 8084
+logging:
+    level:
+        'org.apache.kafka': warn
+
+
+
+

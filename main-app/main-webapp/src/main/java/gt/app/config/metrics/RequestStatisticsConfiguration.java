@@ -24,7 +24,7 @@ public class RequestStatisticsConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestStatisticsInterceptor()).addPathPatterns("/", "/article/**");
+        registry.addInterceptor(requestStatisticsInterceptor()).addPathPatterns("/", "/article/**", "/tag/**");
     }
 
 }

@@ -6,6 +6,153 @@ spring:
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: '@spring.profiles.active@'
+#    kafka:
+#        producer:
+#            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#            value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+spring.cloud.stream:
+    function:
+        definition: printer;upperCase;getUri;printer1
+    bindings:
+        printer1-in-0:
+            destination: page-view
+        printer-in-0:
+            destination: page-view
+        getUri-in-0:
+            destination: page-view
+        getUri-out-0:
+            destination: page-uri
+        upperCase-in-0:
+            destination: page-uri
+        upperCase-out-0:
+            destination: page-uri-upper
+        sendTestData-out-0:
+            destination: page-uri
+#    kafka:
+#        bindings:
+#            printer1-in-0:
+#                consumer:
+#                    configuration:
+#                        value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#                        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+
+#
+##    definition: sendTestData;upperCase;getUri
+#
+#spring.cloud.stream:
+#    bindings:
+#        processData-in-0:
+#            group: my-group
+#            destination: input-topic
+#    kafka:
+#        bindings:
+#            processData-in-0:
+#                consumer:
+#                    enableDlq: true
+#                    dlqName: input-topic-dlq
+#
+#            function:
+#            bindings:
+##                printer1-in-0:
+##                    destination: page-view
+##                    binder: kafka1PageView
+##                printer-in-0:
+##                    destination: page-view
+##                    binder: kafkaStrmPageView
+#                getUri-in-0:
+#                    destination: page-view
+#                    binder: kafkaStrmPageView
+#                getUri-out-0:
+#                    destination: page-uri
+#                    binder: kafka3
+#                upperCase-in-0:
+#                    destination: page-uri
+#                    binder: kafka3
+#                upperCase-out-0:
+#                    destination: page-uri-upper
+#                    binder: kafka3
+##                sendTestData-out-0:
+##                    destination: page-uri
+##                    binder: kafka1
+#
+#            binders:
+#                kafka1:
+#                    type: kafka
+#                    environment:
+#                        spring:
+#                            cloud:
+#                                stream:
+#                                    kafka:
+#                                        binder:
+#                                            brokers: localhost:9093
+#                kafka1PageView:
+#                    type: kafka
+#                    environment:
+#                        spring:
+#                            cloud:
+#                                stream:
+#                                    kafka:
+#                                        binder:
+#                                            brokers: localhost:9093
+#                                            applicationId: multi-binder-kafka-streams
+#                                            configuration:
+#                                                default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                                default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+#                                                commit.interval.ms: 1000
+#                kafkaStrmPageView:
+#                    type: kstream
+#                    environment:
+#                        spring:
+#                            cloud:
+#                                stream:
+#                                    kafka:
+#                                        binder:
+#                                            brokers: localhost:9093
+#                                            applicationId: multi-binder-kafka-streams
+#                                            configuration:
+#                                                default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                                default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+#                                                commit.interval.ms: 1000
+#                kafka2:
+#                    type: kstream
+#                    environment:
+#                        spring:
+#                            cloud:
+#                                stream:
+#                                    kafka:
+#                                        binder:
+#                                            brokers: localhost:9093
+#                                            applicationId: multi-binder-kafka-streams
+#                                            configuration:
+#                                                default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                                default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                                commit.interval.ms: 1000
+#                kafka3:
+#                    type: kstream
+#                    environment:
+#                        spring:
+#                            cloud:
+#                                stream:
+#                                    kafka:
+#                                        streams:
+#                                            binder:
+#                                                brokers: localhost:9093
+#                                                applicationId: multi-binder-kafka-streams3
+#                                                configuration:
+#                                                    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                                    default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#                                                    commit.interval.ms: 1000
+
+
+
 
 server:
-    port: 8083
+    port: 8084
+logging:
+    level:
+        'org.apache.kafka': warn
+
+
+
+
