@@ -29,7 +29,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring-boot.version>2.6.6</spring-boot.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
         <springdoc-openapi-ui.version>1.5.12</springdoc-openapi-ui.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <hibernate-types52.version>2.14.0</hibernate-types52.version>
@@ -38,8 +38,8 @@
         <selenide.version>5.25.0</selenide.version>
         <google-guava.version>31.0.1-jre</google-guava.version>
         <keycloak-spring-boot-starter.version>15.0.2</keycloak-spring-boot-starter.version>
-        <wro4j.version>1.8.0</wro4j.version>
-        <archunit-junit5.version>0.22.0</archunit-junit5.version>
+        <wro4j.version>1.10.1</wro4j.version>
+        <archunit-junit5.version>0.23.0</archunit-junit5.version>
         <testcontainers.version>1.16.2</testcontainers.version>
         <testcontainers-keycloak.version>1.8.1</testcontainers-keycloak.version>
         <commons-io.version>2.11.0</commons-io.version>
@@ -55,7 +55,7 @@
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
         <puppycrawl.checkstyle.version>9.0</puppycrawl.checkstyle.version>
-        <gmavenplus.version>1.13.0</gmavenplus.version>
+        <gmavenplus.version>1.13.1</gmavenplus.version>
         <maven-processor-plugin.version>4.2</maven-processor-plugin.version>
         <modernizer-maven-plugin.version>2.3.0</modernizer-maven-plugin.version>
     </properties>
@@ -221,24 +221,24 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>spring-milestones</id>-->
+<!--            <name>Spring Milestones</name>-->
+<!--            <url>https://repo.spring.io/milestone</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+<!--    <pluginRepositories>-->
+<!--        <pluginRepository>-->
+<!--            <id>spring-milestones</id>-->
+<!--            <name>Spring Milestones</name>-->
+<!--            <url>https://repo.spring.io/milestone</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </pluginRepository>-->
+<!--    </pluginRepositories>-->
 </project>

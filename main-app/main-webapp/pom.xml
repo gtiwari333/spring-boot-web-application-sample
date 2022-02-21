@@ -173,6 +173,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+            <!-- this uses Groovy 3.. resulting classloading issues with Groovy 4(has new namespace) -->
             <scope>test</scope>
         </dependency>
 
