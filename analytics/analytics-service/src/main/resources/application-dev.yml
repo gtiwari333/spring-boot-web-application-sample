@@ -5,4 +5,4 @@ spring:
         user: admin
         password: admin
     kafka:
-        bootstrap-servers: localhost:${KAFKA_PORT:9093}
+        bootstrap-servers: localhost:${KAFKA_PORT:9092}

@@ -35,51 +35,40 @@ services:
         command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
         networks:
             - appnetwork
-    zookeeper1:
-        image: zookeeper:3.4.9
-        hostname: zookeeper1
-        ports:
-            - "2181:2181"
+    zookeeper:
+        image: confluentinc/cp-zookeeper:7.0.0
+        hostname: zookeeper
+        container_name: zookeeper
         environment:
-            ZOO_MY_ID: 1
-            ZOO_PORT: 2181
-            ZOO_SERVERS: server.1=zookeeper1:2888:3888
-        volumes:
-            - ./data/zookeeper1/data:/data
-            - ./data/zookeeper1/datalog:/datalog
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
         networks:
             - appnetwork
-    kafka1:
-        image: confluentinc/cp-kafka:5.4.3
-        hostname: kafka1
+    broker:
+        image: confluentinc/cp-kafka:7.0.0
+        container_name: kafkabroker
         ports:
-            - "9093:9093"
-        environment:
-            KAFKA_LISTENERS: OUTSIDE://0.0.0.0:9093,INTERNAL://0.0.0.0:9092
-            KAFKA_ADVERTISED_LISTENERS: 'OUTSIDE://localhost:9093,INTERNAL://kafka1:9092'
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
-            KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-            KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
-            KAFKA_BROKER_ID: 1
-            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-            KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 1
-            KAFKA_LOG_FLUSH_INTERVAL_MESSAGES: 100000000000
-            KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-        volumes:
-            - ./data/kafka1/data:/var/lib/kafka/data
+            - "9092:9092"
         depends_on:
-            - zookeeper1
+            - zookeeper
+        environment:
+            KAFKA_BROKER_ID: 1
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+            KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
         networks:
             - appnetwork
-
     kafka-ui:
         image: provectuslabs/kafka-ui:latest
         ports:
             - "8089:8080"
         environment:
-            KAFKA_CLUSTERS_0_NAME: kafka1
-            KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9092 # internal access
-            KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper1:2181
+            KAFKA_CLUSTERS_0_NAME: kafkabroker
+            KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafkabroker:9092 # internal access
+            KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
         networks:
             - appnetwork
 volumes:
