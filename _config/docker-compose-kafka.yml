@@ -1,34 +1,6 @@
-version: '3'
+version: '3.8'
 services:
-    keycloak:
-        image: 'quay.io/keycloak/keycloak:15.0.2'
-        container_name: keycloak
-        environment:
-            - KEYCLOAK_USER=admin
-            - KEYCLOAK_PASSWORD=admin
-            - KEYCLOAK_IMPORT=/tmp/test-realm.json
-            - DB_VENDOR=h2 # don't try to discover mysql in the network
-        volumes:
-            - ../main-app/main-webapp/src/main/resources/keycloak/keycloak-export.json:/tmp/test-realm.json  #might need to delete volume to avoid dup user error
-        ports:
-            - 8082:8080
-    activemq_artemis:
-        image: 'jhatdv/activemq-artemis:2.18.0'
-        container_name: activemqArtemis
-        environment:
-            - ARTEMIS_USERNAME=admin
-            - ARTEMIS_PASSWORD=admin
-        ports:
-            - 8161:8161  # use this to login
-            - 61616:61616
-    mysql:
-        image: 'mysql:8.0.25'
-        environment:
-            - MYSQL_ROOT_PASSWORD=password
-            - MYSQL_DATABASE=seedapp
-        ports:
-            - 3306:3306
-        command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+
     zookeeper:
         container_name: zookeeper
         image: confluentinc/cp-zookeeper:latest
@@ -42,6 +14,7 @@ services:
             ZOOKEEPER_SYNC_LIMIT: 2
         ports:
             - 2181:2181
+
     kafka:
         container_name: kafka
         image: confluentinc/cp-kafka:latest
@@ -58,6 +31,7 @@ services:
             KAFKA_INTER_BROKER_LISTENER_NAME: RMOFF_DOCKER_HACK
         ports:
             - 9092:9092
+
     kouncil:
         container_name: kouncil
         image: consdata/kouncil:latest
@@ -70,11 +44,3 @@ services:
             BOOTSTRAP_SERVERS: kafka:9093
         ports:
             - 8888:8080
-volumes:
-    esdata1:
-        driver: local
-
-
-#run using
-#docker-compose -f docker-compose.yml up
-# or just docker-compose up
