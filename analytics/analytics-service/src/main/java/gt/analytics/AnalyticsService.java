@@ -11,11 +11,11 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @Slf4j
-public class TrendServiceApp {
+public class AnalyticsService {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        SpringApplication app = new SpringApplication(TrendServiceApp.class);
+        SpringApplication app = new SpringApplication(AnalyticsService.class);
         Environment env = app.run(args).getEnvironment();
 
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
