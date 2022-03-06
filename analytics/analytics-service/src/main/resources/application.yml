@@ -9,6 +9,9 @@ spring:
     kafka:
         bootstrap-servers: localhost:9092
 
+## https://spring.io/blog/2019/12/09/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-6-state-stores-and-interactive-queries
+
+
 spring.cloud.stream:
     function:
         definition: getUri;upperCase # | or , doesn't work
