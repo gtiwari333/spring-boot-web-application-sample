@@ -31,7 +31,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.6.6</spring-boot.version>
         <springdoc-openapi-ui.version>1.5.12</springdoc-openapi-ui.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
         <hibernate-types52.version>2.14.0</hibernate-types52.version>
         <mapstruct.version>1.5.0.Beta1</mapstruct.version>
 
