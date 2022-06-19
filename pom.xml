@@ -42,8 +42,8 @@
         <keycloak-spring-boot-starter.version>15.0.2</keycloak-spring-boot-starter.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit-junit5.version>0.23.1</archunit-junit5.version>
-        <testcontainers.version>1.17.2</testcontainers.version>
-        <testcontainers-keycloak.version>2.2.2</testcontainers-keycloak.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
+        <testcontainers-keycloak.version>1.8.1</testcontainers-keycloak.version>
         <commons-io.version>2.11.0</commons-io.version>
         <webjar-jquery.version>3.6.0</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
