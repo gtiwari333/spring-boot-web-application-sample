@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.0</version>
+        <version>2.7.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -39,7 +39,7 @@
         <!-- selenide 6+ uses selenium 4. Spring Boot Dep Mgmt still provides v3 -->
         <selenium.version>4.2.2</selenium.version>
         <google-guava.version>31.1-jre</google-guava.version>
-        <keycloak-spring-boot-starter.version>15.0.2</keycloak-spring-boot-starter.version>
+        <keycloak-spring-boot-starter.version>18.0.2</keycloak-spring-boot-starter.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit-junit5.version>0.23.1</archunit-junit5.version>
         <testcontainers.version>1.17.2</testcontainers.version>

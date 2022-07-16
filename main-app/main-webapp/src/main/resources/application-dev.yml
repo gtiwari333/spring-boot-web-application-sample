@@ -43,7 +43,8 @@ keycloak:
     resource: gateway-app-client
     public-client: true # for gateway app
     principal-attribute: name
-    credentials.secret: dc168f0c-3c7f-47b9-b700-43d746978566
+    credentials:
+        secret: dc168f0c-3c7f-47b9-b700-43d746978566
 
 feign-clients:
     email-service:
