@@ -29,7 +29,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring-boot.version>2.7.0</spring-boot.version>
+        <spring-boot.version>2.7.1</spring-boot.version>
         <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <hibernate-types52.version>2.14.0</hibernate-types52.version>
