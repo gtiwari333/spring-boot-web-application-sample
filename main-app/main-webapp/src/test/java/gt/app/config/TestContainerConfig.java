@@ -33,7 +33,7 @@ public class TestContainerConfig {
 
         activeMQ.start(); //using default ports
 
-        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:18.0.2").withRealmImportFile("keycloak/realm-export.json");
+        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:19.0.1").withRealmImportFile("keycloak/realm-export.json");
         kc.start();
 
         setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));

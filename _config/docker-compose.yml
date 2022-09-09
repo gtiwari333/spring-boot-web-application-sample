@@ -1,7 +1,7 @@
 version: '3'
 services:
     keycloak:
-        image: 'quay.io/keycloak/keycloak:18.0.2'
+        image: 'quay.io/keycloak/keycloak:19.0.1'
         container_name: keycloak
         command: [ 'start-dev --import-realm' ]
         environment:
@@ -30,7 +30,7 @@ services:
         networks:
             - seedappnet
     mysql:
-        image: 'mysql:8.0.29'
+        image: 'mysql:8.0.30'
         environment:
             - MYSQL_ROOT_PASSWORD=password
             - MYSQL_DATABASE=seedapp

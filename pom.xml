@@ -30,39 +30,39 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>2.7.3</spring-boot.version>
-        <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
-        <hibernate-types52.version>2.14.0</hibernate-types52.version>
+        <springdoc-openapi-ui.version>1.6.11</springdoc-openapi-ui.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <hibernate-types52.version>2.19.0</hibernate-types52.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
 
-        <selenide.version>6.6.6</selenide.version>
+        <selenide.version>6.7.4</selenide.version>
         <!-- selenide 6+ uses selenium 4. Spring Boot Dep Mgmt still provides v3 -->
         <selenium.version>4.3.0</selenium.version>
         <google-guava.version>31.1-jre</google-guava.version>
-        <keycloak-spring-boot-starter.version>18.0.2</keycloak-spring-boot-starter.version>
+        <keycloak-spring-boot-starter.version>19.0.1</keycloak-spring-boot-starter.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit-junit5.version>0.23.1</archunit-junit5.version>
         <testcontainers.version>1.17.3</testcontainers.version>
-        <testcontainers-keycloak.version>2.2.2</testcontainers-keycloak.version>
+        <testcontainers-keycloak.version>2.3.0</testcontainers-keycloak.version>
         <commons-io.version>2.11.0</commons-io.version>
         <webjar-jquery.version>3.6.0</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
 
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <spock-version>2.2-M3-groovy-3.0</spock-version>
-        <objenesis.version>3.2</objenesis.version>
+        <objenesis.version>3.3</objenesis.version>
 
         <!-- plugins -->
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>9.0</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>10.3.3</puppycrawl.checkstyle.version>
         <gmavenplus.version>1.13.1</gmavenplus.version>
         <maven-processor-plugin.version>4.2</maven-processor-plugin.version>
         <modernizer-maven-plugin.version>2.3.0</modernizer-maven-plugin.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
         <google.error-prone.compiler.version>2.14.0</google.error-prone.compiler.version>
-
+        <spotbugs-maven-plugin.version>4.7.1.0</spotbugs-maven-plugin.version>
     </properties>
 
 
@@ -272,6 +272,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>verify-spotbugs</id>
