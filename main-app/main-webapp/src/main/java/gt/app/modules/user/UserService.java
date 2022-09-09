@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public User getReference(UUID id) {
-        return userRepository.getById(id);
+        return userRepository.getReferenceById(id);
     }
 
     public Optional<User> find(UUID id) {

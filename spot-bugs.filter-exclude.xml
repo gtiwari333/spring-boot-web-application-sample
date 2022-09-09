@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FindBugsFilter>
+    <And>
+        <Bug category="MALICIOUS_CODE"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </And>
+    <And>
+        <Bug category="BAD_PRACTICE"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"/>
+    </And>
+    <And>
+        <Bug category="MALICIOUS_CODE"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </And>
+    <And>
+        <Bug category="BAD_PRACTICE"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </And>
+    <Match>
+        <Source name="~generated-sources\..*"/>
+    </Match>
+</FindBugsFilter>

@@ -91,7 +91,7 @@ class SecurityConfig {
 
         static class LogoutHandler extends KeycloakLogoutHandler {
 
-            public LogoutHandler(AdapterDeploymentContext adapterDeploymentContext) {
+            LogoutHandler(AdapterDeploymentContext adapterDeploymentContext) {
                 super(adapterDeploymentContext);
             }
 

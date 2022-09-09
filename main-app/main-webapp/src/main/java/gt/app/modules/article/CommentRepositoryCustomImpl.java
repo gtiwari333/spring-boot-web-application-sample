@@ -18,7 +18,7 @@ class CommentRepositoryCustomImpl extends AbstractRepositoryImpl<Comment, Commen
 
     private final DSLContext jooq;
 
-    public CommentRepositoryCustomImpl(DSLContext jooq) {
+    CommentRepositoryCustomImpl(DSLContext jooq) {
         super(Comment.class);
         this.jooq = jooq;
     }

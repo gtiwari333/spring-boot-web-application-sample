@@ -19,7 +19,7 @@ class AppKeycloakAuthProvider extends KeycloakAuthenticationProvider {
     final UserService userService;
     private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
 
-    public AppKeycloakAuthProvider(UserService userService) {
+    AppKeycloakAuthProvider(UserService userService) {
         this.userService = userService;
     }
 

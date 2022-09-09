@@ -16,7 +16,7 @@ class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     private final AppPermissionEvaluatorService permissionEvaluator;
     private final ApplicationContext applicationContext;
 
-    public MethodSecurityConfig(@Qualifier("permEvaluator") AppPermissionEvaluatorService permissionEvaluator, ApplicationContext applicationContext) {
+    MethodSecurityConfig(@Qualifier("permEvaluator") AppPermissionEvaluatorService permissionEvaluator, ApplicationContext applicationContext) {
         this.permissionEvaluator = permissionEvaluator;
         this.applicationContext = applicationContext;
     }
