@@ -315,7 +315,7 @@
                     "attributes": {}
                 }
             ],
-            "article-app-gateway-client": [],
+            "seed-app-gateway-client": [],
             "security-admin-console": [],
             "admin-cli": [],
             "account-console": [],
@@ -499,6 +499,7 @@
             "enabled": true,
             "totp": false,
             "emailVerified": true,
+            "email": "system@email",
             "credentials": [
                 {
                     "id": "85153370-dac3-4c4e-ad0f-d56be0989ac1",
@@ -750,7 +751,7 @@
         },
         {
             "id": "c68151ab-532e-44ab-8a38-8d61445da1e2",
-            "clientId": "article-app-gateway-client",
+            "clientId": "seed-app-gateway-client",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,

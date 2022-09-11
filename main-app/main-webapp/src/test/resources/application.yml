@@ -30,10 +30,10 @@ springdoc:
         enabled: false
 
 keycloak:
-    realm: blogapp
-    auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/auth/
+    realm: seedapp
+    auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/
     ssl-required: external
-    resource: gateway-app-client
+    resource: seed-app-gateway-client
     public-client: true # for gateway app
     principal-attribute: name
     credentials.secret: dc168f0c-3c7f-47b9-b700-43d746978566

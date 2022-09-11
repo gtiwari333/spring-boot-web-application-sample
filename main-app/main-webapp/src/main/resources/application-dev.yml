@@ -37,10 +37,10 @@ spring:
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
 
 keycloak:
-    realm: blogapp
-    auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/auth/
+    realm: seedapp
+    auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/
     ssl-required: external
-    resource: gateway-app-client
+    resource: seed-app-gateway-client
     public-client: true # for gateway app
     principal-attribute: name
     credentials:
