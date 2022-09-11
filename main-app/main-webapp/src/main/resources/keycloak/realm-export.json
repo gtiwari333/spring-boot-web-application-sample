@@ -500,6 +500,8 @@
             "totp": false,
             "emailVerified": true,
             "email": "system@email",
+            "firstName": "System-User",
+            "lastName": "Tiwari",
             "credentials": [
                 {
                     "id": "85153370-dac3-4c4e-ad0f-d56be0989ac1",
