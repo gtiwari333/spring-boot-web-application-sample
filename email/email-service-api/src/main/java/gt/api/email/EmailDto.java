@@ -22,6 +22,13 @@ public class EmailDto {
     boolean isHtml;
     FileBArray[] files;
 
+    public FileBArray[] getFiles() {
+        if (files == null) {
+            return new FileBArray[]{};
+        }
+        return files;
+    }
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
