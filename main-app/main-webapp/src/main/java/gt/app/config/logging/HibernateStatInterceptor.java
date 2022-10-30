@@ -2,11 +2,12 @@ package gt.app.config.logging;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.EmptyInterceptor;
+import org.hibernate.Interceptor;
 
 import java.io.Serial;
 
 @Slf4j
-public class HibernateStatInterceptor extends EmptyInterceptor {
+public class HibernateStatInterceptor implements Interceptor {
 
     @Serial
     private static final long serialVersionUID = -7875557911815131906L;
@@ -24,13 +25,14 @@ public class HibernateStatInterceptor extends EmptyInterceptor {
         queryCount.remove();
     }
 
-    @Override
-    public String onPrepareStatement(String sql) {
-        Long count = queryCount.get();
-        if (count != null) {
-            queryCount.set(count + 1);
-        }
-
-        return super.onPrepareStatement(sql);
-    }
+    //hibernate6 doesn't have this
+//    @Override
+//    public String onPrepareStatement(String sql) {
+//        Long count = queryCount.get();
+//        if (count != null) {
+//            queryCount.set(count + 1);
+//        }
+//
+//        return super.onPrepareStatement(sql);
+//    }
 }

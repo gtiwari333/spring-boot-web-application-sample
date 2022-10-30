@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.Entity;
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.Entity;
 
 public class SpringCodingRulesTest extends ArchitectureTest {
 
@@ -76,7 +76,7 @@ public class SpringCodingRulesTest extends ArchitectureTest {
             .that().resideInAPackage(DOMAIN_LAYER_PACKAGES)
             .and().areAnnotatedWith(Entity.class)
             .should().onlyDependOnClassesThat().resideInAnyPackage(
-                DOMAIN_LAYER_PACKAGES, "java..", "lombok..", "javax..", "",
+                DOMAIN_LAYER_PACKAGES, "java..", "lombok..", "jakarta..", "",
                 "com.fasterxml.jackson..", "org.hibernate.annotations",
                 "org.apache.commons.lang3..", "org.springframework.security.core.."
             );

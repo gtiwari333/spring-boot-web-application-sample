@@ -34,7 +34,7 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
             <optional>true</optional>
         </dependency>
@@ -129,11 +129,11 @@
                         <version>${app.version}</version>
                     </dependency>
 
-                    <dependency>
-                        <groupId>org.jooq</groupId>
-                        <artifactId>jooq-meta-extensions</artifactId>
-                        <version>${jooq.version}</version>
-                    </dependency>
+<!--                    <dependency>-->
+<!--                        <groupId>org.jooq</groupId>-->
+<!--                        <artifactId>jooq-meta-extensions</artifactId>-->
+<!--                        <version>${jooq.version}</version>-->
+<!--                    </dependency>-->
                     <dependency>
                         <groupId>org.jooq</groupId>
                         <artifactId>jooq-meta-extensions-hibernate</artifactId>

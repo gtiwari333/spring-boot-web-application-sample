@@ -2,11 +2,11 @@ package gt.app.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+//import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.util.UUID;
 
 @Entity
@@ -15,7 +15,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @Type(type = "uuid-char")
+//    @Type(type = "uuid-char")
     protected UUID id;
 
     @Column(nullable = false)

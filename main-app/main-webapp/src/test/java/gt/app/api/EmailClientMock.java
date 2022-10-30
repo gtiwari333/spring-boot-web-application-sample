@@ -4,8 +4,8 @@ import gt.api.email.EmailDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Component
 public class EmailClientMock implements EmailClient {

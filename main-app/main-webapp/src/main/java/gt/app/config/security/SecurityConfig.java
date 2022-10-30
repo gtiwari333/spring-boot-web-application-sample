@@ -20,8 +20,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @RequiredArgsConstructor
@@ -44,66 +44,66 @@ class SecurityConfig {
         return new KeycloakSpringBootConfigResolver();
     }
 
-    @KeycloakConfiguration
-    @RequiredArgsConstructor
-    static class KCSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
-
-        final UserService userService;
-
-        @Override
-        protected KeycloakAuthenticationProvider keycloakAuthenticationProvider() {
-            return new AppKeycloakAuthProvider(userService);
-        }
-
-        @Override
-        protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-            return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
-        }
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) {
-            auth.authenticationProvider(keycloakAuthenticationProvider());
-        }
-
-        @Override
-        protected KeycloakLogoutHandler keycloakLogoutHandler() throws Exception {
-            return new LogoutHandler(adapterDeploymentContext());
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            super.configure(http);
-            http
-                .headers().frameOptions().sameOrigin()
-                .and()
-                    .authorizeRequests()
-                    .antMatchers(AUTH_WHITELIST).permitAll()
-                    .antMatchers("/admin/**").hasAuthority(Constants.ROLE_ADMIN)
-                    .antMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
-                    .antMatchers("/api/**").authenticated()//individual api will be secured differently
-                    .antMatchers("/public/**").permitAll()
-                    .antMatchers("/article/read/**").permitAll()
-                    .antMatchers("/download/file/**").permitAll()
-                    .anyRequest().authenticated() //this one will catch the rest patterns
-                .and()
-                    .csrf().disable();
-        }
-
-        static class LogoutHandler extends KeycloakLogoutHandler {
-
-            LogoutHandler(AdapterDeploymentContext adapterDeploymentContext) {
-                super(adapterDeploymentContext);
-            }
-
-            @SneakyThrows
-            @Override
-            protected void handleSingleSignOut(HttpServletRequest request, HttpServletResponse response, KeycloakAuthenticationToken authenticationToken) {
-                super.handleSingleSignOut(request, response, authenticationToken);
-                response.sendRedirect("/?logout=true");
-            }
-        }
-
-    }
+//    @KeycloakConfiguration
+//    @RequiredArgsConstructor
+//    static class KCSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+//
+//        final UserService userService;
+//
+//        @Override
+//        protected KeycloakAuthenticationProvider keycloakAuthenticationProvider() {
+//            return new AppKeycloakAuthProvider(userService);
+//        }
+//
+//        @Override
+//        protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+//            return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+//        }
+//
+//        @Override
+//        protected void configure(AuthenticationManagerBuilder auth) {
+//            auth.authenticationProvider(keycloakAuthenticationProvider());
+//        }
+//
+//        @Override
+//        protected KeycloakLogoutHandler keycloakLogoutHandler() throws Exception {
+//            return new LogoutHandler(adapterDeploymentContext());
+//        }
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            super.configure(http);
+//            http
+//                .headers().frameOptions().sameOrigin()
+//                .and()
+//                    .authorizeRequests()
+//                    .antMatchers(AUTH_WHITELIST).permitAll()
+//                    .antMatchers("/admin/**").hasAuthority(Constants.ROLE_ADMIN)
+//                    .antMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
+//                    .antMatchers("/api/**").authenticated()//individual api will be secured differently
+//                    .antMatchers("/public/**").permitAll()
+//                    .antMatchers("/article/read/**").permitAll()
+//                    .antMatchers("/download/file/**").permitAll()
+//                    .anyRequest().authenticated() //this one will catch the rest patterns
+//                .and()
+//                    .csrf().disable();
+//        }
+//
+//        static class LogoutHandler extends KeycloakLogoutHandler {
+//
+//            LogoutHandler(AdapterDeploymentContext adapterDeploymentContext) {
+//                super(adapterDeploymentContext);
+//            }
+//
+//            @SneakyThrows
+//            @Override
+//            protected void handleSingleSignOut(HttpServletRequest request, HttpServletResponse response, KeycloakAuthenticationToken authenticationToken) {
+//                super.handleSingleSignOut(request, response, authenticationToken);
+//                response.sendRedirect("/?logout=true");
+//            }
+//        }
+//
+//    }
 
 }
 

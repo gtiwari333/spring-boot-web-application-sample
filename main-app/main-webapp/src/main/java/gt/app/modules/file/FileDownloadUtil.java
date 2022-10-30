@@ -3,7 +3,7 @@ package gt.app.modules.file;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.util.MimeTypeUtils;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

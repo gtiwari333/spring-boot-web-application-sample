@@ -3,10 +3,11 @@ package gt.app.modules.common;
 import gt.app.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface AbstractRepository<T extends BaseEntity> extends JpaRepository<T, Long>,
+public interface AbstractRepository<T extends BaseEntity> extends ListCrudRepository<T, Long>,
     QuerydslPredicateExecutor<T> {
 
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/auth")
@@ -30,10 +30,12 @@ public class AuthController {
     }
 
     String getKeyCloakAccountUrl(RedirectAttributes redirectAttributes, HttpServletRequest req, HttpServletResponse resp) {
+        /*
         KeycloakDeployment deployment = adapter.resolveDeployment(new SimpleHttpFacade(req, resp));
 
         redirectAttributes.addAttribute("referrer", deployment.getResourceName());
 
-        return "redirect:" + deployment.getAccountUrl();
+        return "redirect:" + deployment.getAccountUrl(); */
+        return "KEYCLOAK DOESN'T SUPPORT JAKARTA namespace yet";
     }
 }
