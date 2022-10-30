@@ -29,7 +29,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @EntityGraph(attributePaths = {"createdByUser", "comments", "comments.createdByUser", "attachedFiles"})
     Optional<Article> findOneWithAllByIdAndStatus(Long id, ArticleStatus status, Sort sort);
 
-    @EntityGraph(attributePaths = {"createdByUser"})
+    @EntityGraph(attributePaths = {"createdByUser", "lastModifiedByUser" })
     Optional<Article> findOneWithUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
@@ -38,7 +38,8 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Query("select n.createdByUser.id from Article n where n.id=:id ")
     UUID findCreatedByUserIdById(@Param("id") Long id);
 
-    Optional<Article> findByIdAndStatus(Long id, ArticleStatus flagged);
+    @EntityGraph(attributePaths = {"createdByUser", "lastModifiedByUser"})
+    Optional<Article> findWithModifiedUserByIdAndStatus(Long id, ArticleStatus flagged);
 
     @Override
     @Caching(

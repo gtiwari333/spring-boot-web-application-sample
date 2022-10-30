@@ -5,6 +5,7 @@ import gt.app.domain.ArticleStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
 import gt.app.modules.review.ContentCheckService;
+import gt.app.modules.review.ReviewStatusHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -34,6 +35,7 @@ public class ArticleService {
     private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
     private final ContentCheckService contentCheckService;
+    private final ReviewStatusHandler reviewStatusHandler;
 
     public Article createArticle(ArticleCreateDto dto) {
 
@@ -140,11 +142,14 @@ public class ArticleService {
         return articleRepository.findCreatedByUserIdById(articleId);
     }
 
+    @Transactional
     public Optional<Article> handleReview(ArticleReviewResultDto dto) {
-        return articleRepository.findByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW)
+        return articleRepository.findWithModifiedUserByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW)
             .map(n -> {
                 n.setStatus(dto.getVerdict());
-                return articleRepository.save(n);
+                articleRepository.save(n);
+                reviewStatusHandler.handle(n.getLastModifiedByUser().getUsername(), "Your article with title " + n.getTitle() + " has been " + (dto.getVerdict() == ArticleStatus.PUBLISHED ? "approved from manual review." : "rejected from manual review."));
+                return n;
             });
     }
 

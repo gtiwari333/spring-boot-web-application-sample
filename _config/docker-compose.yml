@@ -1,5 +1,12 @@
 version: '3'
 services:
+    emailhog:
+        image: 'mailhog/mailhog'
+        container_name: mailhog
+        ports:
+            - 1025:1025
+        networks:
+            - seedappnet
     keycloak:
         image: 'quay.io/keycloak/keycloak:19.0.1'
         container_name: keycloak
