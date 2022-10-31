@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Component
+//@Component
 @RequiredArgsConstructor
-@Profile("!test")
+//@Profile("!test")
 public class AppHibernatePropertiesCustomizer implements HibernatePropertiesCustomizer {
 
     private final HibernateStatInterceptor statInterceptor;
