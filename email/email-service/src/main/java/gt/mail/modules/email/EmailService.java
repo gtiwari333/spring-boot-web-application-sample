@@ -28,21 +28,21 @@ public class EmailService {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             var message = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
 
-            message.setTo(toInetArray(email.getTo()));
-            message.setCc(toInetArray(email.getCc()));
-            message.setBcc(toInetArray(email.getBcc()));
-            message.setFrom(email.getFromEmail(), email.getFromName());
+            message.setTo(toInetArray(email.to()));
+            message.setCc(toInetArray(email.cc()));
+            message.setBcc(toInetArray(email.bcc()));
+            message.setFrom(email.from(), email.from());
 
-            message.setSubject(email.getSubject());
-            message.setText(email.getContent(), email.isHtml());
+            message.setSubject(email.subject());
+            message.setText(email.content(), email.isHtml());
 
-            for (var file : email.getFiles()) {
-                message.addAttachment(file.getFilename(), new ByteArrayResource(file.getData()));
+            for (var file : email.files()) {
+                message.addAttachment(file.filename(), new ByteArrayResource(file.data()));
             }
 
             javaMailSender.send(mimeMessage);
 
-            log.debug("Email Sent subject: {}", email.getSubject());
+            log.debug("Email Sent subject: {}", email.subject());
         } catch (IOException | MessagingException e) {
             throw new RuntimeException("Failed to send email", e);
         }

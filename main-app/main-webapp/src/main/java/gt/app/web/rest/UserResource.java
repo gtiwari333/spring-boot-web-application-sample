@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserResource {
 
     @GetMapping("/account")
-    public AppUserDetails getAccount() {
-        return SecurityUtils.getCurrentUser();
+    public Optional<Long> getAccount() {
+        return SecurityUtils.getCurrentUserId();
     }
 }

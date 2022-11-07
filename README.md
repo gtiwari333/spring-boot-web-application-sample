@@ -10,7 +10,8 @@
 #### Included Features/Samples
 
 MicroService:
-- Spring Sleuth based tracing
+
+[//]: # (- Spring Sleuth based tracing)
 - Exposing and implementing Open Feign clients
 - Spring Cloud Contract (WIP)
 

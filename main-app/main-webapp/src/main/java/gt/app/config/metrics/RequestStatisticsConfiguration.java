@@ -17,7 +17,7 @@ public class RequestStatisticsConfiguration implements WebMvcConfigurer {
         return new HibernateStatInterceptor();
     }
 
-    @Bean
+    //    @Bean this is not working
     public WebRequestInterceptor requestStatisticsInterceptor() {
         return new WebRequestInterceptor(hibernateInterceptor());
     }

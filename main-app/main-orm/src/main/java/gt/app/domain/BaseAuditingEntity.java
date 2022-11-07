@@ -24,7 +24,7 @@ abstract class BaseAuditingEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_user_id", updatable = false)
     @JsonIgnore//ignore completely to avoid StackOverflow exception by User.createdByUser logic, use DTO
-    private User createdByUser;
+    private AppUser createdByUser;
 
     @CreationTimestamp
     @Column(name = "created_date", nullable = false)
@@ -34,7 +34,7 @@ abstract class BaseAuditingEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "last_modified_by_user_id")
     @JsonIgnore//ignore completely to avoid StackOverflow exception by User.lastModifiedByUser logic, use DTO
-    private User lastModifiedByUser;
+    private AppUser lastModifiedByUser;
 
     @UpdateTimestamp
     @Column(name = "last_modified_date")

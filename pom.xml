@@ -31,7 +31,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot.version>3.0.0-RC1</spring-boot.version>
         <springdoc-openapi-ui.version>1.6.11</springdoc-openapi-ui.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud.version>2022.0.0-M5</spring-cloud.version>
         <hibernate-types52.version>2.19.0</hibernate-types52.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
 
@@ -39,11 +39,9 @@
         <!-- selenide 6+ uses selenium 4. Spring Boot Dep Mgmt still provides v3 -->
         <selenium.version>4.3.0</selenium.version>
         <google-guava.version>31.1-jre</google-guava.version>
-        <keycloak-spring-boot-starter.version>19.0.2</keycloak-spring-boot-starter.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit-junit5.version>0.23.1</archunit-junit5.version>
         <testcontainers.version>1.17.3</testcontainers.version>
-        <testcontainers-keycloak.version>2.3.0</testcontainers-keycloak.version>
         <commons-io.version>2.11.0</commons-io.version>
         <webjar-jquery.version>3.6.0</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
@@ -122,11 +120,6 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-spring-boot-starter</artifactId>
-                <version>${keycloak-spring-boot-starter.version}</version>
-            </dependency>
 
             <!-- needed by selenide -->
             <dependency>
@@ -160,11 +153,6 @@
                 <groupId>org.testcontainers</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>${testcontainers.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.dasniko</groupId>
-                <artifactId>testcontainers-keycloak</artifactId>
-                <version>${testcontainers-keycloak.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>

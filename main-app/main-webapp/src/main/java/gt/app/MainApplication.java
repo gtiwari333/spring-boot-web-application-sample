@@ -16,7 +16,6 @@ import java.util.Arrays;
 @SpringBootApplication
 @Slf4j
 @EnableConfigurationProperties(AppProperties.class)
-@EnableFeignClients
 @EnableCaching
 public class MainApplication {
 

@@ -33,10 +33,10 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     Optional<Article> findOneWithUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(UUID userId, ArticleStatus status, Pageable pageable);
+    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Long userId, ArticleStatus status, Pageable pageable);
 
     @Query("select n.createdByUser.id from Article n where n.id=:id ")
-    UUID findCreatedByUserIdById(@Param("id") Long id);
+    Long findCreatedByUserIdById(@Param("id") Long id);
 
     Optional<Article> findByIdAndStatus(Long id, ArticleStatus flagged);
 

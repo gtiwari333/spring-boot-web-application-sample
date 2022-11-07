@@ -43,13 +43,11 @@ class ArticleReviewResponseService {
     }
 
     void sendNotificationToAuthor(Article a, ContentCheckOutcome outcome) {
-        var email = EmailDto.builder()
-            .to(List.of(a.getCreatedByUser().getEmail()))
-            .fromName(appProperties.getEmail().getAuthorNotificationsFromName())
-            .fromEmail(appProperties.getEmail().getAuthorNotificationsFromEmail())
-            .subject("Article Review Result " + outcome)
-            .content("Result " + outcome + " For article titled: " + a.getTitle())
-            .build();
+        var email = EmailDto.of(appProperties.getEmail().getAuthorNotificationsFromName(),
+            List.of(a.getCreatedByUser().getEmail()),
+            "Article Review Result " + outcome,
+            "Result " + outcome + " For article titled: " + a.getTitle()
+        );
 
         emailClient.sendEmailWithAttachments(email);
     }

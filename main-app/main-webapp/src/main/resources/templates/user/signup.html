@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{_fragments/header :: head(~{:: title}, ~{:: .custom-link})}">
+    <title> Note App - Signup</title>
+    <!-- we can do the following to add extra css on this page -->
+    <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
+</head>
+<body>
+
+<div th:replace="~{_fragments/header :: headerbar}"></div>
+
+<div class="container">
+    <div class="card-deck mb-3">
+        <div class="px-3 py-3 pt-md-8 pb-md-8 mx-auto">
+
+            <div sec:authorize="isAuthenticated()">
+                <h2>You are already logged in.</h2>
+                <hr/>
+            </div>
+
+            <div sec:authorize="isAnonymous()">
+                <h4 class="mb-3">User Registration</h4>
+                <form th:action="@{/signup}" method="post" th:object="${user}">
+                    <div class="mb-4">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" th:field="*{firstName}" placeholder=""
+                               autofocus="autofocus"
+                               required>
+                        <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}" class="error"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="" required>
+                        <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}" class="error"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com"
+                               required>
+                        <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}" class="error"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                            </div>
+                            <input type="text" class="form-control" th:field="*{username}"
+                                   required>
+                        </div>
+                        <span th:errors="*{username}" th:if="${#fields.hasErrors('username')}" class="error"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="pwdPlaintext">Password</label>
+                        <input
+                            class="form-control" type="password"
+                            th:field="*{pwdPlaintext}" required/>
+                        <span th:errors="*{pwdPlaintext}" th:if="${#fields.hasErrors('pwdPlaintext')}"
+                              class="error"></span>
+                    </div>
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                    <hr class="mb-4">
+                    <span>Already registered?
+                        <a href="/" th:href="@{/login}">
+                             <button type="button" class="btn btn-outline-success">Login</button>
+					    </a>
+                    </span>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{_fragments/footer :: page-footer}" th:remove="tag"></div>
+
+</div>
+
+<div th:replace="~{_fragments/footer :: js-imports(~{::.custom-script})}">
+    <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
+</div>
+
+</body>
+</html>

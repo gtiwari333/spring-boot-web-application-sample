@@ -27,9 +27,9 @@ public class UserAuthorityService {
 
         if (Article.class.getSimpleName().equalsIgnoreCase(entity)) {
 
-            UUID createdById = articleService.findCreatedByUserIdById(id);
+            Long createdById = articleService.findCreatedByUserIdById(id);
 
-            return createdById.equals(curUser.getUser().getId());
+            return createdById.equals(curUser.getId());
         }
 
 
