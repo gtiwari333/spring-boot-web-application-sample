@@ -17,7 +17,7 @@ public class AppUserDetails {
 
     private final Collection<GrantedAuthority> authorities;
 
-    AppUserDetails(User user, Collection<GrantedAuthority> authorities) {
+    public AppUserDetails(User user, Collection<GrantedAuthority> authorities) {
         this.user = user;
         this.authorities = authorities;
     }

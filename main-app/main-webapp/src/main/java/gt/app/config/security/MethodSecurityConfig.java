@@ -3,15 +3,15 @@ package gt.app.config.security;
 import gt.app.modules.user.AppPermissionEvaluatorService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+class MethodSecurityConfig {
 
     private final AppPermissionEvaluatorService permissionEvaluator;
     private final ApplicationContext applicationContext;
@@ -21,7 +21,7 @@ class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
         this.applicationContext = applicationContext;
     }
 
-    @Override
+    @Bean
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         final DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
         expressionHandler.setApplicationContext(applicationContext);

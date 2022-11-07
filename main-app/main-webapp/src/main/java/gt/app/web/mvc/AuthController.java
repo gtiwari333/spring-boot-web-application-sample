@@ -1,9 +1,6 @@
 package gt.app.web.mvc;
 
 import lombok.RequiredArgsConstructor;
-import org.keycloak.adapters.AdapterDeploymentContext;
-import org.keycloak.adapters.KeycloakDeployment;
-import org.keycloak.adapters.springsecurity.facade.SimpleHttpFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class AuthController {
 
-    final AdapterDeploymentContext adapter;
+//    final AdapterDeploymentContext adapter;
 
     @GetMapping("/change-password")
     public String changePwd(RedirectAttributes redirectAttributes, HttpServletRequest req, HttpServletResponse resp) {

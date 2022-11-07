@@ -35,8 +35,16 @@ public class UserService {
         return userRepository.getReferenceById(id);
     }
 
-    public Optional<User> find(UUID id) {
+    public Optional<User> findIdByUserLogin(UUID id) {
         return userRepository.findById(id);
+    }
+
+    public UUID findIdByUserLogin(String userLogin) {
+        return userRepository.findIdByUsername(userLogin);
+    }
+
+    public User findByUserLogin(String userLogin) {
+        return userRepository.findByUsername(userLogin);
     }
 
     public String userSummary() {

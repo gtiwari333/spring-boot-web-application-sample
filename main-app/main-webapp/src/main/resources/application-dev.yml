@@ -24,7 +24,7 @@ spring:
     jpa:
         show-sql: true
         hibernate:
-            ddl-auto: none  # we use liquibase
+            ddl-auto: update  # we use liquibase
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -50,10 +50,10 @@ feign-clients:
     email-service:
         url: http://localhost:8085/ #TODO: use service discovery
 
-logging:
-    level:
-        org.jooq.tools.LoggerListener: DEBUG
-
-
 logging.level:
-    gt: DEBUG
+    org.jooq.tools.LoggerListener: DEBUG
+    org.springframework.security: INFO
+    org.springframework.security.web: INFO
+    org.springframework.cloud: INFO
+    org.hibernate.SQL: debug
+    org.hibernate.type: TRACE

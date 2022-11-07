@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ import java.io.Serializable;
 public class AppPermissionEvaluatorService implements PermissionEvaluator {
 
     private final UserAuthorityService userAuthorityService;
+    private final UserService userService;
 
     @Override
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {
@@ -38,14 +40,14 @@ public class AppPermissionEvaluatorService implements PermissionEvaluator {
     }
 
     public boolean hasAccess(Long id, String targetEntity) {
-        AppUserDetails curUserOpt = SecurityUtils.getCurrentUser();
+        Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();
 
-        if (curUserOpt == null) {
+        if (userLogin.isEmpty()) {
             return false;
         }
 
 
-        return userAuthorityService.hasAccess(curUserOpt, id, targetEntity);
+        return userAuthorityService.hasAccess(new AppUserDetails(userService.findByUserLogin(userLogin.get()), null), id, targetEntity);
     }
 
 

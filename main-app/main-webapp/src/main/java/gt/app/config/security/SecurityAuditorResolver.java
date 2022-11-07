@@ -1,28 +1,23 @@
 package gt.app.config.security;
 
 import gt.app.domain.User;
+import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
-import jakarta.persistence.EntityManager;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 class SecurityAuditorResolver implements AuditorAware<User> {
 
-    private final EntityManager entityManager;
+    private final UserService userService;
 
     @Override
     public Optional<User> getCurrentAuditor() {
+        Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();
 
-        UUID userId = SecurityUtils.getCurrentUserId();
-        if (userId == null) {
-            return Optional.empty();
-        }
-
-        return Optional.ofNullable(entityManager.getReference(User.class, userId));
+        return userLogin.map(u -> userService.getReference(userService.findIdByUserLogin(u)));
     }
 }

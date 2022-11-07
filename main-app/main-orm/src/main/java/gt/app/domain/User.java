@@ -1,12 +1,13 @@
 package gt.app.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-//import org.hibernate.annotations.Type;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.util.UUID;
 
 @Entity
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-//    @Type(type = "uuid-char")
+    @JdbcTypeCode(SqlTypes.CHAR)
     protected UUID id;
 
     @Column(nullable = false)
@@ -23,11 +24,11 @@ public class User {
 
     private String lastName;
 
-    @Column(nullable = false)
-    private String username; //doesn't need to be unique (multi-tenacy)
+    @Column(nullable = false, unique = true)
+    private String username;
 
     @Column(nullable = false)
-    private String email; //doesn't need to be unique (multi-tenacy)
+    private String email;
 
     public User() {
 

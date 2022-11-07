@@ -1,14 +1,15 @@
 package gt.app.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-//import org.hibernate.annotations.Type;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class ReceivedFile {
 
     @Id
-//    @Type(type = "uuid-char")
+    @JdbcTypeCode(SqlTypes.CHAR)
     UUID id;
 
     Instant receivedDate;
