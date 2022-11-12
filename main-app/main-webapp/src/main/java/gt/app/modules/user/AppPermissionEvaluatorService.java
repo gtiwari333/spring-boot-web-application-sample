@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ import java.io.Serializable;
 public class AppPermissionEvaluatorService implements PermissionEvaluator {
 
     private final UserAuthorityService userAuthorityService;
+    private final UserService userService;
 
     @Override
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {

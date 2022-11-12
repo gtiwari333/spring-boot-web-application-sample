@@ -1,5 +1,6 @@
 package gt.app.config.security;
 
+import gt.app.config.AppProperties;
 import gt.app.config.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,11 @@ public class SecurityConfig {
         "/download/file/**",
         "/" //landing page is allowed for all
     };
+    private final CorsFilter corsFilter;
+    private final AppProperties appProperties;
+
+    @Value("${spring.security.oauth2.client.provider.oidc.issuer-uri}")
+    private String issuerUri;
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -64,5 +70,3 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-}
