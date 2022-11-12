@@ -13,13 +13,6 @@ public class AppProperties {
     final FileStorage fileStorage = new FileStorage();
     final JmsProps jms = new JmsProps();
     final Email email = new Email();
-    final Security security = new Security();
-
-    @Data
-    public static class Security {
-        private String contentSecurityPolicy;
-        private List<String> oauth2Audience;
-    }
 
     @Data
     public static class FileStorage {
