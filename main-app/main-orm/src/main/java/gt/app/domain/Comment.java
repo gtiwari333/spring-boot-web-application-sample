@@ -1,11 +1,11 @@
 package gt.app.domain;
 
-import lombok.Data;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
+import lombok.Data;
+
 import java.util.Objects;
 
 @Entity

@@ -1,6 +1,5 @@
 package gt.app.web.rest;
 
-import gt.app.config.security.AppUserDetails;
 import gt.app.config.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

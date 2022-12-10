@@ -1,7 +1,6 @@
 package gt.app.config.logging;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.EmptyInterceptor;
 import org.hibernate.Interceptor;
 
 import java.io.Serial;

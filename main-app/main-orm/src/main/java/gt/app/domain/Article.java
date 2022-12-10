@@ -1,11 +1,11 @@
 package gt.app.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;

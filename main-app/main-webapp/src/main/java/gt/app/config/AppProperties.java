@@ -3,9 +3,6 @@ package gt.app.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @ConfigurationProperties(prefix = "app-properties", ignoreUnknownFields = false)
 @Data
 public class AppProperties {

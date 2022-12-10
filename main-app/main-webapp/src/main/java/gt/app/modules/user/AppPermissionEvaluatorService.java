@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor

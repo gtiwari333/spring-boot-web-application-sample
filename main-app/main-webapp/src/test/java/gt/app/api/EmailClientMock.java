@@ -1,11 +1,10 @@
 package gt.app.api;
 
 import gt.api.email.EmailDto;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 @Component
 public class EmailClientMock implements EmailClient {

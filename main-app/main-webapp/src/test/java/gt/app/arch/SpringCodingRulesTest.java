@@ -2,6 +2,8 @@ package gt.app.arch;
 
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.Entity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,9 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.persistence.Entity;
 
 public class SpringCodingRulesTest extends ArchitectureTest {
 
