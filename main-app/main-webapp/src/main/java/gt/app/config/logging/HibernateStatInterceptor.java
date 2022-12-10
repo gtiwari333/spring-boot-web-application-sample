@@ -25,7 +25,6 @@ public class HibernateStatInterceptor implements Interceptor {
         queryCount.remove();
     }
 
-    //hibernate6 doesn't have this
 //    @Override
 //    public String onPrepareStatement(String sql) {
 //        Long count = queryCount.get();

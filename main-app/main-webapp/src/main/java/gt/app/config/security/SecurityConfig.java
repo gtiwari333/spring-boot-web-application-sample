@@ -28,6 +28,7 @@ public class SecurityConfig {
         "/favicon.ico",
         "/static/**",
         "/signup/**",
+        "/error/**",
         "/public/**",
         "/article/read/**",
         "/download/file/**",

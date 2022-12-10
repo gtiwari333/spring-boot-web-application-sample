@@ -16,10 +16,16 @@
 
     <div class="container">
         <div class="card-deck mb-3 text-center">
-            <h1 th:text="${status}">404</h1>
-            <p th:utext="${error}">Error java.lang.NullPointerException</p>
-            <p th:utext="${message}">Error Message</p>
-            <a th:href="@{/}">Back to Home Page</a>
+
+
+            <!-- #response not detected -->
+            <div>
+                <h1 th:text="${status}">404</h1>
+                <p th:utext="${error}">Error java.lang.NullPointerException</p>
+                <p th:utext="${message}">Error Message</p>
+                <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+                <a th:href="@{/}">Back to Home Page</a>
+            </div>
 
         </div>
 

@@ -6,6 +6,7 @@ import gt.app.config.Constants;
 import gt.app.config.security.AppUserDetails;
 import gt.app.domain.AppUser;
 import gt.app.domain.LiteUser;
+import gt.app.exception.DuplicateRecordException;
 import gt.app.exception.RecordNotFoundException;
 import gt.app.modules.user.dto.PasswordUpdateDTO;
 import gt.app.modules.user.dto.UserProfileUpdateDTO;
@@ -52,6 +53,10 @@ public class UserService {
     }
 
     public AppUser create(UserSignUpDTO toCreate) {
+
+        if (liteUserRepository.existsByUsername(toCreate.getUsername())) {
+            throw new DuplicateRecordException("User", "login", toCreate.getUsername());
+        }
 
         var user = new AppUser(toCreate.getUsername(), toCreate.getFirstName(), toCreate.getLastName(), toCreate.getEmail());
 

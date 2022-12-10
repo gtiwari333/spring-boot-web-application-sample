@@ -25,6 +25,7 @@ spring:
         show-sql: true
         hibernate:
             ddl-auto: update  # we use liquibase
+            generate_statistics: true
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -47,3 +48,4 @@ logging.level:
     org.springframework.cloud: INFO
     org.hibernate.SQL: debug
     org.hibernate.type: TRACE
+    'org.hibernate.engine.internal.StatisticalLoggingSessionEventListener': info

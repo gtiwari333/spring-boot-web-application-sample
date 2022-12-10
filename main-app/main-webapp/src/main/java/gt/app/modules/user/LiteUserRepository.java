@@ -12,4 +12,6 @@ interface LiteUserRepository extends JpaRepository<LiteUser, Long> {
 
     @Transactional(readOnly = true)
     Optional<LiteUser> findByIdAndActiveIsTrue(Long id);
+
+    boolean existsByUsername(String id);
 }
