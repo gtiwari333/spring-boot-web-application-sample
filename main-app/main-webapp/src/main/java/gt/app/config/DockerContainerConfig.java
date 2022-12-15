@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.GenericContainer;
-//import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.MySQLContainer;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ public class DockerContainerConfig {
         log.info("Starting docker containers using TestContainers");
 
         String userPwd = "admin";//use same for all
-//
-//        var mysql = new MySQLContainer<>("mysql:8.0.30").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
-//        mysql.start();
+
+        var mysql = new MySQLContainer<>("mysql:8.0.30").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
+        mysql.start();
 
         var activeMQ = new GenericContainer<>("jhatdv/activemq-artemis:2.19.1-alpine");
         activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
@@ -44,8 +44,8 @@ public class DockerContainerConfig {
         setProperty("ACTIVEMQ_ARTEMIS_USERNAME", userPwd);
         setProperty("ACTIVEMQ_ARTEMIS_PASSWORD", userPwd);
 
-//        setProperty("MYSQL_HOST", mysql.getHost());
-//        setProperty("MYSQL_PORT", Integer.toString(mysql.getMappedPort(3306)));
+        setProperty("MYSQL_HOST", mysql.getHost());
+        setProperty("MYSQL_PORT", Integer.toString(mysql.getMappedPort(3306)));
         setProperty("MYSQL_DB", "seedapp");
         setProperty("MYSQL_USERNAME", userPwd);
         setProperty("MYSQL_PASSWORD", userPwd);
