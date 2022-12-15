@@ -6,10 +6,13 @@ spring:
     liquibase:
         enabled: true
         change-log: classpath:/liquibase/master.xml
+    datasource:
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     jpa:
         show-sql: true
         open-in-view: false
         hibernate:
+            ddl-auto: none  # we use liquibase
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy

@@ -33,11 +33,11 @@
         <springdoc-openapi-ui.version>2.0.0</springdoc-openapi-ui.version>
         <spring-cloud.version>2022.0.0-RC2</spring-cloud.version>
         <hibernate-types52.version>2.19.0</hibernate-types52.version>
-        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
 
-        <selenide.version>6.7.4</selenide.version>
+        <selenide.version>6.10.2</selenide.version>
         <!-- selenide 6+ uses selenium 4. Spring Boot Dep Mgmt still provides v3 -->
-        <selenium.version>4.3.0</selenium.version>
+        <selenium.version>4.7.1</selenium.version>
         <google-guava.version>31.1-jre</google-guava.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit-junit5.version>0.23.1</archunit-junit5.version>
@@ -52,7 +52,7 @@
 
         <!-- plugins -->
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
         <puppycrawl.checkstyle.version>10.3.3</puppycrawl.checkstyle.version>
         <gmavenplus.version>1.13.1</gmavenplus.version>

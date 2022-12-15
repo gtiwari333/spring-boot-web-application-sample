@@ -3,6 +3,7 @@ package gt.common.test;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import static java.lang.Thread.currentThread;
 
 public class TestUtil {
 
+    @GetMapping("/lfjkldsf")
     public static File fileFromClassPath(String name) {
         URL resource = currentThread().getContextClassLoader().getResource(name);
         if (resource == null) {
