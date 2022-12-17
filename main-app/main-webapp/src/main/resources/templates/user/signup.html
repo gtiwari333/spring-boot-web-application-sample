@@ -24,27 +24,8 @@
             <div sec:authorize="isAnonymous()">
                 <h4 class="mb-3">User Registration</h4>
                 <form th:action="@{/signup}" method="post" th:object="${user}">
-                    <div class="mb-4">
-                        <label for="firstName">First name</label>
-                        <input type="text" class="form-control" th:field="*{firstName}" placeholder=""
-                               autofocus="autofocus"
-                               required>
-                        <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}" class="error"></span>
 
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastName">Last name</label>
-                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="" required>
-                        <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}" class="error"></span>
-
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com"
-                               required>
-                        <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}" class="error"></span>
-                    </div>
+                    <div th:replace="~{user/_profile :: user-profile-edit}"></div>
 
                     <div class="mb-3">
                         <label for="username">Username</label>

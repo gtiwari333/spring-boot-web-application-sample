@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<th:block th:fragment="user-profile-edit">
+    <div class="mb-4">
+        <label for="firstName">First name</label>
+        <input type="text" class="form-control" th:field="*{firstName}" placeholder=""
+               autofocus="autofocus"
+               required>
+        <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}" class="error"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="lastName">Last name</label>
+        <input type="text" class="form-control" th:field="*{lastName}" placeholder="" required>
+        <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}" class="error"></span>
+
+    </div>
+
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com"
+               required>
+        <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}" class="error"></span>
+    </div>
+
+</th:block>
+
+
+</body>
+</html>
+
