@@ -43,7 +43,7 @@ class ArticleReviewResponseService {
     }
 
     void sendNotificationToAuthor(Article a, ContentCheckOutcome outcome) {
-        var email = EmailDto.of(appProperties.getEmail().getAuthorNotificationsFromName(),
+        var email = EmailDto.of(appProperties.getEmail().getAuthorNotificationsFromEmail(), appProperties.getEmail().getAuthorNotificationsFromEmail(),
             List.of(a.getCreatedByUser().getEmail()),
             "Article Review Result " + outcome,
             "Result " + outcome + " For article titled: " + a.getTitle()
