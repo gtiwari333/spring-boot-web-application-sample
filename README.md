@@ -46,7 +46,7 @@ Persistence/Search:
 
 Test:
 - Unit/integration with JUnit 5, Mockito and Spring Test
-- Tests with Spock Framework (Groovy 3, Spock 2)
+- Tests with Spock Framework (Groovy 4, Spock 2)
 - e2e with Selenide, fixtures. default data generated using Spring
 - Load test with Gatling/Scala
 - Architecture test using ArchUnit
