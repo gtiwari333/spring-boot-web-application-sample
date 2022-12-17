@@ -31,7 +31,7 @@ public class EmailService {
             message.setTo(toInetArray(email.to()));
             message.setCc(toInetArray(email.cc()));
             message.setBcc(toInetArray(email.bcc()));
-            message.setFrom(email.from(), email.from());
+            message.setFrom(email.fromEmail(), email.fromName());
 
             message.setSubject(email.subject());
             message.setText(email.content(), email.isHtml());

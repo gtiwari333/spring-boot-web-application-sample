@@ -128,12 +128,6 @@
                         <groupId>gt.app</groupId>
                         <version>${app.version}</version>
                     </dependency>
-
-<!--                    <dependency>-->
-<!--                        <groupId>org.jooq</groupId>-->
-<!--                        <artifactId>jooq-meta-extensions</artifactId>-->
-<!--                        <version>${jooq.version}</version>-->
-<!--                    </dependency>-->
                     <dependency>
                         <groupId>org.jooq</groupId>
                         <artifactId>jooq-meta-extensions-hibernate</artifactId>
