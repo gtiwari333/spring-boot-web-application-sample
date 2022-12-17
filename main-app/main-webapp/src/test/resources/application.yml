@@ -6,10 +6,13 @@ spring:
     liquibase:
         enabled: true
         change-log: classpath:/liquibase/master.xml
+    datasource:
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     jpa:
         show-sql: true
         open-in-view: false
         hibernate:
+            ddl-auto: none  # we use liquibase
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -28,15 +31,6 @@ spring:
 springdoc:
     swagger-ui:
         enabled: false
-
-keycloak:
-    realm: seedapp
-    auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/
-    ssl-required: external
-    resource: seed-app-gateway-client
-    public-client: true # for gateway app
-    principal-attribute: name
-    credentials.secret: dc168f0c-3c7f-47b9-b700-43d746978566
 
 debug: false
 

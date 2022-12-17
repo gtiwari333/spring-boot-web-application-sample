@@ -1,9 +1,8 @@
 package gt.app.modules.article;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 public class ArticleCreateDto {

@@ -2,32 +2,33 @@ package gt.app.config.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import gt.app.config.Constants;
-import gt.app.domain.User;
+import gt.app.domain.Authority;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
-import java.util.UUID;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
-public class AppUserDetails {
+public class AppUserDetails extends User {
 
-    private final User user;
+    private final Long id;
+    private final String firstName;
 
-    private final Collection<GrantedAuthority> authorities;
+    private final String lastName;
+    private final String email;
 
-    AppUserDetails(User user, Collection<GrantedAuthority> authorities) {
-        this.user = user;
-        this.authorities = authorities;
-    }
+    public AppUserDetails(Long id, String userName, String email, String password, String firstName, String lastName, Collection<Authority> authorities,
+                          boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked) {
 
-    public UUID getUserId() {
-        return getUser().getId();
-    }
+        super(userName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 
-    public String getUsername() {
-        return getUser().getUsername();
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     @JsonIgnore
@@ -45,8 +46,23 @@ public class AppUserDetails {
         return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
     }
 
-    @JsonIgnore
-    public Collection<GrantedAuthority> getAuthorities() {
-        return authorities;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        AppUserDetails that = (AppUserDetails) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id);
     }
 }

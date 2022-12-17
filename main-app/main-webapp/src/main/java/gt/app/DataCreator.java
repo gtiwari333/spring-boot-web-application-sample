@@ -1,9 +1,11 @@
 package gt.app;
 
 import gt.app.config.AppProperties;
+import gt.app.config.Constants;
 import gt.app.domain.*;
 import gt.app.modules.article.ArticleRepository;
 import gt.app.modules.article.CommentRepository;
+import gt.app.modules.user.AuthorityService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +15,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 @Component
@@ -21,6 +22,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 @Slf4j
 public class DataCreator {
+    final AuthorityService authorityService;
 
     final UserService userService;
     final ArticleRepository articleRepository;
@@ -45,22 +47,34 @@ public class DataCreator {
             }
         }
 
-        String systemUserId = "a621ac4c-6172-4103-9050-b27c053b11eb"; //matches with keycloak user id
-
-        if (userService.exists(UUID.fromString(systemUserId))) {
+        if (userService.existsByUsername("system")) {
             log.info("DB already initialized !!!");
             return;
         }
 
-        //ID and login are linked with the keycloak export json
-        User adminUser = new User(systemUserId, "system", "System", "Tiwari", "system@email");
+        Authority adminAuthority = new Authority();
+        adminAuthority.setName(Constants.ROLE_ADMIN);
+        authorityService.save(adminAuthority);
+
+        Authority userAuthority = new Authority();
+        userAuthority.setName(Constants.ROLE_USER);
+        authorityService.save(userAuthority);
+
+        String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster //value is 'pass'
+
+        AppUser adminUser = new AppUser("system", "System", "Tiwari", "system@email");
+        adminUser.setPassword(pwd);
+        adminUser.setAuthorities(authorityService.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
         userService.save(adminUser);
 
-        User user1 = new User("d1460f56-7f7e-43e1-8396-bddf39dba08f", "user1", "Ganesh", "Tiwari", "user1@email");
+        AppUser user1 = new AppUser("user1", "Ganesh", "Tiwari", "gt@email");
+        user1.setPassword(pwd);
+        user1.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
         userService.save(user1);
 
-
-        User user2 = new User("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel", "user2@email");
+        AppUser user2 = new AppUser("user2", "Jyoti", "Kattel", "jk@email");
+        user2.setPassword(pwd);
+        user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
         userService.save(user2);
 
         createArticle(adminUser, "Admin's First Article", "Content1 Admin");
@@ -69,7 +83,7 @@ public class DataCreator {
         createArticle(user2, "User2 Article", "Content User 2");
     }
 
-    void createArticle(User user, String title, String content) {
+    void createArticle(AppUser user, String title, String content) {
         var n = new Article();
         n.setCreatedByUser(user);
         n.setTitle(title);

@@ -1,52 +1,33 @@
 package gt.api.email;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 
-@Data
-@Builder
-public class EmailDto {
+public record EmailDto(String fromEmail, String fromName, Collection<String> to, Collection<String> cc,
+                       Collection<String> bcc,
+                       String subject, String content, boolean isHtml, FileBArray[] files) {
 
-    String fromName;
-    String fromEmail;
-    Collection<String> to = new HashSet<>();
-    Collection<String> cc = new HashSet<>();
-    Collection<String> bcc = new HashSet<>();
-    String subject;
-    String content;
-    boolean isHtml;
-    FileBArray[] files;
-
-    public FileBArray[] getFiles() {
-        if (files == null) {
-            return new FileBArray[]{};
-        }
-        return files;
+    public static EmailDto of(String fromEmail, Collection<String> to, String subject, String content) {
+        return new EmailDto(fromEmail, fromEmail, to, List.of(), List.of(), subject, content, false, new FileBArray[]{});
     }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class FileBArray {
-        byte[] data;
-        String filename;
+    public static EmailDto of(String fromEmail, String fromName, Collection<String> to, String subject, String content) {
+        return new EmailDto(fromEmail, fromName, to, List.of(), List.of(), subject, content, false, new FileBArray[]{});
+    }
+
+    public record FileBArray(byte[] data, String filename) {
     }
 
     @Override
     public String toString() {
         return "EmailDto{" +
-            "fromName='" + fromName + '\'' +
             "fromEmail='" + fromEmail + '\'' +
+            ", fromName='" + fromName + '\'' +
             ", to=" + to +
             ", cc=" + cc +
             ", bcc=" + bcc +
             ", subject='" + subject + '\'' +
+            ", isHtml=" + isHtml +
             '}';
     }
 }

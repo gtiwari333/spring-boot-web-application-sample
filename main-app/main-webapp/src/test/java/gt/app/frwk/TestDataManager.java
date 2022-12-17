@@ -1,14 +1,14 @@
 package gt.app.frwk;
 
 import gt.app.DataCreator;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.metamodel.spi.MetamodelImplementor;
+import org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl;
 import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,7 @@ public class TestDataManager implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        MetamodelImplementor metaModelImpl = (MetamodelImplementor) em.getMetamodel();
+        MappingMetamodelImpl metaModelImpl = (MappingMetamodelImpl) em.getMetamodel();
         tableNames = metaModelImpl
             .entityPersisters()
             .values().stream()

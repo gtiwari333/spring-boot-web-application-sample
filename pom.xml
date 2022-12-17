@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version>3.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -29,36 +29,34 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring-boot.version>2.7.3</spring-boot.version>
-        <springdoc-openapi-ui.version>1.6.11</springdoc-openapi-ui.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-boot.version>3.0.0</spring-boot.version>
+        <springdoc-openapi-ui.version>2.0.0</springdoc-openapi-ui.version>
+        <spring-cloud.version>2022.0.0-RC3</spring-cloud.version>
         <hibernate-types52.version>2.19.0</hibernate-types52.version>
-        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
 
-        <selenide.version>6.7.4</selenide.version>
+        <selenide.version>6.10.2</selenide.version>
         <!-- selenide 6+ uses selenium 4. Spring Boot Dep Mgmt still provides v3 -->
-        <selenium.version>4.3.0</selenium.version>
+        <selenium.version>4.7.1</selenium.version>
         <google-guava.version>31.1-jre</google-guava.version>
-        <keycloak-spring-boot-starter.version>19.0.1</keycloak-spring-boot-starter.version>
         <wro4j.version>1.9.0</wro4j.version>
-        <archunit-junit5.version>0.23.1</archunit-junit5.version>
-        <testcontainers.version>1.17.3</testcontainers.version>
-        <testcontainers-keycloak.version>2.3.0</testcontainers-keycloak.version>
+        <archunit.version>1.0.1</archunit.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
         <commons-io.version>2.11.0</commons-io.version>
         <webjar-jquery.version>3.6.0</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
 
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <spock-version>2.2-M3-groovy-3.0</spock-version>
+        <spock-version>2.4-M1-groovy-4.0</spock-version>
         <objenesis.version>3.3</objenesis.version>
 
         <!-- plugins -->
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
         <puppycrawl.checkstyle.version>10.3.3</puppycrawl.checkstyle.version>
-        <gmavenplus.version>1.13.1</gmavenplus.version>
-        <maven-processor-plugin.version>4.2</maven-processor-plugin.version>
+        <gmavenplus.version>2.1.0</gmavenplus.version>
+        <maven-processor-plugin.version>4.5</maven-processor-plugin.version>
         <modernizer-maven-plugin.version>2.3.0</modernizer-maven-plugin.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
         <google.error-prone.compiler.version>2.14.0</google.error-prone.compiler.version>
@@ -122,11 +120,6 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-spring-boot-starter</artifactId>
-                <version>${keycloak-spring-boot-starter.version}</version>
-            </dependency>
 
             <!-- needed by selenide -->
             <dependency>
@@ -148,8 +141,8 @@
 
             <dependency>
                 <groupId>com.tngtech.archunit</groupId>
-                <artifactId>archunit-junit5-engine</artifactId>
-                <version>${archunit-junit5.version}</version>
+                <artifactId>archunit</artifactId>
+                <version>${archunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -160,11 +153,6 @@
                 <groupId>org.testcontainers</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>${testcontainers.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.dasniko</groupId>
-                <artifactId>testcontainers-keycloak</artifactId>
-                <version>${testcontainers-keycloak.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -179,7 +167,7 @@
 
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc-openapi-ui.version}</version>
             </dependency>
 
@@ -290,25 +278,24 @@
             </plugins>
         </pluginManagement>
     </build>
-
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

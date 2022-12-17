@@ -30,10 +30,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-sleuth</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
@@ -136,7 +136,7 @@
                 </dependency>
                 <dependency>
                     <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-ui</artifactId>
+                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                     <version>${springdoc-openapi-ui.version}</version>
                     <optional>true</optional>
                 </dependency>

@@ -1,10 +1,10 @@
 package gt.app.web.mvc;
 
-import gt.app.config.security.CurrentUser;
-import gt.app.config.security.CurrentUserToken;
+import gt.app.config.security.AppUserDetails;
 import gt.app.modules.user.UserService;
 import gt.app.modules.user.UserStat;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class AccountController {
     final UserService userService;
 
     @GetMapping("/account/user/{id}")
-    public String getUserSummary(Model model, @CurrentUser CurrentUserToken u, @PathVariable UUID id) {
+    public String getUserSummary(Model model, @AuthenticationPrincipal AppUserDetails loggedInUserDtl, @PathVariable UUID id) {
 
 
         model.addAttribute("name", "FName LastName");

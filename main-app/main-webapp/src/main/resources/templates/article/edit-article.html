@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
+<head th:replace="~{_fragments/header :: head(~{:: title}, ~{:: .custom-link})}">
     <title> Edit Article</title>
     <!-- we can do the following to add extra css on this page -->
     <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
@@ -9,7 +9,7 @@
 
 <body>
 
-<div th:replace="_fragments/header :: headerbar"></div>
+<div th:replace="~{_fragments/header :: headerbar}"></div>
 
 
 <div class="container">
@@ -20,7 +20,7 @@
 
             <form action="#" method="post" th:action=@{/article/edit} th:object="${article}" enctype="multipart/form-data">
 
-                <div th:replace="article/_articles :: article-editor"></div>
+                <div th:replace="~{article/_articles :: article-editor}"></div>
 
                 <button class="btn btn-primary btn-sm btn-block" type="submit" id="updateArticle-btn">Update Article</button>
             </form>
@@ -29,11 +29,11 @@
         </div>
     </div>
 
-    <div th:replace="_fragments/footer :: page-footer"></div>
+    <div th:replace="~{_fragments/footer :: page-footer}"></div>
 
 </div>
 
-<div th:replace="_fragments/footer :: js-imports(~{::.custom-script})">
+<div th:replace="~{_fragments/footer :: js-imports(~{::.custom-script})}">
     <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
 </div>
 

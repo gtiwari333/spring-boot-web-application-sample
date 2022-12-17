@@ -1,7 +1,6 @@
 ### A Spring Boot Web Application Sample with tons of ready-to-use features. This can be used as starter for bigger projects.
 
 #### Variations
-- Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
 
 
@@ -10,7 +9,8 @@
 #### Included Features/Samples
 
 MicroService:
-- Spring Sleuth based tracing
+
+[//]: # (- Spring Sleuth based tracing)
 - Exposing and implementing Open Feign clients
 - Spring Cloud Contract (WIP)
 
@@ -28,7 +28,7 @@ Spring MVC:
 - favicon handler
 
 Security:
-- Account management with KeyCloak
+- Account management
 - Spring Security 
 - User/User_Authority entity and repository/services
     - login, logout, home pages based on user role
@@ -101,12 +101,12 @@ It contains following applications:
 - trend-service (optional)
 - content-checker (optional)
 
-Option 1 - run with manually started KeyCloak and ActiveMQ servers
+Option 1 - run with manually started ActiveMQ servers
 - Run ```mvn clean install``` at root 
 - Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
-Option 2 - automatically start KeyCloak and ActiveMQ using TestContainer while application is starting
+Option 2 - automatically start ActiveMQ using TestContainer while application is starting
 - Run ```mvn clean install``` at root 
 - Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
