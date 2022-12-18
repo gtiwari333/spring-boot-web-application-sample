@@ -22,7 +22,7 @@ spring:
         username: ${MYSQL_USERNAME:root}
         password: ${MYSQL_PASSWORD:password}
     jpa:
-        show-sql: true
+        show-sql: false
         hibernate:
             ddl-auto: update  # we use liquibase
             generate_statistics: true
@@ -46,6 +46,6 @@ logging.level:
     org.springframework.security: debug
     org.springframework.security.web: debug
     org.springframework.cloud: INFO
-    org.hibernate.SQL: debug
-    org.hibernate.type: TRACE
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: TRACE
     'org.hibernate.engine.internal.StatisticalLoggingSessionEventListener': info
