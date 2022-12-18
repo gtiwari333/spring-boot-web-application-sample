@@ -16,18 +16,28 @@ spring:
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    cloud:
+        openfeign:
+            micrometer:
+                enabled: true
 
 server:
     port: 8081
 
-logging.level:
-    org.springframework.security: INFO
-    org.springframework.security.web: INFO
-    org.springframework.cloud: INFO
-    sql: INFO
-    web: INFO
-    ROOT: WARN
-    gt: DEBUG
+logging:
+    level:
+        org.springframework.security: INFO
+        org.springframework.security.web: INFO
+        org.springframework.cloud: INFO
+        sql: INFO
+        web: INFO
+        ROOT: WARN
+        gt: DEBUG
+#        org.hibernate.SQL: debug
+#        org.hibernate.type: TRACE
+#        'org.hibernate.engine.internal.StatisticalLoggingSessionEventListener': info
+    pattern:
+        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 
 app-properties:
@@ -44,3 +54,14 @@ wro4j:
         post-processors: cssVariables,cssMinJawr,jsMin
         pre-processors: cssUrlRewriting,cssImport,semicolonAppender,removeSourceMaps,singlelineStripper
     filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls
+
+management:
+    tracing:
+        sampling:
+            probability: 1.0
+    zipkin:
+        tracing:
+            endpoint: http://localhost:9411/api/v2/spans
+    health:
+        jms:
+            enabled: true

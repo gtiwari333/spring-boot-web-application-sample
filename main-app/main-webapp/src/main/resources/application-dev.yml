@@ -41,11 +41,3 @@ feign-clients:
     email-service:
         url: http://localhost:8085/ #TODO: use service discovery
 
-logging.level:
-    org.jooq.tools.LoggerListener: DEBUG
-    org.springframework.security: debug
-    org.springframework.security.web: debug
-    org.springframework.cloud: INFO
-#    org.hibernate.SQL: debug
-#    org.hibernate.type: TRACE
-    'org.hibernate.engine.internal.StatisticalLoggingSessionEventListener': info

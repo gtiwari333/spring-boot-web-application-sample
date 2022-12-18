@@ -28,6 +28,13 @@ services:
             - 1025:1025
         networks:
             - seedappnet
+    zipkin:
+        image: 'openzipkin/zipkin'
+        container_name: zipkin
+        ports:
+            - 9411:9411
+        networks:
+            - seedappnet
 volumes:
     esdata1:
         driver: local
