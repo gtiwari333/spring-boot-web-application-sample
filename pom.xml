@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -29,9 +29,9 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring-boot.version>3.0.0</spring-boot.version>
+        <spring-boot.version>3.0.1</spring-boot.version>
         <springdoc-openapi-ui.version>2.0.0</springdoc-openapi-ui.version>
-        <spring-cloud.version>2022.0.0-RC3</spring-cloud.version>
+        <spring-cloud.version>2022.0.0</spring-cloud.version>
         <hibernate-types52.version>2.19.0</hibernate-types52.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
 

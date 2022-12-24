@@ -16,21 +16,12 @@ interface UserRepository extends JpaRepository<AppUser, Long> {
     @Cacheable("userExistsById")
     boolean existsById(Long id);
 
-
-    @Cacheable(value = "userIdByUsername", unless = "#result == null")
-    @Query("select id from AppUser where username = :username")
-    Long findIdByUsername(@Param("username") String username);
-
-    @Cacheable(value = "userByUsername", unless = "#result == null")
-    @EntityGraph(attributePaths = "role")
-    AppUser findByUsername(@Param("username") String username);
-
     @EntityGraph(attributePaths = {"authorities"})
     @Transactional(readOnly = true)
+    @Cacheable("userWithAuthByUsername")
     Optional<AppUser> findOneWithAuthoritiesByUsername(String username);
 
     @Transactional(readOnly = true)
+    @Cacheable("userExistsByUserName")
     boolean existsByUsername(String username);
-
-    Optional<AppUser> findByIdAndActiveIsTrue(Long id);
 }

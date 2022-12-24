@@ -56,7 +56,7 @@
             </table>
 
 
-            <th:block th:replace="~{_fragments/_utils :: pagination(${articles})}">
+            <th:block th:replace="~{_fragments/_utils :: pagination(${articles},  ${_page_begin}, ${_page_end})}">
 
             </th:block>
 

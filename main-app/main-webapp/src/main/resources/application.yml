@@ -21,13 +21,13 @@ server:
     port: 8081
 
 logging.level:
-    org.springframework.security: INFO
-    org.springframework.security.web: INFO
-    org.springframework.cloud: INFO
+    org.springframework.security: WARN
+    org.springframework.security.web: WARN
+    org.springframework.cloud: WARN
     sql: INFO
     web: INFO
     ROOT: WARN
-    gt: DEBUG
+    gt: WARN
 
 
 app-properties:

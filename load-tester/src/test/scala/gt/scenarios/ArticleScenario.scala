@@ -17,7 +17,7 @@ object ArticleScenario {
         .check(status.is(200))
 
     def newArticle(): HttpRequestBuilder = http("create new article")
-        .post(Environment.newArticleUrl)
+        .post(Environment.newArticlePostUrl)
         .formParam("title", Environment.faker.book().title())
         .formParam("content", Environment.faker.gameOfThrones().quote())
         .check(status.is(200))

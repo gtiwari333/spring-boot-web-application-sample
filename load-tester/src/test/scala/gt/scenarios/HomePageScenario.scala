@@ -12,6 +12,11 @@ object HomePageScenario {
             .get(Environment.publicHomePage)
     }
 
+    def newArticlePage(): HttpRequestBuilder = {
+        http("new article page")
+            .get(Environment.publicHomePage)
+    }
+
     def openPage(page: Int): HttpRequestBuilder = {
         http("open page " + page)
             .get("/?size=5&page=" + (page - 1))

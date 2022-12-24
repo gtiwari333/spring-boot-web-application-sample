@@ -1,7 +1,7 @@
 package gt.simulations
 
 import gt.Environment
-import gt.scenarios.{ArticleScenario, HomePageScenario, KeyCloakLoginScenarios}
+import gt.scenarios.{ArticleScenario, HomePageScenario, LoginScenarios}
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
@@ -14,20 +14,23 @@ class LoginAndCreateReadArticlesSimulation extends Simulation {
     val httpProtocol: HttpProtocolBuilder = http
         .baseUrl(Environment.baseUrl)
 
-    val scn: ScenarioBuilder = scenario("keycloak-standard-flow")
-        .feed(KeyCloakLoginScenarios.userFeeder())
-        .exec(KeyCloakLoginScenarios.loadLoginPage())
+    val scn: ScenarioBuilder = scenario("login-read-create-logout")
+        .feed(LoginScenarios.userFeeder())
+        .exec(LoginScenarios.loadLoginPage())
         .pause(100.milliseconds, 300.milliseconds)
-        .exec(KeyCloakLoginScenarios.keyCloakAuthenticate())
+        .exec(LoginScenarios.userAuthenticate())
         .pause(50.milliseconds, 100.milliseconds)
         .exec(HomePageScenario.homePage())
+        .pause(50.milliseconds, 100.milliseconds)
         .exec(ArticleScenario.allUserArticles())
+        .pause(50.milliseconds, 100.milliseconds)
+        .exec(HomePageScenario.newArticlePage())
         .pause(50.milliseconds, 100.milliseconds)
         .exec(ArticleScenario.newArticle())
         .pause(50.milliseconds, 100.milliseconds)
         .exec(ArticleScenario.allUserArticles())
         .pause(50.milliseconds, 100.milliseconds)
-        .exec(KeyCloakLoginScenarios.logout())
+        .exec(LoginScenarios.logout())
 
 
     before {
