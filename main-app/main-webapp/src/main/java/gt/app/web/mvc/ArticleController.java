@@ -3,6 +3,7 @@ package gt.app.web.mvc;
 import gt.app.config.security.AppUserDetails;
 import gt.app.domain.Article;
 import gt.app.modules.article.*;
+import gt.app.utl.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +30,9 @@ public class ArticleController {
 
     @GetMapping({"/", ""})
     public String userHome(Model model, @AuthenticationPrincipal AppUserDetails u, Pageable pageable) {
-        model.addAttribute("articles", articleService.previewAllWithFilesByUser(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()), u.getId()));
+        var page = articleService.previewAllWithFilesByUser(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()), u.getId());
+        model.addAttribute("articles", page);
+        PaginationUtil.decorateModel(model, page);
         return "article";
     }
 

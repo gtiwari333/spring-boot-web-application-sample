@@ -1,7 +1,7 @@
 package gt.simulations
 
 import gt.Environment
-import gt.scenarios.KeyCloakLoginScenarios
+import gt.scenarios.LoginScenarios
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
@@ -9,16 +9,16 @@ import io.gatling.http.protocol.HttpProtocolBuilder
 
 import scala.concurrent.duration.DurationInt
 
-class KeyCloakLoginFlowSimulation extends Simulation {
+class UserLoginFlowSimulation extends Simulation {
 
     val httpProtocol: HttpProtocolBuilder = http
         .baseUrl(Environment.baseUrl)
 
-    val scn: ScenarioBuilder = scenario("keycloak-standard-flow")
-        .feed(KeyCloakLoginScenarios.userFeeder())
-        .exec(KeyCloakLoginScenarios.loadLoginPage())
+    val scn: ScenarioBuilder = scenario("login-read-logout")
+        .feed(LoginScenarios.userFeeder())
+        .exec(LoginScenarios.loadLoginPage())
         .pause(50.milliseconds, 500.milliseconds)
-        .exec(KeyCloakLoginScenarios.keyCloakAuthenticate())
+        .exec(LoginScenarios.userAuthenticate())
         .pause(50.milliseconds, 500.milliseconds)
         .exec(http("get home page after login")
             .get(Environment.publicHomePage)
@@ -29,7 +29,7 @@ class KeyCloakLoginFlowSimulation extends Simulation {
             .check(status.is(200))
         )
         .pause(50.milliseconds, 500.milliseconds)
-        .exec(KeyCloakLoginScenarios.logout())
+        .exec(LoginScenarios.logout())
 
 
     //TODO:

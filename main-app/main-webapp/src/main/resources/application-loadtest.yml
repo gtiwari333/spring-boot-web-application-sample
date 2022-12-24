@@ -1,0 +1,27 @@
+spring:
+    thymeleaf:
+        cache: true
+    web:
+        resources:
+            cache:
+                period: PT10H
+            chain:
+                cache: true
+    mvc:
+        static-path-pattern: /static/**
+
+    datasource:
+        hikari:
+            maximum-pool-size: 1000
+    jpa:
+        show-sql: false
+        hibernate:
+            ddl-auto: none  # we use liquibase
+            generate_statistics: false
+
+logging.level:
+    org.jooq.tools.LoggerListener: DEBUG
+    org.springframework.security: WARN
+    org.springframework.security.web: WARN
+    ROOT: INFO
+    gt: INFO

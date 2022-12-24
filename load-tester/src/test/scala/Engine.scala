@@ -13,7 +13,7 @@ object Engine extends App {
     /*
     uncomment and put the simulation that you want to run
 
-    Or run mvn gatling:test to run all tests
+    Or run `mvn gatling:test` to run all tests
         runMultipleSimulations is true
      */
 

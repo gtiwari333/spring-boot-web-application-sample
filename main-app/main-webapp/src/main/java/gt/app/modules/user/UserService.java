@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -75,53 +74,16 @@ public class UserService {
         return user;
     }
 
-    public void delete(Long id) {
-        LiteUser author = liteUserRepository.findByIdAndActiveIsTrue(id)
-            .orElseThrow(() -> new RecordNotFoundException("User", "id", id));
-
-        author.setActive(Boolean.FALSE);
-        liteUserRepository.save(author);
-    }
-
     public AppUser save(AppUser u) {
         return userRepository.save(u);
-    }
-
-    public boolean exists(Long id) {
-        return userRepository.existsById(id);
     }
 
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
 
-    public void updateUserIfNeeded(AppUser user) {
-        if (!userRepository.existsById(user.getId())) {
-            save(user);
-        }
-    }
-
     public AppUser getReference(Long id) {
         return userRepository.getReferenceById(id);
     }
 
-    public Optional<AppUser> findIdByUserLogin(Long id) {
-        return userRepository.findById(id);
-    }
-
-    public Long findIdByUserLogin(String userLogin) {
-        return userRepository.findIdByUsername(userLogin);
-    }
-
-    public AppUser findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public Optional<AppUser> findById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    public String userSummary() {
-        return "";
-    }
 }

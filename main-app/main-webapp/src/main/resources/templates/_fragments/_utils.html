@@ -4,7 +4,7 @@
 
 <body>
 
-<th:block th:fragment="pagination(pagedObject)">
+<th:block th:fragment="pagination(pagedObject, begin, end)">
 
     <!-- works with org.springframework.data.domain.Page<pagedObject>, -->
 
@@ -18,12 +18,11 @@
                 <a class="page-link"
                    th:href="@{''(size=${pagedObject.getSize()}, page=${pagedObject.getNumber() -1})}">&larr;</a>
             </li>
-
-            <!-- TODO: handle big page sizes -->
-            <li th:classappend="${pagedObject.getNumber() == (page  )} ? 'active pointer-disabled'"
-                th:each="page : ${#numbers.sequence(0, pagedObject.getTotalPages() -1)}" class="page-item">
-                <a class="page-link" th:href="@{''(size=${pagedObject.getSize()}, page=${page})}"
-                   th:text="${page + 1}"></a>
+            <li class="page-item"
+                th:classappend="${i==pagedObject.getNumber()+1} ? disabled"
+                th:each="i : ${#numbers.sequence(begin,  end)} ">
+                <a class="page-link"
+                   th:href="@{''(size=${pagedObject.getSize()}, page=${i -1})}" th:text="${i}"></a>
             </li>
             <li th:classappend="${pagedObject.getNumber() + 1 == pagedObject.getTotalPages()} ? disabled"
                 class="page-item">
@@ -33,7 +32,7 @@
             <li th:classappend="${pagedObject.getNumber() + 1 == pagedObject.getTotalPages()} ? disabled"
                 class="page-item">
                 <a class="page-link"
-                   th:href="@{''(size=${pagedObject.getSize()}, page=${pagedObject.getTotalPages()})}">&raquo;</a>
+                   th:href="@{''(size=${pagedObject.getSize()}, page=${pagedObject.getTotalPages()-1})}">&raquo;</a>
             </li>
         </ul>
 
