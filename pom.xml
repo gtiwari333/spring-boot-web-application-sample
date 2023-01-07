@@ -32,10 +32,10 @@
         <spring-boot.version>3.0.1</spring-boot.version>
         <springdoc-openapi-ui.version>2.0.0</springdoc-openapi-ui.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
-        <hibernate-types52.version>2.19.0</hibernate-types52.version>
+        <hibernate-types60.version>2.21.1</hibernate-types60.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
 
-        <selenide.version>6.10.2</selenide.version>
+        <selenide.version>6.11.0</selenide.version>
         <!-- selenide 6+ uses selenium 4. Spring Boot Dep Mgmt still provides v3 -->
         <selenium.version>4.7.1</selenium.version>
         <google-guava.version>31.1-jre</google-guava.version>
@@ -54,11 +54,11 @@
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>10.3.3</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>10.6.0</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
         <gmavenplus.version>2.1.0</gmavenplus.version>
         <maven-processor-plugin.version>4.5</maven-processor-plugin.version>
         <modernizer-maven-plugin.version>2.3.0</modernizer-maven-plugin.version>
-        <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
         <google.error-prone.compiler.version>2.14.0</google.error-prone.compiler.version>
         <spotbugs-maven-plugin.version>4.7.1.0</spotbugs-maven-plugin.version>
     </properties>
@@ -135,8 +135,8 @@
             </dependency>
             <dependency>
                 <groupId>com.vladmihalcea</groupId>
-                <artifactId>hibernate-types-52</artifactId>
-                <version>${hibernate-types52.version}</version>
+                <artifactId>hibernate-types-60</artifactId>
+                <version>${hibernate-types60.version}</version>
             </dependency>
 
             <dependency>
