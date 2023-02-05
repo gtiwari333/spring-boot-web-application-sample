@@ -49,7 +49,7 @@ Test:
 - Tests with Spock Framework (Groovy 4, Spock 2)
 - e2e with Selenide, fixtures. default data generated using Spring
 - Load test with Gatling/Scala
-- Architecture test using ArchUnit
+- Architecture tests using ArchUnit
 - file upload/download e2e test with Selenide
 - TestContainers to perform realistic integration test
 
