@@ -22,9 +22,9 @@ class SampleTest {
     void test() {
         open("/");
 
-        $("#searchInput").setValue("Software");
+        $("[name=\"search\"]").setValue("Software");
 
-        $("#searchButton").click();
+        $("[name=\"search\"]").pressEnter();
 
         $("body").shouldHave(text("Computer Software"));
     }
