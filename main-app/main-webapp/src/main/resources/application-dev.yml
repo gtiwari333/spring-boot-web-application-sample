@@ -31,11 +31,12 @@ spring:
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     jooq:
         sql-dialect: MySQL
-
     artemis:
         user: ${ACTIVEMQ_ARTEMIS_USERNAME:admin}
         password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
+    liquibase:
+        enabled: true
 
 feign-clients:
     email-service:

@@ -37,6 +37,7 @@ debug: false
 logging.level:
     ROOT: WARN
     gt: INFO
+    sql: TRACE
     org.apache: ERROR
 
 app-properties:
