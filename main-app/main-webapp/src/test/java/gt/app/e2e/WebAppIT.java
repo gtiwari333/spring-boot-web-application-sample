@@ -3,6 +3,7 @@ package gt.app.e2e;
 import gt.app.e2e.pageobj.*;
 import gt.app.frwk.BaseSeleniumTest;
 import gt.app.frwk.TestDataManager;
+import io.hypersistence.utils.jdbc.validator.SQLStatementCountValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ class WebAppIT extends BaseSeleniumTest {
     @BeforeEach
     void cleanDB() {
         testDataManager.cleanDataAndCache();
+        SQLStatementCountValidator.reset();
+
     }
 
     @Test
