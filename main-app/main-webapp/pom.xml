@@ -227,6 +227,17 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- query performance -->
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-60</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>datasource-proxy-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- spock deps -->
         <dependency>
             <groupId>org.spockframework</groupId>
