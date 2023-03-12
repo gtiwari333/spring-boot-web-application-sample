@@ -37,8 +37,9 @@ debug: false
 logging.level:
     ROOT: WARN
     gt: INFO
-    sql: TRACE
+    sql: WARN
     org.apache: ERROR
+#    net.ttddyy.dsproxy.listener.logging: DEBUG  # uncomment to see the queries with params
 
 app-properties:
     file-storage:
@@ -51,3 +52,13 @@ app-properties:
 feign-clients:
     email-service:
         url: http://localhost:00/  #TODO: find a better way to handle this
+
+# enabled for test to assert query counts
+decorator:
+    datasource:
+        enabled: true
+        datasource-proxy:
+            slow-query:
+                threshold: 1
+            query:
+                log-level: INFO
