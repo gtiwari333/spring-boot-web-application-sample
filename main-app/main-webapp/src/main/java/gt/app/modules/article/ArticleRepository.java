@@ -43,7 +43,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Caching(
         evict = {
             @CacheEvict(cacheNames = {"articleForReview"}, key = "#result.id"),
-//            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
+            @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )
     Article save(Article a);

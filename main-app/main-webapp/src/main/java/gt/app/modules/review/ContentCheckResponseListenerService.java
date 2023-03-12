@@ -16,7 +16,7 @@ public class ContentCheckResponseListenerService {
 
     @JmsListener(destination = "${app-properties.jms.content-checkercallback-response-queue}")
     void handleContentCheckResponse(Response resp) {
-
+        log.info("Received review response for entity id {}, entity type {}, outcome {}", resp.getEntityId(), resp.getRequestType(), resp.getContentCheckOutcome());
         switch (resp.getRequestType()) {
             case COMMENT -> commentReviewResponseService.handle(resp);
             case ARTICLE -> articleReviewResponseService.handle(resp);

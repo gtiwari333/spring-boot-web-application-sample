@@ -35,6 +35,7 @@
         <hibernate-types60.version>2.21.1</hibernate-types60.version>
         <hibernate-hypersistence-utils.version>3.2.0</hibernate-hypersistence-utils.version>
         <datasource-proxy-sb-starter.version>1.9.0</datasource-proxy-sb-starter.version>
+        <datasource-micrometer-sb-starter.version>1.0.1</datasource-micrometer-sb-starter.version>
         <springdoc-openapi-ui.version>2.0.2</springdoc-openapi-ui.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
 
@@ -156,6 +157,11 @@
                 <groupId>com.github.gavlyukovskiy</groupId>
                 <artifactId>datasource-proxy-spring-boot-starter</artifactId>
                 <version>${datasource-proxy-sb-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.ttddyy.observation</groupId>
+                <artifactId>datasource-micrometer-spring-boot</artifactId>
+                <version>${datasource-micrometer-sb-starter.version}</version>
             </dependency>
 
             <dependency>
