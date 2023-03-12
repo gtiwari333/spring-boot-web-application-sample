@@ -19,7 +19,7 @@ class WebAppIT extends BaseSeleniumTest {
 
     @BeforeEach
     void cleanDB() {
-        testDataManager.truncateTablesAndRecreate();
+        testDataManager.cleanDataAndCache();
     }
 
     @Test

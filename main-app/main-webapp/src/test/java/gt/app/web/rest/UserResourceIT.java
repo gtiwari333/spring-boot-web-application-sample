@@ -1,5 +1,7 @@
 package gt.app.web.rest;
 
+import gt.app.frwk.TestDataManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,6 +17,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UserResourceIT   {
 
+    @Autowired
+    TestDataManager testDataManager;
+
+    @BeforeEach
+    void cleanDB() {
+        testDataManager.cleanDataAndCache();
+    }
     @Test
     void getAccount3xx(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/api/account"))
