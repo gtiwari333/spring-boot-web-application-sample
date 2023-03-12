@@ -11,8 +11,8 @@ object Environment {
         .getOrElse(alt)
 
     val profile: String = envOrElse("profile", "local")
-    val rampUpTime: FiniteDuration = envOrElse("rampUpTIme", "25").toInt seconds
-    val maxUsers: Int = envOrElse("users", "1000").toInt
+    val rampUpTime: FiniteDuration = envOrElse("rampUpTIme", "30").toInt seconds
+    val maxUsers: Int = envOrElse("users", "500").toInt
 
     val faker = new Faker()
 

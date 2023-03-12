@@ -9,7 +9,7 @@ spring:
     datasource:
         url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     jpa:
-        show-sql: true
+        show-sql: false
         open-in-view: false
         hibernate:
             ddl-auto: none  # we use liquibase
@@ -37,7 +37,9 @@ debug: false
 logging.level:
     ROOT: WARN
     gt: INFO
+    sql: WARN
     org.apache: ERROR
+#    net.ttddyy.dsproxy.listener.logging: DEBUG  # uncomment to see the queries with params
 
 app-properties:
     file-storage:
@@ -50,3 +52,13 @@ app-properties:
 feign-clients:
     email-service:
         url: http://localhost:00/  #TODO: find a better way to handle this
+
+# enabled for test to assert query counts
+decorator:
+    datasource:
+        enabled: true
+        datasource-proxy:
+            slow-query:
+                threshold: 1
+            query:
+                log-level: INFO

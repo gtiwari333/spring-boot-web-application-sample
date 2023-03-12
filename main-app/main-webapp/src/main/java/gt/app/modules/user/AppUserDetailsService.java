@@ -16,12 +16,12 @@ public class AppUserDetailsService implements org.springframework.security.core.
     private final UserRepository userRepository;
 
     @Override
-    public AppUserDetails loadUserByUsername(String email) {
-        Optional<AppUser> userFromDatabase = userRepository.findOneWithAuthoritiesByUsername(email);
+    public AppUserDetails loadUserByUsername(String username) {
+        Optional<AppUser> userFromDatabase = userRepository.findOneWithAuthoritiesByUsername(username);
 
         return userFromDatabase
             .map(this::getCustomUserDetails)
-            .orElseThrow(() -> new UsernameNotFoundException(" User with login:" + email + " was not found in the " + " database "));
+            .orElseThrow(() -> new UsernameNotFoundException(" User with login:" + username + " was not found in the " + " database "));
     }
 
     @Transactional(readOnly = true)
