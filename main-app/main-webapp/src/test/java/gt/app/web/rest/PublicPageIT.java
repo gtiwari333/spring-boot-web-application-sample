@@ -34,16 +34,6 @@ class PublicPageIT {
     }
 
     @Test
-    void sayHello2(@Autowired MockMvc mvc) throws Exception {
-
-        mvc.perform(get("/public/hello"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.hello").value("world"));
-
-    }
-
-    @Test
     void loadIndexPageAndVerifyResultIsCached(@Autowired MockMvc mvc) throws Exception {
         SQLStatementCountValidator.reset();
 
