@@ -29,6 +29,10 @@ public class DataCreator {
     final CommentRepository commentRepository;
     final AppProperties appProperties;
 
+    public static final String USER1 = "user1";
+    public static final String USER2 = "user2";
+    public static final String SYSTEM_USER = "system"; //admin
+
     @EventListener
     public void ctxRefreshed(ContextRefreshedEvent evt) {
         initData();
@@ -62,17 +66,17 @@ public class DataCreator {
 
         String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster //value is 'pass'
 
-        AppUser adminUser = new AppUser("system", "System", "Tiwari", "system@email");
+        AppUser adminUser = new AppUser(SYSTEM_USER, "System", "Tiwari", "system@email");
         adminUser.setPassword(pwd);
         adminUser.setAuthorities(authorityService.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
         userService.save(adminUser);
 
-        AppUser user1 = new AppUser("user1", "Ganesh", "Tiwari", "gt@email");
+        AppUser user1 = new AppUser(USER1, "Ganesh", "Tiwari", "gt@email");
         user1.setPassword(pwd);
         user1.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
         userService.save(user1);
 
-        AppUser user2 = new AppUser("user2", "Jyoti", "Kattel", "jk@email");
+        AppUser user2 = new AppUser(USER2, "Jyoti", "Kattel", "jk@email");
         user2.setPassword(pwd);
         user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
         userService.save(user2);

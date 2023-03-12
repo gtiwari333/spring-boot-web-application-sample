@@ -1,4 +1,4 @@
-package gt.app.web.rest;
+package gt.app.e2e;
 
 import gt.app.config.AppProperties;
 import gt.app.frwk.TestDataManager;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @EnableConfigurationProperties(AppProperties.class)
 class PublicPageIT {
