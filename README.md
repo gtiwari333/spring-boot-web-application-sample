@@ -52,6 +52,8 @@ Test:
 - Architecture tests using ArchUnit
 - file upload/download e2e test with Selenide
 - TestContainers to perform realistic integration test
+- Reset DB and Cache between test
+- Assert expected query count during integration test
 
 Misc:
 - Code Generation: lombok,  mapstruct 
