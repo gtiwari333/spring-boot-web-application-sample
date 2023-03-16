@@ -53,9 +53,7 @@ public class UserService {
 
     public AppUser create(UserSignUpDTO toCreate) {
 
-        if (liteUserRepository.existsByUsername(toCreate.getUsername())) {
-            throw new DuplicateRecordException("User", "login", toCreate.getUsername());
-        }
+        //validation is already done
 
         var user = new AppUser(toCreate.getUsername(), toCreate.getFirstName(), toCreate.getLastName(), toCreate.getEmail());
 
