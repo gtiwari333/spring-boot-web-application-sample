@@ -11,7 +11,4 @@ interface LiteUserRepository extends JpaRepository<LiteUser, Long> {
     @Transactional(readOnly = true)
     @Cacheable(value = "userByUsername", unless = "#result == null")
     Optional<LiteUser> findOneByUsername(String username);
-
-    @Cacheable("userExistsById")
-    boolean existsByUsername(String id);
 }

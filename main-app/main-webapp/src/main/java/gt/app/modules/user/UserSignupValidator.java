@@ -29,6 +29,10 @@ public class UserSignupValidator implements Validator {
         if (userRepository.existsByUsername(toCreate.getUsername())) {
             errors.rejectValue("username", "user.alreadyexists", "Username " + toCreate.getUsername() + " already exists");
         }
+
+        if (userRepository.existsByEmail(toCreate.getEmail())) {
+            errors.rejectValue("email", "email.alreadyexists", "User with email " + toCreate.getEmail() + " already exists");
+        }
     }
 
 }

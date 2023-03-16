@@ -36,7 +36,7 @@ public class UserController {
     public String register(@Valid @ModelAttribute("user") UserSignUpDTO user, BindingResult bindingResult,
                            RedirectAttributes redirectAttrs) {
 
-        //do custom validation along with the BeanValidation
+        //do custom validation(MVC style) along with the BeanValidation
         userSignupValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {

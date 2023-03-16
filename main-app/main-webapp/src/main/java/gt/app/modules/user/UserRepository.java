@@ -20,6 +20,9 @@ interface UserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findOneWithAuthoritiesByUsername(String username);
 
     @Transactional(readOnly = true)
-    @Cacheable("userExistsByUserName")
+    @Cacheable("userExistsByUsername")
     boolean existsByUsername(String username);
+
+    @Cacheable("userExistsByEmail")
+    boolean existsByEmail(String email);
 }
