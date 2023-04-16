@@ -454,6 +454,14 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <configuration>
+                    <targetClasses>gt.app.modules.*</targetClasses>
+                    <targetTests>gt.app.modules.*</targetTests>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
