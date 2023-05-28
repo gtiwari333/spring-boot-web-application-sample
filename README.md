@@ -2,6 +2,7 @@
 
 #### Variations
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
+- Microservice example that uses Spring Cloud features(discovery, gateway, config server etc) is on separate project https://github.com/gtiwari333/spring-boot-microservice-example-java
 
 
 ### App Architecture:
