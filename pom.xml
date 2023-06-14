@@ -44,7 +44,7 @@
         <!-- selenide + webdriver manager uses httpclient 5.2 -->
         <httpclient5.version>5.2.1</httpclient5.version>
 
-        <google-guava.version>31.1-jre</google-guava.version>
+        <google-guava.version>32.0.0-jre</google-guava.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit.version>1.0.1</archunit.version>
         <testcontainers.version>1.17.6</testcontainers.version>
