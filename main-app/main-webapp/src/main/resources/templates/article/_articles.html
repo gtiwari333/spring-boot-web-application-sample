@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org">
 
 <body>
@@ -48,13 +48,13 @@
                     By <span th:text="${comment.username}"></span>
                 </small>
             </div>
-            <div sec:authorize="isAuthenticated()" th:insert="article/_articles :: add-article-comment"
+            <div sec:authorize="isAuthenticated()" th:insert="~{article/_articles :: add-article-comment}"
                  th:with="article=${article},parentComment=${comment}">
             </div>
             <div class="row">
                 <div th:if="${comment.childComments.size()>0}">
                     <div class="col-12">
-                        <section th:insert="article/_articles :: view-article-comments"
+                        <section th:insert="~{article/_articles :: view-article-comments}"
                                  th:with="comments=${comment.childComments}">
                         </section>
                     </div>
@@ -158,7 +158,7 @@
             <div class="card-body">
                 <strong>Comments:</strong>
                 <hr/>
-                <div th:insert="article/_articles :: view-article-comments"
+                <div th:insert="~{article/_articles :: view-article-comments}"
                      th:with="article=${article},comments=${article.comments}">
                 </div>
             </div>
@@ -167,7 +167,7 @@
         <div class="card-body">
             <strong>Add a comment:</strong>
             <hr/>
-            <div th:insert="article/_articles :: add-article-comment" th:with="article=${article}">
+            <div th:insert="~{article/_articles :: add-article-comment}" th:with="article=${article}">
             </div>
         </div>
 

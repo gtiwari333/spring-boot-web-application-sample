@@ -76,10 +76,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-sleuth</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-artemis</artifactId>
@@ -87,6 +87,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -112,18 +116,13 @@
         <!-- security-->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-boot-starter</artifactId>
-        </dependency>
 
         <!-- processors/code generators -->
         <dependency>
@@ -151,7 +150,7 @@
 
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>
@@ -198,7 +197,7 @@
 
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5-engine</artifactId>
+            <artifactId>archunit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -232,16 +231,21 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- do not package in jar/war unless required in the profile, each profile should add these deps -->
-        <dependency>
-            <groupId>com.github.dasniko</groupId>
-            <artifactId>testcontainers-keycloak</artifactId>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- query performance -->
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-60</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>datasource-proxy-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- spock deps -->
@@ -469,6 +473,14 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <configuration>
+                    <targetClasses>gt.app.modules.*</targetClasses>
+                    <targetTests>gt.app.modules.*</targetTests>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
@@ -492,8 +504,8 @@
                     <optional>true</optional>
                 </dependency>
                 <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>com.mysql</groupId>
+                    <artifactId>mysql-connector-j</artifactId>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -510,10 +522,6 @@
                     <artifactId>testcontainers</artifactId>
                 </dependency>
                 <dependency>
-                    <groupId>com.github.dasniko</groupId>
-                    <artifactId>testcontainers-keycloak</artifactId>
-                </dependency>
-                <dependency>
                     <groupId>org.testcontainers</groupId>
                     <artifactId>mysql</artifactId>
                 </dependency>
@@ -526,8 +534,8 @@
             <id>prod</id>
             <dependencies>
                 <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>com.mysql</groupId>
+                    <artifactId>mysql-connector-j</artifactId>
                 </dependency>
             </dependencies>
             <properties>

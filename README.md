@@ -1,8 +1,8 @@
 ### A Spring Boot Web Application Sample with tons of ready-to-use features. This can be used as starter for bigger projects.
 
 #### Variations
-- Version without KeyCloak is on 'without-keycloak' branch https://github.com/gtiwari333/spring-boot-web-application-seed/tree/without-keycloak
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
+- Microservice example that uses Spring Cloud features(discovery, gateway, config server etc) is on separate project https://github.com/gtiwari333/spring-boot-microservice-example-java
 
 
 ### App Architecture:
@@ -10,7 +10,8 @@
 #### Included Features/Samples
 
 MicroService:
-- Spring Sleuth based tracing
+
+[//]: # (- Spring Sleuth based tracing)
 - Exposing and implementing Open Feign clients
 - Spring Cloud Contract (WIP)
 
@@ -28,7 +29,7 @@ Spring MVC:
 - favicon handler
 
 Security:
-- Account management with KeyCloak
+- Account management
 - Spring Security 
 - User/User_Authority entity and repository/services
     - login, logout, home pages based on user role
@@ -46,12 +47,14 @@ Persistence/Search:
 
 Test:
 - Unit/integration with JUnit 5, Mockito and Spring Test
-- Tests with Spock Framework (Groovy 3, Spock 2)
+- Tests with Spock Framework (Groovy 4, Spock 2)
 - e2e with Selenide, fixtures. default data generated using Spring
 - Load test with Gatling/Scala
-- Architecture test using ArchUnit
+- Architecture tests using ArchUnit
 - file upload/download e2e test with Selenide
 - TestContainers to perform realistic integration test
+- Reset DB and Cache between test
+- Assert expected query count during integration test
 
 Misc:
 - Code Generation: lombok,  mapstruct 
@@ -101,12 +104,14 @@ It contains following applications:
 - trend-service (optional)
 - content-checker (optional)
 
-Option 1 - run with manually started KeyCloak and ActiveMQ servers
+# Note you will need to create a database named 'seedapp' in your mysql server
+
+Option 1 - run with manually started ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
 - Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
-Option 2 - automatically start KeyCloak and ActiveMQ using TestContainer while application is starting
+Option 2 - automatically start ActiveMQ and MySQL using TestContainer while application is starting
 - Run ```mvn clean install``` at root 
 - Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
@@ -114,7 +119,54 @@ Option 3 - run from IDE
 - import into your IDE and compile the full project and run the Application.java on main-app module
 - Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
 
-## Run Tests using Maven Daemon
+
+## Run Tests
+
+## It uses TestContainers, which requires Docker to be installed locally.
+
+##### Running full tests
+
+`./mvnw clean verify`
+
+##### Running unit tests only (it uses maven surefire plugin)
+
+`./mvnw  compiler:testCompile resources:testResources  surefire:test`
+
+##### Running integration tests only (it uses maven-failsafe-plugin)
+
+`./mvnw  compiler:testCompile resources:testResources  failsafe:integration-test`
+
+## Code Quality
+
+##### The `error-prone` runs at compile time.
+
+##### The `modernizer` `checkstyle` and `spotbugs` plugin are run as part of maven `test-compile` lifecycle phase. use `mvn spotbugs:gui' to
+
+##### SonarQube scan
+
+Run sonarqube server using docker
+`docker run -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest`
+
+Perform scan:
+`./mvnw sonar:sonar`
+./mvnw sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+
+View Reports in SonarQube web ui:
+
+- visit http://localhost:9000
+- default login and password are `admin`, you will be asked to change password after logging in with default
+  username/password
+- (optional) change sonarqube admin password without logging
+  in: `curl -u admin:admin -X POST "http://localhost:9000/api/users/change_password?login=admin&previousPassword=admin&password=NEW_PASSWORD"`
+- if you change the password, make sure the update `-Dsonar.password=admin` when you run sonarqube next time
+
+### Dependency vulnerability scan
+
+Owasp dependency check plugin is configured. Run `./mvnw dependency-check:check` to run scan and
+open `dependency-check-report.html` from target to see the report.
+
+
+## Run Tests Faster using Maven Daemon + parallel run
 
 `mvnd test -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -o`
 

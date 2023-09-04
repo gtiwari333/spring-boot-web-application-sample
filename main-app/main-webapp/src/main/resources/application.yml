@@ -8,7 +8,7 @@ spring:
         active: '@spring.profiles.active@'
 
     liquibase:
-        enabled: true
+        enabled: false
         change-log: classpath:/liquibase/master.xml
     jpa:
         open-in-view: false
@@ -16,30 +16,25 @@ spring:
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-
 server:
     port: 8081
 
 logging.level:
-    org.springframework.security: INFO
-    org.springframework.security.web: INFO
-    org.springframework.cloud: INFO
+    org.springframework.security: WARN
+    org.springframework.security.web: WARN
+    org.springframework.cloud: WARN
     sql: INFO
     web: INFO
     ROOT: WARN
-    gt: DEBUG
+    gt: WARN
 
 
 app-properties:
     jms:
         content-checkerrequest-queue: jms-content-checker-requestqueue
         content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
-
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
-
-
-
 
 wro4j:
     jmx-enabled: false
@@ -48,3 +43,13 @@ wro4j:
         post-processors: cssVariables,cssMinJawr,jsMin
         pre-processors: cssUrlRewriting,cssImport,semicolonAppender,removeSourceMaps,singlelineStripper
     filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls
+
+# https://github.com/gavlyukovskiy/spring-boot-data-source-decorator
+decorator:
+    datasource:
+        enabled: false  # disabled for now
+        datasource-proxy:
+            slow-query:
+                threshold: 1 # 1 second is slow
+            query:
+                log-level: INFO

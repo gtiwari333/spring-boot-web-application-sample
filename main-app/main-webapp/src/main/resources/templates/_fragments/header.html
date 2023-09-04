@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head(title, links)">
@@ -44,7 +44,7 @@
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('USER')">
                         <a class="nav-link" th:href="@{/article}" id="user-article-link">
-                            <span th:text="#{blogapp.user-articles(${#authentication.user.username})}"></span>
+                            <span th:text="#{blogapp.user-articles(${#authentication.principal.username})}"></span>
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
@@ -55,8 +55,13 @@
                 </ul>
 
                 <ul class="navbar-nav ml-auto w-100 justify-content-end" sec:authorize="isAnonymous()">
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link " th:href="@{/signup}" id="signup-link">
+                            Signup
+                        </a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/sso/login}" id="login-link">
+                        <a class="nav-link " th:href="@{/login}" id="login-link">
                             Login
                         </a>
                     </li>
@@ -66,7 +71,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdownMenuLink"
                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span sec:authentication="user.username">USER_NAME</span>
+                            <span sec:authentication="principal.username">USER_NAME</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
@@ -79,16 +84,23 @@
                                     Following
                                 </a>
                             </li>
-                            <a class="dropdown-item" th:href="@{/account/subscriptions}" id="my-subscriptions">
-                                Subscriptions
-                            </a>
                             <li>
-                                <a class="dropdown-item" th:href="@{/auth/change-password}" id="change-password">
+                                <a class="dropdown-item" th:href="@{/account/subscriptions}" id="my-subscriptions">
+                                    Subscriptions
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/password}" id="change-password-link">
                                     Change Password
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/sso/logout}" id="logout-link">
+                                <a class="dropdown-item" th:href="@{/profile}" id="profile-link">
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/auth/logout}" id="logout-link">
                                     Logout
                                 </a>
                             </li>

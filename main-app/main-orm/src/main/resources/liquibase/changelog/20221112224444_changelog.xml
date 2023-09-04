@@ -1,0 +1,187 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="gbuntu (generated)" id="1668293085908-1">
+        <createTable tableName="g_app_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="account_non_expired" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_non_locked" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(255)"/>
+            <column name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar" type="TINYBLOB"/>
+            <column name="credentials_non_expired" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(254)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="password_hash" type="VARCHAR(60)"/>
+            <column name="reset_key" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-2">
+        <createTable tableName="g_article">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="datetime"/>
+            <column name="content" type="TINYTEXT"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="created_by_user_id" type="BIGINT"/>
+            <column name="last_modified_by_user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-3">
+        <createTable tableName="g_article_attached_files">
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attached_files_id" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-4">
+        <createTable tableName="g_authority">
+            <column name="name" type="VARCHAR(16)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-5">
+        <createTable tableName="g_comment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="datetime"/>
+            <column name="article_id" type="BIGINT"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="parent_comment_id" type="BIGINT"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="created_by_user_id" type="BIGINT"/>
+            <column name="last_modified_by_user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-6">
+        <createTable tableName="g_received_file">
+            <column name="id" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="file_group" type="VARCHAR(255)"/>
+            <column name="original_file_name" type="VARCHAR(255)"/>
+            <column name="received_date" type="datetime"/>
+            <column name="stored_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-7">
+        <createTable tableName="g_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(16)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-8">
+        <createIndex indexName="FK8onv8y1o9i8jji6u9hj8yhcov" tableName="g_comment">
+            <column name="created_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-9">
+        <createIndex indexName="FKc6gr3yijnp18qba0jvhtcx745" tableName="g_article_attached_files">
+            <column name="article_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-10">
+        <createIndex indexName="FKe0tn8lv0281y31rsaltfvry2d" tableName="g_article">
+            <column name="created_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-11">
+        <createIndex indexName="FKjhggdhu7enw689hq5gvpv9u4r" tableName="g_user_authority">
+            <column name="authority_name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-12">
+        <createIndex indexName="FKjqmipqcqrpdg0r7qydr5uowah" tableName="g_comment">
+            <column name="last_modified_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-13">
+        <createIndex indexName="FKt75a3q8ih81madstl0iw4x098" tableName="g_article">
+            <column name="last_modified_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-14">
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id" baseTableName="g_comment"
+                                 constraintName="FK8onv8y1o9i8jji6u9hj8yhcov" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-15">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="g_user_authority"
+                                 constraintName="FKbhy0hcefrcjr16i6nl3191dgc" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-16">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="g_article_attached_files"
+                                 constraintName="FKc6gr3yijnp18qba0jvhtcx745" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_article" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-17">
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id" baseTableName="g_article"
+                                 constraintName="FKe0tn8lv0281y31rsaltfvry2d" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-18">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="g_user_authority"
+                                 constraintName="FKjhggdhu7enw689hq5gvpv9u4r" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="name" referencedTableName="g_authority" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-19">
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_user_id" baseTableName="g_comment"
+                                 constraintName="FKjqmipqcqrpdg0r7qydr5uowah" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-20">
+        <addForeignKeyConstraint baseColumnNames="attached_files_id" baseTableName="g_article_attached_files"
+                                 constraintName="FKnk3oifir3wa8s4t8teffbvl9i" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_received_file" validate="true"/>
+    </changeSet>
+    <changeSet author="gbuntu (generated)" id="1668293085908-21">
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_user_id" baseTableName="g_article"
+                                 constraintName="FKt75a3q8ih81madstl0iw4x098" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

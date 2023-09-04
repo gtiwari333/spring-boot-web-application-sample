@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
-    <title> Articles</title>
+<head th:replace="~{_fragments/header :: head(~{:: title}, ~{:: .custom-link})}">
+    <title>Articles</title>
     <!-- we can do the following to add extra css on this page -->
     <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
 </head>
 
 <body>
 
-<div th:replace="_fragments/header :: headerbar"></div>
+<div th:replace="~{_fragments/header :: headerbar}"></div>
 
 
 <div class="container">
@@ -46,21 +46,17 @@
                     </td>
                     <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
                     <td>
-                            <span th:if="${#authentication.userId == article.userId}">
-                                <a th:href="@{/article/edit/{id}(id=${article.id})}">Edit</a>
-                            </span>
+                        <a th:href="@{/article/edit/{id}(id=${article.id})}">Edit</a>
                     </td>
                     <td>
-                            <span th:if="${#authentication.userId == article.userId}">
-                                <a th:href="@{/article/delete/{id}(id=${article.id})}">Delete</a>
-                            </span>
+                        <a th:href="@{/article/delete/{id}(id=${article.id})}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
 
-            <th:block th:replace="_fragments/_utils :: pagination(${articles})">
+            <th:block th:replace="~{_fragments/_utils :: pagination(${articles},  ${_page_begin}, ${_page_end})}">
 
             </th:block>
 
@@ -68,11 +64,11 @@
 
     </div>
 
-    <div th:replace="_fragments/footer :: page-footer"></div>
+    <div th:replace="~{_fragments/footer :: page-footer}"></div>
 
 </div>
 
-<div th:replace="_fragments/footer :: js-imports(~{::.custom-script})">
+<div th:replace="~{_fragments/footer :: js-imports(~{::.custom-script})}">
     <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
 </div>
 

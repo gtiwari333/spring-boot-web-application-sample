@@ -16,7 +16,7 @@ public class UserArticleListingPage extends BaseLoggedInPage<UserArticleListingP
     }
 
     public List<File> downloadFiles(int row) {
-        return $$x(".//table/tbody/tr[" + row + "]/td[4]/span/a").stream().map(
+        return $$x(".//table/tbody/tr[" + row + "]/td[4]/a").asFixedIterable().stream().map(
             a -> {
                 try {
                     return a.download();
@@ -30,12 +30,13 @@ public class UserArticleListingPage extends BaseLoggedInPage<UserArticleListingP
 
 
     public ArticleEditPage editArticle(int row) {
-        $x(".//table/tbody/tr[" + row + "]/td[6]/span/a").click();
+        ///html/body/div[2]/div[1]/
+        $x(".//table/tbody/tr[" + row + "]/td[6]/a").click();
         return new ArticleEditPage();
     }
 
     public UserArticleListingPage deletePage(int row) {
-        $x(".//table/tbody/tr[" + row + "]/td[7]/span/a").click();
+        $x(".//table/tbody/tr[" + row + "]/td[7]/a").click();
         return new UserArticleListingPage();
     }
 

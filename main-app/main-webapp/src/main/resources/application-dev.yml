@@ -22,38 +22,31 @@ spring:
         username: ${MYSQL_USERNAME:root}
         password: ${MYSQL_PASSWORD:password}
     jpa:
-        show-sql: true
+        show-sql: false
         hibernate:
             ddl-auto: none  # we use liquibase
+            generate_statistics: true
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     jooq:
         sql-dialect: MySQL
-
     artemis:
         user: ${ACTIVEMQ_ARTEMIS_USERNAME:admin}
         password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
-
-keycloak:
-    realm: seedapp
-    auth-server-url: http://localhost:${KEYCLOAK_PORT:8082}/
-    ssl-required: external
-    resource: seed-app-gateway-client
-    public-client: true # for gateway app
-    principal-attribute: name
-    credentials:
-        secret: dc168f0c-3c7f-47b9-b700-43d746978566
+    liquibase:
+        enabled: true
 
 feign-clients:
     email-service:
         url: http://localhost:8085/ #TODO: use service discovery
 
-logging:
-    level:
-        org.jooq.tools.LoggerListener: DEBUG
-
-
 logging.level:
-    gt: DEBUG
+    org.jooq.tools.LoggerListener: DEBUG
+    org.springframework.security: debug
+    org.springframework.security.web: debug
+    org.springframework.cloud: INFO
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: TRACE
+    'org.hibernate.engine.internal.StatisticalLoggingSessionEventListener': info

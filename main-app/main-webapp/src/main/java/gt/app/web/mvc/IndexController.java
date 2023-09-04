@@ -2,6 +2,7 @@ package gt.app.web.mvc;
 
 import gt.app.domain.Article;
 import gt.app.modules.article.ArticleService;
+import gt.app.utl.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -21,16 +22,18 @@ public class IndexController {
     @GetMapping({"/", ""})
     public String index(Model model, Pageable pageable) {
         model.addAttribute("greeting", "Hello Spring");
-
-        model.addAttribute("articles", articleService.previewForPublicHomePage(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending())));
+        var page = articleService.previewForPublicHomePage(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()));
         model.addAttribute("article", new Article());
-
+        model.addAttribute("articles", page);
+        PaginationUtil.decorateModel(model, page);
         return "landing";
     }
 
     @GetMapping("/admin")
     public String adminHome(Model model, Pageable pageable) {
-        model.addAttribute("articlesToReview", articleService.getAllToReview(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending())));
+        var page = articleService.getAllToReview(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()));
+        model.addAttribute("articlesToReview", page);
+        PaginationUtil.decorateModel(model, page);
         return "admin/admin-area";
     }
 

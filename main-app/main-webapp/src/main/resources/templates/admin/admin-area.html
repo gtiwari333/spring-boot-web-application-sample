@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="_fragments/header :: head(~{:: title}, ~{:: .custom-link})">
-    <title> Articles</title>
+<head th:replace="~{_fragments/header :: head(~{:: title}, ~{:: .custom-link})}">
+    <title>Articles</title>
     <!-- we can do the following to add extra css on this page -->
     <link class="custom-link" th:href="@{/static/css/some-custom-this-page-only.css}"/>
 </head>
 
 <body>
 
-<div th:replace="_fragments/header :: headerbar"></div>
+<div th:replace="~{_fragments/header :: headerbar}"></div>
 
 
 <div class="container">
@@ -62,7 +62,7 @@
             </div>
 
 
-            <th:block th:replace="_fragments/_utils :: pagination(${articlesToReview})">
+            <th:block th:replace="~{_fragments/_utils :: pagination(${articlesToReview}, ${_page_begin}, ${_page_end})}">
 
             </th:block>
 
@@ -70,11 +70,11 @@
 
     </div>
 
-    <div th:replace="_fragments/footer :: page-footer"></div>
+    <div th:replace="~{_fragments/footer :: page-footer}"></div>
 
 </div>
 
-<div th:replace="_fragments/footer :: js-imports(~{::.custom-script})">
+<div th:replace="~{_fragments/footer :: js-imports(~{::.custom-script})}">
     <script class="custom-script" th:src="@{/static/js/custom.js}"></script>
 </div>
 

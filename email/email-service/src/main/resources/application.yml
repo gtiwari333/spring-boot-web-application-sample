@@ -16,6 +16,6 @@ server:
     port: 8085
 
 logging.level:
-    org.springframework.web: INFO
+    org.springframework.web: WARN
     ROOT: WARN
-    gt: DEBUG
+    gt: WARN

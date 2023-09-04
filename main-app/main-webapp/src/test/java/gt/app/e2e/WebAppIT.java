@@ -19,7 +19,7 @@ class WebAppIT extends BaseSeleniumTest {
 
     @BeforeEach
     void cleanDB() {
-        testDataManager.truncateTablesAndRecreate();
+        testDataManager.cleanDataAndCache();
     }
 
     @Test
@@ -58,10 +58,10 @@ class WebAppIT extends BaseSeleniumTest {
     void testAccessDenied(PublicPage publicPage) {
 
         publicPage.load("/article");
-        publicPage.body().shouldHave(text("Sign in to your account"));
+        publicPage.body().shouldHave(text("Please sign in"));
 
         publicPage.load("/admin");
-        publicPage.body().shouldHave(text("Sign in to your account"));
+        publicPage.body().shouldHave(text("Please sign in"));
     }
 
     @Test

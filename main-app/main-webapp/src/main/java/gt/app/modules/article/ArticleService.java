@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -114,7 +113,7 @@ public class ArticleService {
     }
 
     @Cacheable(cacheNames = "previewAllWithFilesByUser")
-    public Page<ArticlePreviewDto> previewAllWithFilesByUser(Pageable pageable, UUID userId) {
+    public Page<ArticlePreviewDto> previewAllWithFilesByUser(Pageable pageable, Long userId) {
         return articleRepository.findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(userId, ArticleStatus.PUBLISHED, pageable)
             .map(ArticleMapper.INSTANCE::mapForPreviewListing);
     }
@@ -138,7 +137,7 @@ public class ArticleService {
     }
 
     @Cacheable(cacheNames = {"article-findCreatedByUserIdById"})
-    public UUID findCreatedByUserIdById(Long articleId) {
+    public Long findCreatedByUserIdById(Long articleId) {
         return articleRepository.findCreatedByUserIdById(articleId);
     }
 
