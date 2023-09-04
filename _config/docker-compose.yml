@@ -1,23 +1,5 @@
 version: '3'
 services:
-    keycloak:
-        image: 'quay.io/keycloak/keycloak:19.0.1'
-        container_name: keycloak
-        command: [ 'start-dev --import-realm' ]
-        environment:
-            - KEYCLOAK_DB=dev-file
-            - KEYCLOAK_ADMIN=admin
-            - KEYCLOAK_ADMIN_PASSWORD=admin
-            - KEYCLOAK_FEATURES=scripts
-            - KEYCLOAK_HTTP_PORT=8080
-            - KEYCLOAK_HTTPS_PORT=9443
-        volumes:
-            - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
-        ports:
-            - 8082:8080
-            - 9443:9443
-        networks:
-            - seedappnet
     activemq_artemis:
         image: 'jhatdv/activemq-artemis:2.19.1-alpine'
         container_name: activemqArtemis
