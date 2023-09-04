@@ -42,6 +42,6 @@ public class ReviewController {
             () -> redirectAttrs.addFlashAttribute("success", "Article with id " + reviewResult.getId() + " is already reviewed or doesn't exists")
         );
 
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 }
