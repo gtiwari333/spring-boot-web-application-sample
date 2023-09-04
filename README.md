@@ -122,6 +122,8 @@ Option 3 - run from IDE
 
 ## Run Tests
 
+## It uses TestContainers, which requires Docker to be installed locally.
+
 ##### Running full tests
 
 `./mvnw clean verify`
