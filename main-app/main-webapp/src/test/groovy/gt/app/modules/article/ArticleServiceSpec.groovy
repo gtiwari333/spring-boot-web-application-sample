@@ -23,7 +23,7 @@ class ArticleServiceSpec extends Specification {
         commentRepo = Mock()
         commentRepo = Mock()
         contentCheckRequestService = Mock()
-        articleService = new ArticleService(articleRepository, fileService, jmsTemplate, commentRepo, contentCheckRequestService)
+        articleService = new ArticleService(articleRepository, fileService, jmsTemplate, commentRepo, contentCheckRequestService, null)
     }
 
     def 'save article'() {

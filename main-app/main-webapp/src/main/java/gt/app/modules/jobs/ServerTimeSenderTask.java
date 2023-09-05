@@ -18,10 +18,10 @@ import java.util.TimeZone;
 public class ServerTimeSenderTask {
 
     final WebsocketHandler websocketHandler;
-    static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+    static final DateTimeFormatter DT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 
     @Scheduled(fixedRate = 30 * 1000L)
     void sendCurrentTimeToAllUsers() {
-        websocketHandler.sendToAll("Current Server Time is " + LocalDateTime.now().format(format) + " (" + TimeZone.getDefault().getID() + ")");
+        websocketHandler.sendToAll("Current Server Time is " + LocalDateTime.now().format(DT_FORMAT) + " (" + TimeZone.getDefault().getID() + ")");
     }
 }
