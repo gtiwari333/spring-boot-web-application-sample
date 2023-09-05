@@ -5,7 +5,7 @@ import gt.app.domain.ArticleStatus;
 import gt.app.domain.ReceivedFile;
 import gt.app.modules.file.FileService;
 import gt.app.modules.review.ContentCheckService;
-import gt.app.modules.review.ReviewStatusHandler;
+import gt.app.modules.common.WebsocketHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -34,7 +34,7 @@ public class ArticleService {
     private final JmsTemplate jmsTemplate;
     private final CommentRepository commentRepo;
     private final ContentCheckService contentCheckService;
-    private final ReviewStatusHandler reviewStatusHandler;
+    private final WebsocketHandler websocketHandler;
 
     public Article createArticle(ArticleCreateDto dto) {
 
@@ -147,7 +147,7 @@ public class ArticleService {
             .map(n -> {
                 n.setStatus(dto.getVerdict());
                 articleRepository.save(n);
-                reviewStatusHandler.handle(n.getLastModifiedByUser().getUsername(), "Your article with title " + n.getTitle() + " has been " + (dto.getVerdict() == ArticleStatus.PUBLISHED ? "approved from manual review." : "rejected from manual review."));
+                websocketHandler.sendToUser(n.getLastModifiedByUser().getUsername(), "Your article with title " + n.getTitle() + " has been " + (dto.getVerdict() == ArticleStatus.PUBLISHED ? "approved from manual review." : "rejected from manual review."));
                 return n;
             });
     }

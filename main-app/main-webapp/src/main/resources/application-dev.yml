@@ -44,8 +44,8 @@ feign-clients:
 
 logging.level:
     org.jooq.tools.LoggerListener: DEBUG
-    org.springframework.security: debug
-    org.springframework.security.web: debug
+    org.springframework.security: INFO
+    org.springframework.security.web: INFO
     org.springframework.cloud: INFO
 #    org.hibernate.SQL: debug
 #    org.hibernate.type: TRACE

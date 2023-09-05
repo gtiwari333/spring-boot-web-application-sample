@@ -50,7 +50,7 @@
         <archunit.version>1.1.0</archunit.version>
         <testcontainers.version>1.19.0</testcontainers.version>
         <commons-io.version>2.13.0</commons-io.version>
-        <webjar-jquery.version>3.6.0</webjar-jquery.version>
+        <webjar-jquery.version>3.6.1</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
         <webjar-sockjs-client.version>1.5.1</webjar-sockjs-client.version>
         <webjar-stomp-websocket.version>2.3.4</webjar-stomp-websocket.version>
