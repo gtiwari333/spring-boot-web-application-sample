@@ -25,8 +25,8 @@ logging.level:
     org.springframework.cloud: WARN
     sql: INFO
     web: INFO
-    ROOT: WARN
-    gt: WARN
+    ROOT: INFO
+    gt: INFO
 
 
 app-properties:
