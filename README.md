@@ -62,6 +62,7 @@ Misc:
 - Approval/flagging api - message based
 - Nested comment
 - Cache implemented
+- Websocket implemented to show article/comment review status/notifications..
 
 Future: do more stuff
 - CQRS with event store/streaming  
@@ -83,7 +84,6 @@ Future: do more stuff
 - nested comment query/performance fix 
 - Signup UI
 - vendor neutral security with OIDC
-- realtime approval UI 
 - JfrUnit ( WIP )
 - 
 ### Requirements
