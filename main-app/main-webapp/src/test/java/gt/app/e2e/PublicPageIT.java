@@ -43,7 +43,7 @@ class PublicPageIT {
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-        assertTrue(content.contains("<title> Article App - HOME</title>"));
+        assertTrue(content.contains("<title>Article App - HOME</title>"));
         assertTrue(content.contains("User2 Article"));
         assertTrue(content.contains("Ganesh Tiwari"));
 
@@ -68,7 +68,7 @@ class PublicPageIT {
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-        assertTrue(content.contains("<title> Article App - HOME</title>"));
+        assertTrue(content.contains("<title>Article App - HOME</title>"));
         assertTrue(content.contains("User2 Article"));
         assertTrue(content.contains("Ganesh Tiwari"));
 

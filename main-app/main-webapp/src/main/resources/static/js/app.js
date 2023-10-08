@@ -27,17 +27,30 @@
             displayUserInfo(ev);
         });
 
-        initSockJS();
+        initStompJs();
     });
 
 
-    function initSockJS() {
+    function initStompJs() {
 
     //TODO: implement auto reconnect on disconnect
 
-        var socket = new SockJS('/app-websockets-main-endpoint');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
+
+        stompClient = new StompJs.Client({
+          brokerURL: 'ws://localhost:8081/app-websockets-main-endpoint',
+          connectHeaders: {
+            login: 'user',
+            passcode: 'password',
+          },
+          debug: function (str) {
+            console.log(str);
+          },
+          reconnectDelay: 5000,
+          heartbeatIncoming: 4000,
+          heartbeatOutgoing: 4000,
+        });
+
+        stompClient.onConnect =  function(frame){
 
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/global-messages', function (msg) {
@@ -62,6 +75,17 @@
                     position: 'top-right',
                 });
             });
-        });
+        }
+
+        stompClient.onStompError = function (frame) {
+          // Will be invoked in case of error encountered at Broker
+          // Bad login/passcode typically will cause an error
+          // Complaint brokers will set `message` header with a brief message. Body may contain details.
+          // Compliant brokers will terminate the connection after any error
+          console.log('Broker reported error: ' + frame.headers['message']);
+          console.log('Additional details: ' + frame.body);
+        };
+
+        stompClient.activate();
     }
 })();

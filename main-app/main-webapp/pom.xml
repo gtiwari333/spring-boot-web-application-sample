@@ -166,14 +166,6 @@
             <artifactId>bootstrap</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>sockjs-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>stomp-websocket</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery-toast-plugin</artifactId>
         </dependency>
