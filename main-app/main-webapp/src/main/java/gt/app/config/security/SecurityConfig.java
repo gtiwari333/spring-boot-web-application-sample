@@ -8,6 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(securedEnabled = true)
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig {
+class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
         "/swagger-resources/**",
@@ -38,25 +40,22 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .headers().frameOptions().sameOrigin()
-            .and()
-                .authorizeHttpRequests()
+            .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+            .authorizeHttpRequests(ah -> ah
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers("/admin/**").hasAuthority(Constants.ROLE_ADMIN)
                 .requestMatchers("/user/**").hasAuthority(Constants.ROLE_USER)
                 .requestMatchers("/api/**").authenticated()//individual api will be secured differently
-                .anyRequest().authenticated() //this one will catch the rest patterns
-            .and()
-                .csrf().disable()
-            .formLogin()
+                .anyRequest().authenticated()) //this one will catch the rest patterns
+            .csrf(AbstractHttpConfigurer::disable)
+            .formLogin(f -> f
                 .loginProcessingUrl("/auth/login")
-                .permitAll()
-            .and()
-                .logout()
+                .permitAll())
+            .logout(l -> l
                 .logoutUrl("/auth/logout")
                 .logoutSuccessUrl("/?logout")
-                .permitAll();
+                .permitAll());
 
         return http.build();
     }

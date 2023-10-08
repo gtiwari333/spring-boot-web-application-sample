@@ -19,13 +19,13 @@
 <div th:fragment="js-imports(scripts)">
     <script src="/webjars/jquery/3.6.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-    <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
     <script src="/webjars/jquery-toast-plugin/1.3.2/dist/jquery.toast.min.js"></script>
     <script th:src="@{/static/js/wro-commons.js}"></script>
     <!-- we can pass in additional script if needed -->
     <th:block th:replace="${scripts}"/>
-
 </div>
 </body>
 </html>

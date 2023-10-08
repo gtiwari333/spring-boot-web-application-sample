@@ -13,7 +13,7 @@ import static java.lang.System.setProperty;
 @Profile("withTestContainer")
 @Configuration
 @Slf4j
-public class DockerContainerConfig {
+class DockerContainerConfig {
 
     /*
 

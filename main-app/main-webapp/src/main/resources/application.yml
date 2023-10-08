@@ -27,6 +27,7 @@ logging.level:
     web: INFO
     ROOT: INFO
     gt: INFO
+    'org.springframework.web.socket': TRACE
 
 
 app-properties:

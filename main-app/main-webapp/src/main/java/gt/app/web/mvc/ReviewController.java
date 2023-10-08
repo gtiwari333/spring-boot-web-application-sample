@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 @Slf4j
-public class ReviewController {
+class ReviewController {
 
     final ArticleService articleService;
 

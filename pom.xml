@@ -33,7 +33,7 @@
         <spring-boot.version>3.2.0-M3</spring-boot.version>
         <spring-cloud.version>2023.0.0-M2</spring-cloud.version>
         <hibernate-types60.version>2.21.1</hibernate-types60.version>
-        <hibernate-hypersistence-utils.version>3.5.2</hibernate-hypersistence-utils.version>
+        <hibernate-hypersistence-utils.version>3.5.3</hibernate-hypersistence-utils.version>
         <datasource-proxy-sb-starter.version>1.9.0</datasource-proxy-sb-starter.version>
         <springdoc-openapi-ui.version>2.2.0</springdoc-openapi-ui.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
@@ -47,8 +47,8 @@
         <google-guava.version>32.1.2-jre</google-guava.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit.version>1.1.0</archunit.version>
-        <testcontainers.version>1.19.0</testcontainers.version>
-        <commons-io.version>2.13.0</commons-io.version>
+        <testcontainers.version>1.19.1</testcontainers.version>
+        <commons-io.version>2.14.0</commons-io.version>
         <webjar-jquery.version>3.6.1</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
         <webjar-sockjs-client.version>1.5.1</webjar-sockjs-client.version>
@@ -62,7 +62,7 @@
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
-        <puppycrawl.checkstyle.version>10.12.3</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>10.12.4</puppycrawl.checkstyle.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
         <gmavenplus.version>3.0.2</gmavenplus.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>

@@ -9,5 +9,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaAuditing //now @CreatedBy, @LastModifiedBy works
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "gt.app.modules")
-public class JpaConfig {
+class JpaConfig {
 }

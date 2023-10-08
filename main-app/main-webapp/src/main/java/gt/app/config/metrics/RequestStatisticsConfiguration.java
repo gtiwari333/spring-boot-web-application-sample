@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @Profile("!test")
-public class RequestStatisticsConfiguration implements WebMvcConfigurer {
+class RequestStatisticsConfiguration implements WebMvcConfigurer {
 
     @Bean
     public HibernateStatInterceptor hibernateInterceptor() {

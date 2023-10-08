@@ -9,7 +9,7 @@ import java.util.Map;
 //@Component
 @RequiredArgsConstructor
 //@Profile("!test")
-public class AppHibernatePropertiesCustomizer implements HibernatePropertiesCustomizer {
+class AppHibernatePropertiesCustomizer implements HibernatePropertiesCustomizer {
 
     private final HibernateStatInterceptor statInterceptor;
 

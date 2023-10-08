@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @Slf4j
-public class ErrorControllerAdvice {
+class ErrorControllerAdvice {
 
 
     @ExceptionHandler(Throwable.class)

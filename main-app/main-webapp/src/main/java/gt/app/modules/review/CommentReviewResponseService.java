@@ -21,9 +21,7 @@ class CommentReviewResponseService {
     void handle(Response resp) {
         Comment c = commentRepository.findWithUserById(Long.valueOf(resp.getEntityId())).orElseThrow();
         switch (resp.getContentCheckOutcome()) {
-            case PASSED -> {
-                c.setStatus(SHOWING);
-            }
+            case PASSED -> c.setStatus(SHOWING);
             case FAILED, MANUAL_REVIEW_NEEDED -> c.setStatus(HIDDEN);
             default -> throw new UnsupportedOperationException();
         }
