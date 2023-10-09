@@ -27,21 +27,25 @@ public class TestDataManager implements InitializingBean {
     public void afterPropertiesSet() {
         MappingMetamodelImpl metaModelImpl = (MappingMetamodelImpl) em.getMetamodel();
         tableNames = metaModelImpl
-                .entityPersisters()
-                .values().stream()
-                .map(ep -> ((AbstractEntityPersister) ep).getTableName())
-                .collect(Collectors.toSet());
+            .entityPersisters()
+            .values().stream()
+            .map(ep -> ((AbstractEntityPersister) ep).getTableName())
+            .collect(Collectors.toSet());
 
         tableNames.addAll(metaModelImpl
-                .collectionPersisters()
-                .values().stream()
-                .map(ep -> ((AbstractCollectionPersister) ep).getTableName())
-                .collect(Collectors.toSet()));
+            .collectionPersisters()
+            .values().stream()
+            .map(ep -> ((AbstractCollectionPersister) ep).getTableName())
+            .collect(Collectors.toSet()));
     }
 
     @Transactional
     public void cleanDataAndCache() {
-        cacheManager.getCacheNames().forEach(cn -> cacheManager.getCache(cn).clear());
+        cacheManager.getCacheNames().forEach(cn -> {
+                System.out.println("Clearing cache for " + cn);
+                cacheManager.getCache(cn).clear();
+            }
+        );
 
         truncateTables();
         dataCreator.initData();
