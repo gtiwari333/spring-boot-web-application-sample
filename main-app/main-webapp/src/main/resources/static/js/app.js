@@ -15,7 +15,6 @@
 
     }
 
-    //common behaviour
     jQuery(document).ready(function () {
         //init username-link
 
@@ -32,29 +31,21 @@
 
 
     function initStompJs() {
-
-    //TODO: implement auto reconnect on disconnect
-
-
         stompClient = new StompJs.Client({
-          brokerURL: 'ws://localhost:8081/app-websockets-main-endpoint',
-          connectHeaders: {
-            login: 'user',
-            passcode: 'password',
-          },
-          debug: function (str) {
-            console.log(str);
-          },
-          reconnectDelay: 5000,
-          heartbeatIncoming: 4000,
-          heartbeatOutgoing: 4000,
+            brokerURL: 'ws://localhost:8081/app-websockets-main-endpoint',
+            debug: function (str) {
+                console.log(str);
+            },
+            reconnectDelay: 5000,
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
         });
 
-        stompClient.onConnect =  function(frame){
+        stompClient.onConnect = function (frame) {
 
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/global-messages', function (msg) {
-                console.log(msg);
+                console.log("Global message" + msg);
                 $.toast({
                     text: msg.body,
                     icon: 'info',
@@ -64,9 +55,9 @@
                 });
             });
 
-            //this is used to send receive messages meant for specific user
+            //this (/user/* path) is used to send/receive messages meant for specific user
             stompClient.subscribe('/user/topic/review-results', function (msg) {
-                console.log("User messages" + msg);
+                console.log("User message" + msg);
                 $.toast({
                     text: msg.body,
                     icon: 'info',
@@ -78,12 +69,8 @@
         }
 
         stompClient.onStompError = function (frame) {
-          // Will be invoked in case of error encountered at Broker
-          // Bad login/passcode typically will cause an error
-          // Complaint brokers will set `message` header with a brief message. Body may contain details.
-          // Compliant brokers will terminate the connection after any error
-          console.log('Broker reported error: ' + frame.headers['message']);
-          console.log('Additional details: ' + frame.body);
+            console.log('Broker reported error: ' + frame.headers['message']);
+            console.log('Additional details: ' + frame.body);
         };
 
         stompClient.activate();
