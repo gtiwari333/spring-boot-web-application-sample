@@ -8,14 +8,14 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <encoding>UTF-8</encoding>
 
-        <gatling.version>3.9.0</gatling.version>
-        <gatling-maven-plugin.version>4.2.9</gatling-maven-plugin.version>
-        <scala-maven-plugin.version>4.8.0</scala-maven-plugin.version>
-        <javafaker.version>1.7.0</javafaker.version>
+        <gatling.version>3.9.5</gatling.version>
+        <gatling-maven-plugin.version>4.6.0</gatling-maven-plugin.version>
+        <scala-maven-plugin.version>4.8.1</scala-maven-plugin.version>
+        <javafaker.version>2.0.2</javafaker.version>
     </properties>
 
     <dependencies>
@@ -62,20 +62,32 @@
                 <artifactId>scala-maven-plugin</artifactId>
                 <version>${scala-maven-plugin.version}</version>
                 <configuration>
-                    <args>
-                        <arg>-Xlint</arg>
-                        <arg>-deprecation</arg>
-                        <arg>-unchecked</arg>
-                        <arg>-feature</arg>
-                        <arg>-language:postfixOps</arg>
-                        <arg>-language:implicitConversions</arg>
-                        <arg>-language:higherKinds</arg>
-                        <arg>-Xfatal-warnings</arg>
-                        <arg>-Ywarn-unused</arg>
-                        <arg>-Ywarn-dead-code</arg>
-                    </args>
+                    <scalaVersion>2.13.12</scalaVersion>
                 </configuration>
-
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <jvmArgs>
+                                <jvmArg>-Xss100M</jvmArg>
+                            </jvmArgs>
+                            <args>
+                                <arg>-Xlint</arg>
+                                <arg>-deprecation</arg>
+                                <arg>-unchecked</arg>
+                                <arg>-feature</arg>
+                                <arg>-language:postfixOps</arg>
+                                <arg>-language:implicitConversions</arg>
+                                <arg>-language:higherKinds</arg>
+                                <arg>-Xfatal-warnings</arg>
+                                <arg>-Ywarn-unused</arg>
+                                <arg>-Ywarn-dead-code</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
