@@ -110,7 +110,7 @@ It contains following applications:
 
 Option 1 - run with manually started ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
-- Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
+- Run ```docker-compose -f config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
 Option 2 - automatically start ActiveMQ and MySQL using TestContainer while application is starting
