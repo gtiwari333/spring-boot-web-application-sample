@@ -1,9 +1,9 @@
 package gt.app.e2e.pageobj;
 
+import com.codeborne.selenide.SelenideElement;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -16,16 +16,10 @@ public class UserArticleListingPage extends BaseLoggedInPage<UserArticleListingP
     }
 
     public List<File> downloadFiles(int row) {
-        return $$x(".//table/tbody/tr[" + row + "]/td[4]/a").asFixedIterable().stream().map(
-            a -> {
-                try {
-                    return a.download();
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException();
-                }
-            }
-        ).collect(Collectors.toList());
-
+        return $$x(".//table/tbody/tr[" + row + "]/td[4]/a").asFixedIterable()
+            .stream()
+            .map(SelenideElement::download)
+            .toList();
     }
 
 
