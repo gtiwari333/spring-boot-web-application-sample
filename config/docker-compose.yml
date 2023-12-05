@@ -9,7 +9,7 @@ services:
             - ARTEMIS_USER=admin
             - ARTEMIS_PASSWORD=admin
         ports:
-            - 8161:8161  # use this to login
+            - 8161:8161  # use this to access from browser
             - 61616:61616
         networks:
             - seedappnet
@@ -28,6 +28,7 @@ services:
         container_name: mailhog
         ports:
             - 1025:1025
+            - 8025:8025  # use this to access from browser
         networks:
             - seedappnet
 volumes:
