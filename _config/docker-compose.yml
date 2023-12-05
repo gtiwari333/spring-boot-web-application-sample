@@ -1,10 +1,12 @@
 version: '3'
 services:
     activemq_artemis:
-        image: 'jhatdv/activemq-artemis:2.19.1-alpine'
+        # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
+        # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
+        image: 'apache/activemq-artemis:2.31.2-alpine'
         container_name: activemqArtemis
         environment:
-            - ARTEMIS_USERNAME=admin
+            - ARTEMIS_USER=admin
             - ARTEMIS_PASSWORD=admin
         ports:
             - 8161:8161  # use this to login
@@ -12,7 +14,7 @@ services:
         networks:
             - seedappnet
     mysql:
-        image: 'mysql:8.0.30'
+        image: 'mysql:8.0.35'
         environment:
             - MYSQL_ROOT_PASSWORD=password
             - MYSQL_DATABASE=seedapp
@@ -22,7 +24,7 @@ services:
         networks:
             - seedappnet
     emailhog:
-        image: 'mailhog/mailhog'
+        image: 'richarvey/mailhog'
         container_name: mailhog
         ports:
             - 1025:1025
