@@ -92,7 +92,9 @@ Future: do more stuff
     - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
     - For eclipse, download the lombok jar, run it, and point to eclipse installation
 - Maven
-- Docker
+- Docker 
+  - Make sure docker is started and running
+  - Run `$ sudo chmod 666 /var/run/docker.sock` if you get error like this "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? (Details: [13] Permission denied)"
 
 #### How to Run
 
