@@ -11,7 +11,7 @@
 
 MicroService:
 
-[//]: # (- Spring Sleuth based tracing)
+[//]: # (- Spring Micrometer based tracing)
 - Exposing and implementing Open Feign clients
 - Spring Cloud Contract (WIP)
 
@@ -120,21 +120,21 @@ Option 3 - run from IDE
 - Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
 
 
-## Run Tests
+## Run Tests (use ./mvnw instead of mvn if you want to use maven wrapper)
 
 ## It uses TestContainers, which requires Docker to be installed locally.
 
 ##### Running full tests
 
-`./mvnw clean verify`
+`mvn clean verify`
 
 ##### Running unit tests only (it uses maven surefire plugin)
 
-`./mvnw  compiler:testCompile resources:testResources  surefire:test`
+`mvn  compiler:testCompile resources:testResources  surefire:test`
 
 ##### Running integration tests only (it uses maven-failsafe-plugin)
 
-`./mvnw  compiler:testCompile resources:testResources  failsafe:integration-test`
+`mvn  compiler:testCompile resources:testResources  failsafe:integration-test`
 
 ## Code Quality
 
@@ -148,8 +148,8 @@ Run sonarqube server using docker
 `docker run -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest`
 
 Perform scan:
-`./mvnw sonar:sonar`
-./mvnw sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+`mvn sonar:sonar`
+mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
 
 View Reports in SonarQube web ui:
 
@@ -162,13 +162,12 @@ View Reports in SonarQube web ui:
 
 ### Dependency vulnerability scan
 
-Owasp dependency check plugin is configured. Run `./mvnw dependency-check:check` to run scan and
+Owasp dependency check plugin is configured. Run `mvn dependency-check:check` to run scan and
 open `dependency-check-report.html` from target to see the report.
 
 
-## Run Tests Faster using Maven Daemon + parallel run
-
-`mvnd test -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -o`
+## Run Tests Faster by using parallel maven build
+`mvn -T 5 clean package`
 
 
 Once the application starts, open  `http://localhost:8081` on your browser. The default username/passwords are listed on : gt.app.Application.initData, which are:
