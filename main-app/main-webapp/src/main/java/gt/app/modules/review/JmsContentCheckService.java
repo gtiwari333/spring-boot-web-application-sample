@@ -24,7 +24,7 @@ public class JmsContentCheckService implements ContentCheckService {
     private final AppProperties appProperties;
 
     @Override
-//    @Async //TODO: tracing is not working with async yet !
+    @Async //TODO: tracing is not working with async yet !
     public void sendForAutoContentReview(Article a) {
         log.info("Sending article {} for review", a.getId());
         var req = withArticle(a.getContent(), appProperties.getJms().getContentCheckerCallBackResponseQueue(), Long.toString(a.getId()), ARTICLE);
@@ -32,7 +32,7 @@ public class JmsContentCheckService implements ContentCheckService {
     }
 
     @Override
-//    @Async
+    @Async
     public void sendForAutoContentReview(Comment c) {
         log.info("Sending comment {} for review", c.getId());
         var req = withArticle(c.getContent(), appProperties.getJms().getContentCheckerCallBackResponseQueue(), Long.toString(c.getId()), COMMENT);
