@@ -24,17 +24,15 @@ spring:
 server:
     port: 8081
 
-logging.level:
-    org.springframework.security: INFO
-    org.springframework.security.web: INFO
-    org.springframework.cloud: INFO
-    sql: INFO
-    web: INFO
-    ROOT: WARN
-    gt: DEBUG
-    'org.springframework.web.socket': TRACE
-    pattern:
-        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+logging:
+    level:
+        security: INFO
+        web: INFO
+        cloud: INFO
+        sql: INFO
+        ROOT: WARN
+        gt: DEBUG
+#        'org.springframework.web.socket': TRACE
 
 
 app-properties:

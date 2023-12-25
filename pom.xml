@@ -35,7 +35,7 @@
         <hibernate-types60.version>2.21.1</hibernate-types60.version>
         <hibernate-hypersistence-utils.version>3.6.1</hibernate-hypersistence-utils.version>
         <datasource-proxy-sb-starter.version>1.9.1</datasource-proxy-sb-starter.version>
-        <datasource-micrometer-sb-starter.version>1.0.1</datasource-micrometer-sb-starter.version>
+        <datasource-micrometer-sb-starter.version>1.0.2</datasource-micrometer-sb-starter.version>
         <springdoc-openapi-ui.version>2.3.0</springdoc-openapi-ui.version>
         <mapstruct.version>1.6.0.Beta1</mapstruct.version>
 
