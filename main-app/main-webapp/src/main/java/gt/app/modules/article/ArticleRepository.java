@@ -43,7 +43,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Override
     @Caching(
         evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#result.id"),
+            @CacheEvict(cacheNames = {"articleForReview", "articleRead"}, key = "#result.id"),
             @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )
@@ -52,7 +52,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Override
     @Caching(
         evict = {
-            @CacheEvict(cacheNames = {"articleForReview"}, key = "#id"),
+            @CacheEvict(cacheNames = {"articleForReview", "articleRead"}, key = "#id"),
             @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )
