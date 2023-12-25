@@ -17,8 +17,8 @@ public abstract class BaseSeleniumTest {
 
     @BeforeAll
     public static void init() {
-        Configuration.headless = false;
-        Configuration.browser = Browsers.FIREFOX;
+        Configuration.headless = true;
+        Configuration.browser = Browsers.EDGE;
     }
 
     @BeforeEach

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @EnableFeignClients(basePackages = "gt.app.api")
 @Import(FeignClientsConfiguration.class)
-public class FeignConfiguration {
+class FeignConfiguration {
 
     /**
      * Set the Feign specific log level to log client REST requests.

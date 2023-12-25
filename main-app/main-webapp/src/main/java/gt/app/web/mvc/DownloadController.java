@@ -20,7 +20,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/download")
 @RequiredArgsConstructor
-public class DownloadController {
+class DownloadController {
 
     final ReceivedFileService receivedFileService;
     final FileService fileService;

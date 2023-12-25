@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class IndexController {
+class IndexController {
 
     private final ArticleService articleService;
 

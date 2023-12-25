@@ -12,7 +12,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/public")
 @Slf4j
-public class HelloResource {
+class HelloResource {
 
     @GetMapping("/hello")
     public Map<String, String> sayHello() {

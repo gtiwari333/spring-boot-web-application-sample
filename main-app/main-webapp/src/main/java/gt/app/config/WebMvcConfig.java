@@ -21,7 +21,7 @@ import java.util.Locale;
 
 @Configuration
 @RequiredArgsConstructor
-public class WebMvcConfig implements WebMvcConfigurer {
+class WebMvcConfig implements WebMvcConfigurer {
 
     private final WebProperties webProperties;
 

@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/article")
 @RequiredArgsConstructor
 @Slf4j
-public class ArticleController {
+class ArticleController {
 
     final ArticleService articleService;
     final CommentService commentService;

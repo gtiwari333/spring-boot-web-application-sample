@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class CommentService {
 
 
     public List<ArticleReadDto.CommentDto> readComments(Long articleId) {
-        return commentRepository.findAllByArticleId(articleId).stream().map(ArticleMapper.INSTANCE::map).collect(Collectors.toList());
+        return commentRepository.findAllByArticleId(articleId).stream().map(ArticleMapper.INSTANCE::map).toList();
     }
 
 }

@@ -6,7 +6,6 @@ import gt.app.config.Constants;
 import gt.app.config.security.AppUserDetails;
 import gt.app.domain.AppUser;
 import gt.app.domain.LiteUser;
-import gt.app.exception.DuplicateRecordException;
 import gt.app.exception.RecordNotFoundException;
 import gt.app.modules.user.dto.PasswordUpdateDTO;
 import gt.app.modules.user.dto.UserProfileUpdateDTO;

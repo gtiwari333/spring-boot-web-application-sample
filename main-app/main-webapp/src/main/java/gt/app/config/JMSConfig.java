@@ -13,7 +13,7 @@ import org.springframework.jms.support.converter.MessageType;
 
 @Configuration
 @EnableJms
-public class JMSConfig {
+class JMSConfig {
 
     @Bean
     public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,

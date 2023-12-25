@@ -2,6 +2,7 @@
 
 #### Variations
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
+- Microservice example that uses Spring Cloud features(discovery, gateway, config server etc) is on separate project https://github.com/gtiwari333/spring-boot-microservice-example-java
 
 
 ### App Architecture:
@@ -62,7 +63,7 @@ Misc:
 - Nested comment
 - Cache implemented
 - Zipkin tracing 
-
+- Websocket implemented to show article/comment review status/notifications..
 
 Future: do more stuff
 - CQRS with event store/streaming  
@@ -83,7 +84,6 @@ Future: do more stuff
 - nested comment query/performance fix 
 - Signup UI
 - vendor neutral security with OIDC
-- realtime approval UI 
 - JfrUnit ( WIP )
 - 
 ### Requirements
@@ -92,7 +92,9 @@ Future: do more stuff
     - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
     - For eclipse, download the lombok jar, run it, and point to eclipse installation
 - Maven
-- Docker
+- Docker 
+  - Make sure docker is started and running
+  - Run `$ sudo chmod 666 /var/run/docker.sock` if you get error like this "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? (Details: [13] Permission denied)"
 
 #### How to Run
 
@@ -108,7 +110,7 @@ It contains following applications:
 
 Option 1 - run with manually started ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
-- Run ```docker-compose -f _config/docker-compose.yml up``` at root to start docker containers
+- Run ```docker-compose -f config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
 Option 2 - automatically start ActiveMQ and MySQL using TestContainer while application is starting
@@ -120,19 +122,21 @@ Option 3 - run from IDE
 - Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
 
 
-## Run Tests
+## Run Tests (use ./mvnw instead of mvn if you want to use maven wrapper)
+
+## It uses TestContainers, which requires Docker to be installed locally.
 
 ##### Running full tests
 
-`./mvnw clean verify`
+`mvn clean verify`
 
 ##### Running unit tests only (it uses maven surefire plugin)
 
-`./mvnw  compiler:testCompile resources:testResources  surefire:test`
+`mvn  compiler:testCompile resources:testResources  surefire:test`
 
 ##### Running integration tests only (it uses maven-failsafe-plugin)
 
-`./mvnw  compiler:testCompile resources:testResources  failsafe:integration-test`
+`mvn  compiler:testCompile resources:testResources  failsafe:integration-test`
 
 ## Code Quality
 
@@ -146,8 +150,8 @@ Run sonarqube server using docker
 `docker run -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest`
 
 Perform scan:
-`./mvnw sonar:sonar`
-./mvnw sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+`mvn sonar:sonar`
+mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
 
 View Reports in SonarQube web ui:
 
@@ -160,13 +164,12 @@ View Reports in SonarQube web ui:
 
 ### Dependency vulnerability scan
 
-Owasp dependency check plugin is configured. Run `./mvnw dependency-check:check` to run scan and
+Owasp dependency check plugin is configured. Run `mvn dependency-check:check` to run scan and
 open `dependency-check-report.html` from target to see the report.
 
 
-## Run Tests Faster using Maven Daemon + parallel run
-
-`mvnd test -Dparallel=all -DperCoreThreadCount=false -DthreadCount=4 -o`
+## Run Tests Faster by using parallel maven build
+`mvn -T 5 clean package`
 
 
 Once the application starts, open  `http://localhost:8081` on your browser. The default username/passwords are listed on : gt.app.Application.initData, which are:

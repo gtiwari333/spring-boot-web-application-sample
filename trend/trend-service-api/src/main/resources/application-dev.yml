@@ -1,6 +1,6 @@
 spring:
     artemis:
-        user: ${ACTIVEMQ_ARTEMIS_USERNAME:admin}
+        user: ${ACTIVEMQ_ARTEMIS_USER:admin}
         password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
 

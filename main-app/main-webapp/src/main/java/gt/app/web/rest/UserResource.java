@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
-public class UserResource {
+class UserResource {
 
     @GetMapping("/account")
     public Optional<Long> getAccount() {

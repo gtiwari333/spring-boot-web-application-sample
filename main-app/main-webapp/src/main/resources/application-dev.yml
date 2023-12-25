@@ -32,7 +32,7 @@ spring:
     jooq:
         sql-dialect: MySQL
     artemis:
-        user: ${ACTIVEMQ_ARTEMIS_USERNAME:admin}
+        user: ${ACTIVEMQ_ARTEMIS_USER:admin}
         password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
     liquibase:
@@ -42,3 +42,11 @@ feign-clients:
     email-service:
         url: http://localhost:8085/ #TODO: use service discovery
 
+logging.level:
+    org.jooq.tools.LoggerListener: DEBUG
+    org.springframework.security: INFO
+    org.springframework.security.web: INFO
+    org.springframework.cloud: INFO
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: TRACE
+    'org.hibernate.engine.internal.StatisticalLoggingSessionEventListener': info

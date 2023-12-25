@@ -15,7 +15,7 @@ class SampleTest {
     static void setup() {
         Configuration.baseUrl = "https://en.wikipedia.org/wiki/Main_Page";
         Configuration.headless = true;
-        Configuration.browser = Browsers.FIREFOX;
+        Configuration.browser = Browsers.EDGE;
     }
 
     @Test

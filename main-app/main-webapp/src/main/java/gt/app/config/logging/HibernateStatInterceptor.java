@@ -4,9 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Interceptor;
 
 import java.io.Serial;
+import java.io.Serializable;
 
 @Slf4j
-public class HibernateStatInterceptor implements Interceptor {
+public class HibernateStatInterceptor implements Interceptor, Serializable {
 
     @Serial
     private static final long serialVersionUID = -7875557911815131906L;

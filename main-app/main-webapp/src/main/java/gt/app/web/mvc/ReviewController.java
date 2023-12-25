@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 @Slf4j
-public class ReviewController {
+class ReviewController {
 
     final ArticleService articleService;
 
@@ -42,6 +42,6 @@ public class ReviewController {
             () -> redirectAttrs.addFlashAttribute("success", "Article with id " + reviewResult.getId() + " is already reviewed or doesn't exists")
         );
 
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 }

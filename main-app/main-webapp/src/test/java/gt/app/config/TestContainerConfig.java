@@ -25,9 +25,9 @@ public class TestContainerConfig {
     static {
         log.info("Starting docker containers using TestContainers");
 
-        var activeMQ = new GenericContainer<>("jhatdv/activemq-artemis:2.19.1-alpine");
+        var activeMQ = new GenericContainer<>("apache/activemq-artemis:2.31.2-alpine");
         activeMQ.withExposedPorts(61616);
-        activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
+        activeMQ.setEnv(List.of("ARTEMIS_USER=admin", "ARTEMIS_PASSWORD=admin"));
 
         activeMQ.start(); //using default ports
 

@@ -13,7 +13,7 @@ import static java.lang.System.setProperty;
 @Profile("withTestContainer")
 @Configuration
 @Slf4j
-public class DockerContainerConfig {
+class DockerContainerConfig {
 
     /*
 
@@ -31,17 +31,17 @@ public class DockerContainerConfig {
 
         String userPwd = "admin";//use same for all
 
-        var mysql = new MySQLContainer<>("mysql:8.0.30").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
+        var mysql = new MySQLContainer<>("mysql:8.0.35").withDatabaseName("seedapp").withUsername(userPwd).withPassword(userPwd);
         mysql.start();
 
-        var activeMQ = new GenericContainer<>("jhatdv/activemq-artemis:2.19.1-alpine");
-        activeMQ.setEnv(List.of("ARTEMIS_USERNAME=admin", "ARTEMIS_PASSWORD=admin"));
+        var activeMQ = new GenericContainer<>("apache/activemq-artemis:2.31.2-alpine");
+        activeMQ.setEnv(List.of("ARTEMIS_USER=admin", "ARTEMIS_PASSWORD=admin"));
         activeMQ.withExposedPorts(61616);
         activeMQ.start(); //using default ports
 
         setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
         setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
-        setProperty("ACTIVEMQ_ARTEMIS_USERNAME", userPwd);
+        setProperty("ACTIVEMQ_ARTEMIS_USER", userPwd);
         setProperty("ACTIVEMQ_ARTEMIS_PASSWORD", userPwd);
 
         setProperty("MYSQL_HOST", mysql.getHost());

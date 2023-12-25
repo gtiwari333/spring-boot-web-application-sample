@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
+class UserController {
 
     private final UserService userService;
     private final UserSignupValidator userSignupValidator;
