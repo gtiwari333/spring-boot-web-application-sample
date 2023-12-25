@@ -44,6 +44,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Caching(
         evict = {
             @CacheEvict(cacheNames = {"articleForReview", "articleRead"}, key = "#result.id"),
+            //FIXME: better cache eviction - evict only if the article being updated was cached
             @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )
@@ -53,6 +54,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Caching(
         evict = {
             @CacheEvict(cacheNames = {"articleForReview", "articleRead"}, key = "#id"),
+            //FIXME: better cache eviction - evict only if the article being deleted was cached
             @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )
