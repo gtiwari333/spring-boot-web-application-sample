@@ -31,7 +31,7 @@ logging:
         cloud: INFO
         sql: INFO
         ROOT: WARN
-        gt: DEBUG
+        gt: TRACE
 #        'org.springframework.web.socket': TRACE
 
 

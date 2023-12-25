@@ -14,12 +14,16 @@ spring:
 
 server:
     port: 8085
-
+    error:
+        include-stacktrace: never
+        include-exception: true
+        include-binding-errors: always
+        include-message: always
 logging:
     level:
         org.springframework.web: INFO
         ROOT: WARN
-        gt: DEBUG
+        gt: TRACE
 
 management:
     tracing:

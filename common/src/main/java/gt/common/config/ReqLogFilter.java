@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * we want this filter to run after ServerHttpObservationFilter if span/trace id should be printed on log
+ */
 @Slf4j
-public
-class ReqLogFilter implements Filter {
+public class ReqLogFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -30,10 +32,6 @@ class ReqLogFilter implements Filter {
                 req.put("req.req.queryString", httpServletRequest.getQueryString());
                 req.put("req.userAgent", httpServletRequest.getHeader("User-Agent"));
                 req.put("req.xForwardedFor", httpServletRequest.getHeader("X-Forwarded-For"));
-//            req.put("req.x-b3-sampled", httpServletRequest.getHeader("x-b3-sampled"));
-//            req.put("req.x-b3-parentspanid", httpServletRequest.getHeader("x-b3-parentspanid"));
-                req.put("req.x-b3-spanid", httpServletRequest.getHeader("x-b3-spanid"));
-                req.put("req.x-b3-traceid", httpServletRequest.getHeader("x-b3-traceid"));
             }
 
             log.trace("Received request {} ", req);

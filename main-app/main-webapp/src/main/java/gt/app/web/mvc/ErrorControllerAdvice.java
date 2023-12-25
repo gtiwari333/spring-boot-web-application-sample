@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Slf4j
 class ErrorControllerAdvice {
 
-
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String exception(final Throwable throwable, final Model model) {
@@ -31,7 +30,6 @@ class ErrorControllerAdvice {
         model.addAttribute("errorMessage", "Failed to store file");
         return "error";
     }
-
 
     @ExceptionHandler(RetrievalException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

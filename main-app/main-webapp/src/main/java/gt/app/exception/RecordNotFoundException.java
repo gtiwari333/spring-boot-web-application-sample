@@ -1,10 +1,11 @@
 package gt.app.exception;
 
+import gt.common.config.BaseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class RecordNotFoundException extends RuntimeException {
+public class RecordNotFoundException extends BaseException {
 
     public RecordNotFoundException(String description) {
         super(description);

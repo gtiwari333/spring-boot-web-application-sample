@@ -18,12 +18,20 @@
 
     <dependencies>
         <dependency>
+            <artifactId>common</artifactId>
+            <groupId>gt.app</groupId>
+        </dependency>
+        <dependency>
             <artifactId>main-orm-jooq</artifactId>
             <groupId>gt.app</groupId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
         <!-- tracing -->
         <dependency>

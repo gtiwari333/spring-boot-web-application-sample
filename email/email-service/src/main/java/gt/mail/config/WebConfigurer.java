@@ -13,12 +13,13 @@ import org.springframework.core.Ordered;
 @Slf4j
 public class WebConfigurer {
 
+
     @Bean
     public FilterRegistrationBean<ReqLogFilter> loggingFilter() {
         FilterRegistrationBean<ReqLogFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(new ReqLogFilter());
-        registrationBean.setOrder((Ordered.HIGHEST_PRECEDENCE));
+        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
 
         return registrationBean;
     }

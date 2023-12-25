@@ -59,7 +59,7 @@ class WebMvcConfig implements WebMvcConfigurer {
         var registrationBean = new FilterRegistrationBean<ReqLogFilter>();
 
         registrationBean.setFilter(new ReqLogFilter());
-        registrationBean.setOrder((Ordered.HIGHEST_PRECEDENCE));
+        registrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
 
         return registrationBean;
     }
