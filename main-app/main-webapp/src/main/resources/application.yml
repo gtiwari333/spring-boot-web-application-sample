@@ -51,6 +51,7 @@ wro4j:
     filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls
 
 # https://github.com/gavlyukovskiy/spring-boot-data-source-decorator
+# note that both `jdbc.datasource-proxy` and `decorator.datasource` cannot be enabled at same time due to bean name conflict
 decorator:
     datasource:
         enabled: false  # disabled for now
@@ -59,6 +60,10 @@ decorator:
                 threshold: 1 # 1 second is slow
             query:
                 log-level: INFO
+# https://github.com/jdbc-observations/datasource-micrometer
+jdbc:
+    datasource-proxy:
+        enabled: true
 
 management:
     tracing:

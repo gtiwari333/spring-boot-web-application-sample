@@ -53,7 +53,8 @@ feign-clients:
     email-service:
         url: http://localhost:00/  #TODO: find a better way to handle this
 
-# enabled for test to assert query counts
+# enabled for test to assert query counts,
+# note that both `jdbc.datasource-proxy` and `decorator.datasource` cannot be enabled at same time due to bean name conflict
 decorator:
     datasource:
         enabled: true
@@ -62,3 +63,7 @@ decorator:
                 threshold: 1
             query:
                 log-level: INFO
+# https://github.com/jdbc-observations/datasource-micrometer
+jdbc:
+    datasource-proxy:
+        enabled: false
