@@ -15,9 +15,17 @@ spring:
 server:
     port: 8086
 
-logging.level:
-    org.springframework.web: INFO
-    org.hibernate: INFO
-    ROOT: WARN
-    gt: DEBUG
+logging:
+    level:
+        org.springframework.web: INFO
+        org.hibernate: INFO
+        ROOT: WARN
+        gt: DEBUG
 
+management:
+    tracing:
+        sampling:
+            probability: 1.0
+    zipkin:
+        tracing:
+            endpoint: http://localhost:9411/api/v2/spans

@@ -31,6 +31,13 @@ services:
             - 8025:8025  # use this to access from browser
         networks:
             - seedappnet
+    zipkin:
+        image: 'openzipkin/zipkin'
+        container_name: zipkin
+        ports:
+            - 9411:9411
+        networks:
+            - seedappnet
 volumes:
     esdata1:
         driver: local

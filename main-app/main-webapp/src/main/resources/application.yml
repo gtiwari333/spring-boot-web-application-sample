@@ -16,18 +16,23 @@ spring:
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    cloud:
+        openfeign:
+            micrometer:
+                enabled: true
+
 server:
     port: 8081
 
-logging.level:
-    org.springframework.security: WARN
-    org.springframework.security.web: WARN
-    org.springframework.cloud: WARN
-    sql: INFO
-    web: INFO
-    ROOT: INFO
-    gt: INFO
-    'org.springframework.web.socket': TRACE
+logging:
+    level:
+        security: INFO
+        web: INFO
+        cloud: INFO
+        sql: INFO
+        ROOT: WARN
+        gt: DEBUG
+#        'org.springframework.web.socket': TRACE
 
 
 app-properties:
@@ -46,6 +51,7 @@ wro4j:
     filter-url: /wro4j # this is the default, needs to be used in secConfig and the htmls
 
 # https://github.com/gavlyukovskiy/spring-boot-data-source-decorator
+# note that both `jdbc.datasource-proxy` and `decorator.datasource` cannot be enabled at same time due to bean name conflict
 decorator:
     datasource:
         enabled: false  # disabled for now
@@ -54,3 +60,18 @@ decorator:
                 threshold: 1 # 1 second is slow
             query:
                 log-level: INFO
+# https://github.com/jdbc-observations/datasource-micrometer
+jdbc:
+    datasource-proxy:
+        enabled: true
+
+management:
+    tracing:
+        sampling:
+            probability: 1.0
+    zipkin:
+        tracing:
+            endpoint: http://localhost:9411/api/v2/spans
+    health:
+        jms:
+            enabled: true

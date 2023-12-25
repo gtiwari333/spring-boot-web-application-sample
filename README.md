@@ -11,7 +11,7 @@
 
 MicroService:
 
-[//]: # (- Spring Micrometer based tracing)
+[//]: # (- Spring micrometer based tracing with zipkin)
 - Exposing and implementing Open Feign clients
 - Spring Cloud Contract (WIP)
 
@@ -62,6 +62,7 @@ Misc:
 - Approval/flagging api - message based
 - Nested comment
 - Cache implemented
+- Zipkin tracing 
 - Websocket implemented to show article/comment review status/notifications..
 
 Future: do more stuff
@@ -70,7 +71,6 @@ Future: do more stuff
 - Docker-compose deploy/kubernetes 
 - Visitors log - IP, browser, etc
 - Centralized error reporting
-- Visual Tracing   
 - Geo-Spatial query for visitors
 - Grafana Dashboard, @Timed and more ...
 - logback LevelChangePropagator integration

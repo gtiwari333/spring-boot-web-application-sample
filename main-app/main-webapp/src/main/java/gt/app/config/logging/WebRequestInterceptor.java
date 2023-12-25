@@ -11,9 +11,9 @@ public class WebRequestInterceptor implements AsyncHandlerInterceptor {
 
     private final ThreadLocal<Long> exeTimeThreadLocal = new ThreadLocal<>();
 
-    private final HibernateStatInterceptor statisticsInterceptor;
+    private final HibernateStatementStatInterceptor statisticsInterceptor;
 
-    public WebRequestInterceptor(HibernateStatInterceptor statisticsInterceptor) {
+    public WebRequestInterceptor(HibernateStatementStatInterceptor statisticsInterceptor) {
         this.statisticsInterceptor = statisticsInterceptor;
     }
 

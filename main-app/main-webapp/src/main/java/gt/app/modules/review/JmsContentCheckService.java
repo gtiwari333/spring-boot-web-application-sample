@@ -4,6 +4,7 @@ import gt.app.config.AppProperties;
 import gt.app.domain.Article;
 import gt.app.domain.Comment;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Async;
@@ -16,14 +17,16 @@ import static gt.contentchecker.Request.withArticle;
 @RequiredArgsConstructor
 @Service
 @Profile("!test")
+@Slf4j
 public class JmsContentCheckService implements ContentCheckService {
 
     private final JmsTemplate jmsTemplate;
     private final AppProperties appProperties;
 
     @Override
-    @Async
+    @Async //TODO: tracing is not working with async yet !
     public void sendForAutoContentReview(Article a) {
+        log.info("Sending article {} for review", a.getId());
         var req = withArticle(a.getContent(), appProperties.getJms().getContentCheckerCallBackResponseQueue(), Long.toString(a.getId()), ARTICLE);
         jmsTemplate.convertAndSend(appProperties.getJms().getContentCheckerRequestQueue(), req);
     }
@@ -31,6 +34,7 @@ public class JmsContentCheckService implements ContentCheckService {
     @Override
     @Async
     public void sendForAutoContentReview(Comment c) {
+        log.info("Sending comment {} for review", c.getId());
         var req = withArticle(c.getContent(), appProperties.getJms().getContentCheckerCallBackResponseQueue(), Long.toString(c.getId()), COMMENT);
         jmsTemplate.convertAndSend(appProperties.getJms().getContentCheckerRequestQueue(), req);
     }
