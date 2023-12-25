@@ -16,7 +16,7 @@ jobs:
 
         steps:
             -   uses: actions/checkout@v2
-            -   uses: browser-actions/setup-chrome@v1
+            -   uses: browser-actions/setup-edge@v1
 
             -   name: Set up JDK 21
                 uses: actions/setup-java@v1
