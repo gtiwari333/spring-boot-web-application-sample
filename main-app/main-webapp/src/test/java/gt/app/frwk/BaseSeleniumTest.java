@@ -18,7 +18,7 @@ public abstract class BaseSeleniumTest {
     @BeforeAll
     public static void init() {
         Configuration.headless = false;
-        Configuration.browser = Browsers.CHROME;
+        Configuration.browser = Browsers.EDGE;
     }
 
     @BeforeEach
