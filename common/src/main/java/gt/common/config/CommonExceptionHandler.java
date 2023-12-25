@@ -16,7 +16,7 @@ import org.springframework.web.filter.ServerHttpObservationFilter;
 public class CommonExceptionHandler {
     private final Tracer tracer;
 
-    public CommonExceptionHandler(Tracer tracer) {
+    protected CommonExceptionHandler(Tracer tracer) {
         this.tracer = tracer;
     }
 

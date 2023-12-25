@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 class ExceptionHandler extends CommonExceptionHandler {
-    public ExceptionHandler(Tracer tracer) {
+    ExceptionHandler(Tracer tracer) {
         super(tracer);
     }
 }

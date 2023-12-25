@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Random;
 
@@ -15,11 +16,12 @@ import java.util.Random;
 @RequestMapping("/test")
 @Slf4j
 public class HelloResource {
+    private static final Random RANDOM = new SecureRandom();
 
     @GetMapping("/hello")
-    public Map<String, String> sayHello() throws Exception {
+    public Map<String, String> sayHello() {
         log.info("Received hello request");
-        if (new Random().nextBoolean()) {
+        if (RANDOM.nextBoolean()) {
             throw new BaseException("Something");
         }
         return Map.of("hello", "world");
