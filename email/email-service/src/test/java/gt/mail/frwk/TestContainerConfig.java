@@ -9,7 +9,7 @@ import static java.lang.System.setProperty;
 public class TestContainerConfig {
 
     static {
-        var mailHog = new GenericContainer<>("mailhog/mailhog");
+        var mailHog = new GenericContainer<>("richarvey/mailhog");
         mailHog.withExposedPorts(1025);
         mailHog.start();
 
