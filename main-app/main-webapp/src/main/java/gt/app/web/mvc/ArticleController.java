@@ -1,6 +1,6 @@
 package gt.app.web.mvc;
 
-import gt.app.config.security.AppUserDetails;
+import gt.app.config.security.CurrentUserToken;
 import gt.app.domain.Article;
 import gt.app.modules.article.*;
 import gt.app.utl.PaginationUtil;
@@ -29,15 +29,15 @@ class ArticleController {
     final CommentService commentService;
 
     @GetMapping({"/", ""})
-    public String userHome(Model model, @AuthenticationPrincipal AppUserDetails u, Pageable pageable) {
-        var page = articleService.previewAllWithFilesByUser(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()), u.getId());
+    public String userHome(Model model, @AuthenticationPrincipal CurrentUserToken u, Pageable pageable) {
+        var page = articleService.previewAllWithFilesByUser(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()), u.getUserId());
         model.addAttribute("articles", page);
         PaginationUtil.decorateModel(model, page);
         return "article";
     }
 
     @GetMapping("/new")
-    public String startNewArticle(Model model, @AuthenticationPrincipal AppUserDetails loggedInUserDtl) {
+    public String startNewArticle(Model model, @AuthenticationPrincipal CurrentUserToken loggedInUserDtl) {
         model.addAttribute("article", new Article()); //new article box at top
         return "article/new-article";
     }

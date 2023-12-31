@@ -44,7 +44,7 @@
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('USER')">
                         <a class="nav-link" th:href="@{/article}" id="user-article-link">
-                            <span th:text="#{blogapp.user-articles(${#authentication.principal.username})}"></span>
+                            <span th:text="#{blogapp.user-articles(${#authentication.principal.attributes['preferred_username']})}"></span>
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/login}" id="login-link">
+                        <a class="nav-link " th:href="@{/auth/login}" id="login-link">
                             Login
                         </a>
                     </li>
@@ -71,7 +71,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdownMenuLink"
                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span sec:authentication="principal.username">USER_NAME</span>
+                            <span sec:authentication="principal.attributes['preferred_username']">USER_NAME</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>

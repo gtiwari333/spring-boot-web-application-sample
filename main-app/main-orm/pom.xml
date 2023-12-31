@@ -98,10 +98,15 @@
                     <propertyFile>src/main/resources/liquibase-jpa-diff.properties</propertyFile>
 
                     <!-- liquibase:generateChangeLog-->
-                    <!--<propertyFile>src/main/resources/liquibase-existing-db.properties</propertyFile>-->
+<!--                    <propertyFile>src/main/resources/liquibase-existing-db.properties</propertyFile>-->
 
                 </configuration>
                 <dependencies>
+                    <dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate6</artifactId>
+                        <version>${liquibase.version}</version>
+                    </dependency>
                     <dependency>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-beans</artifactId>

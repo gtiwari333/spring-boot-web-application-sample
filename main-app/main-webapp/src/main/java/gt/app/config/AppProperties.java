@@ -9,6 +9,8 @@ public class AppProperties {
 
     final FileStorage fileStorage = new FileStorage();
     final JmsProps jms = new JmsProps();
+    final Web web = new Web();
+
     final Email email = new Email();
 
     @Data
@@ -20,6 +22,14 @@ public class AppProperties {
     public static class JmsProps {
         String contentCheckerRequestQueue;
         String contentCheckerCallBackResponseQueue;
+    }
+
+    @Data
+    public static class Web {
+        /**
+         * the registered host.. without trailing /
+         */
+        String baseUrl;
     }
 
     @Data

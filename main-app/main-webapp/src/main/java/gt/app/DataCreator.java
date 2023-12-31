@@ -15,6 +15,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Component
@@ -64,21 +65,22 @@ public class DataCreator {
         userAuthority.setName(Constants.ROLE_USER);
         authorityService.save(userAuthority);
 
-        String pwd = "$2a$10$UtqWHf0BfCr41Nsy89gj4OCiL36EbTZ8g4o/IvFN2LArruHruiRXO"; // to make it faster //value is 'pass'
+        String systemUserId = "a621ac4c-6172-4103-9050-b27c053b11eb";
 
-        AppUser adminUser = new AppUser(SYSTEM_USER, "System", "Tiwari", "system@email");
-        adminUser.setPassword(pwd);
-        adminUser.setAuthorities(authorityService.findByNameIn(Constants.ROLE_ADMIN, Constants.ROLE_USER));
+        if (userService.exists(UUID.fromString(systemUserId))) {
+            log.info("DB already initialized !!!");
+            return;
+        }
+
+        //ID and login are linked with the keycloak export json
+        AppUser adminUser = new AppUser(systemUserId, "system", "System", "Tiwari", "system@email");
         userService.save(adminUser);
 
-        AppUser user1 = new AppUser(USER1, "Ganesh", "Tiwari", "gt@email");
-        user1.setPassword(pwd);
-        user1.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
+        AppUser user1 = new AppUser("d1460f56-7f7e-43e1-8396-bddf39dba08f", "user1", "Ganesh", "Tiwari", "user1@email");
         userService.save(user1);
 
-        AppUser user2 = new AppUser(USER2, "Jyoti", "Kattel", "jk@email");
-        user2.setPassword(pwd);
-        user2.setAuthorities(authorityService.findByNameIn(Constants.ROLE_USER));
+
+        AppUser user2 = new AppUser("fa6820a5-cf39-4cbf-9e50-89cc832bebee", "user2", "Jyoti", "Kattel", "user2@email");
         userService.save(user2);
 
         createArticle(adminUser, "Admin's First Article", "Content1 Admin");

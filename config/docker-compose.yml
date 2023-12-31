@@ -38,6 +38,25 @@ services:
             - 9411:9411
         networks:
             - seedappnet
+    keycloak:
+        image: 'quay.io/keycloak/keycloak:23.0.3'
+        container_name: keycloak
+        command: start-dev --import-realm
+        environment:
+            - KEYCLOAK_DB=dev-file
+            - KEYCLOAK_ADMIN=admin
+            - KEYCLOAK_ADMIN_PASSWORD=admin
+            - KEYCLOAK_FEATURES=scripts
+            - KEYCLOAK_HTTP_PORT=8080
+            - KEYCLOAK_HTTPS_PORT=9443
+        #        entrypoint: /tmp/keycloak/config/docker-compose-entrypoint.sh --hostname host.docker.internal:8080
+        volumes:
+            - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
+        ports:
+            - 8082:8080
+            - 9443:9443
+        networks:
+            - seedappnet
 volumes:
     esdata1:
         driver: local

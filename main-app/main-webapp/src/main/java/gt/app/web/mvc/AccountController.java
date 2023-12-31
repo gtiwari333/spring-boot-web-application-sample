@@ -1,6 +1,6 @@
 package gt.app.web.mvc;
 
-import gt.app.config.security.AppUserDetails;
+import gt.app.config.security.CurrentUserToken;
 import gt.app.modules.user.UserService;
 import gt.app.modules.user.UserStat;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ class AccountController {
     final UserService userService;
 
     @GetMapping("/account/user/{id}")
-    public String getUserSummary(Model model, @AuthenticationPrincipal AppUserDetails loggedInUserDtl, @PathVariable UUID id) {
+    public String getUserSummary(Model model, @AuthenticationPrincipal CurrentUserToken loggedInUserDtl, @PathVariable UUID id) {
 
 
         model.addAttribute("name", "FName LastName");

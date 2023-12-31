@@ -21,7 +21,7 @@ public class ArticleReadDto {
 
     private String content;
 
-    private Long userId;
+    private UUID userId;
     private String username;
 
     private Instant createdDate;
@@ -44,7 +44,7 @@ public class ArticleReadDto {
         Long id;
         String content;
 
-        Long userId;
+        UUID userId;
         String username;
 
         Instant createdDate;
