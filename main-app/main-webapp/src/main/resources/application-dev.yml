@@ -41,6 +41,8 @@ spring:
 feign-clients:
     email-service:
         url: http://localhost:8085/ #TODO: use service discovery
+    report-service:
+        url: http://localhost:8086/ #TODO: use service discovery
 
 logging.level:
     org.jooq.tools.LoggerListener: DEBUG

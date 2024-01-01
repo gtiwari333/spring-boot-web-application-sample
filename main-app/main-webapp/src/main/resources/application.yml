@@ -20,7 +20,21 @@ spring:
         openfeign:
             micrometer:
                 enabled: true
-
+    security:
+        oauth2:
+            client:
+                # we are using authorization code flow (login within keycloak app web ui)
+                provider:
+                    oidc:
+                        # use http://localhost:8082/realms/articleapp/.well-known/openid-configuration to get config from keycloak
+                        issuer-uri: http://localhost:${KEYCLOAK_PORT:8082}/realms/seedapp
+                registration:
+                    oidc:
+                        #                        authorization-grant-type: refresh_token
+                        client-id: seed-app-gateway-client
+                        client-secret: secret123
+                        scope: openid, profile, email, offline_access # last one for refresh tokens
+                    # we can have multiple auth providers
 server:
     port: 8081
 
@@ -41,7 +55,8 @@ app-properties:
         content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
-
+    web:
+        base-url: http://localhost:${server.port}
 wro4j:
     jmx-enabled: false
     debug: true

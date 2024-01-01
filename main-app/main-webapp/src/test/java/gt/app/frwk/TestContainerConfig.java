@@ -1,5 +1,6 @@
-package gt.app.config;
+package gt.app.frwk;
 
+import dasniko.testcontainers.keycloak.KeycloakContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.testcontainers.containers.GenericContainer;
@@ -16,6 +17,7 @@ public class TestContainerConfig {
 
     Started by Docker TestContainer in withTestContainer profile
     - ActiveMQ Artemis
+    - KeyCloak
 
     Embedded Apps - started in dev profile
     - H2
@@ -31,6 +33,10 @@ public class TestContainerConfig {
 
         activeMQ.start(); //using default ports
 
+        var kc = new KeycloakContainer("quay.io/keycloak/keycloak:23.0.3").withRealmImportFile("keycloak/realm-export.json");
+        kc.start();
+
+        setProperty("KEYCLOAK_PORT", Integer.toString(kc.getHttpPort()));
         setProperty("ACTIVEMQ_ARTEMIS_HOST", activeMQ.getHost());
         setProperty("ACTIVEMQ_ARTEMIS_PORT", Integer.toString(activeMQ.getMappedPort(61616)));
 

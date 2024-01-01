@@ -1,6 +1,6 @@
 package gt.app.modules.user;
 
-import gt.app.config.security.AppUserDetails;
+import gt.app.config.security.CurrentUserToken;
 import gt.app.config.security.SecurityUtils;
 import gt.app.domain.BaseEntity;
 import gt.app.exception.OperationNotAllowedException;
@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -45,14 +44,15 @@ public class AppPermissionEvaluatorService implements PermissionEvaluator {
     }
 
     public boolean hasAccess(Long id, String targetEntity) {
-        User curUser = SecurityUtils.getCurrentUserDetails();
+        CurrentUserToken curUserOpt = SecurityUtils.getCurrentUserDetails();
 
-        if (!(curUser instanceof AppUserDetails appUser)) {
-            throw new OperationNotAllowedException("Current SecurityContext doesn't have AppUserDetails ");
+        if (curUserOpt == null) {
+            return false;
         }
 
-        return userAuthorityService.hasAccess(appUser, id, targetEntity);
+        return userAuthorityService.hasAccess(curUserOpt, id, targetEntity);
     }
+
 
 
 }

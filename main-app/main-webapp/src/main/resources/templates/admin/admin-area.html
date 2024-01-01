@@ -29,6 +29,9 @@
 
             <h2><span th:text="${articlesToReview.getTotalElements()}">##</span> Articles to review</h2>
 
+            <h3>
+                Total to review: <span th:text="${totalToReview}"></span>
+            </h3>
             <div th:if="${articlesToReview.getTotalElements() >0}">
                 <table class="table table-striped">
                     <thead>

@@ -1,32 +1,73 @@
 package gt.app.config.security;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class SecurityUtils {
 
-    public static Optional<Long> getCurrentUserId() {
-
-        User user = getCurrentUserDetails();
-        if (user instanceof AppUserDetails appUserDetails) {
-            return Optional.of(appUserDetails.getId());
-        }
-        return Optional.empty();
+    private SecurityUtils() {
     }
 
-    public static User getCurrentUserDetails() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return getCurrentUserDetails(authentication);
+    public static UUID getCurrentUserId() {
+
+        CurrentUserToken user = getCurrentUserDetails();
+        if (user == null) {
+            return null;
+        }
+
+        return user.getUserId();
     }
 
-    public static User getCurrentUserDetails(Authentication authentication) {
-        User userDetails = null;
-        if (authentication != null && authentication.getPrincipal() instanceof User) {
-            userDetails = (User) authentication.getPrincipal();
+    public static CurrentUserToken getCurrentUserDetails() {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication authentication = ctx.getAuthentication();
+        if (authentication == null) {
+            return null;
         }
-        return userDetails;
+
+        if (authentication.getPrincipal() instanceof DefaultOidcUser defaultOidcUser) {
+            return mapAuthenticationPrincipalToCurrentUser(defaultOidcUser);
+        }
+        return null;
+    }
+
+    public static Optional<OidcIdToken> getCurrentUserJWT() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return Optional
+            .ofNullable(securityContext.getAuthentication())
+            .filter(auth -> auth.getPrincipal() instanceof DefaultOidcUser)
+            .map(auth -> (DefaultOidcUser) auth.getPrincipal())
+            .map(DefaultOidcUser::getIdToken);
+    }
+
+    public static boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication == null || authentication instanceof AnonymousAuthenticationToken);
+    }
+
+    public static List<GrantedAuthority> mapRolesToGrantedAuthorities(Collection<String> roles) {
+        if (roles == null) {
+            return Collections.emptyList();
+        }
+        return roles.stream()
+            .filter(role -> role.startsWith("ROLE_"))
+            .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    public static List<GrantedAuthority> extractAuthorityFromClaims(Map<String, Object> claims) {
+        return mapRolesToGrantedAuthorities((ArrayList) claims.get("roles"));
+    }
+
+    public static CurrentUserToken mapAuthenticationPrincipalToCurrentUser(DefaultOidcUser oidcUser) {
+        return new CurrentUserToken(oidcUser.getAuthorities(), oidcUser.getIdToken(), oidcUser.getUserInfo());
     }
 }

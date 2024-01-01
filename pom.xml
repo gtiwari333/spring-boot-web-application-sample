@@ -44,6 +44,7 @@
         <google-guava.version>33.0.0-jre</google-guava.version>
         <wro4j.version>1.9.0</wro4j.version>
         <archunit.version>1.2.1</archunit.version>
+        <testcontainers-keycloak.version>3.2.0</testcontainers-keycloak.version>
         <testcontainers.version>1.19.3</testcontainers.version>
         <commons-io.version>2.15.1</commons-io.version>
         <webjar-jquery.version>3.6.1</webjar-jquery.version>
@@ -183,6 +184,11 @@
                 <groupId>org.testcontainers</groupId>
                 <artifactId>mysql</artifactId>
                 <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.dasniko</groupId>
+                <artifactId>testcontainers-keycloak</artifactId>
+                <version>${testcontainers-keycloak.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>

@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface ArticleRepository extends AbstractRepository<Article>, ArticleRepositoryCustom {
 
@@ -32,10 +33,10 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     Optional<Article> findOneWithUserById(Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "attachedFiles"})
-    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(Long userId, ArticleStatus status, Pageable pageable);
+    Page<Article> findWithFilesAndUserByCreatedByUser_IdAndStatusOrderByCreatedDateDesc(UUID userId, ArticleStatus status, Pageable pageable);
 
     @Query("select n.createdByUser.id from Article n where n.id=:id ")
-    Long findCreatedByUserIdById(@Param("id") Long id);
+    UUID findCreatedByUserIdById(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"createdByUser", "lastModifiedByUser"})
     Optional<Article> findWithModifiedUserByIdAndStatus(Long id, ArticleStatus flagged);
@@ -44,6 +45,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Caching(
         evict = {
             @CacheEvict(cacheNames = {"articleForReview", "articleRead"}, key = "#result.id"),
+            //FIXME: better cache eviction - evict only if the article being updated was cached
             @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )
@@ -53,6 +55,7 @@ public interface ArticleRepository extends AbstractRepository<Article>, ArticleR
     @Caching(
         evict = {
             @CacheEvict(cacheNames = {"articleForReview", "articleRead"}, key = "#id"),
+            //FIXME: better cache eviction - evict only if the article being deleted was cached
             @CacheEvict(cacheNames = {"previewForPublicHomePage", "previewAllWithFilesByUser", "getAllToReview"}, allEntries = true)
         }
     )

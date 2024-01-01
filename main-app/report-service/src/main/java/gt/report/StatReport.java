@@ -17,13 +17,15 @@ import static gtapp.jooq.Tables.G_ARTICLE;
 public class StatReport {
     final DSLContext db;
 
-
     @Scheduled(fixedRate = 1000)
-    public void run() {
+    public FlagCount run() {
         Result<GArticleRecord> a = db.selectFrom(G_ARTICLE)
             .where(G_ARTICLE.STATUS.eq(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW.name()))
             .fetch();
 
-        System.out.println(a.size());
+        return new FlagCount(a.size());
+    }
+
+    public record FlagCount(int value) {
     }
 }

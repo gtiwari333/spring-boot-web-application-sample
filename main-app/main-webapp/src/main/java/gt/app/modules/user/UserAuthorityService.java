@@ -1,12 +1,14 @@
 package gt.app.modules.user;
 
-import gt.app.config.security.AppUserDetails;
+import gt.app.config.security.CurrentUserToken;
 import gt.app.domain.Article;
 import gt.app.modules.article.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service("appSecurity")
 @RequiredArgsConstructor
@@ -16,18 +18,18 @@ public class UserAuthorityService {
 
     private final ArticleService articleService;
 
-    public boolean hasAccess(AppUserDetails curUser, Long id, String entity) {
+    public boolean hasAccess(CurrentUserToken curUser, Long id, String entity) {
 
-        if (curUser.isSystemAdmin()) {
+        if (curUser.isAdmin()) {
             return true;
         }
 
 
         if (Article.class.getSimpleName().equalsIgnoreCase(entity)) {
 
-            Long createdById = articleService.findCreatedByUserIdById(id);
+            UUID createdById = articleService.findCreatedByUserIdById(id);
 
-            return createdById.equals(curUser.getId());
+            return createdById.equals(curUser.getUserId());
         }
 
 

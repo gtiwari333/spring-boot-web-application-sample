@@ -58,10 +58,10 @@ class WebAppIT extends BaseSeleniumTest {
     void testAccessDenied(PublicPage publicPage) {
 
         publicPage.load("/article");
-        publicPage.body().shouldHave(text("Please sign in"));
+        publicPage.body().shouldHave(text("Sign in"));
 
         publicPage.load("/admin");
-        publicPage.body().shouldHave(text("Please sign in"));
+        publicPage.body().shouldHave(text("Sign in"));
     }
 
     @Test
@@ -69,10 +69,10 @@ class WebAppIT extends BaseSeleniumTest {
 
         var loginPage = new LoginPage().open();
 
-        LoggedInHomePage loggedInHomePage = loginPage.login("user1", "pass");
+        var loggedInHomePage = loginPage.login("user1", "pass");
         testLoggedInHomePage(loggedInHomePage, "user1");
 
-        UserArticleListingPage userArticleListingPage = loggedInHomePage.openUsersArticlePage();
+        var userArticleListingPage = loggedInHomePage.openUsersArticlePage();
         testUser1Page(userArticleListingPage);
 
         PublicPage publicPage = loggedInHomePage.logout();
@@ -91,7 +91,7 @@ class WebAppIT extends BaseSeleniumTest {
         testLoggedInHomePage(adminHome, "system");
 
         AdminPage admPage = adminHome.openAdminPage();
-        testAdminPage(admPage);
+        testAdminFunctions(admPage);
 
         PublicPage publicPage = adminHome.logout();
         publicPage.body()
@@ -100,7 +100,7 @@ class WebAppIT extends BaseSeleniumTest {
         testAccessDenied(publicPage);
     }
 
-    private void testAdminPage(AdminPage adminPage) {
+    private void testAdminFunctions(AdminPage adminPage) {
         //TODO: test review page
     }
 
