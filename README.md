@@ -29,7 +29,7 @@ Spring MVC:
 - favicon handler
 
 Security:
-- Account management
+- Account management with KeyCloak
 - Spring Security 
 - User/User_Authority entity and repository/services
     - login, logout, home pages based on user role
@@ -108,12 +108,12 @@ It contains following applications:
 
 # Note you will need to create a database named 'seedapp' in your mysql server
 
-Option 1 - run with manually started ActiveMQ and MySQL  servers
+Option 1 - run with manually started  KeyCloak, ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
 - Run ```docker-compose -f config/docker-compose.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
-Option 2 - automatically start ActiveMQ and MySQL using TestContainer while application is starting
+Option 2 - automatically start KeyCloak, ActiveMQ and MySQL using TestContainer while application is starting
 - Run ```mvn clean install``` at root 
 - Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
