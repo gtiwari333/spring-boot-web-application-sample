@@ -12,7 +12,11 @@ spring:
         port: ${MAILHOG_PORT:1025}
         username:
         password:
-
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:${KEYCLOAK_PORT:8082}/realms/articleapp
 logging.level:
     ROOT: WARN
     gt: INFO

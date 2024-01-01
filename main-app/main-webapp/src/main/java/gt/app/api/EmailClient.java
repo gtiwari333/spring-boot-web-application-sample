@@ -9,6 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 
 @FeignClient(name = "email-service", url = "${feign-clients.email-service.url}", fallback = EmailClient.EmailClientFallback.class)
+//doesn't use auth token
 public interface EmailClient extends EmailService {
     @Slf4j
     class EmailClientFallback implements EmailClient {

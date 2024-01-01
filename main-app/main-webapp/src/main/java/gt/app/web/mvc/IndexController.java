@@ -1,5 +1,6 @@
 package gt.app.web.mvc;
 
+import gt.app.api.ReportClient;
 import gt.app.domain.Article;
 import gt.app.modules.article.ArticleService;
 import gt.app.utl.PaginationUtil;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 class IndexController {
 
     private final ArticleService articleService;
+    private final ReportClient reportClient;
 
     @GetMapping({"/", ""})
     public String index(Model model, Pageable pageable) {
@@ -32,6 +34,8 @@ class IndexController {
     @GetMapping("/admin")
     public String adminHome(Model model, Pageable pageable) {
         var page = articleService.getAllToReview(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("createdDate").descending()));
+        var count = reportClient.getFlaggedForReviewCount();
+        model.addAttribute("totalToReview", count.value());
         model.addAttribute("articlesToReview", page);
         PaginationUtil.decorateModel(model, page);
         return "admin/admin-area";

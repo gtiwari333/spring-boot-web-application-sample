@@ -17,16 +17,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class EmailResourceIT {
 
     @Test
-    void sayHello2(@Autowired MockMvc mvc) throws Exception {
+    void canSendEmail(@Autowired MockMvc mvc) throws Exception {
 
         mvc.perform(
-            post("/sendEmail")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(sampleEmail().getBytes()))
+                post("/sendEmail")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(sampleEmail().getBytes()))
             .andExpect(status().isOk());
     }
 
     String sampleEmail() {
-        return "{\"fromEmail\":\"test@email.com\",\"subject\":\"Test\",\"content\":\"Body\",\"isHtml\":false,\"files\":[],\"to\":[\"recep@emai.com\"],\"cc\":[],\"bcc\":[]}";
+        return """
+            {
+                "fromEmail":"test@email.com",
+                "subject":"Test",
+                "content":"Body",
+                "isHtml":false,
+                "files":[],
+                "to":["recep@emai.com"]
+                ,"cc":[],
+                "bcc":[]
+            }
+            """;
     }
 }

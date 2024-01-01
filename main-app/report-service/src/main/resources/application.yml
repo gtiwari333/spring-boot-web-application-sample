@@ -11,7 +11,11 @@ spring:
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
         password: ${MYSQL_PASSWORD:password}
-
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:${KEYCLOAK_PORT:8082}/realms/seedapp
 server:
     port: 8086
 
