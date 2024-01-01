@@ -22,12 +22,23 @@ spring:
         sql-dialect: H2
     main:
         banner-mode: off
-
+    security:
+        oauth2:
+            client:
+                provider:
+                    oidc:
+                        issuer-uri: http://localhost:${KEYCLOAK_PORT:8082}/realms/seedapp
+                registration:
+                    oidc:
+                        client-id: seed-app-gateway-client
+                        client-secret: secret123
+                        scope: openid, profile, email, offline_access # last one for refresh tokens
     artemis:
         broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
         user: admin
         password: admin
-
+    jmx:
+        enabled: false
 springdoc:
     swagger-ui:
         enabled: false
@@ -35,7 +46,7 @@ springdoc:
 debug: false
 
 logging.level:
-    ROOT: WARN
+    ROOT: DEBUG
     gt: INFO
     sql: WARN
     org.apache: ERROR
@@ -47,7 +58,8 @@ app-properties:
     jms:
         content-checkerrequest-queue: jms-content-checker-requestqueue
         content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
-
+    web:
+        base-url: http://localhost:${server.port} #we use defined_port for integration testing where this base-url is used
 
 feign-clients:
     email-service:

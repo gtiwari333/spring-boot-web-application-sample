@@ -1,4 +1,4 @@
-package gt.app.config;
+package gt.app.frwk;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,7 @@ public class TestContainerConfig {
 
     Started by Docker TestContainer in withTestContainer profile
     - ActiveMQ Artemis
+    - KeyCloak
 
     Embedded Apps - started in dev profile
     - H2

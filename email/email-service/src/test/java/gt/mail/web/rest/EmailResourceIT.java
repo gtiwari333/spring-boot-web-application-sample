@@ -27,6 +27,6 @@ class EmailResourceIT {
     }
 
     String sampleEmail() {
-        return "{\"from\":\"test@email.com\",\"subject\":\"Test\",\"content\":\"Body\",\"isHtml\":false,\"files\":[],\"to\":[\"recep@emai.com\"],\"cc\":[],\"bcc\":[]}";
+        return "{\"fromEmail\":\"test@email.com\",\"subject\":\"Test\",\"content\":\"Body\",\"isHtml\":false,\"files\":[],\"to\":[\"recep@emai.com\"],\"cc\":[],\"bcc\":[]}";
     }
 }

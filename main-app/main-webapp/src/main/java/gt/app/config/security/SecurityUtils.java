@@ -1,7 +1,6 @@
 package gt.app.config.security;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,10 +36,6 @@ public final class SecurityUtils {
 
         if (authentication.getPrincipal() instanceof DefaultOidcUser defaultOidcUser) {
             return mapAuthenticationPrincipalToCurrentUser(defaultOidcUser);
-        }
-        if (authentication instanceof UsernamePasswordAuthenticationToken upwdToken) {
-            //test auth tokens with @WithMockUser
-            return new CurrentUserToken(upwdToken.getAuthorities(), upwdToken.getName());
         }
         return null;
     }

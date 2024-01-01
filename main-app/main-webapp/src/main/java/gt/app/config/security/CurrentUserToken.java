@@ -8,13 +8,17 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
+import java.io.Serial;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
 public class CurrentUserToken extends DefaultOidcUser {
 
+    @Serial
+    private static final long serialVersionUID = 332175240400944267L;
     private final Collection<GrantedAuthority> authorities;
     private final UUID userId;
     private final String username;
@@ -64,4 +68,23 @@ public class CurrentUserToken extends DefaultOidcUser {
     public record UserToken(String username, String token, Collection<String> roles) {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        CurrentUserToken that = (CurrentUserToken) o;
+        return Objects.equals(userId, that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), userId);
+    }
 }

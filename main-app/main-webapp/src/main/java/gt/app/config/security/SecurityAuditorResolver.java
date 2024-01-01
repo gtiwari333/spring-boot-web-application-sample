@@ -1,7 +1,6 @@
 package gt.app.config.security;
 
 import gt.app.domain.AppUser;
-import gt.app.modules.user.UserService;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.AuditorAware;

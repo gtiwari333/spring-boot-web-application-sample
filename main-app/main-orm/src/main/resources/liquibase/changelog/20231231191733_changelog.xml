@@ -1,0 +1,126 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="gt (generated)" id="1704050255405-1">
+        <createTable tableName="g_app_user">
+            <column name="id" type="BINARY(16)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-2">
+        <createTable tableName="g_article">
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="last_modified_date" type="datetime"/>
+            <column name="created_by_user_id" type="BINARY(16)"/>
+            <column name="last_modified_by_user_id" type="BINARY(16)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="content" type="TINYTEXT"/>
+            <column name="status" type="ENUM('FLAGGED_FOR_MANUAL_REVIEW', 'UNDER_AUTO_REVIEW', 'BLOCKED', 'PUBLISHED')">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-3">
+        <createTable tableName="g_article_attached_files">
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attached_files_id" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-4">
+        <createTable tableName="g_authority">
+            <column name="name" type="VARCHAR(16)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-5">
+        <createTable tableName="g_comment">
+            <column name="article_id" type="BIGINT"/>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="last_modified_date" type="datetime"/>
+            <column name="parent_comment_id" type="BIGINT"/>
+            <column name="created_by_user_id" type="BINARY(16)"/>
+            <column name="last_modified_by_user_id" type="BINARY(16)"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="status" type="ENUM('AWAITING_APPROVAL', 'SHOWING', 'HIDDEN', 'DELETED')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-6">
+        <createTable tableName="g_received_file">
+            <column name="received_date" type="datetime"/>
+            <column name="id" type="CHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="original_file_name" type="VARCHAR(255)"/>
+            <column name="stored_name" type="VARCHAR(255)"/>
+            <column name="file_group" type="ENUM('NOTE_ATTACHMENT')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-7">
+        <createIndex indexName="FK8onv8y1o9i8jji6u9hj8yhcov" tableName="g_comment">
+            <column name="created_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-8">
+        <createIndex indexName="FKc6gr3yijnp18qba0jvhtcx745" tableName="g_article_attached_files">
+            <column name="article_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-9">
+        <createIndex indexName="FKe0tn8lv0281y31rsaltfvry2d" tableName="g_article">
+            <column name="created_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-10">
+        <createIndex indexName="FKjqmipqcqrpdg0r7qydr5uowah" tableName="g_comment">
+            <column name="last_modified_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-11">
+        <createIndex indexName="FKt75a3q8ih81madstl0iw4x098" tableName="g_article">
+            <column name="last_modified_by_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-12">
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id" baseTableName="g_comment" constraintName="FK8onv8y1o9i8jji6u9hj8yhcov" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-13">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="g_article_attached_files" constraintName="FKc6gr3yijnp18qba0jvhtcx745" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="g_article" validate="true"/>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-14">
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id" baseTableName="g_article" constraintName="FKe0tn8lv0281y31rsaltfvry2d" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-15">
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_user_id" baseTableName="g_comment" constraintName="FKjqmipqcqrpdg0r7qydr5uowah" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-16">
+        <addForeignKeyConstraint baseColumnNames="attached_files_id" baseTableName="g_article_attached_files" constraintName="FKnk3oifir3wa8s4t8teffbvl9i" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="g_received_file" validate="true"/>
+    </changeSet>
+    <changeSet author="gt (generated)" id="1704050255405-17">
+        <addForeignKeyConstraint baseColumnNames="last_modified_by_user_id" baseTableName="g_article" constraintName="FKt75a3q8ih81madstl0iw4x098" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="g_app_user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
