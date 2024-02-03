@@ -27,9 +27,9 @@
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.postgresql.jdbc" level="WARN"/>
-    <logger name="org.springframework" level="DEBUG"/>
-<!--    <logger name="org.springframework.web" level="WARN"/>-->
-<!--    <logger name="org.springframework.security" level="WARN"/>-->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.web" level="WARN"/>
+    <logger name="org.springframework.security" level="WARN"/>
     <logger name="org.springframework.cache" level="WARN"/>
     <logger name="org.thymeleaf" level="WARN"/>
     <logger name="org.xnio" level="WARN"/>
@@ -41,4 +41,6 @@
     <logger name="com.tngtech.archunit.core.importer" level="ERROR"/>
     <logger name="org.openqa.selenium" level = "WARN"/>
 
+    <logger name="net.ttddyy.dsproxy.listener.logging" level="WARN"/>
+    <logger name="jdk.event.security" level="WARN"/>
 </configuration>
