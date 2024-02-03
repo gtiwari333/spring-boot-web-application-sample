@@ -8,7 +8,7 @@ spring:
         active: '@spring.profiles.active@'
 
 server:
-    port: 8083
+    port: 8084
 logging:
     level:
         org.springframework.web: INFO
