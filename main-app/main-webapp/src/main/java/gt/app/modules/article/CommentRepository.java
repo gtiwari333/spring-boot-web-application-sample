@@ -31,6 +31,6 @@ public interface CommentRepository extends AbstractRepository<Comment>, CommentR
     void deleteByArticleId(Long id);
 
     @Override
-    @CacheEvict(cacheNames = {"articleRead"}, key = "#c.articleId")
+    @CacheEvict(cacheNames = {"articleRead"}, key = "#result.articleId")
     Comment save(Comment c);
 }

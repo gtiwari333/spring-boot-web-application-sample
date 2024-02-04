@@ -3,7 +3,6 @@ package gt.app.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
 import lombok.Data;
 
 import java.util.Objects;
@@ -16,10 +15,8 @@ public class Comment extends BaseAuditingEntity {
     @Enumerated(EnumType.STRING)
     private CommentStatus status = CommentStatus.AWAITING_APPROVAL;
 
-    @JoinColumn(nullable = false)
     private Long articleId;
 
-    @JoinColumn(nullable = true)
     private Long parentCommentId;
 
     public Comment() {
