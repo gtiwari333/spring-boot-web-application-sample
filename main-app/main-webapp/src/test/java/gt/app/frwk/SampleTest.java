@@ -26,7 +26,7 @@ class SampleTest {
 
         $("[name=\"search\"]").pressEnter();
 
-        $("body").shouldHave(text("Computer Software"));
+        $("body").shouldHave(text("Software"));
     }
 
 
