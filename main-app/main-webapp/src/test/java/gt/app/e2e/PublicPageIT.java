@@ -2,7 +2,7 @@ package gt.app.e2e;
 
 import gt.app.config.AppProperties;
 import gt.app.frwk.TestDataManager;
-import io.hypersistence.utils.jdbc.validator.SQLStatementCountValidator;
+import net.ttddyy.dsproxy.QueryCountHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static io.hypersistence.utils.jdbc.validator.SQLStatementCountValidator.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -31,18 +31,20 @@ class PublicPageIT {
     @BeforeEach
     void cleanDB() {
         testDataManager.cleanDataAndCache();
-        SQLStatementCountValidator.reset();
-
     }
 
     @Test
     void loadIndexPageAndVerifyResultIsCached(@Autowired MockMvc mvc) throws Exception {
-        SQLStatementCountValidator.reset();
+        //gt.app.DataCreator creates test data
+        long selectCount = QueryCountHolder.getGrandTotal().getSelect();
+        long deleteCount = QueryCountHolder.getGrandTotal().getDelete();
+        long insertCount = QueryCountHolder.getGrandTotal().getInsert();
+        long updateCount = QueryCountHolder.getGrandTotal().getUpdate();
 
         MvcResult result = mvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML_VALUE))
-                .andReturn();
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML_VALUE))
+            .andReturn();
 
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("Article App - HOME"));
@@ -54,20 +56,24 @@ class PublicPageIT {
         mvc.perform(get("/")).andExpect(status().isOk());
 
         //only one select
-//        assertSelectCount(1);
-//        assertDeleteCount(0);
-//        assertInsertCount(0);
-//        assertUpdateCount(0);
+        assertEquals(selectCount + 1, QueryCountHolder.getGrandTotal().getSelect());
+        assertEquals(deleteCount, QueryCountHolder.getGrandTotal().getDelete());
+        assertEquals(insertCount, QueryCountHolder.getGrandTotal().getInsert());
+        assertEquals(updateCount, QueryCountHolder.getGrandTotal().getUpdate());
     }
 
     @Test
     void testCacheAndDBBothAreResetBetweenTests(@Autowired MockMvc mvc) throws Exception {
-        SQLStatementCountValidator.reset();
+        //gt.app.DataCreator creates test data
+        long selectCount = QueryCountHolder.getGrandTotal().getSelect();
+        long deleteCount = QueryCountHolder.getGrandTotal().getDelete();
+        long insertCount = QueryCountHolder.getGrandTotal().getInsert();
+        long updateCount = QueryCountHolder.getGrandTotal().getUpdate();
 
         MvcResult result = mvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML_VALUE))
-                .andReturn();
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML_VALUE))
+            .andReturn();
 
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("Article App - HOME"));
@@ -79,9 +85,9 @@ class PublicPageIT {
         mvc.perform(get("/")).andExpect(status().isOk());
 
         //only one select
-//        assertSelectCount(1);
-//        assertDeleteCount(0);
-//        assertInsertCount(0);
-//        assertUpdateCount(0);
+        assertEquals(selectCount + 1, QueryCountHolder.getGrandTotal().getSelect());
+        assertEquals(deleteCount, QueryCountHolder.getGrandTotal().getDelete());
+        assertEquals(insertCount, QueryCountHolder.getGrandTotal().getInsert());
+        assertEquals(updateCount, QueryCountHolder.getGrandTotal().getUpdate());
     }
 }

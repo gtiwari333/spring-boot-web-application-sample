@@ -3,24 +3,24 @@ services:
     activemq_artemis:
         # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
         # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
-        image: 'apache/activemq-artemis:2.31.2-alpine'
+        image: 'apache/activemq-artemis:2.37.0'
         container_name: activemqArtemis
         environment:
-            - ARTEMIS_USER=admin
-            - ARTEMIS_PASSWORD=admin
+            - "ARTEMIS_USER=admin"
+            - "ARTEMIS_PASSWORD=admin"
         ports:
             - 8161:8161  # use this to access from browser
             - 61616:61616
         networks:
             - seedappnet
     mysql:
-        image: 'mysql:8.0.35'
+        image: 'mysql'
         environment:
-            - MYSQL_ROOT_PASSWORD=password
-            - MYSQL_DATABASE=seedapp
+            - "MYSQL_ROOT_PASSWORD=password"
+            - "MYSQL_DATABASE=seedapp"
         ports:
             - 3306:3306
-        command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+        command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
         networks:
             - seedappnet
     emailhog:
@@ -39,16 +39,16 @@ services:
         networks:
             - seedappnet
     keycloak:
-        image: 'quay.io/keycloak/keycloak:23.0.3'
+        image: 'quay.io/keycloak/keycloak:25.0.6'
         container_name: keycloak
         command: start-dev --import-realm
         environment:
-            - KEYCLOAK_DB=dev-file
-            - KEYCLOAK_ADMIN=admin
-            - KEYCLOAK_ADMIN_PASSWORD=admin
-            - KEYCLOAK_FEATURES=scripts
-            - KEYCLOAK_HTTP_PORT=8080
-            - KEYCLOAK_HTTPS_PORT=9443
+            - "KEYCLOAK_DB=dev-file"
+            - "KEYCLOAK_ADMIN=admin"
+            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+            - "KEYCLOAK_FEATURES=scripts"
+            - "KEYCLOAK_HTTP_PORT=8080"
+            - "KEYCLOAK_HTTPS_PORT=9443"
         #        entrypoint: /tmp/keycloak/config/docker-compose-entrypoint.sh --hostname host.docker.internal:8080
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import

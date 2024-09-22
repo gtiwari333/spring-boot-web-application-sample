@@ -184,7 +184,7 @@
             <artifactId>jquery</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.webjars</groupId>
+            <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap</artifactId>
         </dependency>
         <dependency>
@@ -237,12 +237,10 @@
         <dependency>
             <groupId>com.github.dasniko</groupId>
             <artifactId>testcontainers-keycloak</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
