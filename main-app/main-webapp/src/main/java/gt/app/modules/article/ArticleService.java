@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class ArticleService {
 
     private static final ReceivedFile.FileGroup FILE_GROUP = ReceivedFile.FileGroup.NOTE_ATTACHMENT;
@@ -36,6 +36,7 @@ public class ArticleService {
     private final CommentRepository commentRepo;
     private final ContentCheckService contentCheckService;
     private final WebsocketHandler websocketHandler;
+    private final TransactionTemplate transactionTemplate;
 
     public Article createArticle(ArticleCreateDto dto) {
 
@@ -54,15 +55,16 @@ public class ArticleService {
         article.getAttachedFiles().addAll(files);
         article.setStatus(ArticleStatus.UNDER_AUTO_REVIEW);
 
-        articleRepository.save(article);
-
-        contentCheckService.sendForAutoContentReview(article);
+        transactionTemplate.executeWithoutResult(status -> {
+            articleRepository.save(article);
+            contentCheckService.sendForAutoContentReview(article);
+        });
 
         return article;
     }
 
+    //single update statement - no transaction required
     public Article update(ArticleEditDto dto) {
-
         Optional<Article> articleOpt = articleRepository.findWithFilesAndUserById(dto.getId());
         return articleOpt.map(article -> {
                 ArticleMapper.INSTANCE.createToEntity(dto, article);
@@ -142,12 +144,13 @@ public class ArticleService {
         return articleRepository.findCreatedByUserIdById(articleId);
     }
 
-    @Transactional
     public Optional<Article> handleReview(ArticleReviewResultDto dto) {
         return articleRepository.findWithModifiedUserByIdAndStatus(dto.getId(), ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW)
             .map(n -> {
-                n.setStatus(dto.getVerdict());
-                articleRepository.save(n);
+                transactionTemplate.executeWithoutResult(txSt -> {
+                    n.setStatus(dto.getVerdict());
+                    articleRepository.save(n);
+                });
                 websocketHandler.sendToUser(n.getLastModifiedByUser().getUsername(), "Your article with title " + n.getTitle() + " has been " + (dto.getVerdict() == ArticleStatus.PUBLISHED ? "approved from manual review." : "rejected from manual review."));
                 return n;
             });

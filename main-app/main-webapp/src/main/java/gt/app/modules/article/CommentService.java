@@ -16,6 +16,7 @@ public class CommentService {
     final CommentRepository commentRepository;
     final ContentCheckService contentCheckService;
 
+    //no transaction required - single operation
     public void save(NewCommentDto c) {
         Comment comment = new Comment(c.content, c.articleId);
 

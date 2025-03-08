@@ -44,7 +44,7 @@ logging:
         web: INFO
         cloud: INFO
         sql: INFO
-        ROOT: WARN
+        ROOT: INFO
         gt: TRACE
 #        'org.springframework.web.socket': TRACE
 
@@ -69,7 +69,12 @@ wro4j:
 # note that both `jdbc.datasource-proxy` and `decorator.datasource` cannot be enabled at same time due to bean name conflict
 decorator:
     datasource:
-        enabled: false  # disabled for now
+        enabled: true  # disabled for now
+        flexy-pool:
+            threshold:
+                connection:
+                    acquire: -1
+                    lease: 0
         datasource-proxy:
             slow-query:
                 threshold: 1 # 1 second is slow
@@ -78,7 +83,7 @@ decorator:
 # https://github.com/jdbc-observations/datasource-micrometer
 jdbc:
     datasource-proxy:
-        enabled: true
+        enabled: false
 
 management:
     tracing:

@@ -34,7 +34,7 @@
         <spring-cloud.version>2024.0.0</spring-cloud.version>
         <hibernate-types60.version>2.21.1</hibernate-types60.version>
         <hibernate-hypersistence-utils.version>3.6.1</hibernate-hypersistence-utils.version>
-        <datasource-proxy-sb-starter.version>1.9.2</datasource-proxy-sb-starter.version>
+        <datasource-proxy-sb-starter.version>1.10.0</datasource-proxy-sb-starter.version>
         <datasource-micrometer-sb-starter.version>1.0.5</datasource-micrometer-sb-starter.version>
         <springdoc-openapi-ui.version>2.8.5</springdoc-openapi-ui.version>
         <mapstruct.version>1.6.2</mapstruct.version>
@@ -160,7 +160,11 @@
                 <artifactId>datasource-micrometer-spring-boot</artifactId>
                 <version>${datasource-micrometer-sb-starter.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.github.gavlyukovskiy</groupId>
+                <artifactId>flexy-pool-spring-boot-starter</artifactId>
+                <version>${datasource-proxy-sb-starter.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.tngtech.archunit</groupId>
                 <artifactId>archunit</artifactId>

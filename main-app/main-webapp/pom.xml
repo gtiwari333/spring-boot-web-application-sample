@@ -267,7 +267,10 @@
             <groupId>net.ttddyy.observation</groupId>
             <artifactId>datasource-micrometer-spring-boot</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>flexy-pool-spring-boot-starter</artifactId>
+        </dependency>
         <!-- spock deps -->
         <dependency>
             <groupId>org.spockframework</groupId>

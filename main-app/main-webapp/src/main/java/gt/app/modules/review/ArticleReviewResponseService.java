@@ -27,6 +27,7 @@ class ArticleReviewResponseService {
     private final AppProperties appProperties;
     private final WebsocketHandler websocketHandler;
 
+    //no transaction required here - single operation
     void handle(Response resp) {
         Article a = articleRepository.findOneWithUserById(Long.valueOf(resp.getEntityId())).orElseThrow();
         switch (resp.getContentCheckOutcome()) {
