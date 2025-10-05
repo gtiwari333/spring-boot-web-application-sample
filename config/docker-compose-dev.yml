@@ -1,3 +1,4 @@
+# use this to run dependencies like activemq, email, mysql, keycloak using docker for DEVELOPMENT
 version: '3'
 services:
     activemq_artemis:
@@ -66,5 +67,4 @@ networks:
 
 
 #run using
-#docker-compose -f docker-compose.yml up
-# or just docker-compose up
+#docker-compose -f docker-compose-dev.yml up
