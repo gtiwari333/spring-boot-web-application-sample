@@ -1,0 +1,114 @@
+version: '3'
+services:
+    activemq_artemis:
+        # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
+        # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
+        image: 'apache/activemq-artemis:2.37.0'
+        container_name: gtapp-activemq_artemis
+        environment:
+            - "ARTEMIS_USER=admin"
+            - "ARTEMIS_PASSWORD=admin"
+        ports:
+            - "8161:8161"  # use this to access from browser
+            - "61616:61616"
+        networks:
+            - gtapp-network
+    mysql:
+        image: 'mysql'
+        container_name: gtapp-mysql
+        environment:
+            - "MYSQL_ROOT_PASSWORD=password"
+            - "MYSQL_DATABASE=seedapp"
+        ports:
+            - "3306:3306"
+        command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+        networks:
+            - gtapp-network
+    emailhog:
+        image: 'richarvey/mailhog'
+        container_name: gtapp-mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"  # use this to access from browser
+        networks:
+            - gtapp-network
+    zipkin:
+        image: 'openzipkin/zipkin'
+        container_name: gtapp-zipkin
+        ports:
+            - "9411:9411"
+        networks:
+            - gtapp-network
+    keycloak:
+        image: 'quay.io/keycloak/keycloak:25.0.6'
+        container_name: gtapp-keycloak
+        command: start-dev --import-realm
+        environment:
+            - "KEYCLOAK_DB=dev-file"
+            - "KEYCLOAK_ADMIN=admin"
+            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+            - "KEYCLOAK_FEATURES=scripts"
+            - "KEYCLOAK_HTTP_PORT=8080"
+            - "KEYCLOAK_HTTPS_PORT=9443"
+        volumes:
+            - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
+        ports:
+            - "8082:8080"
+            - "9443:9443"
+        networks:
+            - gtapp-network
+
+    content-checker-service:
+        image: gtapp-content-checker-service:latest
+        container_name: content-checker
+        ports:
+            - "8083:8083"
+        networks:
+            - gtapp-network
+        depends_on:
+            - zipkin
+            - activemq_artemis
+    email-service:
+        image: gtapp-email-service:latest
+        container_name: email-service
+        ports:
+            - "8085:8085"
+        depends_on:
+            - emailhog
+            - zipkin
+    trend-service:
+        image: gtapp-trend-service:latest
+        container_name: trend-service
+        ports:
+            - "8084:8084"
+        networks:
+            - gtapp-network
+        depends_on:
+            - zipkin
+    report-service:
+        image: gtapp-report-service:latest
+        container_name: report-service
+        ports:
+            - "8086:8086"
+        networks:
+            - gtapp-network
+        depends_on:
+            - zipkin
+            - mysql
+    main-webapp:
+        image: gtapp-main-webapp:latest
+        container_name: main-appp
+        ports:
+            - "8081:8081"
+        networks:
+            - gtapp-network
+        depends_on:
+            - zipkin
+            - email-service
+            - mysql
+            - activemq_artemis
+networks:
+    gtapp-network:
+        driver: bridge
+volumes:
+    db-data:
