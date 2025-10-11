@@ -1,4 +1,4 @@
 spring:
     profiles:
-        active: dev # this will use manually started activemq, email and mysql servers using docker-compose
-#        active: dev,withTestContainer # use this to start activemq, email and mysql servers with DockerContainerConfig
+        active: local # this will use manually started activemq, email and mysql servers using docker-compose
+#        active: local,withTestContainer # use this to start activemq, email and mysql servers with DockerContainerConfig

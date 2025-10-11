@@ -1,10 +1,9 @@
 version: '3'
 services:
-    activemq_artemis:
+    activemq:
         # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
         # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
         image: 'apache/activemq-artemis:2.37.0'
-        container_name: gtapp-activemq_artemis
         environment:
             - "ARTEMIS_USER=admin"
             - "ARTEMIS_PASSWORD=admin"
@@ -15,8 +14,8 @@ services:
             - gtapp-network
     mysql:
         image: 'mysql'
-        container_name: gtapp-mysql
         environment:
+            - "MYSQL_USER=seedappuser"
             - "MYSQL_ROOT_PASSWORD=password"
             - "MYSQL_DATABASE=seedapp"
         ports:
@@ -26,7 +25,6 @@ services:
             - gtapp-network
     emailhog:
         image: 'richarvey/mailhog'
-        container_name: gtapp-mailhog
         ports:
             - "1025:1025"
             - "8025:8025"  # use this to access from browser
@@ -34,14 +32,12 @@ services:
             - gtapp-network
     zipkin:
         image: 'openzipkin/zipkin'
-        container_name: gtapp-zipkin
         ports:
             - "9411:9411"
         networks:
             - gtapp-network
     keycloak:
         image: 'quay.io/keycloak/keycloak:25.0.6'
-        container_name: gtapp-keycloak
         command: start-dev --import-realm
         environment:
             - "KEYCLOAK_DB=dev-file"
@@ -60,25 +56,33 @@ services:
 
     content-checker-service:
         image: gtapp-content-checker-service:latest
-        container_name: content-checker
+        environment:
+            - "ZIPKIN_HOST=zipkin"
+            - "ACTIVEMQ_ARTEMIS_HOST=activemq"
         ports:
             - "8083:8083"
         networks:
             - gtapp-network
         depends_on:
             - zipkin
-            - activemq_artemis
+            - activemq
     email-service:
         image: gtapp-email-service:latest
-        container_name: email-service
+        environment:
+            - "MAILHOG_HOST=emailhog"
+            - "ZIPKIN_HOST=zipkin"
         ports:
             - "8085:8085"
+        networks:
+            - gtapp-network
         depends_on:
             - emailhog
             - zipkin
     trend-service:
         image: gtapp-trend-service:latest
-        container_name: trend-service
+        environment:
+            - "ZIPKIN_HOST=zipkin"
+            - "ACTIVEMQ_ARTEMIS_HOST=activemq"
         ports:
             - "8084:8084"
         networks:
@@ -87,7 +91,10 @@ services:
             - zipkin
     report-service:
         image: gtapp-report-service:latest
-        container_name: report-service
+        environment:
+            - "ZIPKIN_HOST=zipkin"
+            - "MYSQL_HOST=mysql"
+            - "KEYCLOAK_HOST=keycloak"
         ports:
             - "8086:8086"
         networks:
@@ -95,9 +102,17 @@ services:
         depends_on:
             - zipkin
             - mysql
+            - keycloak
     main-webapp:
         image: gtapp-main-webapp:latest
-        container_name: main-appp
+        environment:
+            - "MYSQL_HOST=mysql"
+            - "ACTIVEMQ_ARTEMIS_HOST=activemq"
+            - "KEYCLOAK_HOST=keycloak"
+            - "KEYCLOAK_PORT=8082"
+            - "EMAIL_SERVICE_HOST=email-service"
+            - "REPORT_SERVICE_HOST=report-service"
+            - "ZIPKIN_HOST=zipkin"
         ports:
             - "8081:8081"
         networks:
@@ -106,7 +121,8 @@ services:
             - zipkin
             - email-service
             - mysql
-            - activemq_artemis
+            - activemq
+            - keycloak
 networks:
     gtapp-network:
         driver: bridge

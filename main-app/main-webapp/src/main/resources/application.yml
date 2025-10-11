@@ -1,21 +1,35 @@
 spring:
     application:
         name: Main-APP
+    mvc:
+        static-path-pattern: /static/**
     profiles:
         # The commented value for `active` can be replaced with valid spring profiles to load.
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: '@spring.profiles.active@'
-
+    jooq:
+        sql-dialect: MySQL
     liquibase:
-        enabled: false
+        enabled: true
         change-log: classpath:/liquibase/master.xml
     jpa:
         open-in-view: false
         hibernate:
+            ddl-auto: none  # we use liquibase
+            generate_statistics: true
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    datasource:
+        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
+        username: ${MYSQL_USERNAME:root}
+        password: ${MYSQL_PASSWORD:password}
+
+    artemis:
+        user: ${ACTIVEMQ_ARTEMIS_USER:admin}
+        password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
+        broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
     cloud:
         openfeign:
             micrometer:
@@ -27,7 +41,7 @@ spring:
                 provider:
                     oidc:
                         # use http://localhost:8082/realms/articleapp/.well-known/openid-configuration to get config from keycloak
-                        issuer-uri: http://localhost:${KEYCLOAK_PORT:8082}/realms/seedapp
+                        issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8082}/realms/seedapp
                 registration:
                     oidc:
                         #                        authorization-grant-type: refresh_token
@@ -48,6 +62,12 @@ logging:
         gt: TRACE
 #        'org.springframework.web.socket': TRACE
 
+
+feign-clients:
+    email-service:
+        url: http://${EMAIL_SERVICE_HOST:localhost}:${EMAIL_SERVICE_PORT:8085}/ #TODO: use service discovery
+    report-service:
+        url: http://${REPORT_SERVICE_HOST:localhost}:${REPORT_SERVICE_PORT:8086}/ #TODO: use service discovery
 
 app-properties:
     jms:
@@ -73,8 +93,8 @@ decorator:
         flexy-pool:
             threshold:
                 connection:
-                    acquire: -1
                     lease: 0
+                    acquisition: -1
         datasource-proxy:
             slow-query:
                 threshold: 1 # 1 second is slow
@@ -91,7 +111,7 @@ management:
             probability: 1.0
     zipkin:
         tracing:
-            endpoint: http://localhost:9411/api/v2/spans
+            endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
     health:
         jms:
             enabled: true

@@ -21,7 +21,7 @@ class DockerContainerConfig {
     Started by Docker TestContainer in withTestContainer profile
     - ActiveMQ Artemis
 
-    Embedded Apps - started in dev profile
+    Embedded Apps - started in local profile
     - H2
 
      */

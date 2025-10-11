@@ -6,6 +6,11 @@ spring:
         # Otherwise, it will be filled in by maven when building the WAR file
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: '@spring.profiles.active@'
+    artemis:
+        user: ${ACTIVEMQ_ARTEMIS_USER:admin}
+        password: ${ACTIVEMQ_ARTEMIS_PASSWORD:admin}
+        broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
+
 
 server:
     port: 8083
@@ -24,7 +29,7 @@ management:
             probability: 1.0
     zipkin:
         tracing:
-            endpoint: http://localhost:9411/api/v2/spans
+            endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
     health:
         jms:
             enabled: true

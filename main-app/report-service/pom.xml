@@ -111,13 +111,13 @@
     <profiles>
 
         <profile>
-            <id>dev</id>
+            <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
-                <build.profile>dev</build.profile>
+                <spring.profiles.active>local</spring.profiles.active>
+                <build.profile>local</build.profile>
             </properties>
         </profile>
         <profile>

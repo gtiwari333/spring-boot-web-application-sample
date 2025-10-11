@@ -522,7 +522,7 @@
             </properties>
         </profile>
         <profile>
-            <id>dev</id>
+            <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -539,8 +539,8 @@
                 </dependency>
             </dependencies>
             <properties>
-                <spring.profiles.active>dev${profile.tls}${profile.withTestContainer}</spring.profiles.active>
-                <build.profile>dev</build.profile>
+                <spring.profiles.active>local${profile.tls}${profile.withTestContainer}</spring.profiles.active>
+                <build.profile>local</build.profile>
             </properties>
         </profile>
         <profile>
