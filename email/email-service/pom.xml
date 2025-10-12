@@ -111,6 +111,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>gtapp-${project.name}</imageName>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.cloud</groupId>
@@ -137,27 +143,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
-                <build.profile>dev</build.profile>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <spring.profiles.active>prod</spring.profiles.active>
-                <build.profile>prod</build.profile>
-            </properties>
-        </profile>
-
-    </profiles>
 
 </project>

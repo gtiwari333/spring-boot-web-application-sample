@@ -1,3 +1,4 @@
+# use this to run dependencies like activemq, email, mysql, keycloak using docker for DEVELOPMENT
 version: '3'
 services:
     activemq_artemis:
@@ -12,7 +13,7 @@ services:
             - 8161:8161  # use this to access from browser
             - 61616:61616
         networks:
-            - seedappnet
+            - gtapp-network
     mysql:
         image: 'mysql'
         environment:
@@ -22,7 +23,7 @@ services:
             - 3306:3306
         command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
         networks:
-            - seedappnet
+            - gtapp-network
     emailhog:
         image: 'richarvey/mailhog'
         container_name: mailhog
@@ -30,14 +31,14 @@ services:
             - 1025:1025
             - 8025:8025  # use this to access from browser
         networks:
-            - seedappnet
+            - gtapp-network
     zipkin:
         image: 'openzipkin/zipkin'
         container_name: zipkin
         ports:
             - 9411:9411
         networks:
-            - seedappnet
+            - gtapp-network
     keycloak:
         image: 'quay.io/keycloak/keycloak:25.0.6'
         container_name: keycloak
@@ -53,18 +54,17 @@ services:
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
         ports:
-            - 8082:8080
+            - 8080:8080
             - 9443:9443
         networks:
-            - seedappnet
+            - gtapp-network
 volumes:
     esdata1:
         driver: local
 networks:
-    seedappnet:
+    gtapp-network:
         driver: bridge
 
 
 #run using
-#docker-compose -f docker-compose.yml up
-# or just docker-compose up
+#docker compose -f docker-compose-dev.yml up

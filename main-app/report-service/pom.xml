@@ -84,6 +84,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>gtapp-${project.name}</imageName>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
@@ -105,20 +111,18 @@
     <profiles>
 
         <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>local</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                    <version>${springdoc-openapi-ui.version}</version>
+                    <optional>true</optional>
+                </dependency>
+            </dependencies>
             <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
-                <build.profile>dev</build.profile>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <spring.profiles.active>prod</spring.profiles.active>
-                <build.profile>prod</build.profile>
+                <spring.profiles.active>local</spring.profiles.active>
+                <build.profile>local</build.profile>
             </properties>
         </profile>
 

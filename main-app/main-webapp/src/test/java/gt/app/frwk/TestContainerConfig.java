@@ -19,7 +19,7 @@ public class TestContainerConfig {
     - ActiveMQ Artemis
     - KeyCloak
 
-    Embedded Apps - started in dev profile
+    Embedded Apps - started in local profile
     - H2
 
      */

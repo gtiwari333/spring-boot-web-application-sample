@@ -13,8 +13,6 @@
     </parent>
 
     <properties>
-        <profile.tls/>
-        <profile.withTestContainer/>
         <app.version>${project.parent.version}</app.version>
 
 
@@ -126,6 +124,11 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- security-->
         <dependency>
@@ -169,11 +172,6 @@
         </dependency>
 
         <!-- end processor/code generators -->
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.webjars</groupId>
@@ -237,10 +235,12 @@
         <dependency>
             <groupId>com.github.dasniko</groupId>
             <artifactId>testcontainers-keycloak</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -251,6 +251,7 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
             <optional>true</optional>
+            <scope>test</scope>
         </dependency>
 
         <!-- query performance -->
@@ -318,6 +319,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>gtapp-${project.name}</imageName>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -509,67 +516,26 @@
     </build>
 
     <profiles>
+
         <profile>
-            <id>tls</id>
-            <properties>
-                <profile.tls>,tls</profile.tls>
-            </properties>
-        </profile>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>local</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-devtools</artifactId>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                    <version>${springdoc-openapi-ui.version}</version>
                     <optional>true</optional>
                 </dependency>
                 <dependency>
-                    <groupId>com.mysql</groupId>
-                    <artifactId>mysql-connector-j</artifactId>
-                    <scope>runtime</scope>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
                 </dependency>
             </dependencies>
             <properties>
-                <spring.profiles.active>dev${profile.tls}${profile.withTestContainer}</spring.profiles.active>
-                <build.profile>dev</build.profile>
+                <spring.profiles.active>local</spring.profiles.active>
+                <build.profile>local</build.profile>
             </properties>
         </profile>
-        <profile>
-            <id>withTestContainer</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.testcontainers</groupId>
-                    <artifactId>testcontainers</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>com.github.dasniko</groupId>
-                    <artifactId>testcontainers-keycloak</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.testcontainers</groupId>
-                    <artifactId>mysql</artifactId>
-                </dependency>
-            </dependencies>
-            <properties>
-                <profile.withTestContainer>,withTestContainer</profile.withTestContainer>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <dependencies>
-                <dependency>
-                    <groupId>com.mysql</groupId>
-                    <artifactId>mysql-connector-j</artifactId>
-                </dependency>
-            </dependencies>
-            <properties>
-                <spring.profiles.active>prod</spring.profiles.active>
-                <build.profile>prod</build.profile>
-            </properties>
-        </profile>
-
     </profiles>
+
 </project>

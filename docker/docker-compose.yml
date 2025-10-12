@@ -1,0 +1,99 @@
+version: '3'
+services:
+    localhost: #expose all container ports so they can use services using localhost:PORT
+        image: alpine:latest
+        command: sleep infinity
+        ports:
+            - "8080:8080"
+            - "8161:8161"
+            - "3306:3306"
+            - "1025:1025"
+            - "8025:8025"
+            - "9411:9411"
+            - "8081:8081"
+            - "8083:8083"
+            - "8084:8084"
+            - "8085:8085"
+            - "8086:8086"
+            - "8161:8161"
+            - "61616:61616"
+    activemq:
+        # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
+        # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
+        image: 'apache/activemq-artemis:2.37.0'
+        environment:
+            - "ARTEMIS_USER=admin"
+            - "ARTEMIS_PASSWORD=admin"
+        network_mode: "service:localhost"
+    mysql:
+        image: 'mysql'
+        environment:
+            - "MYSQL_USER=seedappuser"
+            - "MYSQL_ROOT_PASSWORD=password"
+            - "MYSQL_DATABASE=seedapp"
+        command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+        network_mode: "service:localhost"
+    emailhog:
+        image: 'richarvey/mailhog'
+        network_mode: "service:localhost"
+    zipkin:
+        image: 'openzipkin/zipkin'
+        network_mode: "service:localhost"
+    keycloak:
+        image: 'quay.io/keycloak/keycloak:25.0.6'
+        command: start-dev --import-realm
+        environment:
+            - "KEYCLOAK_DB=dev-file"
+            - "KEYCLOAK_ADMIN=admin"
+            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+            - "KEYCLOAK_FEATURES=scripts"
+            - "KEYCLOAK_HTTP_PORT=8080"
+            - "KEYCLOAK_HTTPS_PORT=9443"
+        volumes:
+            - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
+        network_mode: "service:localhost"
+    content-checker-service:
+        image: gtapp-content-checker-service:latest
+        environment:
+            - "ZIPKIN_HOST=zipkin"
+        network_mode: "service:localhost"
+        depends_on:
+            - zipkin
+            - activemq
+    email-service:
+        image: gtapp-email-service:latest
+        environment:
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
+        depends_on:
+            - emailhog
+            - zipkin
+    trend-service:
+        image: gtapp-trend-service:latest
+        environment:
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
+        depends_on:
+            - zipkin
+    report-service:
+        image: gtapp-report-service:latest
+        environment:
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
+        depends_on:
+            - zipkin
+            - mysql
+            - keycloak
+    main-webapp:
+        image: gtapp-main-webapp:latest
+        environment:
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
+        depends_on:
+            - zipkin
+            - email-service
+            - mysql
+            - activemq
+            - keycloak
+        volumes:
+            -   /var/tmp/:/tmp/uploads/attachments/

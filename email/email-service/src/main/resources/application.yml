@@ -7,7 +7,7 @@ spring:
         # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
         active: '@spring.profiles.active@'
     mail:
-        host: localhost
+        host: ${MAILHOG_HOST:localhost}
         port: ${MAILHOG_PORT:1025}
         username:
         password:
@@ -31,6 +31,6 @@ management:
             probability: 1.0
     zipkin:
         tracing:
-            endpoint: http://localhost:9411/api/v2/spans
+            endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 

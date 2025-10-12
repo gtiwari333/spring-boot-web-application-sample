@@ -64,11 +64,11 @@ Misc:
 - Cache implemented
 - Zipkin tracing 
 - Websocket implemented to show article/comment review status/notifications..
+- Docker-compose deploy/kubernetes
 
 Future: do more stuff
 - CQRS with event store/streaming  
 - Spring Cloud Contract integration (WIP)
-- Docker-compose deploy/kubernetes 
 - Visitors log - IP, browser, etc
 - Centralized error reporting
 - Geo-Spatial query for visitors
@@ -87,7 +87,7 @@ Future: do more stuff
 - JfrUnit ( WIP )
 - 
 ### Requirements
-- JDK 17+
+- JDK 21+
 - Lombok configured on IDE
     - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
     - For eclipse, download the lombok jar, run it, and point to eclipse installation
@@ -96,7 +96,17 @@ Future: do more stuff
   - Make sure docker is started and running
   - Run `$ sudo chmod 666 /var/run/docker.sock` if you get error like this "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? (Details: [13] Permission denied)"
 
-#### How to Run
+
+## Build and create docker image
+
+`sh build-docker-images.sh`
+
+## Run all apps and dependencies using docker-compose 
+
+- Run ```docker compose -f docker/docker-compose.yml up``` at root to run all apps and dependencies and open localhost:8081 to access main app
+
+
+## How to Run apps individually
 
 It contains following applications:
 
@@ -110,21 +120,18 @@ It contains following applications:
 
 Option 1 - run with manually started  KeyCloak, ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
-- Run ```docker-compose -f config/docker-compose.yml up``` at root to start docker containers
+- Run ```docker compose -f docker/docker-compose-dev.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
-Option 2 - automatically start KeyCloak, ActiveMQ and MySQL using TestContainer while application is starting
-- Run ```mvn clean install``` at root 
-- Go to main-app folder and run ```mvn -Pdev,withTestContainer``` to start the application
 
-Option 3 - run from IDE
+Option 2 - run from IDE
 - import into your IDE and compile the full project and run the Application.java on main-app module
 - Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
 
 
 ## Run Tests (use ./mvnw instead of mvn if you want to use maven wrapper)
 
-## It uses TestContainers, which requires Docker to be installed locally.
+    Test uses TestContainers, which requires Docker to be installed locally.
 
 ##### Running full tests
 
