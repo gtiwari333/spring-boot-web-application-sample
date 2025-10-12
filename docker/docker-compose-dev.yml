@@ -54,7 +54,7 @@ services:
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
         ports:
-            - 8082:8080
+            - 8080:8080
             - 9443:9443
         networks:
             - gtapp-network

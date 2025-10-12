@@ -40,8 +40,8 @@ spring:
                 # we are using authorization code flow (login within keycloak app web ui)
                 provider:
                     oidc:
-                        # use http://localhost:8082/realms/articleapp/.well-known/openid-configuration to get config from keycloak
-                        issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8082}/realms/seedapp
+                        # use http://localhost:8080/realms/articleapp/.well-known/openid-configuration to get config from keycloak
+                        issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/realms/seedapp
                 registration:
                     oidc:
                         #                        authorization-grant-type: refresh_token

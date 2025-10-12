@@ -144,26 +144,4 @@
         </plugins>
     </build>
 
-    <profiles>
-
-        <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <spring.profiles.active>local</spring.profiles.active>
-                <build.profile>local</build.profile>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <spring.profiles.active>prod</spring.profiles.active>
-                <build.profile>prod</build.profile>
-            </properties>
-        </profile>
-
-    </profiles>
-
 </project>

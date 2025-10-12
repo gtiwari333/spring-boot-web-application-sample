@@ -1,5 +1,22 @@
 version: '3'
 services:
+    localhost: #expose all container ports so they can use services using localhost:PORT
+        image: alpine:latest
+        command: sleep infinity
+        ports:
+            - "8080:8080"
+            - "8161:8161"
+            - "3306:3306"
+            - "1025:1025"
+            - "8025:8025"
+            - "9411:9411"
+            - "8081:8081"
+            - "8083:8083"
+            - "8084:8084"
+            - "8085:8085"
+            - "8086:8086"
+            - "8161:8161"
+            - "61616:61616"
     activemq:
         # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
         # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
@@ -7,35 +24,21 @@ services:
         environment:
             - "ARTEMIS_USER=admin"
             - "ARTEMIS_PASSWORD=admin"
-        ports:
-            - "8161:8161"  # use this to access from browser
-            - "61616:61616"
-        networks:
-            - gtapp-network
+        network_mode: "service:localhost"
     mysql:
         image: 'mysql'
         environment:
             - "MYSQL_USER=seedappuser"
             - "MYSQL_ROOT_PASSWORD=password"
             - "MYSQL_DATABASE=seedapp"
-        ports:
-            - "3306:3306"
         command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
-        networks:
-            - gtapp-network
+        network_mode: "service:localhost"
     emailhog:
         image: 'richarvey/mailhog'
-        ports:
-            - "1025:1025"
-            - "8025:8025"  # use this to access from browser
-        networks:
-            - gtapp-network
+        network_mode: "service:localhost"
     zipkin:
         image: 'openzipkin/zipkin'
-        ports:
-            - "9411:9411"
-        networks:
-            - gtapp-network
+        network_mode: "service:localhost"
     keycloak:
         image: 'quay.io/keycloak/keycloak:25.0.6'
         command: start-dev --import-realm
@@ -48,57 +51,36 @@ services:
             - "KEYCLOAK_HTTPS_PORT=9443"
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
-        ports:
-            - "8082:8080"
-            - "9443:9443"
-        networks:
-            - gtapp-network
-
+        network_mode: "service:localhost"
     content-checker-service:
         image: gtapp-content-checker-service:latest
         environment:
             - "ZIPKIN_HOST=zipkin"
             - "ACTIVEMQ_ARTEMIS_HOST=activemq"
-        ports:
-            - "8083:8083"
-        networks:
-            - gtapp-network
+        network_mode: "service:localhost"
         depends_on:
             - zipkin
             - activemq
     email-service:
         image: gtapp-email-service:latest
         environment:
-            - "MAILHOG_HOST=emailhog"
-            - "ZIPKIN_HOST=zipkin"
-        ports:
-            - "8085:8085"
-        networks:
-            - gtapp-network
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
         depends_on:
             - emailhog
             - zipkin
     trend-service:
         image: gtapp-trend-service:latest
         environment:
-            - "ZIPKIN_HOST=zipkin"
-            - "ACTIVEMQ_ARTEMIS_HOST=activemq"
-        ports:
-            - "8084:8084"
-        networks:
-            - gtapp-network
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
         depends_on:
             - zipkin
     report-service:
         image: gtapp-report-service:latest
         environment:
-            - "ZIPKIN_HOST=zipkin"
-            - "MYSQL_HOST=mysql"
-            - "KEYCLOAK_HOST=keycloak"
-        ports:
-            - "8086:8086"
-        networks:
-            - gtapp-network
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
         depends_on:
             - zipkin
             - mysql
@@ -106,25 +88,13 @@ services:
     main-webapp:
         image: gtapp-main-webapp:latest
         environment:
-            - "MYSQL_HOST=mysql"
-            - "ACTIVEMQ_ARTEMIS_HOST=activemq"
-            - "KEYCLOAK_HOST=keycloak"
-            - "KEYCLOAK_PORT=8082"
-            - "EMAIL_SERVICE_HOST=email-service"
-            - "REPORT_SERVICE_HOST=report-service"
-            - "ZIPKIN_HOST=zipkin"
-        ports:
-            - "8081:8081"
-        networks:
-            - gtapp-network
+            - "SPRING_PROFILES_ACTIVE=prod"
+        network_mode: "service:localhost"
         depends_on:
             - zipkin
             - email-service
             - mysql
             - activemq
             - keycloak
-networks:
-    gtapp-network:
-        driver: bridge
-volumes:
-    db-data:
+        volumes:
+            -   /var/tmp/:/tmp/uploads/attachments/

@@ -112,19 +112,17 @@
 
         <profile>
             <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                    <version>${springdoc-openapi-ui.version}</version>
+                    <optional>true</optional>
+                </dependency>
+            </dependencies>
             <properties>
                 <spring.profiles.active>local</spring.profiles.active>
                 <build.profile>local</build.profile>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <spring.profiles.active>prod</spring.profiles.active>
-                <build.profile>prod</build.profile>
             </properties>
         </profile>
 
