@@ -103,7 +103,7 @@ Future: do more stuff
 
 ## Run all apps and dependencies using docker-compose 
 
-- Run ```docker-compose -f docker/docker-compose.yml up``` at root to run all apps and dependencies and open localhost:8081 to access main app
+- Run ```docker compose -f docker/docker-compose.yml up``` at root to run all apps and dependencies and open localhost:8081 to access main app
 
 
 ## How to Run apps individually
@@ -120,7 +120,7 @@ It contains following applications:
 
 Option 1 - run with manually started  KeyCloak, ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
-- Run ```docker-compose -f docker/docker-compose-dev.yml up``` at root to start docker containers
+- Run ```docker compose -f docker/docker-compose-dev.yml up``` at root to start docker containers
 - Go to main-app folder and run ```mvn``` to start the application
 
 

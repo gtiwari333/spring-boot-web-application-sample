@@ -67,4 +67,4 @@ networks:
 
 
 #run using
-#docker-compose -f docker-compose-dev.yml up
+#docker compose -f docker-compose-dev.yml up

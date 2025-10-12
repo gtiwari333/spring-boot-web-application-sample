@@ -56,7 +56,6 @@ services:
         image: gtapp-content-checker-service:latest
         environment:
             - "ZIPKIN_HOST=zipkin"
-            - "ACTIVEMQ_ARTEMIS_HOST=activemq"
         network_mode: "service:localhost"
         depends_on:
             - zipkin
