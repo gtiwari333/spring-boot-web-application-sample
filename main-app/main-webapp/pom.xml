@@ -13,8 +13,6 @@
     </parent>
 
     <properties>
-        <profile.tls/>
-        <profile.withTestContainer/>
         <app.version>${project.parent.version}</app.version>
 
 
@@ -237,10 +235,12 @@
         <dependency>
             <groupId>com.github.dasniko</groupId>
             <artifactId>testcontainers-keycloak</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -251,6 +251,7 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
             <optional>true</optional>
+            <scope>test</scope>
         </dependency>
 
         <!-- query performance -->
