@@ -18,7 +18,7 @@ import java.util.TimeZone;
 public class ServerTimeSenderTask {
 
     final WebsocketHandler websocketHandler;
-    static final DateTimeFormatter DT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+    static final DateTimeFormatter DT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Scheduled(fixedRate = 30 * 1000L)
     void sendCurrentTimeToAllUsers() {
