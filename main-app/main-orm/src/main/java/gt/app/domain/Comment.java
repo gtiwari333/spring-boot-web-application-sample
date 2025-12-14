@@ -6,11 +6,16 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Data
-public class Comment extends BaseAuditingEntity {
+public class Comment extends BaseAuditingEntity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -420530763778423311L;
+
     private String content;
 
     @Enumerated(EnumType.STRING)

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +17,8 @@ import java.util.Set;
 @Getter
 @Setter
 public class Article extends BaseAuditingEntity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -420530763778423324L;
 
     @NotEmpty
     private String title;

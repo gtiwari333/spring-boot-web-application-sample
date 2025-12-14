@@ -15,7 +15,7 @@ spring:
             generate_statistics: true
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
-                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                implicit-strategy: org.springframework.boot.hibernate.SpringImplicitNamingStrategy
     datasource:
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
@@ -104,9 +104,10 @@ management:
     tracing:
         sampling:
             probability: 1.0
-    zipkin:
-        tracing:
-            endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+        zipkin:
+            export:
+                tracing:
+                    endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
     health:
         jms:
             enabled: true

@@ -75,7 +75,7 @@ public class ArticleService {
 
     @Cacheable(cacheNames = "articleRead", key = "#id")
     public ArticleReadDto read(Long id) {
-        //TODO: filter out unpublished comments - write a jooq or querydsl query
+        //TODO: filter out unpublished comments - write a jooq
         ArticleReadDto dto = articleRepository.findOneWithAllByIdAndStatus(id, ArticleStatus.PUBLISHED, Sort.by(Sort.Direction.DESC, "id"))
             .map(ArticleMapper.INSTANCE::mapForRead)
             .map(this::mapNested)
@@ -154,11 +154,6 @@ public class ArticleService {
                 websocketHandler.sendToUser(n.getLastModifiedByUser().getUsername(), "Your article with title " + n.getTitle() + " has been " + (dto.getVerdict() == ArticleStatus.PUBLISHED ? "approved from manual review." : "rejected from manual review."));
                 return n;
             });
-    }
-
-    public void testCountStatuses() {
-        log.info("Size of flagged articles {}", articleRepository.findArticles(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW).size());
-        log.info("Size of flagged articles {}", articleRepository.countArticles(ArticleStatus.FLAGGED_FOR_MANUAL_REVIEW));
     }
 
 }

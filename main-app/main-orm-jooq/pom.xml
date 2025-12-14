@@ -14,7 +14,7 @@
 
     <properties>
         <app.version>${project.parent.version}</app.version>
-        <spring-security.version>6.5.7</spring-security.version>
+        <spring-security.version>7.0.0</spring-security.version>
     </properties>
 
     <dependencies>
@@ -101,7 +101,7 @@
                                 <property>
                                     <key>hibernate.implicit_naming_strategy</key>
                                     <value>
-                                        org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                                        org.springframework.boot.hibernate.SpringImplicitNamingStrategy
                                     </value>
                                 </property>
                                 <property>

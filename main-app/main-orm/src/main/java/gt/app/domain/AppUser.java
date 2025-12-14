@@ -9,13 +9,18 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "APP_USER")
-public class AppUser   {
+public class AppUser  implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -420530763778423332L;
 
     @Id
     @JdbcTypeCode(SqlTypes.BINARY)

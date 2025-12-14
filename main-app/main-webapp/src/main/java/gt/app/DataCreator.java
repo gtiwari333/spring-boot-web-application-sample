@@ -9,7 +9,6 @@ import gt.app.modules.user.AuthorityService;
 import gt.app.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,6 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 @Component
-@Profile({"local", "test"})
 @RequiredArgsConstructor
 @Slf4j
 public class DataCreator {

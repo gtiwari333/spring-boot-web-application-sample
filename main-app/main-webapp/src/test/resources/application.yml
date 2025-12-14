@@ -15,7 +15,7 @@ spring:
             ddl-auto: none  # we use liquibase
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
-                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                implicit-strategy: org.springframework.boot.hibernate.SpringImplicitNamingStrategy
     mvc:
         static-path-pattern: /static/**
     jooq:
