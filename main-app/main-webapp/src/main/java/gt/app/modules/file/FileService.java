@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
@@ -19,7 +18,7 @@ public class FileService {
     private final Path rootLocation;
 
     public FileService(AppProperties appProperties) {
-        this.rootLocation = Paths.get(appProperties.getFileStorage().getUploadFolder());
+        this.rootLocation = Path.of(appProperties.getFileStorage().getUploadFolder());
     }
 
     public String store(ReceivedFile.FileGroup fileGroup, @NotNull MultipartFile file) {

@@ -12,6 +12,6 @@ public class DuplicateRecordException extends BaseException {
     }
 
     public DuplicateRecordException(String requestedObjectName, String requestedByField, Object requestedByParam) {
-        super(String.format("%s with %s = '%s' already exists", requestedObjectName, requestedByField, requestedByParam));
+        super("%s with %s = '%s' already exists".formatted(requestedObjectName, requestedByField, requestedByParam));
     }
 }

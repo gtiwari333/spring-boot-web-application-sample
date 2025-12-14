@@ -170,12 +170,23 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
         <!-- end processor/code generators -->
+        <!-- development -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator-core</artifactId>
+            <artifactId>webjars-locator-lite</artifactId>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -257,8 +268,9 @@
         <!-- query performance -->
         <dependency>
             <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-60</artifactId>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
             <scope>test</scope>
+            <version>3.8.3</version>
         </dependency>
         <dependency>
             <groupId>com.github.gavlyukovskiy</groupId>
@@ -479,14 +491,14 @@
                     <wroFile>${basedir}/src/main/resources/wro.xml</wroFile>
                     <extraConfigFile>${basedir}/src/main/resources/wro.properties</extraConfigFile>
                 </configuration>
-                <dependencies>
-                    <!-- For Java 11 compatibility -->
-                    <dependency>
-                        <groupId>org.mockito</groupId>
-                        <artifactId>mockito-core</artifactId>
-                        <version>${mockito.version}</version>
-                    </dependency>
-                </dependencies>
+<!--                <dependencies>-->
+<!--                    &lt;!&ndash; For Java 11 compatibility &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.mockito</groupId>-->
+<!--                        <artifactId>mockito-core</artifactId>-->
+<!--                        <version>${mockito.version}</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
             </plugin>
 
             <plugin>
@@ -515,27 +527,5 @@
         </plugins>
     </build>
 
-    <profiles>
-
-        <profile>
-            <id>local</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                    <version>${springdoc-openapi-ui.version}</version>
-                    <optional>true</optional>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-devtools</artifactId>
-                </dependency>
-            </dependencies>
-            <properties>
-                <spring.profiles.active>local</spring.profiles.active>
-                <build.profile>local</build.profile>
-            </properties>
-        </profile>
-    </profiles>
 
 </project>

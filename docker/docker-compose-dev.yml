@@ -1,4 +1,5 @@
 # use this to run dependencies like activemq, email, mysql, keycloak using docker for DEVELOPMENT
+# Run using : $docker compose -f docker-compose-dev.yml up
 version: '3'
 services:
     activemq_artemis:
@@ -49,13 +50,13 @@ services:
             - "KEYCLOAK_ADMIN_PASSWORD=admin"
             - "KEYCLOAK_FEATURES=scripts"
             - "KEYCLOAK_HTTP_PORT=8080"
-            - "KEYCLOAK_HTTPS_PORT=9443"
+            - "KEYCLOAK_HTTPS_PORT=9445"
         #        entrypoint: /tmp/keycloak/config/docker-compose-entrypoint.sh --hostname host.docker.internal:8080
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
         ports:
             - 8080:8080
-            - 9443:9443
+            - 9445:9445
         networks:
             - gtapp-network
 volumes:

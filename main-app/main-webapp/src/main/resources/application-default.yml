@@ -1,3 +1,0 @@
-spring:
-    profiles:
-        active: local # this will use manually started activemq, email and mysql servers using docker compose

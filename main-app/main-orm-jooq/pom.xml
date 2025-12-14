@@ -14,6 +14,7 @@
 
     <properties>
         <app.version>${project.parent.version}</app.version>
+        <spring-security.version>6.5.7</spring-security.version>
     </properties>
 
     <dependencies>

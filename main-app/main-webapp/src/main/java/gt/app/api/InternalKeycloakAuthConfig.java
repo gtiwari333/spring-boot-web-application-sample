@@ -32,7 +32,7 @@ class InternalKeycloakAuthConfig {
             }
             */
             log.info("Calling {} with token", template.url());
-            template.header(AUTHORIZATION_HEADER, String.format("%s %s", BEARER, idTokenOpt.get().getTokenValue()));
+            template.header(AUTHORIZATION_HEADER, "%s %s".formatted(BEARER, idTokenOpt.get().getTokenValue()));
         };
     }
 

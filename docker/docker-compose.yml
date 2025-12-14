@@ -1,3 +1,4 @@
+# this is used to build docker images
 version: '3'
 services:
     localhost: #expose all container ports so they can use services using localhost:PORT
@@ -48,14 +49,12 @@ services:
             - "KEYCLOAK_ADMIN_PASSWORD=admin"
             - "KEYCLOAK_FEATURES=scripts"
             - "KEYCLOAK_HTTP_PORT=8080"
-            - "KEYCLOAK_HTTPS_PORT=9443"
+            - "KEYCLOAK_HTTPS_PORT=9445"
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
         network_mode: "service:localhost"
     content-checker-service:
         image: gtapp-content-checker-service:latest
-        environment:
-            - "ZIPKIN_HOST=zipkin"
         network_mode: "service:localhost"
         depends_on:
             - zipkin

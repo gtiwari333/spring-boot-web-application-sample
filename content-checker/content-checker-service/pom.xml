@@ -57,6 +57,12 @@
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+            <optional>true</optional>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
@@ -98,24 +104,5 @@
         </plugins>
     </build>
 
-    <profiles>
-
-        <profile>
-            <id>local</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                    <version>${springdoc-openapi-ui.version}</version>
-                    <optional>true</optional>
-                </dependency>
-            </dependencies>
-            <properties>
-                <spring.profiles.active>local</spring.profiles.active>
-                <build.profile>local</build.profile>
-            </properties>
-        </profile>
-
-    </profiles>
 
 </project>
