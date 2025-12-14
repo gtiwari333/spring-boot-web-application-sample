@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -17,7 +19,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ReceivedFile {
+public class ReceivedFile implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -420530763778423322L;
 
     @Id
     @JdbcTypeCode(SqlTypes.CHAR)

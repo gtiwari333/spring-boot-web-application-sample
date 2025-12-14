@@ -8,9 +8,6 @@ import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.List;
-
-import static gt.app.domain.QComment.comment;
 import static gtapp.jooq.tables.GComment.G_COMMENT;
 
 @Slf4j
@@ -29,12 +26,6 @@ class CommentRepositoryCustomImpl extends AbstractRepositoryImpl<Comment, Commen
         this.repository = repository;
     }
 
-    @Override
-    public List<Comment> findComments(CommentStatus status) {
-        return from(comment)
-            .where(comment.status.eq(status))
-            .fetch();
-    }
 
     @Override
     public long findFlaggedComments(CommentStatus status) {
