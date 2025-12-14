@@ -14,7 +14,7 @@
 
     <properties>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <spring-framework.version>6.2.15</spring-framework.version>
+        <spring-framework.version>7.0.2</spring-framework.version>
     </properties>
 
     <dependencies>

@@ -19,7 +19,6 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 @Component
-@Profile({"local", "test"})
 @RequiredArgsConstructor
 @Slf4j
 public class DataCreator {
