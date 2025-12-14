@@ -19,4 +19,8 @@ management:
     tracing:
         sampling:
             probability: 1.0
-    tracing.export.zipkin.endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+    zipkin:
+        export:
+            tracing:
+                endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+

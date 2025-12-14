@@ -6,10 +6,17 @@ spring:
         port: ${MAILHOG_PORT:1025}
         username:
         password:
-
+    web:
+        error:
+            include-stacktrace: never
+            include-exception: true
+            include-binding-errors: always
+            include-message: always
+logging:
 server:
     port: 8085
-logging:
+
+
     level:
         org.springframework.web: INFO
         ROOT: WARN
@@ -19,14 +26,7 @@ management:
     tracing:
         sampling:
             probability: 1.0
-    tracing.export.zipkin.endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
-
-spring.web.error.include-binding-errors: always
-
-spring.web.error.include-exception: true
-
-spring.web.error.include-message: always
-
-spring.web.error.include-stacktrace: never
-
-
+    zipkin:
+        export:
+            tracing:
+                endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans

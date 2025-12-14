@@ -45,7 +45,7 @@
         <wro4j.version>2.1.1</wro4j.version>
         <archunit.version>1.3.0</archunit.version>
         <testcontainers-keycloak.version>3.4.0</testcontainers-keycloak.version>
-        <testcontainers.version>1.20.1</testcontainers.version>
+        <testcontainers.version>2.0.2</testcontainers.version>
         <commons-io.version>2.17.0</commons-io.version>
         <webjar-jquery.version>3.6.1</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
