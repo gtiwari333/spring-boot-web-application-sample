@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -31,43 +31,43 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- this is used by jooq -->
-        <spring-boot.version>4.0.0</spring-boot.version>
-        <spring-cloud.version>2025.1.0</spring-cloud.version>
-        <hibernate-hypersistence-utils.version>3.13.3</hibernate-hypersistence-utils.version>
+        <spring-boot.version>4.0.2</spring-boot.version>
+        <spring-cloud.version>2025.1.1</spring-cloud.version>
+        <hibernate-hypersistence-utils.version>3.15.1</hibernate-hypersistence-utils.version>
         <datasource-proxy-sb-starter.version>2.0.0</datasource-proxy-sb-starter.version>
-        <datasource-micrometer-sb-starter.version>2.0.1</datasource-micrometer-sb-starter.version>
-        <springdoc-openapi-ui.version>3.0.0</springdoc-openapi-ui.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
+        <datasource-micrometer-sb-starter.version>2.1.0</datasource-micrometer-sb-starter.version>
+        <springdoc-openapi-ui.version>3.0.1</springdoc-openapi-ui.version>
+        <mapstruct.version>1.7.0.Beta1</mapstruct.version>
 
-        <selenide.version>7.5.1</selenide.version>
+        <selenide.version>7.14.0</selenide.version>
 
-        <google-guava.version>33.3.0-jre</google-guava.version>
+        <google-guava.version>33.5.0-jre</google-guava.version>
         <wro4j.version>2.1.1</wro4j.version>
-        <archunit.version>1.3.0</archunit.version>
-        <testcontainers-keycloak.version>4.0.1</testcontainers-keycloak.version>
+        <archunit.version>1.4.1</archunit.version>
+        <testcontainers-keycloak.version>4.1.1</testcontainers-keycloak.version>
         <testcontainers.version>2.0.2</testcontainers.version>
-        <commons-io.version>2.17.0</commons-io.version>
+        <commons-io.version>2.21.0</commons-io.version>
         <webjar-jquery.version>3.6.1</webjar-jquery.version>
         <webjar-bootstrap.version>5.0.1</webjar-bootstrap.version>
         <webjar-jquery-toast-plugin.version>1.3.2</webjar-jquery-toast-plugin.version>
 
         <spock-version>2.4-groovy-5.0</spock-version>
-        <objenesis.version>3.4</objenesis.version>
+        <objenesis.version>3.5</objenesis.version>
 
         <!-- plugins -->
         <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-        <puppycrawl.checkstyle.version>10.18.1</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>13.2.0</puppycrawl.checkstyle.version>
         <puppycrawl.checkstyle.config.file>src/main/resources/checkstyle.xml</puppycrawl.checkstyle.config.file>
         <gmavenplus.version>4.2.1</gmavenplus.version>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
-        <modernizer-maven-plugin.version>2.9.0</modernizer-maven-plugin.version>
+        <modernizer-maven-plugin.version>3.2.0</modernizer-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.8.2</spotbugs-maven-plugin.version>
         <owasp-dependency-check-plugin.version>8.4.0</owasp-dependency-check-plugin.version>
         <pitest-maven-plugin.version>1.17.0</pitest-maven-plugin.version>
-        <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
+        <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
     </properties>
 
 
@@ -143,7 +143,7 @@
             <dependency>
                 <groupId>io.hypersistence</groupId>
                 <artifactId>hypersistence-utils-hibernate-71</artifactId>
-                <version>${hibernate-hypersistence-utils}</version>
+                <version>${hibernate-hypersistence-utils.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.gavlyukovskiy</groupId>
@@ -213,7 +213,7 @@
             <plugin>
                 <groupId>org.openrewrite.maven</groupId>
                 <artifactId>rewrite-maven-plugin</artifactId>
-                <version>6.25.0</version>
+                <version>6.28.1</version>
                 <configuration>
                     <exportDatatables>true</exportDatatables>
                     <activeRecipes>
@@ -224,7 +224,7 @@
                     <dependency>
                         <groupId>org.openrewrite.recipe</groupId>
                         <artifactId>rewrite-spring</artifactId>
-                        <version>6.20.0</version>
+                        <version>6.23.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -330,24 +330,24 @@
             </plugins>
         </pluginManagement>
     </build>
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>spring-milestones</id>-->
+<!--            <name>Spring Milestones</name>-->
+<!--            <url>https://repo.spring.io/milestone</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+<!--    <pluginRepositories>-->
+<!--        <pluginRepository>-->
+<!--            <id>spring-milestones</id>-->
+<!--            <name>Spring Milestones</name>-->
+<!--            <url>https://repo.spring.io/milestone</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--        </pluginRepository>-->
+<!--    </pluginRepositories>-->
 </project>
