@@ -1,6 +1,6 @@
 ### A Spring Boot Web Application Sample with tons of ready-to-use features. This can be used as starter for bigger projects.
 
-#### Variations
+### Variations
 - Simpler version without KeyCloak and multi-modules is on separate project https://github.com/gtiwari333/spring-boot-blog-app
 - Microservice example that uses Spring Cloud features(discovery, gateway, config server etc) is on separate project https://github.com/gtiwari333/spring-boot-microservice-example-java
 
@@ -8,7 +8,8 @@
 
 ### App Architecture:
 [![Foo](https://lucid.app/publicSegments/view/8c2fa859-36bd-4559-80c7-12fb30997092/image.png)](https://lucid.app/documents/view/fa076c6e-86d3-412b-a9bc-1996dca86a1e)
-#### Included Features/Samples
+
+### Included Features/Samples
 
 MicroService:
 
@@ -17,8 +18,8 @@ MicroService:
 - Spring Cloud Contract (WIP)
 
 Spring MVC:
-- Public and internal pages
 - MVC with thymeleaf templating
+- Public and internal pages
 - Live update of thymeleaf templates for local development
 - HTML fragments, reusable pagination component using Thymeleaf parameterized fragments
 - webjar - bootstrap4 + jquery
@@ -86,8 +87,9 @@ Future: do more stuff
 - Signup UI
 - vendor neutral security with OIDC
 - JfrUnit ( WIP )
-- 
+
 ### Requirements
+
 - JDK 21+
 - Lombok configured on IDE
     - http://ganeshtiwaridotcomdotnp.blogspot.com/2016/03/configuring-lombok-on-intellij.html
@@ -97,17 +99,21 @@ Future: do more stuff
   - Make sure docker is started and running
   - Run `$ sudo chmod 666 /var/run/docker.sock` if you get error like this "Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? (Details: [13] Permission denied)"
 
+# How to Run
 
-## Build and create docker image
+## With docker - run all apps with dependencies (eg mysql, email server, keycloak etc):
+
+### Build and create docker image
 
 `sh build-docker-images.sh`
 
-## Run all apps and dependencies using docker-compose 
+### Run all apps and dependencies using docker-compose 
 
-- Run ```docker compose -f docker/docker-compose.yml up``` at root to run all apps and dependencies and open localhost:8081 to access main app
+- Run ```docker compose -f docker/docker-compose.yml up``` at root to run all apps and dependencies and open http://localhost:8081 to access main app
 
 
-## How to Run apps individually
+
+## How to Run apps individually without docker
 
 It contains following applications:
 
@@ -117,7 +123,7 @@ It contains following applications:
 - trend-service (optional)
 - content-checker (optional)
 
-# Note you will need to create a database named 'seedapp' in your mysql server
+## Note you will need to create a database named 'seedapp' in your mysql server
 
 Option 1 - run with manually started  KeyCloak, ActiveMQ and MySQL  servers
 - Run ```mvn clean install``` at root 
@@ -129,10 +135,18 @@ Option 2 - run from IDE
 - import into your IDE and compile the full project and run the Application.java on main-app module
 - Update run configuration to run maven goal `wro4j:run` Before Launch. It should be after 'Build'
 
+## Once the application starts, open  `http://localhost:8081` on your browser. 
 
-## Run Tests (use ./mvnw instead of mvn if you want to use maven wrapper)
+The default username/passwords are listed on : gt.app.Application.initData, which are:
 
-    Test uses TestContainers, which requires Docker to be installed locally.
+- system/pass
+- user1/pass
+- user2/pass
+
+
+# Run Tests  
+
+    ! Test uses TestContainers, which requires Docker to be installed locally.
 
 ##### Running full tests
 
@@ -146,7 +160,11 @@ Option 2 - run from IDE
 
 `mvn  compiler:testCompile resources:testResources  failsafe:integration-test`
 
-## Code Quality
+### Run Tests Faster by using parallel maven build
+`mvn -T 5 clean package`
+
+
+# Code Quality
 
 ##### The `error-prone` runs at compile time.
 
@@ -176,18 +194,13 @@ Owasp dependency check plugin is configured. Run `mvn dependency-check:check` to
 open `dependency-check-report.html` from target to see the report.
 
 
-## Run Tests Faster by using parallel maven build
-`mvn -T 5 clean package`
+### Dependency/plugin version checker
+ - `mvn versions:display-dependency-updates`
+ - `mvn versions:display-plugin-updates`
 
 
-Once the application starts, open  `http://localhost:8081` on your browser. The default username/passwords are listed on : gt.app.Application.initData, which are:
 
-- system/pass
-- user1/pass
-- user2/pass
-
-
-#### Screenshots:
+### Screenshots:
 
 #### Public View
 ![](screenshots/public-page.png)
@@ -209,8 +222,3 @@ Once the application starts, open  `http://localhost:8081` on your browser. The 
 
 #### New Article
 ![](screenshots/new-article-page.png)
-
-
-#### Dependency/plugin version checker
- - `mvn versions:display-dependency-updates`
- - `mvn versions:display-plugin-updates`
