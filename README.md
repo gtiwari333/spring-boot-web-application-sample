@@ -200,7 +200,7 @@ open `dependency-check-report.html` from target to see the report.
 
 
 
-### Screenshots:
+# Screenshots:
 
 #### Public View
 ![](screenshots/public-page.png)
