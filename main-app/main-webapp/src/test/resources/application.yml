@@ -48,7 +48,7 @@ springdoc:
 debug: false
 
 logging.level:
-    ROOT: DEBUG
+    ROOT: INFO
     gt: INFO
     sql: WARN
     org.apache: ERROR
