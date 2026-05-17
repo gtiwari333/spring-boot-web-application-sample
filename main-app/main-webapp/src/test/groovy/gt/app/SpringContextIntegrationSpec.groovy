@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class SpringContextIntegrationSpec extends Specification {
+class SpringContextIntegrationSpec extends AbstractSpockSpec {
 
     @Autowired(required = false)
     private HelloResource webController
