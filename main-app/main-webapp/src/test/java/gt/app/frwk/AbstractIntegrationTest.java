@@ -16,7 +16,7 @@ public abstract class AbstractIntegrationTest {
     // and registering the dynamic property
     // use the same pattern for other test containers if they do not have @ServiceConnection support
     static final KeycloakContainer keycloak =
-        new KeycloakContainer("quay.io/keycloak/keycloak:25.0.6")
+        new KeycloakContainer("quay.io/keycloak/keycloak:26.6.1")
             .withRealmImportFile("keycloak/realm-export.json");
 
     static {
