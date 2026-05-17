@@ -1,11 +1,10 @@
 # use this to run dependencies like activemq, email, mysql, keycloak using docker for DEVELOPMENT
 # Run using : $docker compose -f docker-compose-dev.yml up
-version: '3'
 services:
     activemq_artemis:
         # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
         # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
-        image: 'apache/activemq-artemis:2.37.0'
+        image: 'apache/activemq-artemis:2.44.0'
         container_name: activemqArtemis
         environment:
             - "ARTEMIS_USER=admin"
@@ -41,8 +40,9 @@ services:
         networks:
             - gtapp-network
     keycloak:
-        image: 'quay.io/keycloak/keycloak:25.0.6'
+        image: 'quay.io/keycloak/keycloak:26.6.1'
         container_name: keycloak
+        # user: root   set to true only for export
         command: start-dev --import-realm
         environment:
             - "KEYCLOAK_DB=dev-file"
@@ -54,12 +54,41 @@ services:
         #        entrypoint: /tmp/keycloak/config/docker-compose-entrypoint.sh --hostname host.docker.internal:8080
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
+            # - keycloak-h2-data:/opt/keycloak/data/h2 set to true only for export
         ports:
             - 8080:8080
             - 9445:9445
         networks:
             - gtapp-network
+
+    # runs realm export - it will be useful to get clean .json file out of existing config so that it will stop reporting warnings about deprecated/deleted fields
+    # 1. run existing .json file with new keycloak version
+    # 2. export new .json file from new keycloak
+    # 3. replace existing 'realm-export' file from resourcs/keycloak/
+    # Copy using docker cp keycloak:/opt/keycloak/data/import/realm-export1.json   realm-export-NEW.json
+    keycloak-export:
+        image: 'quay.io/keycloak/keycloak:26.6.1'
+        container_name: keycloak-export
+        user: root
+        command: >
+            export
+            --realm seedapp
+            --users same_file
+            --file /opt/keycloak/data/import/realm-export.json
+        environment:
+            - "KEYCLOAK_DB=dev-file"
+            - "KEYCLOAK_ADMIN=admin"
+            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+        volumes:
+            - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
+            - keycloak-h2-data:/opt/keycloak/data/h2    # ← same named volume as keycloak
+        networks:
+            - gtapp-network
+        profiles:
+            - export    # ← won't start with normal docker compose up
+
 volumes:
+    keycloak-h2-data:
     esdata1:
         driver: local
 networks:

@@ -12,10 +12,12 @@ spring:
         open-in-view: false
         hibernate:
             ddl-auto: none  # we use liquibase
-            generate_statistics: true
             naming:
                 physical-strategy: gt.app.hibernate.PrefixedNamingStrategy
                 implicit-strategy: org.springframework.boot.hibernate.SpringImplicitNamingStrategy
+        properties:
+            hibernate:
+                generate_statistics: false
     datasource:
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
@@ -54,7 +56,7 @@ logging:
         cloud: INFO
         sql: INFO
         ROOT: INFO
-        gt: TRACE
+        gt: DEBUG
 #        'org.springframework.web.socket': TRACE
 
 
@@ -74,7 +76,7 @@ app-properties:
         base-url: http://localhost:${server.port}
 wro4j:
     jmx-enabled: false
-    debug: true
+    debug: false
     manager-factory:
         post-processors: cssVariables,cssMinJawr,jsMin
         pre-processors: cssUrlRewriting,cssImport,semicolonAppender,removeSourceMaps,singlelineStripper

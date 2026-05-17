@@ -12,7 +12,7 @@ public class TestContainerConfig {
     @ServiceConnection
     ArtemisContainer artemis() {
         // activemq-artemis has @SeriviceConnection support, so using it here.
-        return new ArtemisContainer("apache/activemq-artemis:2.37.0");
+        return new ArtemisContainer("apache/activemq-artemis:2.44.0");
     }
 
 }

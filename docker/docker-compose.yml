@@ -1,6 +1,5 @@
 # this is used to run the whole application + dependencies(keycloak, mysql, emailhog, zipkin) as docker images
 # use './build-docker-images.sh' to create docker images
-version: '3'
 services:
     localhost: #expose all container ports so they can use services using localhost:PORT
         image: alpine:latest
@@ -22,7 +21,7 @@ services:
     activemq:
         # its not supported in M1 Mac, workaround is to enable Rosetta in Docker
         # Docker settings → Features in development → check ☑ Use Rosetta for x86/amd64 emulation on Apple Silicon, and then restart Docker.
-        image: 'apache/activemq-artemis:2.37.0'
+        image: 'apache/activemq-artemis:2.44.0'
         environment:
             - "ARTEMIS_USER=admin"
             - "ARTEMIS_PASSWORD=admin"
@@ -42,7 +41,7 @@ services:
         image: 'openzipkin/zipkin'
         network_mode: "service:localhost"
     keycloak:
-        image: 'quay.io/keycloak/keycloak:25.0.6'
+        image: 'quay.io/keycloak/keycloak:26.6.1'
         command: start-dev --import-realm
         environment:
             - "KEYCLOAK_DB=dev-file"
