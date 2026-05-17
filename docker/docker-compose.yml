@@ -1,4 +1,5 @@
-# this is used to build docker images
+# this is used to run the whole application + dependencies(keycloak, mysql, emailhog, zipkin) as docker images
+# use './build-docker-images.sh' to create docker images
 version: '3'
 services:
     localhost: #expose all container ports so they can use services using localhost:PORT
