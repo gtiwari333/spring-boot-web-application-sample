@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: app-ingress
+    namespace: app-platform
+    annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+    rules:
+        -   host: app.local
+            http:
+                paths:
+                    -   path: /
+                        pathType: Prefix
+                        backend:
+                            service:
+                                name: main-webapp
+                                port:
+                                    number: 8080
+                    -   path: /keycloak
+                        pathType: Prefix
+                        backend:
+                            service:
+                                name: keycloak
+                                port:
+                                    number: 8080
+                    -   path: /zipkin
+                        pathType: Prefix
+                        backend:
+                            service:
+                                name: zipkin
+                                port:
+                                    number: 9411
+                    -   path: /emailhog
+                        pathType: Prefix
+                        backend:
+                            service:
+                                name: emailhog
+                                port:
+                                    number: 8025

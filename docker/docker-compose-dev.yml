@@ -46,8 +46,8 @@ services:
         command: start-dev --import-realm
         environment:
             - "KEYCLOAK_DB=dev-file"
-            - "KEYCLOAK_ADMIN=admin"
-            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+            - "KC_BOOTSTRAP_ADMIN_USERNAME=admin"
+            - "KC_BOOTSTRAP_ADMIN_PASSWORD=admin"
             - "KEYCLOAK_FEATURES=scripts"
             - "KEYCLOAK_HTTP_PORT=8080"
             - "KEYCLOAK_HTTPS_PORT=9445"
@@ -77,8 +77,8 @@ services:
             --file /opt/keycloak/data/import/realm-export.json
         environment:
             - "KEYCLOAK_DB=dev-file"
-            - "KEYCLOAK_ADMIN=admin"
-            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+            - "KC_BOOTSTRAP_ADMIN_USERNAME=admin"
+            - "KC_BOOTSTRAP_ADMIN_PASSWORD=admin"
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
             - keycloak-h2-data:/opt/keycloak/data/h2    # ← same named volume as keycloak

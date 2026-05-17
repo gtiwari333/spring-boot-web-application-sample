@@ -1088,6 +1088,8 @@
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
                 "dev.localhost.ionic:*",
+                "http://localhost:30081/*",
+                "http://localhost:30081/login/oauth2/code/oidc",
                 "http://127.0.0.1:*",
                 "http://localhost:*",
                 "https://127.0.0.1:*",
@@ -1095,7 +1097,7 @@
                 "https://oauth.pstmn.io/v1/callback"
             ],
             "webOrigins": [
-                "*"
+                "*", "http://localhost:30081"
             ],
             "notBefore": 0,
             "bearerOnly": false,

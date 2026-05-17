@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: app-config
+    namespace: app-platform
+data:
+    # these are accessible inside the minikube
+    MYSQL_DATABASE: "seedapp"
+    MYSQL_USER: "seedappuser"
+    SPRING_PROFILES_ACTIVE: "default" # change this once qa/prod profile is setup, use default profile for now
+    KEYCLOAK_FEATURES: "scripts"
+    KEYCLOAK_HTTP_PORT: "8080"
+    KEYCLOAK_HTTPS_PORT: "9445"
+    ARTEMIS_USER: "admin"
+    KEYCLOAK_DB: "dev-file"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: app-secrets
+    namespace: app-platform
+type: Opaque
+stringData:
+    MYSQL_ROOT_PASSWORD: "password"
+    KC_BOOTSTRAP_ADMIN_USERNAME: "admin"
+    KC_BOOTSTRAP_ADMIN_PASSWORD: "admin"
+    ARTEMIS_PASSWORD: "admin"

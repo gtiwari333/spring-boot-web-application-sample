@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: emailhog
+    namespace: app-platform
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: emailhog
+    template:
+        metadata:
+            labels:
+                app: emailhog
+        spec:
+            containers:
+                -   name: emailhog
+                    image: richarvey/mailhog:latest
+                    ports:
+                        -   containerPort: 1025
+                            name: smtp
+                        -   containerPort: 8025
+                            name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: emailhog
+    namespace: app-platform
+spec:
+    selector:
+        app: emailhog
+    ports:
+        -   name: smtp
+            port: 1025
+            targetPort: 1025
+        -   name: web
+            port: 8025
+            targetPort: 8025

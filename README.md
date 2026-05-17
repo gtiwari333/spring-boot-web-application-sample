@@ -6,6 +6,30 @@
 
 <a href="https://www.buymeacoffee.com/gtiwari333" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="height: 42px !important;width: 180px !important;" height="42px" width="180px"></a>
 
+
+### Service Dependency Map
+
+main-webapp
+├── mysql          (jdbc:mysql://mysql:3306/seedapp)
+├── activemq       (activemq:61616)
+├── keycloak       (http://keycloak:8080)
+├── zipkin         (http://zipkin:9411)
+└── email-service
+├── emailhog   (emailhog:1025)
+└── zipkin
+
+content-checker-service
+├── activemq
+└── zipkin
+
+trend-service
+└── zipkin
+
+report-service
+├── mysql
+├── keycloak
+└── zipkin
+
 ### App Architecture:
 [![Foo](https://lucid.app/publicSegments/view/8c2fa859-36bd-4559-80c7-12fb30997092/image.png)](https://lucid.app/documents/view/fa076c6e-86d3-412b-a9bc-1996dca86a1e)
 

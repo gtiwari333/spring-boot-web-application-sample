@@ -45,8 +45,8 @@ services:
         command: start-dev --import-realm
         environment:
             - "KEYCLOAK_DB=dev-file"
-            - "KEYCLOAK_ADMIN=admin"
-            - "KEYCLOAK_ADMIN_PASSWORD=admin"
+            - "KC_BOOTSTRAP_ADMIN_USERNAME=admin"
+            - "KC_BOOTSTRAP_ADMIN_PASSWORD=admin"
             - "KEYCLOAK_FEATURES=scripts"
             - "KEYCLOAK_HTTP_PORT=8080"
             - "KEYCLOAK_HTTPS_PORT=9445"

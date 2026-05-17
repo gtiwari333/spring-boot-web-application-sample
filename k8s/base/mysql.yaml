@@ -1,0 +1,79 @@
+# MYSQL should not run as kubernetes deployment for production
+# Its okay for DEV/Testing purpose
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: mysql-pvc
+    namespace: app-platform
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mysql
+    namespace: app-platform
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mysql
+    template:
+        metadata:
+            labels:
+                app: mysql
+        spec:
+            containers:
+                -   name: mysql
+                    image: mysql:latest
+                    args:
+                        - "--lower_case_table_names=1"
+                        - "--character_set_server=utf8mb4"
+                        - "--explicit_defaults_for_timestamp"
+                    env:
+                        -   name: MYSQL_USER
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: MYSQL_USER
+                        -   name: MYSQL_DATABASE
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: MYSQL_DATABASE
+                        -   name: MYSQL_ROOT_PASSWORD
+                            valueFrom:
+                                secretKeyRef:
+                                    name: app-secrets
+                                    key: MYSQL_ROOT_PASSWORD
+                    ports:
+                        -   containerPort: 3306
+                    volumeMounts:
+                        -   name: mysql-storage
+                            mountPath: /var/lib/mysql
+                    readinessProbe:
+                        exec:
+                            command: [ "mysqladmin", "ping", "-h", "localhost" ]
+                        initialDelaySeconds: 20
+                        periodSeconds: 10
+            volumes:
+                -   name: mysql-storage
+                    persistentVolumeClaim:
+                        claimName: mysql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mysql
+    namespace: app-platform
+spec:
+    selector:
+        app: mysql
+    ports:
+        -   port: 3306
+            targetPort: 3306
