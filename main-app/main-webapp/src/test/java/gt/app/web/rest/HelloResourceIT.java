@@ -1,6 +1,7 @@
 package gt.app.web.rest;
 
 import gt.app.config.AppProperties;
+import gt.app.frwk.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,15 +16,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @EnableConfigurationProperties(AppProperties.class)
-class HelloResourceIT {
+class HelloResourceIT extends AbstractIntegrationTest {
 
     @Test
     void sayHello2(@Autowired MockMvc mvc) throws Exception {
 
         mvc.perform(get("/public/hello"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.hello").value("world"));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.hello").value("world"));
 
     }
 }

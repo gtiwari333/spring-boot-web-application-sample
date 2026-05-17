@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = "server.port=8088")
-public abstract class BaseSeleniumTest {
+public abstract class BaseSeleniumTest extends AbstractIntegrationTest {
 
     @BeforeAll
     public static void init() {

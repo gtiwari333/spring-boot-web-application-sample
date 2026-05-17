@@ -1,6 +1,7 @@
 package gt.app.e2e;
 
 import gt.app.config.AppProperties;
+import gt.app.frwk.AbstractIntegrationTest;
 import gt.app.frwk.TestDataManager;
 import net.ttddyy.dsproxy.QueryCountHolder;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @EnableConfigurationProperties(AppProperties.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-class PublicPageIT {
+class PublicPageIT extends AbstractIntegrationTest {
 
     @Autowired
     TestDataManager testDataManager;

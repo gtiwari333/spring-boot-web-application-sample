@@ -27,14 +27,16 @@ spring:
             client:
                 provider:
                     oidc:
-                        issuer-uri: http://localhost:${KEYCLOAK_PORT:8080}/realms/seedapp
+                        # KEYCLOAK_PORT system property no longer needed —
+                        # use the DynamicPropertySource approach instead (see base test class below)
+                        issuer-uri: ${keycloak.issuer-uri}
                 registration:
                     oidc:
                         client-id: seed-app-gateway-client
                         client-secret: secret123
                         scope: openid, profile, email, offline_access # last one for refresh tokens
     artemis:
-        broker-url: tcp://${ACTIVEMQ_ARTEMIS_HOST:localhost}:${ACTIVEMQ_ARTEMIS_PORT:61616}
+        # broker-url no longer needed here — @ServiceConnection sets it automatically
         user: admin
         password: admin
     jmx:
@@ -46,7 +48,7 @@ springdoc:
 debug: false
 
 logging.level:
-    ROOT: DEBUG
+    ROOT: INFO
     gt: INFO
     sql: WARN
     org.apache: ERROR

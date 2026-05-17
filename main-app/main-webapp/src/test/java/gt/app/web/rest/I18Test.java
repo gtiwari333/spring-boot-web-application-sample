@@ -1,5 +1,6 @@
 package gt.app.web.rest;
 
+import gt.app.frwk.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class I18Test {
+class I18Test extends AbstractIntegrationTest {
 
     @Test
     void testi18n(@Autowired MockMvc mvc) throws Exception {
