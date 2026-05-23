@@ -1,8 +1,6 @@
 # Kubernetes Deployment
 
-Local Kubernetes deployment for the spring-boot-web-application-sample using Minikube.
-
-For simpler local development, use `docker-compose.yml` at the repo root instead.
+Goal: Local Kubernetes deployment for the spring-boot-web-application-sample using Minikube.
 
 ## Prerequisites
 
@@ -10,10 +8,12 @@ For simpler local development, use `docker-compose.yml` at the repo root instead
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - Docker Desktop (with Rosetta enabled on Apple Silicon)
 
-## First-time setup
+## First-time minikube setup
 
 ```bash
 minikube start --cpus=4 --memory=8192 --driver=docker
+# # or use `minikube start --driver=kvm2`  if docker driver can't start
+
 minikube addons enable ingress
 minikube addons enable metrics-server
 ```
@@ -21,7 +21,7 @@ minikube addons enable metrics-server
 ## Build Docker images for apps
 
 Minikube runs its own Docker daemon, separate from your laptop's Docker. Images must be
-built inside it, otherwise pods will fail with `ImagePullBackOff`.
+built inside it, otherwise pods will not find the docker images and will fail with `ImagePullBackOff`.
 
 Run from the **repo root**:
 
@@ -32,38 +32,6 @@ eval $(minikube docker-env)
 # Generate docker images for all application images
 # comment 'mvnd  -T 5 clean package install' if you've already built the project
 ./build-docker-images.sh
-```
-
-> **Apple Silicon (M1/M2):** ActiveMQ requires x86 emulation. Enable it in
-> Docker Desktop → Settings → Features in development → "Use Rosetta for x86/amd64 emulation"
-> before building.
-
-> **Rebuilding after code changes:** re-run `eval $(minikube docker-env)` if you opened
-> a new terminal, then `./build-docker-images.sh` again. Kubernetes will pick up the new
-> image on the next `kubectl rollout restart deployment/<name> -n sample-app-ns`.
-
-## IMPORTANT !!!
-
-Kubernetes was designed for stateless workloads. It's perfect at restarting, rescheduling, and scaling pods — but those same behaviors are dangerous for a database.
-
-MySQL should not be deployed through kubernetes, instead it should be a 'managed DB' or 'dedicated VM'.
-
-*we are deploying MySQL from k8s for testing purpose only*
-
-```
-Kubernetes cluster
-├── main-webapp         ┐
-├── email-service       │
-├── content-checker     ├─ all stateless, scale freely
-├── trend-service       │
-├── report-service      ┘
-├── activemq            ← acceptable in k8s with persistent volume
-├── zipkin              ← acceptable in k8s
-└── keycloak            ← acceptable in k8s (backed by external DB)
-
-Outside Kubernetes
-├── MySQL               ← managed, backups, failover handled for you
-└── (optional) Keycloak backed by that same DB instance
 ```
 
 
@@ -109,7 +77,7 @@ kubectl apply -f k8s/base/ingress.yaml
 kubectl get pods -n sample-app-ns -w
 ```
 
-## /etc/hosts entries
+## /etc/hosts entries to access the app from host machine
 
 The Ingress routes by `Host` header. Both the browser **and the Spring Boot pod** need to resolve the hostnames to the Minikube IP.
 
@@ -125,7 +93,10 @@ echo "192.168.39.116 app.local keycloak.local zipkin.local emailhog.local" | sud
 ping keycloak.local
 ```
 
-> **hostAliases:** The `java-apps.yaml` main-webapp deployment includes a `hostAliases` entry so the pod can resolve `keycloak.local` internally. Update the IP there to match `minikube ip` if you restart Minikube.
+## IMPORTANT !!!
+
+> **hostAliases:** The `java-apps.yaml` main-webapp deployment includes a `hostAliases` entry so the pod can resolve `keycloak.local` internally. 
+> Update the IP there to match `minikube ip` if you restart Minikube.
 
 ## Access the app
 
@@ -136,25 +107,7 @@ ping keycloak.local
 | `http://zipkin.local` | Zipkin tracing UI |
 | `http://emailhog.local` | MailHog (captured emails) |
 
-## Keycloak redirect full picture
-
-```
-/etc/hosts on host:
-  <minikube-ip>  keycloak.local  app.local
-
-Browser login flow:
-  browser  →  keycloak.local  (resolves via /etc/hosts → Ingress → keycloak:8080) ✓
-
-Pod backchannel:
-  main-webapp pod  →  keycloak:8080  (Kubernetes DNS → ClusterIP) ✓
-  (or via hostAliases → keycloak.local → Ingress → keycloak:8080)
-
-Token issuer from browser's perspective:
-  http://keycloak.local/realms/seedapp  ✓
-
-Token issuer from pod's perspective:
-  http://keycloak:8080/realms/seedapp  ✓
-```
+ 
 
 ## Monitor kubernetes cluster by running portainer inside minikube
 
@@ -240,25 +193,26 @@ kubectl delete namespace sample-app-ns
 minikube stop
 ```
 
-## Troubleshooting
+## IMPORTANT !!!
 
-**Pod stuck in `Pending`** — usually a resource issue. Check with:
-```bash
-kubectl describe pod <pod-name> -n sample-app-ns
+Kubernetes was designed for stateless workloads. It's perfect at restarting, rescheduling, and scaling pods — but those same behaviors are dangerous for a database.
+
+MySQL should not be deployed through kubernetes, instead it should be a 'managed DB' or 'dedicated VM'.
+
+*we are deploying MySQL from k8s for testing purpose only*
+
 ```
-Increase Minikube memory if needed: `minikube start --memory=10240`
+Kubernetes cluster
+├── main-webapp         ┐
+├── email-service       │
+├── content-checker     ├─ all stateless, scale freely
+├── trend-service       │
+├── report-service      ┘
+├── activemq            ← acceptable in k8s with persistent volume
+├── zipkin              ← acceptable in k8s
+└── keycloak            ← acceptable in k8s (backed by external DB)
 
-**Pod stuck in `ImagePullBackOff`** — the image wasn't built inside Minikube's Docker daemon.
-Re-run `eval $(minikube docker-env)` and then `./build-docker-images.sh`.
-
-**Java app can't connect to MySQL** — MySQL readiness probe may not have passed yet.
-Check with `kubectl logs deployment/mysql -n sample-app-ns` and wait for "ready for connections".
-
-**Keycloak realm not imported** — the ConfigMap may be missing or stale. Re-run:
-```bash
-kubectl delete configmap keycloak-realm -n sample-app-ns
-kubectl create configmap keycloak-realm \
-  --from-file=main-app/main-webapp/src/main/resources/keycloak/ \
-  -n sample-app-ns
-kubectl rollout restart deployment/keycloak -n sample-app-ns
+Outside Kubernetes
+├── MySQL               ← managed, backups, failover handled for you
+└── (optional) Keycloak backed by that same DB instance
 ```

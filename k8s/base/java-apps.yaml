@@ -178,6 +178,7 @@ spec:
                     configMap:
                         name: shared-spring-config-sbv4
             hostAliases:
+                # change this to match the minikube's IP
                 -   ip: "192.168.39.116"
                     hostnames:
                         - "keycloak.local"
@@ -227,7 +228,7 @@ spec:
                 app: main-webapp
         spec:
             hostAliases:
-                # change this
+                # change this to match the minikube's IP
                 -   ip: "192.168.39.116"
                     hostnames:
                         - "keycloak.local"
