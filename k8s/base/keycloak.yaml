@@ -1,0 +1,111 @@
+# First, create a ConfigMap from your realm JSON files:
+# kubectl create configmap keycloak-realm --from-file=../main-app/main-webapp/src/main/resources/keycloak/ -n sample-app-ns
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: keycloak
+    namespace: sample-app-ns
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: keycloak
+    template:
+        metadata:
+            labels:
+                app: keycloak
+        spec:
+            containers:
+                -   name: keycloak
+                    image: quay.io/keycloak/keycloak:26.6.1
+                    args: [ "start-dev", "--import-realm" ]
+                    env:
+                        -   name: KC_BOOTSTRAP_ADMIN_USERNAME
+                            valueFrom:
+                                secretKeyRef:
+                                    name: app-secrets
+                                    key: KC_BOOTSTRAP_ADMIN_USERNAME
+                        -   name: KC_BOOTSTRAP_ADMIN_PASSWORD
+                            valueFrom:
+                                secretKeyRef:
+                                    name: app-secrets
+                                    key: KC_BOOTSTRAP_ADMIN_PASSWORD
+                        -   name: KEYCLOAK_DB
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: KEYCLOAK_DB
+                        -   name: KEYCLOAK_FEATURES
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: KEYCLOAK_FEATURES
+                        -   name: KEYCLOAK_HTTP_PORT
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: KEYCLOAK_HTTP_PORT
+                        -   name: KC_HOSTNAME
+                            value: "http://keycloak.local"
+#                        -   name: KC_HOSTNAME_BACKCHANNEL_URL
+#                            value: "http://keycloak:8080"
+                        -   name: KC_HOSTNAME_BACKCHANNEL_DYNAMIC  # backchannel (pod-to-pod) to use a different URL
+                            value: "true"
+                        -   name: KC_HOSTNAME_PORT
+                            value: "80"
+                        -   name: KC_HOSTNAME_STRICT
+                            value: "false"
+                        -   name: KC_HOSTNAME_STRICT_HTTPS
+                            value: "false"
+                        -   name: KC_HTTP_ENABLED
+                            value: "true"
+                        -   name: KC_PROXY
+                            value: "edge"
+                    ports:
+                        -   containerPort: 8080
+                    resources:
+                        requests:
+                            memory: "512Mi"
+                            cpu: "200m"
+                        limits:
+                            memory: "1Gi"
+                            cpu: "1000m"
+                    volumeMounts:
+                        -   name: realm-import
+                            mountPath: /opt/keycloak/data/import
+            volumes:
+                -   name: realm-import
+                    configMap:
+                        name: keycloak-realm
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: keycloak
+    namespace: sample-app-ns
+spec:
+    type: NodePort
+    selector:
+        app: keycloak
+    ports:
+        -   name: http
+            port: 8080
+            targetPort: 8080
+            nodePort: 30080
+# Add this to keycloak.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: keycloak-external
+    namespace: sample-app-ns
+spec:
+    type: NodePort
+    selector:
+        app: keycloak
+    ports:
+        -   name: http
+            port: 30080
+            targetPort: 8080
+#            nodePort: 30080

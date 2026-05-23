@@ -3,14 +3,14 @@ spring:
         name: Report Service
 
     datasource:
-        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://${MYSQL_HOST:localhost:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
         password: ${MYSQL_PASSWORD:password}
     security:
         oauth2:
             resourceserver:
                 jwt:
-                    issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/realms/seedapp
+                    issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/realms/seedapp
 server:
     port: 8086
 
@@ -25,8 +25,7 @@ management:
     tracing:
         sampling:
             probability: 1.0
-    zipkin:
         export:
-            tracing:
-                endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+            zipkin:
+                endpoint: http://${ZIPKIN_HOST:localhost:9411}/api/v2/spans
 

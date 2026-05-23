@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: app-config
+    namespace: sample-app-ns
+data:
+    SPRING_PROFILES_ACTIVE: "k8s" # use k8s profile for kubernetes deployment
+    # MySQL — container env vars (mysql image uses these)
+    MYSQL_DATABASE: "seedapp"
+    MYSQL_USER: "seedappuser"
+    MYSQL_PASSWORD: "password"
+    # MySQL — Spring Boot app property placeholders
+    MYSQL_DB: "seedapp"
+    MYSQL_USERNAME: "seedappuser"
+    # Other
+    KEYCLOAK_FEATURES: "scripts"
+    KEYCLOAK_HTTP_PORT: "8080"
+    KEYCLOAK_HTTPS_PORT: "9445"
+    ARTEMIS_USER: "admin"
+    KEYCLOAK_DB: "dev-file"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    # sensible defaults for spring boot 4 apps to apply to all apps
+    name: shared-spring-config-sbv4
+    namespace: sample-app-ns
+data:
+    application.properties: |
+        # use virtual thread
+        spring.threads.virtual.enabled=true
+        spring.task.execution.shutdown.await-termination=true
+        spring.task.execution.shutdown.await-termination-period=20
+        spring.task.scheduling.shutdown.await-termination=true
+        spring.task.scheduling.shutdown.await-termination-period=20
+
+        # Actuator — expose health + info + metrics for K8s probes & Prometheus
+        management.endpoints.web.exposure.include=health,info,metrics,prometheus,loggers,env
+        management.endpoint.health.show-details=when-authorized
+        management.endpoint.health.probes.enabled=true          # /health/liveness & /health/readiness
+        management.health.livenessState.enabled=true
+        management.health.readinessState.enabled=true
+        management.server.port=8081                                # separate mgmt port from app port
+        management.metrics.tags.application=${spring.application.name}
+        management.prometheus.metrics.export.enabled=true
+        # Graceful shutdown (critical for K8s rolling deploys)
+        server.shutdown=graceful
+        spring.lifecycle.timeout-per-shutdown-phase=30s
+        server.port=8080
+        # Jpa/hibernate
+        spring.jpa.open-in-view=false                              # avoid OSIV anti-pattern
+        spring.jpa.hibernate.ddl-auto=none                    # never 'update' in prod
+        spring.jpa.properties.hibernate.jdbc.batch_size=25
+        spring.jpa.properties.hibernate.order_inserts=true
+        spring.jpa.properties.hibernate.order_updates=true
+        spring.jpa.properties.hibernate.generate_statistics=false   # enable for profiling only
+        spring.jpa.show-sql=false
+        spring.datasource.hikari.minimum-idle=5
+        spring.datasource.hikari.maximum-pool-size=20
+        # Listener container
+        spring.jms.listener.auto-startup=true
+        spring.jms.listener.concurrency=3                          # min consumer threads
+        spring.jms.listener.max-concurrency=10
+        spring.jms.listener.acknowledge-mode=auto
+        spring.jms.pub-sub-domain=false
+        # Cache session for performance
+        spring.jms.cache.enabled=true
+        spring.jms.cache.session-cache-size=5
+        #jackson
+        spring.jackson.serialization.fail-on-empty-beans=false
+        spring.jackson.deserialization.fail-on-unknown-properties=false
+        #web mvc
+        server.tomcat.threads.max=200
+        # Compression
+        server.compression.enabled=true
+        server.compression.mime-types=application/json,application/xml,text/plain
+        server.compression.min-response-size=2048
+        # MVC defaults
+        spring.mvc.log-request-details=false                       # don't leak PII in logs
+        # async and scheduled
+        spring.task.execution.pool.core-size=8
+        spring.task.execution.pool.max-size=32
+        spring.task.scheduling.thread-name-prefix=scheduler-
+        spring.task.scheduling.pool.size=5
+        # Instance identity from Downward API
+        spring.application.instance-id=${POD_NAME:${random.uuid}}
+        # Kubernetes health groups — map to liveness / readiness probes
+        management.endpoint.health.group.liveness.include=livenessState
+        management.endpoint.health.group.readiness.include=readinessState,db,jms
+        #logging
+        logging.level.root=INFO
+        logging.level.com.mycompany=INFO
+        logging.level.org.springframework.web=WARN
+        logging.level.org.hibernate.SQL=WARN
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: app-secrets
+    namespace: sample-app-ns
+type: Opaque
+stringData:
+    MYSQL_ROOT_PASSWORD: "password"
+    KC_BOOTSTRAP_ADMIN_USERNAME: "admin"
+    KC_BOOTSTRAP_ADMIN_PASSWORD: "admin"
+    ARTEMIS_PASSWORD: "admin"

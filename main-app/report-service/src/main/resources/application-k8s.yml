@@ -1,0 +1,21 @@
+# Kubernetes profile
+server:
+  port: 8080
+
+keycloak.url: http://keycloak.local
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.url}/realms/seedapp
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/seedapp
+
+management:
+  tracing:
+    export:
+      zipkin:
+        endpoint: http://zipkin:9411/api/v2/spans

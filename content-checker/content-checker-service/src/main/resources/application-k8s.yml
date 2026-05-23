@@ -1,0 +1,13 @@
+# Kubernetes profile
+server:
+  port: 8080
+
+spring:
+  artemis:
+    broker-url: tcp://activemq:61616
+
+management:
+  tracing:
+    export:
+      zipkin:
+        endpoint: http://zipkin:9411/api/v2/spans

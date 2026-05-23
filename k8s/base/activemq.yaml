@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: activemq
+    namespace: sample-app-ns
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: activemq
+    template:
+        metadata:
+            labels:
+                app: activemq
+        spec:
+            containers:
+                -   name: activemq
+                    image: apache/activemq-artemis:2.44.0
+                    env:
+                        -   name: ARTEMIS_USER
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: ARTEMIS_USER
+                        -   name: ARTEMIS_PASSWORD
+                            valueFrom:
+                                secretKeyRef:
+                                    name: app-secrets
+                                    key: ARTEMIS_PASSWORD
+                    ports:
+                        -   containerPort: 61616
+                            name: broker
+                        -   containerPort: 8161
+                            name: console
+                    resources:
+                        requests:
+                            memory: "384Mi"
+                            cpu: "100m"
+                        limits:
+                            memory: "768Mi"
+                            cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: activemq
+    namespace: sample-app-ns
+spec:
+    selector:
+        app: activemq
+    ports:
+        -   name: broker
+            port: 61616
+            targetPort: 61616
+        -   name: console
+            port: 8161
+            targetPort: 8161

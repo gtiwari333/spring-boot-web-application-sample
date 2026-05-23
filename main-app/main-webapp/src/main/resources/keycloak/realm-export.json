@@ -6,7 +6,7 @@
     "defaultSignatureAlgorithm": "RS256",
     "revokeRefreshToken": false,
     "refreshTokenMaxReuse": 0,
-    "accessTokenLifespan": 300,
+    "accessTokenLifespan": 1800,
     "accessTokenLifespanForImplicitFlow": 900,
     "ssoSessionIdleTimeout": 1800,
     "ssoSessionMaxLifespan": 36000,
@@ -1088,6 +1088,10 @@
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
                 "dev.localhost.ionic:*",
+                "http://localhost:30081/*",
+                "http://localhost:30081/login/oauth2/code/oidc",
+                "http://app.local/*",
+                "http://app.local/login/oauth2/code/oidc",
                 "http://127.0.0.1:*",
                 "http://localhost:*",
                 "https://127.0.0.1:*",
@@ -1095,7 +1099,9 @@
                 "https://oauth.pstmn.io/v1/callback"
             ],
             "webOrigins": [
-                "*"
+                "*",
+                "http://localhost:30081",
+                "http://app.local"
             ],
             "notBefore": 0,
             "bearerOnly": false,
