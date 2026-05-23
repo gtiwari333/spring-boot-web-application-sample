@@ -330,6 +330,7 @@
             </plugins>
         </pluginManagement>
     </build>
+
 <!--    <repositories>-->
 <!--        <repository>-->
 <!--            <id>spring-milestones</id>-->

@@ -1,0 +1,9 @@
+FROM ubuntu:jammy
+
+# Accept the native binary path and name as build args
+ARG NATIVE_BINARY
+COPY ${NATIVE_BINARY} /app/server
+
+RUN chmod +x /app/server
+
+ENTRYPOINT ["/app/server"]
