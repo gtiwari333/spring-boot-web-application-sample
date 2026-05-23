@@ -1,11 +1,11 @@
 # First, create a ConfigMap from your realm JSON files:
-# kubectl create configmap keycloak-realm --from-file=../main-app/main-webapp/src/main/resources/keycloak/ -n app-platform
+# kubectl create configmap keycloak-realm --from-file=../main-app/main-webapp/src/main/resources/keycloak/ -n sample-app-ns
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: keycloak
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -76,7 +76,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: keycloak
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     type: NodePort
     selector:
@@ -92,7 +92,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: keycloak-external
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     type: NodePort
     selector:

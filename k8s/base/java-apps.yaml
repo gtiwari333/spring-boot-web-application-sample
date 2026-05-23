@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: content-checker-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -51,7 +51,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: content-checker-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     selector:
         app: content-checker-service
@@ -64,7 +64,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: email-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -100,7 +100,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: email-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     selector:
         app: email-service
@@ -113,7 +113,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: trend-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -149,7 +149,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: trend-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     selector:
         app: trend-service
@@ -162,7 +162,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: report-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -202,7 +202,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: report-service
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     selector:
         app: report-service
@@ -215,7 +215,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: main-webapp
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -272,7 +272,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: main-webapp
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     type: NodePort
     selector:

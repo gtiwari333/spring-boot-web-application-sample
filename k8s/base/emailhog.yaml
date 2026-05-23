@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: emailhog
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -27,7 +27,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: emailhog
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     selector:
         app: emailhog

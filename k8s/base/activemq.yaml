@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: activemq
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     replicas: 1
     selector:
@@ -37,7 +37,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: activemq
-    namespace: app-platform
+    namespace: sample-app-ns
 spec:
     selector:
         app: activemq

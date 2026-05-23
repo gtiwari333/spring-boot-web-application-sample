@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
     name: app-config
-    namespace: app-platform
+    namespace: sample-app-ns
 data:
     SPRING_PROFILES_ACTIVE: "k8s" # use k8s profile for kubernetes deployment
     # MySQL — container env vars (mysql image uses these)
@@ -25,7 +25,7 @@ kind: ConfigMap
 metadata:
     # sensible defaults for spring boot 4 apps to apply to all apps
     name: shared-spring-config-sbv4
-    namespace: app-platform
+    namespace: sample-app-ns
 data:
     application.properties: |
         # use virtual thread
@@ -99,7 +99,7 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: app-secrets
-    namespace: app-platform
+    namespace: sample-app-ns
 type: Opaque
 stringData:
     MYSQL_ROOT_PASSWORD: "password"

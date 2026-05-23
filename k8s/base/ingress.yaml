@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
     name: app-ingress
-    namespace: app-platform
+    namespace: sample-app-ns
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /
         nginx.ingress.kubernetes.io/ssl-redirect: "false"

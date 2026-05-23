@@ -40,7 +40,7 @@ eval $(minikube docker-env)
 
 > **Rebuilding after code changes:** re-run `eval $(minikube docker-env)` if you opened
 > a new terminal, then `./build-docker-images.sh` again. Kubernetes will pick up the new
-> image on the next `kubectl rollout restart deployment/<name> -n app-platform`.
+> image on the next `kubectl rollout restart deployment/<name> -n sample-app-ns`.
 
 ## IMPORTANT !!!
 
@@ -80,11 +80,11 @@ kubectl apply -f k8s/base/config.yaml
 
 # 3. Load Keycloak realm files as a ConfigMap
 # delete existing for updates
-kubectl delete configmap keycloak-realm -n app-platform
+kubectl delete configmap keycloak-realm -n sample-app-ns
 
 kubectl create configmap keycloak-realm \
   --from-file=main-app/main-webapp/src/main/resources/keycloak/ \
-  -n app-platform
+  -n sample-app-ns
 
 # 4. Deploy infrastructure services (database first)
 kubectl apply -f k8s/base/mysql.yaml
@@ -94,10 +94,10 @@ kubectl apply -f k8s/base/zipkin.yaml
 kubectl apply -f k8s/base/keycloak.yaml
 
 # 5. Wait for MySQL and KeyCloak to be ready before Java apps start connecting
-kubectl wait --for=condition=ready pod -l app=mysql -n app-platform --timeout=120s
-kubectl wait --for=condition=ready pod -l app=keycloak -n app-platform --timeout=120s
+kubectl wait --for=condition=ready pod -l app=mysql -n sample-app-ns --timeout=120s
+kubectl wait --for=condition=ready pod -l app=keycloak -n sample-app-ns --timeout=120s
 
-# Use `kubectl port-forward service/mysql 3306:3306 -n app-platform` to allow host to connect to mysql running inside minikube
+# Use `kubectl port-forward service/mysql 3306:3306 -n sample-app-ns` to allow host to connect to mysql running inside minikube
 
 # 6. Deploy Java services
 kubectl apply -f k8s/base/java-apps.yaml
@@ -106,7 +106,7 @@ kubectl apply -f k8s/base/java-apps.yaml
 kubectl apply -f k8s/base/ingress.yaml
 
 # 8. Watch pods come up
-kubectl get pods -n app-platform -w
+kubectl get pods -n sample-app-ns -w
 ```
 
 ## /etc/hosts entries
@@ -187,41 +187,43 @@ minikube service portainer -n portainer --url
 
 ```bash
 # View all deployments
-kubectl get deployments -n app-platform
+kubectl get deployments -n sample-app-ns
 
 # View all instances(pods)
-kubectl get pods -n app-platform
+kubectl get pods -n sample-app-ns
 
 # to restart all pods from all deployments
-kubectl rollout restart deployment -n app-platform
+kubectl rollout restart deployment -n sample-app-ns
  
 # restart from a specific deployment
-kubectl rollout restart deployment <deployment-name> -n app-platform
+kubectl rollout restart deployment <deployment-name> -n sample-app-ns
 
 # eg:
 
-kubectl rollout restart deployment/email-service -n app-platform
-kubectl rollout restart deployment/report-service -n app-platform
-kubectl rollout restart deployment/content-checker-service -n app-platform
-kubectl rollout restart deployment/main-webapp -n app-platform
-kubectl rollout restart deployment/keycloak -n app-platform
-kubectl rollout restart deployment/zipkin -n app-platform
-kubectl rollout restart deployment/emailhog -n app-platform
-kubectl rollout restart deployment/mysql -n app-platform
+kubectl rollout restart deployment/email-service -n sample-app-ns
+kubectl rollout restart deployment/report-service -n sample-app-ns
+kubectl rollout restart deployment/content-checker-service -n sample-app-ns
+kubectl rollout restart deployment/main-webapp -n sample-app-ns
+kubectl rollout restart deployment/trend-service -n sample-app-ns
+
+kubectl rollout restart deployment/keycloak -n sample-app-ns
+kubectl rollout restart deployment/zipkin -n sample-app-ns
+kubectl rollout restart deployment/emailhog -n sample-app-ns
+kubectl rollout restart deployment/mysql -n sample-app-ns
  
 # Check logs for a service
-kubectl logs -f deployment/<DEPLOYMENT_NAME> -n app-platform
-kubectl logs deployment/content-checker-service -n app-platform --tail=20
+kubectl logs -f deployment/<DEPLOYMENT_NAME> -n sample-app-ns
+kubectl logs deployment/content-checker-service -n sample-app-ns --tail=20
 
 
 # Describe a pod (useful when a pod won't start)
-kubectl describe pod <pod-name> -n app-platform
+kubectl describe pod <pod-name> -n sample-app-ns
 
 # Check events (first place to look when something is wrong)
-kubectl get events -n app-platform --sort-by='.lastTimestamp'
+kubectl get events -n sample-app-ns --sort-by='.lastTimestamp'
 
 # Scale a service (load balancing is automatic)
-kubectl scale deployment <DEPLOYMENT_NAME> -n app-platform --replicas=5
+kubectl scale deployment <DEPLOYMENT_NAME> -n sample-app-ns --replicas=5
 
 
 # Open the Minikube dashboard
@@ -232,7 +234,7 @@ minikube dashboard
 
 ```bash
 # Delete all resources in the namespace
-kubectl delete namespace app-platform
+kubectl delete namespace sample-app-ns
 
 # Or stop Minikube entirely
 minikube stop
@@ -242,7 +244,7 @@ minikube stop
 
 **Pod stuck in `Pending`** — usually a resource issue. Check with:
 ```bash
-kubectl describe pod <pod-name> -n app-platform
+kubectl describe pod <pod-name> -n sample-app-ns
 ```
 Increase Minikube memory if needed: `minikube start --memory=10240`
 
@@ -250,13 +252,13 @@ Increase Minikube memory if needed: `minikube start --memory=10240`
 Re-run `eval $(minikube docker-env)` and then `./build-docker-images.sh`.
 
 **Java app can't connect to MySQL** — MySQL readiness probe may not have passed yet.
-Check with `kubectl logs deployment/mysql -n app-platform` and wait for "ready for connections".
+Check with `kubectl logs deployment/mysql -n sample-app-ns` and wait for "ready for connections".
 
 **Keycloak realm not imported** — the ConfigMap may be missing or stale. Re-run:
 ```bash
-kubectl delete configmap keycloak-realm -n app-platform
+kubectl delete configmap keycloak-realm -n sample-app-ns
 kubectl create configmap keycloak-realm \
   --from-file=main-app/main-webapp/src/main/resources/keycloak/ \
-  -n app-platform
-kubectl rollout restart deployment/keycloak -n app-platform
+  -n sample-app-ns
+kubectl rollout restart deployment/keycloak -n sample-app-ns
 ```
