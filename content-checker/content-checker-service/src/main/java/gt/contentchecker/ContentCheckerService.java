@@ -67,11 +67,13 @@ class ContentChecker {
     private final List<String> controversial = List.of("party", "politics", "libtard", "freedom", "conspiracy", "snowflake");
 
     ContentCheckOutcome isOkay(String text) {
-        if (Stream.of(text.split(" ")).anyMatch(badWords::contains)) {
+        String lower = text.toLowerCase();
+
+        if (badWords.stream().anyMatch(lower::contains)) {
             return ContentCheckOutcome.FAILED;
         }
 
-        if (Stream.of(text.split(" ")).anyMatch(controversial::contains)) {
+        if (controversial.stream().anyMatch(lower::contains)) {
             return ContentCheckOutcome.MANUAL_REVIEW_NEEDED;
         }
 
