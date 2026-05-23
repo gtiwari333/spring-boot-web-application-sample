@@ -1,0 +1,13 @@
+# Kubernetes profile
+server:
+  port: 8080
+
+spring:
+  mail:
+    host: emailhog
+
+management:
+  tracing:
+    export:
+      zipkin:
+        endpoint: http://zipkin:9411/api/v2/spans

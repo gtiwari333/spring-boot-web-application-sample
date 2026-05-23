@@ -28,4 +28,4 @@ management:
             probability: 1.0
         export:
             zipkin:
-                endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+                endpoint: http://${ZIPKIN_HOST:localhost:9411}/api/v2/spans

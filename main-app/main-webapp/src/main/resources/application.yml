@@ -19,14 +19,14 @@ spring:
             hibernate:
                 generate_statistics: false
     datasource:
-        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://${MYSQL_HOST:localhost:3306}/${MYSQL_DB:seedapp}?useUnicode=true&allowPublicKeyRetrieval=true
         username: ${MYSQL_USERNAME:root}
         password: ${MYSQL_PASSWORD:password}
 
     artemis:
         user: ${SPRING_ARTEMIS_USER:admin}
         password: ${SPRING_ARTEMIS_PASSWORD:admin}
-        broker-url: tcp://${SPRING_ARTEMIS_HOST:localhost}:${SPRING_ARTEMIS_PORT:61616}
+        broker-url: tcp://${SPRING_ARTEMIS_HOST:localhost:61616}
     cloud:
         openfeign:
             micrometer:
@@ -38,7 +38,7 @@ spring:
                 provider:
                     oidc:
                         # use http://localhost:8080/realms/articleapp/.well-known/openid-configuration to get config from keycloak
-                        issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/realms/seedapp
+                        issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/realms/seedapp
                 registration:
                     oidc:
                         #                        authorization-grant-type: refresh_token
@@ -62,9 +62,9 @@ logging:
 
 feign-clients:
     email-service:
-        url: http://${EMAIL_SERVICE_HOST:localhost}:${EMAIL_SERVICE_PORT:8085}/ #TODO: use service discovery
+        url: http://${EMAIL_SERVICE_HOST:localhost:8085}/ #TODO: use service discovery
     report-service:
-        url: http://${REPORT_SERVICE_HOST:localhost}:${REPORT_SERVICE_PORT:8086}/ #TODO: use service discovery
+        url: http://${REPORT_SERVICE_HOST:localhost:8086}/ #TODO: use service discovery
 
 app-properties:
     jms:
@@ -108,7 +108,7 @@ management:
             probability: 1.0
         export:
             zipkin:
-                endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+                endpoint: http://${ZIPKIN_HOST:localhost:9411}/api/v2/spans
     health:
         jms:
             enabled: true

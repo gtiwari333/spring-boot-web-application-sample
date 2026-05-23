@@ -17,17 +17,15 @@ spec:
             containers:
                 -   name: content-checker
                     image: gtapp-content-checker-service:latest
-                    imagePullPolicy: Never   # ← add this to every Java app container
-                    # No SPRING_PROFILES_ACTIVE in compose — don't add it
+                    imagePullPolicy: Never
                     env:
-                        -   name: MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT
-                            value: "http://zipkin:9411/api/v2/spans"
-                        -   name: SPRING_ARTEMIS_HOST
-                            value: "activemq"
-                        -   name: SPRING_ARTEMIS_PORT
-                            value: "61616"
-                        -   name: SPRING_ARTEMIS_MODE
-                            value: "native"
+                        -   name: BPL_JVM_THREAD_COUNT
+                            value: "50"
+                        -   name: SPRING_PROFILES_ACTIVE
+                            valueFrom:
+                                configMapKeyRef:
+                                    name: app-config
+                                    key: SPRING_PROFILES_ACTIVE
                         -   name: SPRING_ARTEMIS_USER
                             valueFrom:
                                 configMapKeyRef:
@@ -72,17 +70,13 @@ spec:
             containers:
                 -   name: email-service
                     image: gtapp-email-service:latest
-                    imagePullPolicy: Never   # ← add this to every Java app container
+                    imagePullPolicy: Never
                     env:
                         -   name: SPRING_PROFILES_ACTIVE
                             valueFrom:
                                 configMapKeyRef:
                                     name: app-config
                                     key: SPRING_PROFILES_ACTIVE
-                        -   name: MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT
-                            value: "http://zipkin:9411/api/v2/spans"
-                        -   name: MAILHOG_HOST
-                            value: "emailhog"
                     ports:
                         -   containerPort: 8080
 ---
@@ -117,15 +111,13 @@ spec:
             containers:
                 -   name: trend-service
                     image: gtapp-trend-service:latest
-                    imagePullPolicy: Never   # ← add this to every Java app container
+                    imagePullPolicy: Never
                     env:
                         -   name: SPRING_PROFILES_ACTIVE
                             valueFrom:
                                 configMapKeyRef:
                                     name: app-config
                                     key: SPRING_PROFILES_ACTIVE
-                        -   name: MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT
-                            value: "http://zipkin:9411/api/v2/spans"
                     ports:
                         -   containerPort: 8080
 ---
@@ -157,20 +149,20 @@ spec:
             labels:
                 app: report-service
         spec:
+            hostAliases:
+                -   ip: "192.168.39.116"
+                    hostnames:
+                        - "keycloak.local"
             containers:
                 -   name: report-service
                     image: gtapp-report-service:latest
-                    imagePullPolicy: Never   # ← add this to every Java app container
+                    imagePullPolicy: Never
                     env:
                         -   name: SPRING_PROFILES_ACTIVE
                             valueFrom:
                                 configMapKeyRef:
                                     name: app-config
                                     key: SPRING_PROFILES_ACTIVE
-                        -   name: MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT
-                            value: "http://zipkin:9411/api/v2/spans"
-                        -   name: SPRING_DATASOURCE_URL
-                            value: "jdbc:mysql://mysql:3306/seedapp"
                     ports:
                         -   containerPort: 8080
 ---
@@ -202,28 +194,21 @@ spec:
             labels:
                 app: main-webapp
         spec:
+            hostAliases:
+                # change this
+                -   ip: "192.168.39.116"
+                    hostnames:
+                        - "keycloak.local"
             containers:
                 -   name: main-webapp
                     image: gtapp-main-webapp:latest
-                    imagePullPolicy: Never   # ← add this to every Java app container
+                    imagePullPolicy: Never
                     env:
                         -   name: SPRING_PROFILES_ACTIVE
                             valueFrom:
                                 configMapKeyRef:
                                     name: app-config
                                     key: SPRING_PROFILES_ACTIVE
-                        -   name: MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT
-                            value: "http://zipkin:9411/api/v2/spans"
-                        -   name: SPRING_DATASOURCE_URL
-                            value: "jdbc:mysql://mysql:3306/seedapp"
-                        -   name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
-                            value: "http://keycloak-external:30080/realms/seedapp"
-                        -   name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_REDIRECT_URI
-                            value: "http://localhost:30081/login/oauth2/code/oidc"
-                        -   name: SPRING_ARTEMIS_HOST
-                            value: "activemq"
-                        -   name: SPRING_ARTEMIS_PORT
-                            value: "61616"
                         -   name: SPRING_ARTEMIS_MODE
                             value: "native"
                         -   name: SPRING_ARTEMIS_USER
@@ -236,16 +221,6 @@ spec:
                                 secretKeyRef:
                                     name: app-secrets
                                     key: ARTEMIS_PASSWORD
-                        -   name: FEIGN_CLIENTS_EMAIL_SERVICE_URL
-                            value: "http://email-service:8080"
-                        -   name: FEIGN_CLIENTS_REPORT_SERVICE_URL
-                            value: "http://report-service:8080"
-                        - name: SERVER_USE_FORWARD_HEADERS
-                          value: "true"
-                        - name: SERVER_FORWARD_HEADERS_STRATEGY
-                          value: "native"
-                        -   name: APP_PROPERTIES_WEB_BASE_URL        # matches your app-properties.web.base-url config
-                            value: "http://localhost:30081"
                     ports:
                         -   containerPort: 8081
                     volumeMounts:

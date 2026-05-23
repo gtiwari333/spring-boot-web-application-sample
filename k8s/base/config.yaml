@@ -4,10 +4,15 @@ metadata:
     name: app-config
     namespace: app-platform
 data:
-    # these are accessible inside the minikube
+    SPRING_PROFILES_ACTIVE: "k8s" # use k8s profile for kubernetes deployment
+    # MySQL — container env vars (mysql image uses these)
     MYSQL_DATABASE: "seedapp"
     MYSQL_USER: "seedappuser"
-    SPRING_PROFILES_ACTIVE: "default" # change this once qa/prod profile is setup, use default profile for now
+    MYSQL_PASSWORD: "password"
+    # MySQL — Spring Boot app property placeholders
+    MYSQL_DB: "seedapp"
+    MYSQL_USERNAME: "seedappuser"
+    # Other
     KEYCLOAK_FEATURES: "scripts"
     KEYCLOAK_HTTP_PORT: "8080"
     KEYCLOAK_HTTPS_PORT: "9445"

@@ -1,0 +1,46 @@
+# Kubernetes profile
+# Keycloak external (browser) vs internal (pod-to-pod) URL split — same pattern as keycloak-kubernetes-spring-boot reference
+
+server:
+  forward-headers-strategy: framework
+
+app.url: http://app.local
+keycloak.url: http://keycloak.local
+keycloak.internal-url: http://keycloak:8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: ${keycloak.url}/realms/seedapp
+            authorization-uri: ${keycloak.url}/realms/seedapp/protocol/openid-connect/auth
+            token-uri: ${keycloak.internal-url}/realms/seedapp/protocol/openid-connect/token
+            jwk-set-uri: ${keycloak.internal-url}/realms/seedapp/protocol/openid-connect/certs
+            user-info-uri: ${keycloak.internal-url}/realms/seedapp/protocol/openid-connect/userinfo
+        registration:
+          oidc:
+            redirect-uri: ${app.url}/login/oauth2/code/oidc
+
+  datasource:
+      url: jdbc:mysql://mysql:3306/seedapp
+
+  artemis:
+    broker-url: tcp://activemq:61616
+
+feign-clients:
+  email-service:
+    url: http://email-service:8080/
+  report-service:
+    url: http://report-service:8080/
+
+app-properties:
+  web:
+    base-url: ${app.url}
+
+management:
+  tracing:
+    export:
+      zipkin:
+        endpoint: http://zipkin:9411/api/v2/spans

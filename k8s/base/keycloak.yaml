@@ -47,13 +47,13 @@ spec:
                                     name: app-config
                                     key: KEYCLOAK_HTTP_PORT
                         -   name: KC_HOSTNAME
-                            value: "http://keycloak-external:30080"   #   full URL, not just hostname
+                            value: "http://keycloak.local"
 #                        -   name: KC_HOSTNAME_BACKCHANNEL_URL
 #                            value: "http://keycloak:8080"
                         -   name: KC_HOSTNAME_BACKCHANNEL_DYNAMIC  # backchannel (pod-to-pod) to use a different URL
                             value: "true"
                         -   name: KC_HOSTNAME_PORT
-                            value: "30080"
+                            value: "80"
                         -   name: KC_HOSTNAME_STRICT
                             value: "false"
                         -   name: KC_HOSTNAME_STRICT_HTTPS
@@ -61,7 +61,7 @@ spec:
                         -   name: KC_HTTP_ENABLED
                             value: "true"
                         -   name: KC_PROXY
-                            value: "edge"           #  tells Keycloak it's behind a proxy/NodePort
+                            value: "edge"
                     ports:
                         -   containerPort: 8080
                     volumeMounts:

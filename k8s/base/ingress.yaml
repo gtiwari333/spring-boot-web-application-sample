@@ -5,8 +5,21 @@ metadata:
     namespace: app-platform
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
 spec:
+    ingressClassName: nginx
     rules:
+        -   host: keycloak.local
+            http:
+                paths:
+                    -   path: /
+                        pathType: Prefix
+                        backend:
+                            service:
+                                name: keycloak
+                                port:
+                                    number: 8080
         -   host: app.local
             http:
                 paths:
@@ -16,22 +29,21 @@ spec:
                             service:
                                 name: main-webapp
                                 port:
-                                    number: 8080
-                    -   path: /keycloak
-                        pathType: Prefix
-                        backend:
-                            service:
-                                name: keycloak
-                                port:
-                                    number: 8080
-                    -   path: /zipkin
+                                    number: 8081
+        -   host: zipkin.local
+            http:
+                paths:
+                    -   path: /
                         pathType: Prefix
                         backend:
                             service:
                                 name: zipkin
                                 port:
                                     number: 9411
-                    -   path: /emailhog
+        -   host: emailhog.local
+            http:
+                paths:
+                    -   path: /
                         pathType: Prefix
                         backend:
                             service:

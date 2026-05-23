@@ -4,7 +4,7 @@ spring:
     artemis:
         user: ${SPRING_ARTEMIS_USER:admin}
         password: ${SPRING_ARTEMIS_PASSWORD:admin}
-        broker-url: tcp://${SPRING_ARTEMIS_HOST:localhost}:${SPRING_ARTEMIS_PORT:61616}
+        broker-url: tcp://${SPRING_ARTEMIS_HOST:localhost:61616}
 
 
 server:
@@ -27,4 +27,4 @@ management:
             enabled: true
         export:
             zipkin:
-                endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+                endpoint: http://${ZIPKIN_HOST:localhost:9411}/api/v2/spans

@@ -6,7 +6,7 @@ For simpler local development, use `docker-compose.yml` at the repo root instead
 
 ## Prerequisites
 
-- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/) with a supported driver (`docker`, `kvm2`, etc.)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - Docker Desktop (with Rosetta enabled on Apple Silicon)
 
@@ -79,6 +79,9 @@ kubectl apply -f k8s/base/namespace.yaml
 kubectl apply -f k8s/base/config.yaml
 
 # 3. Load Keycloak realm files as a ConfigMap
+# delete existing for updates
+kubectl delete configmap keycloak-realm -n app-platform
+
 kubectl create configmap keycloak-realm \
   --from-file=main-app/main-webapp/src/main/resources/keycloak/ \
   -n app-platform
@@ -90,8 +93,9 @@ kubectl apply -f k8s/base/emailhog.yaml
 kubectl apply -f k8s/base/zipkin.yaml
 kubectl apply -f k8s/base/keycloak.yaml
 
-# 5. Wait for MySQL to be ready before Java apps start connecting
+# 5. Wait for MySQL and KeyCloak to be ready before Java apps start connecting
 kubectl wait --for=condition=ready pod -l app=mysql -n app-platform --timeout=120s
+kubectl wait --for=condition=ready pod -l app=keycloak -n app-platform --timeout=120s
 
 # Use `kubectl port-forward service/mysql 3306:3306 -n app-platform` to allow host to connect to mysql running inside minikube
 
@@ -105,7 +109,9 @@ kubectl apply -f k8s/base/ingress.yaml
 kubectl get pods -n app-platform -w
 ```
 
-## Keycloak redirect fix
+## /etc/hosts entries
+
+The Ingress routes by `Host` header. Both the browser **and the Spring Boot pod** need to resolve the hostnames to the Minikube IP.
 
 ```bash
 # Get Minikube IP
@@ -113,34 +119,44 @@ minikube ip
 # e.g. 192.168.49.2
 
 # Add to /etc/hosts on your laptop
-echo "192.168.49.2 keycloak-external" | sudo tee -a /etc/hosts
+echo "192.168.39.116 app.local keycloak.local zipkin.local emailhog.local" | sudo tee -a /etc/hosts
 
 # Verify
-ping keycloak
+ping keycloak.local
 ```
+
+> **hostAliases:** The `java-apps.yaml` main-webapp deployment includes a `hostAliases` entry so the pod can resolve `keycloak.local` internally. Update the IP there to match `minikube ip` if you restart Minikube.
+
+## Access the app
+
+| URL | Purpose |
+|---|---|
+| `http://app.local` | Spring Boot main webapp |
+| `http://keycloak.local` | Keycloak Admin Console (`admin` / `admin`) |
+| `http://zipkin.local` | Zipkin tracing UI |
+| `http://emailhog.local` | MailHog (captured emails) |
 
 ## Keycloak redirect full picture
 
 ```
 /etc/hosts on host:
-  192.168.49.2  keycloak-external
+  <minikube-ip>  keycloak.local  app.local
 
 Browser login flow:
-  browser  →  keycloak-external:30080  (resolves via /etc/hosts → NodePort) ✓
+  browser  →  keycloak.local  (resolves via /etc/hosts → Ingress → keycloak:8080) ✓
 
 Pod backchannel:
   main-webapp pod  →  keycloak:8080  (Kubernetes DNS → ClusterIP) ✓
+  (or via hostAliases → keycloak.local → Ingress → keycloak:8080)
 
 Token issuer from browser's perspective:
-  http://keycloak-external:30080/realms/seedapp  ✓
+  http://keycloak.local/realms/seedapp  ✓
 
-Token issuer from pod's perspective (backchannel dynamic):
+Token issuer from pod's perspective:
   http://keycloak:8080/realms/seedapp  ✓
 ```
 
 ## Monitor kubernetes cluster by running portainer inside minikube
-
-Add a /etc/hosts entry on the laptop so keycloak resolves to the Minikube IP, making the hostname consistent for both the browser and the pods:
 
 ```bash
 # 1. Add the Portainer Helm repo
@@ -167,28 +183,6 @@ minikube service portainer -n portainer --url
 
 
 
-## Access the applications
-
-```bash
-# Get the URL for the main app
-minikube service main-webapp -n app-platform --url
-
-# Or use port-forwarding for any service
-kubectl port-forward -n app-platform service/main-webapp   8080:8080
-kubectl port-forward -n app-platform service/keycloak      8081:8080
-kubectl port-forward -n app-platform service/zipkin        9411:9411
-kubectl port-forward -n app-platform service/emailhog      8025:8025
-kubectl port-forward -n app-platform service/activemq      8161:8161
-```
-
-| Service  | URL                   |
-|----------|-----------------------|
-| Main app | http://localhost:8080 |
-| Keycloak | http://localhost:8081 |
-| Zipkin   | http://localhost:9411 |
-| EmailHog | http://localhost:8025 |
-| ActiveMQ | http://localhost:8161 |
-
 ## Useful commands
 
 ```bash
@@ -202,10 +196,23 @@ kubectl get pods -n app-platform
 kubectl rollout restart deployment -n app-platform
  
 # restart from a specific deployment
-kubectl rollout restart deployment <deployment-name>
+kubectl rollout restart deployment <deployment-name> -n app-platform
+
+# eg:
+
+kubectl rollout restart deployment/email-service -n app-platform
+kubectl rollout restart deployment/report-service -n app-platform
+kubectl rollout restart deployment/content-checker-service -n app-platform
+kubectl rollout restart deployment/main-webapp -n app-platform
+kubectl rollout restart deployment/keycloak -n app-platform
+kubectl rollout restart deployment/zipkin -n app-platform
+kubectl rollout restart deployment/emailhog -n app-platform
+kubectl rollout restart deployment/mysql -n app-platform
  
 # Check logs for a service
 kubectl logs -f deployment/<DEPLOYMENT_NAME> -n app-platform
+kubectl logs deployment/content-checker-service -n app-platform --tail=20
+
 
 # Describe a pod (useful when a pod won't start)
 kubectl describe pod <pod-name> -n app-platform
@@ -215,6 +222,7 @@ kubectl get events -n app-platform --sort-by='.lastTimestamp'
 
 # Scale a service (load balancing is automatic)
 kubectl scale deployment <DEPLOYMENT_NAME> -n app-platform --replicas=5
+
 
 # Open the Minikube dashboard
 minikube dashboard
