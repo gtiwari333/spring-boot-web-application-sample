@@ -32,6 +32,13 @@ spec:
                             name: broker
                         -   containerPort: 8161
                             name: console
+                    resources:
+                        requests:
+                            memory: "384Mi"
+                            cpu: "100m"
+                        limits:
+                            memory: "768Mi"
+                            cpu: "1000m"
 ---
 apiVersion: v1
 kind: Service

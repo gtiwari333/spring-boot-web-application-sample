@@ -64,6 +64,13 @@ spec:
                             value: "edge"
                     ports:
                         -   containerPort: 8080
+                    resources:
+                        requests:
+                            memory: "512Mi"
+                            cpu: "200m"
+                        limits:
+                            memory: "1Gi"
+                            cpu: "1000m"
                     volumeMounts:
                         -   name: realm-import
                             mountPath: /opt/keycloak/data/import
