@@ -89,7 +89,6 @@ data:
         management.endpoint.health.group.liveness.include=livenessState
         management.endpoint.health.group.readiness.include=readinessState,db,jms
         #logging
-        logging.structured.format.console=ecs                      # Spring Boot 4 native structured logging
         logging.level.root=INFO
         logging.level.com.mycompany=INFO
         logging.level.org.springframework.web=WARN
