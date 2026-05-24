@@ -1,9 +1,8 @@
-FROM ubuntu:jammy
+FROM gcr.io/distroless/cc-debian12:nonroot
 
-# Accept the native binary path and name as build args
 ARG NATIVE_BINARY
 COPY ${NATIVE_BINARY} /app/server
 
-RUN chmod +x /app/server
+EXPOSE 8080 8081
 
 ENTRYPOINT ["/app/server"]

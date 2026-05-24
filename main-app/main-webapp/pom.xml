@@ -349,6 +349,12 @@
                     <layers>
                         <enabled>true</enabled>
                     </layers>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
@@ -504,14 +510,6 @@
                     <wroFile>${basedir}/src/main/resources/wro.xml</wroFile>
                     <extraConfigFile>${basedir}/src/main/resources/wro.properties</extraConfigFile>
                 </configuration>
-<!--                <dependencies>-->
-<!--                    &lt;!&ndash; For Java 11 compatibility &ndash;&gt;-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.mockito</groupId>-->
-<!--                        <artifactId>mockito-core</artifactId>-->
-<!--                        <version>${mockito.version}</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
             </plugin>
 
             <plugin>
@@ -537,45 +535,24 @@
                 </configuration>
             </plugin>
 
-        </plugins>
+            <plugin>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-maven-plugin</artifactId>
+                <version>${hibernate.version}</version>
+                <executions>
+                    <execution>
+                        <id>enhance</id>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                        <configuration>
+                            <enableAssociationManagement>true</enableAssociationManagement>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+</plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>native</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.buildtools</groupId>
-                        <artifactId>native-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <buildArgs>
-                                <buildArg>--no-fallback</buildArg>
-                                <buildArg>--enable-url-protocols=https</buildArg>
-                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                                <buildArg>-H:DeadlockWatchdogInterval=0</buildArg>
-                            </buildArgs>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>add-reachability-metadata</id>
-                                <goals>
-                                    <goal>add-reachability-metadata</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>build-native</id>
-                                <goals>
-                                    <goal>compile-no-fork</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
