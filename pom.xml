@@ -384,7 +384,7 @@
                                     <buildArg>-H:DeadlockWatchdogInterval=0</buildArg>
                                     <buildArg>--parallelism=4</buildArg>
                                     <buildArg>-J-Xmx22g</buildArg>
-                                    <buildArg>-J-XX:+UseG1GC</buildArg>
+
                                     <buildArg>-J-XX:MaxRAMPercentage=85.0</buildArg>
                                     <buildArg>-H:+InlineBeforeAnalysis</buildArg>
                                     <buildArg>-H:+BuildReport</buildArg>

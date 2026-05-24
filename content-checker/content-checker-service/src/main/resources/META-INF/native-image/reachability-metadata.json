@@ -930,9 +930,6 @@
       "type": "io.netty.buffer.AdaptivePoolingAllocator$Magazine"
     },
     {
-      "type": "io.netty.buffer.AdaptivePoolingAllocator$SizeClassedChunk"
-    },
-    {
       "type": "io.netty.channel.AbstractChannelHandlerContext"
     },
     {
@@ -1104,9 +1101,6 @@
     },
     {
       "type": "io.netty.util.concurrent.DefaultPromise"
-    },
-    {
-      "type": "io.netty.util.concurrent.MpscIntQueue$MpscAtomicIntegerArrayQueue"
     },
     {
       "type": "io.netty.util.concurrent.SingleThreadEventExecutor"
@@ -2650,12 +2644,6 @@
       "type": "net.bytebuddy.utility.JavaModule$Resolver"
     },
     {
-      "type": "org.apache.activemq.artemis.api.core.Pair[]"
-    },
-    {
-      "type": "org.apache.activemq.artemis.api.core.RefCountMessage"
-    },
-    {
       "type": "org.apache.activemq.artemis.api.core.client.ServerLocator"
     },
     {
@@ -2967,19 +2955,7 @@
       "type": "org.apache.activemq.artemis.utils.ActiveMQThreadPoolExecutor$ThreadPoolQueue"
     },
     {
-      "type": "org.apache.activemq.artemis.utils.ReferenceCounterUtil"
-    },
-    {
       "type": "org.apache.activemq.artemis.utils.actors.ProcessorBase"
-    },
-    {
-      "type": "org.apache.activemq.artemis.utils.collections.LinkedListImpl$Iterator[]"
-    },
-    {
-      "type": "org.apache.activemq.artemis.utils.collections.LinkedListImpl[]"
-    },
-    {
-      "type": "org.apache.activemq.artemis.utils.collections.PriorityLinkedListImpl"
     },
     {
       "type": "org.apache.catalina.Manager"
@@ -3382,7 +3358,7 @@
       "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher"
     },
     {
-      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$3diVA8t7",
+      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$KhHfD2ae",
       "methods": [
         {
           "name": "<init>",
@@ -4046,9 +4022,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "org.springframework.aop.scope.ScopedObject"
     },
     {
       "type": "org.springframework.aot.generate.Generated"
@@ -10176,9 +10149,6 @@
     },
     {
       "glob": "META-INF/validation.xml"
-    },
-    {
-      "glob": "activemq-version.properties"
     },
     {
       "glob": "application-default.properties"

@@ -2828,7 +2828,7 @@
       "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher"
     },
     {
-      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$Szptj2Y7",
+      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$C2zbXSXG",
       "methods": [
         {
           "name": "<init>",
@@ -3530,6 +3530,9 @@
     },
     {
       "type": "org.springframework.aop.support.AbstractPointcutAdvisor"
+    },
+    {
+      "type": "org.springframework.aot.generate.Generated"
     },
     {
       "type": "org.springframework.aot.hint.annotation.Reflective"
