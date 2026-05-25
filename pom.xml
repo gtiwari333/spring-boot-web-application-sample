@@ -356,8 +356,6 @@
         <profile>
             <id>native</id>
             <properties>
-                <!-- Surefire picks this up automatically — captures GraalVM metadata during tests -->
-                <argLine>-agentlib:native-image-agent=config-output-dir=${project.basedir}/src/main/resources/META-INF/native-image/</argLine>
                 <spotbugs.skip>true</spotbugs.skip>
                 <checkstyle.skip>true</checkstyle.skip>
                 <maven.checkstyle.skip>true</maven.checkstyle.skip>
@@ -371,25 +369,6 @@
                         <plugin>
                             <groupId>org.graalvm.buildtools</groupId>
                             <artifactId>native-maven-plugin</artifactId>
-                            <configuration>
-                                <buildArgs>
-                                    <buildArg>-H:IncludeResources=.*/liquibase/.*</buildArg>
-                                <buildArg>--initialize-at-run-time=org.jooq</buildArg>
-                                <buildArg>--no-fallback</buildArg>
-                                    <buildArg>--enable-url-protocols=https</buildArg>
-                                    <buildArg>-Ob</buildArg>
-                                    <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
-                                    <buildArg>-H:GenerateDebugInfo=0</buildArg>
-                                    <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                                    <buildArg>-H:DeadlockWatchdogInterval=0</buildArg>
-                                    <buildArg>--parallelism=4</buildArg>
-                                    <buildArg>-J-Xmx22g</buildArg>
-
-                                    <buildArg>-J-XX:MaxRAMPercentage=85.0</buildArg>
-                                    <buildArg>-H:+InlineBeforeAnalysis</buildArg>
-                                    <buildArg>-H:+BuildReport</buildArg>
-                                </buildArgs>
-                            </configuration>
                         </plugin>
                     </plugins>
                 </pluginManagement>
@@ -398,6 +377,14 @@
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
                         <extensions>true</extensions>
+                        <configuration>
+                            <buildArgs>
+                                <!-- Faster build, larger binary size -->
+                                <buildArg>-Ob</buildArg>
+                                <!-- Smaller binary size -->
+<!--                                <buildArg>-Os</buildArg>-->
+                            </buildArgs>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>build-native</id>

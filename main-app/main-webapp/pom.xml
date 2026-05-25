@@ -536,6 +536,10 @@
             </plugin>
 
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-maven-plugin</artifactId>
                 <version>${hibernate.version}</version>
@@ -551,7 +555,7 @@
                     </execution>
                 </executions>
             </plugin>
-</plugins>
+        </plugins>
     </build>
 
 
