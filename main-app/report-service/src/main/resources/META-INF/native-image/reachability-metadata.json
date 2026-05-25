@@ -2828,7 +2828,7 @@
       "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher"
     },
     {
-      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$C2zbXSXG",
+      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$AUrjJ1TJ",
       "methods": [
         {
           "name": "<init>",

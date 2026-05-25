@@ -4820,7 +4820,7 @@
       ]
     },
     {
-      "type": "gt.app.modules.file.FileService$SpockMock$1520926843",
+      "type": "gt.app.modules.file.FileService$SpockMock$913097908",
       "fields": [
         {
           "name": "$spock_mockInteractionValidator"
@@ -4893,7 +4893,7 @@
       "type": "gt.app.modules.review.JmsContentCheckService"
     },
     {
-      "type": "gt.app.modules.review.JmsContentCheckService$SpockMock$1356540309",
+      "type": "gt.app.modules.review.JmsContentCheckService$SpockMock$1198038841",
       "fields": [
         {
           "name": "$spock_mockInteractionValidator"
@@ -15742,7 +15742,7 @@
       "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher"
     },
     {
-      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$lLSSsrHY",
+      "type": "org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$8U86txxa",
       "methods": [
         {
           "name": "<init>",
@@ -25514,7 +25514,7 @@
       "type": "org.springframework.jms.core.JmsTemplate"
     },
     {
-      "type": "org.springframework.jms.core.JmsTemplate$SpockMock$1595788151",
+      "type": "org.springframework.jms.core.JmsTemplate$SpockMock$703755666",
       "fields": [
         {
           "name": "$spock_mockInteractionValidator"
