@@ -331,32 +331,32 @@
         </pluginManagement>
     </build>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>spring-milestones</id>-->
+    <!--            <name>Spring Milestones</name>-->
+    <!--            <url>https://repo.spring.io/milestone</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
+    <!--    <pluginRepositories>-->
+    <!--        <pluginRepository>-->
+    <!--            <id>spring-milestones</id>-->
+    <!--            <name>Spring Milestones</name>-->
+    <!--            <url>https://repo.spring.io/milestone</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </pluginRepository>-->
+    <!--    </pluginRepositories>-->
 
     <profiles>
         <profile>
             <id>native</id>
             <properties>
-                <spotbugs.skip>true</spotbugs.skip>
+                <argLine>-agentlib:native-image-agent=config-merge-dir=${project.build.outputDirectory}/META-INF/native-image/</argLine>                <spotbugs.skip>true</spotbugs.skip>
                 <checkstyle.skip>true</checkstyle.skip>
                 <maven.checkstyle.skip>true</maven.checkstyle.skip>
                 <modernizer.skip>true</modernizer.skip>
@@ -378,20 +378,40 @@
                         <artifactId>native-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
+                            <agent>
+                                <enabled>true</enabled>
+                            </agent>
+                            <metadataRepository>
+                                <enabled>true</enabled>
+                            </metadataRepository>
                             <buildArgs>
+                                <buildArg>--no-fallback</buildArg>
+                                <buildArg>-H:+AddAllCharsets</buildArg>
                                 <!-- Faster build, larger binary size -->
                                 <buildArg>-Ob</buildArg>
                                 <!-- Smaller binary size -->
-<!--                                <buildArg>-Os</buildArg>-->
+                                <!--  <buildArg>-Os</buildArg>-->
                             </buildArgs>
                         </configuration>
                         <executions>
+                            <execution>
+                                <id>add-reachability-metadata</id>
+                                <goals>
+                                    <goal>add-reachability-metadata</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>build-native</id>
                                 <goals>
                                     <goal>compile-no-fork</goal>
                                 </goals>
                                 <phase>package</phase>
+                            </execution>
+                            <execution>
+                                <id>add-agent-to-test</id>
+                                <goals>
+                                    <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
