@@ -6,8 +6,6 @@ spring:
     liquibase:
         enabled: true
         change-log: classpath:/liquibase/master.xml
-    datasource:
-        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     jpa:
         show-sql: true
         open-in-view: false
@@ -19,7 +17,7 @@ spring:
     mvc:
         static-path-pattern: /static/**
     jooq:
-        sql-dialect: H2
+        sql-dialect: MYSQL
     main:
         banner-mode: off
     security:

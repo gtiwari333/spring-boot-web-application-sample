@@ -2,6 +2,7 @@ package gt.app;
 
 import brave.sampler.Sampler;
 import gt.app.config.AppProperties;
+import gt.common.config.LiquibaseRuntimeHints;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

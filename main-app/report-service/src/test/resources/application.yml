@@ -1,10 +1,8 @@
 spring:
   profiles:
     active: test
-  datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MYSQL
   jooq:
-    sql-dialect: H2
+    sql-dialect: MYSQL
   security:
     oauth2:
       resourceserver:
