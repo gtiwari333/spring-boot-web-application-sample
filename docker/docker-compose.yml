@@ -27,7 +27,7 @@ services:
             - "ARTEMIS_PASSWORD=admin"
         network_mode: "service:localhost"
     mysql:
-        image: 'mysql'
+        image: 'mysql:9.7'
         environment:
             - "MYSQL_USER=seedappuser"
             - "MYSQL_ROOT_PASSWORD=password"

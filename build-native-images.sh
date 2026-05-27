@@ -19,6 +19,7 @@
 #                                                           # docker-package
 #                                                           # binaries already
 #                                                           # in dist/
+# ./mvnw -Pnative package  -pl main-app/main-webapp,main-app/report-service,email/email-service,trend/trend-service,content-checker/content-checker-service
 # =============================================================================
 
 set -euo pipefail

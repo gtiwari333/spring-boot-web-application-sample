@@ -315,29 +315,9 @@
                     </configuration>
                 </plugin>
             </plugins>
+
         </pluginManagement>
     </build>
-
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <id>spring-milestones</id>-->
-    <!--            <name>Spring Milestones</name>-->
-    <!--            <url>https://repo.spring.io/milestone</url>-->
-    <!--            <snapshots>-->
-    <!--                <enabled>false</enabled>-->
-    <!--            </snapshots>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
-    <!--    <pluginRepositories>-->
-    <!--        <pluginRepository>-->
-    <!--            <id>spring-milestones</id>-->
-    <!--            <name>Spring Milestones</name>-->
-    <!--            <url>https://repo.spring.io/milestone</url>-->
-    <!--            <snapshots>-->
-    <!--                <enabled>false</enabled>-->
-    <!--            </snapshots>-->
-    <!--        </pluginRepository>-->
-    <!--    </pluginRepositories>-->
 
     <profiles>
         <profile>
@@ -355,73 +335,65 @@
                         <plugin>
                             <groupId>org.graalvm.buildtools</groupId>
                             <artifactId>native-maven-plugin</artifactId>
+                            <extensions>true</extensions>
+                            <configuration>
+                                <agent>
+                                    <enabled>true</enabled>
+                                    <metadataCopy>
+                                        <disabledStages>
+                                            <stage>main</stage>
+                                        </disabledStages>
+                                        <merge>true</merge>
+                                        <outputDirectory>
+                                            ${project.build.outputDirectory}/META-INF/native-image/${project.groupId}/${project.artifactId}
+                                        </outputDirectory>
+                                    </metadataCopy>
+                                </agent>
+                                <metadataRepository>
+                                    <enabled>true</enabled>
+                                </metadataRepository>
+                                <buildArgs>
+                                    <buildArg>--no-fallback</buildArg>
+                                    <buildArg>-H:+AddAllCharsets</buildArg>
+                                    <buildArg>--initialize-at-build-time=java.io.ProxyingConsole</buildArg>
+                                    <!-- Faster build, larger binary size -->
+                                    <buildArg>-Ob</buildArg>
+                                    <!-- Smaller binary size -->
+                                    <!--  <buildArg>-Os</buildArg>-->
+                                </buildArgs>
+                            </configuration>
+                            <executions>
+                                <!-- sequence is important -->
+                                <execution>
+                                    <id>add-reachability-metadata</id>
+                                    <goals>
+                                        <goal>add-reachability-metadata</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>add-agent-to-test</id>
+                                    <goals>
+                                        <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>metadata-copy</id>
+                                    <goals>
+                                        <goal>metadata-copy</goal>
+                                    </goals>
+                                    <phase>package</phase>
+                                </execution>
+                                <execution>
+                                    <id>build-native</id>
+                                    <goals>
+                                        <goal>compile-no-fork</goal>
+                                    </goals>
+                                    <phase>package</phase>
+                                </execution>
+                            </executions>
                         </plugin>
                     </plugins>
                 </pluginManagement>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.buildtools</groupId>
-                        <artifactId>native-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <agent>
-                                <enabled>true</enabled>
-                                <metadataCopy>
-                                    <disabledStages>
-                                        <stage>main</stage>
-                                    </disabledStages>
-                                    <merge>true</merge>
-<!--                                    <outputDirectories>-->
-<!--                                        <dir>${project.basedir}/src/main/resources/META-INF/native-image/${project.groupId}/${project.artifactId}</dir>-->
-<!--                                        <dir>${project.build.outputDirectory}META-INF/native-image/${project.groupId}/${project.artifactId}</dir>-->
-<!--                                    </outputDirectories>-->
-                                    <outputDirectory>${project.build.outputDirectory}META-INF/native-image/${project.groupId}/${project.artifactId}
-                                    </outputDirectory>
-                                </metadataCopy>
-                            </agent>
-                            <metadataRepository>
-                                <enabled>true</enabled>
-                            </metadataRepository>
-                            <buildArgs>
-                                <buildArg>--no-fallback</buildArg>
-                                <buildArg>-H:+AddAllCharsets</buildArg>
-                                <!-- Faster build, larger binary size -->
-                                <buildArg>-Ob</buildArg>
-                                <!-- Smaller binary size -->
-                                <!--  <buildArg>-Os</buildArg>-->
-                            </buildArgs>
-                        </configuration>
-                        <executions>
-                            <!-- sequence is important -->
-                            <execution>
-                                <id>add-reachability-metadata</id>
-                                <goals>
-                                    <goal>add-reachability-metadata</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>add-agent-to-test</id>
-                                <goals>
-                                    <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>metadata-copy</id>
-                                <goals>
-                                    <goal>metadata-copy</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                            <execution>
-                                <id>build-native</id>
-                                <goals>
-                                    <goal>compile-no-fork</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
             </build>
         </profile>
     </profiles>

@@ -1,15 +1,20 @@
 package gt.report;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import gt.report.frwk.TestContainerConfig;
-import java.util.UUID;
+import gtapp.jooq.tables.GAppUser;
+import gtapp.jooq.tables.GArticle;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+
+import java.nio.ByteBuffer;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Import(TestContainerConfig.class)
@@ -23,8 +28,8 @@ class StatReportIntegrationTest {
 
     @AfterEach
     void cleanUp() {
-        db.execute("DELETE FROM G_ARTICLE");
-        db.execute("DELETE FROM G_APP_USER");
+        db.deleteFrom(GArticle.G_ARTICLE).execute();
+        db.deleteFrom(GAppUser.G_APP_USER).execute();
     }
 
     @Test
@@ -34,41 +39,67 @@ class StatReportIntegrationTest {
 
     @Test
     void countsFlaggedArticlesCorrectly() {
-        String userUuid = UUID.randomUUID().toString().replace("-", "");
+        byte[] userId = uuidToBytes(UUID.randomUUID());
 
-        db.execute(
-            "INSERT INTO G_APP_USER (id, email, first_name, last_name, username) " +
-            "VALUES (UNHEX('" + userUuid + "'), 'test@test.com', 'Test', 'User', 'testuser')"
-        );
+        db.insertInto(GAppUser.G_APP_USER)
+            .set(GAppUser.G_APP_USER.ID, userId)
+            .set(GAppUser.G_APP_USER.EMAIL, "test@test.com")
+            .set(GAppUser.G_APP_USER.FIRST_NAME, "Test")
+            .set(GAppUser.G_APP_USER.LAST_NAME, "User")
+            .set(GAppUser.G_APP_USER.USERNAME, "testuser")
+            .execute();
 
-        db.execute(
-            "INSERT INTO G_ARTICLE (title, content, status, created_by_user_id, created_date, last_modified_date) " +
-            "VALUES ('Flagged Article', 'Bad content', 'FLAGGED_FOR_MANUAL_REVIEW', UNHEX('" + userUuid + "'), NOW(), NOW())"
-        );
-        db.execute(
-            "INSERT INTO G_ARTICLE (title, content, status, created_by_user_id, created_date, last_modified_date) " +
-            "VALUES ('Clean Article', 'Good content', 'PUBLISHED', UNHEX('" + userUuid + "'), NOW(), NOW())"
-        );
+        db.insertInto(GArticle.G_ARTICLE)
+            .set(GArticle.G_ARTICLE.TITLE, "Flagged Article")
+            .set(GArticle.G_ARTICLE.CONTENT, "Bad content")
+            .set(GArticle.G_ARTICLE.STATUS, "FLAGGED_FOR_MANUAL_REVIEW")
+            .set(GArticle.G_ARTICLE.CREATED_BY_USER_ID, userId)
+            .set(GArticle.G_ARTICLE.CREATED_DATE, LocalDateTime.now())
+            .set(GArticle.G_ARTICLE.LAST_MODIFIED_DATE, LocalDateTime.now())
+            .execute();
+
+        db.insertInto(GArticle.G_ARTICLE)
+            .set(GArticle.G_ARTICLE.TITLE, "Clean Article")
+            .set(GArticle.G_ARTICLE.CONTENT, "Good content")
+            .set(GArticle.G_ARTICLE.STATUS, "PUBLISHED")
+            .set(GArticle.G_ARTICLE.CREATED_BY_USER_ID, userId)
+            .set(GArticle.G_ARTICLE.CREATED_DATE, LocalDateTime.now())
+            .set(GArticle.G_ARTICLE.LAST_MODIFIED_DATE, LocalDateTime.now())
+            .execute();
 
         assertThat(statReport.run().value()).isEqualTo(1);
     }
 
     @Test
     void countsMultipleFlaggedArticles() {
-        String userUuid = UUID.randomUUID().toString().replace("-", "");
+        byte[] userId = uuidToBytes(UUID.randomUUID());
 
-        db.execute(
-            "INSERT INTO G_APP_USER (id, email, first_name, last_name, username) " +
-            "VALUES (UNHEX('" + userUuid + "'), 'test@test.com', 'Test', 'User', 'testuser')"
-        );
+        db.insertInto(GAppUser.G_APP_USER)
+            .set(GAppUser.G_APP_USER.ID, userId)
+            .set(GAppUser.G_APP_USER.EMAIL, "test@test.com")
+            .set(GAppUser.G_APP_USER.FIRST_NAME, "Test")
+            .set(GAppUser.G_APP_USER.LAST_NAME, "User")
+            .set(GAppUser.G_APP_USER.USERNAME, "testuser")
+            .execute();
 
         for (int i = 0; i < 3; i++) {
-            db.execute(
-                "INSERT INTO G_ARTICLE (title, content, status, created_by_user_id, created_date, last_modified_date) " +
-                "VALUES ('Flagged " + i + "', 'Content " + i + "', 'FLAGGED_FOR_MANUAL_REVIEW', UNHEX('" + userUuid + "'), NOW(), NOW())"
-            );
+            db.insertInto(GArticle.G_ARTICLE)
+                .set(GArticle.G_ARTICLE.TITLE, "Flagged " + i)
+                .set(GArticle.G_ARTICLE.CONTENT, "Content " + i)
+                .set(GArticle.G_ARTICLE.STATUS, "FLAGGED_FOR_MANUAL_REVIEW")
+                .set(GArticle.G_ARTICLE.CREATED_BY_USER_ID, userId)
+                .set(GArticle.G_ARTICLE.CREATED_DATE, LocalDateTime.now())
+                .set(GArticle.G_ARTICLE.LAST_MODIFIED_DATE, LocalDateTime.now())
+                .execute();
         }
 
         assertThat(statReport.run().value()).isEqualTo(3);
+    }
+
+    private static byte[] uuidToBytes(UUID uuid) {
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        return bb.array();
     }
 }
