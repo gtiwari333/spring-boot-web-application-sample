@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>article-app-parent</artifactId>
+    <artifactId>sample-weapp-parent</artifactId>
     <groupId>gt.app</groupId>
     <packaging>pom</packaging>
     <version>1.0</version>
@@ -343,7 +343,6 @@
         <profile>
             <id>native</id>
             <properties>
-                <argLine>-agentlib:native-image-agent=config-merge-dir=${project.build.outputDirectory}/META-INF/native-image/</argLine>                <spotbugs.skip>true</spotbugs.skip>
                 <checkstyle.skip>true</checkstyle.skip>
                 <maven.checkstyle.skip>true</maven.checkstyle.skip>
                 <modernizer.skip>true</modernizer.skip>
@@ -367,6 +366,18 @@
                         <configuration>
                             <agent>
                                 <enabled>true</enabled>
+                                <metadataCopy>
+                                    <disabledStages>
+                                        <stage>main</stage>
+                                    </disabledStages>
+                                    <merge>true</merge>
+<!--                                    <outputDirectories>-->
+<!--                                        <dir>${project.basedir}/src/main/resources/META-INF/native-image/${project.groupId}/${project.artifactId}</dir>-->
+<!--                                        <dir>${project.build.outputDirectory}META-INF/native-image/${project.groupId}/${project.artifactId}</dir>-->
+<!--                                    </outputDirectories>-->
+                                    <outputDirectory>${project.build.outputDirectory}META-INF/native-image/${project.groupId}/${project.artifactId}
+                                    </outputDirectory>
+                                </metadataCopy>
                             </agent>
                             <metadataRepository>
                                 <enabled>true</enabled>
@@ -381,6 +392,7 @@
                             </buildArgs>
                         </configuration>
                         <executions>
+                            <!-- sequence is important -->
                             <execution>
                                 <id>add-reachability-metadata</id>
                                 <goals>
@@ -388,17 +400,24 @@
                                 </goals>
                             </execution>
                             <execution>
+                                <id>add-agent-to-test</id>
+                                <goals>
+                                    <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>metadata-copy</id>
+                                <goals>
+                                    <goal>metadata-copy</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                            <execution>
                                 <id>build-native</id>
                                 <goals>
                                     <goal>compile-no-fork</goal>
                                 </goals>
                                 <phase>package</phase>
-                            </execution>
-                            <execution>
-                                <id>add-agent-to-test</id>
-                                <goals>
-                                    <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

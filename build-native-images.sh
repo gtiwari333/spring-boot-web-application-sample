@@ -108,7 +108,7 @@ for module in "${BUILD_MODULES[@]}"; do
 
     # ── Copy binary to dist/ ───────────────────────────────────────────────────
     binary=$(find "${module_dir}/target" -maxdepth 1 -type f \
-        ! -name "*.jar" ! -name "*.xml" ! -name "*.txt" -perm /111 | head -1)
+        ! -name "*.jar" ! -name "*.xml" ! -name "*.txt" -perm -u+x | head -1)
 
     if [[ -z "${binary}" ]]; then
         echo "[${module_name}] ERROR: no executable found in target/ — skipping Docker build"

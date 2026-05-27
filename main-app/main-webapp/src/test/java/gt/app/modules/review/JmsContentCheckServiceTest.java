@@ -5,6 +5,8 @@ import gt.app.domain.Article;
 import gt.app.domain.Comment;
 import gt.app.frwk.AbstractIntegrationTest;
 import gt.contentchecker.Request;
+import jakarta.jms.Message;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @SpringBootTest
+@Slf4j
 class JmsContentCheckServiceTest extends AbstractIntegrationTest {
 
     @Autowired
@@ -35,8 +38,10 @@ class JmsContentCheckServiceTest extends AbstractIntegrationTest {
     @AfterEach
     void drainQueue() {
         // drain any leftover messages from the shared Artemis container
-        while (jmsTemplate.receive(requestQueue) != null) {
-            // discard
+        jmsTemplate.setReceiveTimeout(5_000);
+        Message leftOver;
+        while ((leftOver = jmsTemplate.receive(requestQueue)) != null) {
+            log.info("Discarding leftover JMS message: {}", leftOver);
         }
     }
 
