@@ -10,8 +10,8 @@ public class TestContainerConfig {
 
     @Bean
     @ServiceConnection
-    static MySQLContainer mysql() {     //mysql is lightweight
-        return new MySQLContainer("mysql");
+    static MySQLContainer mysql() {
+        return new MySQLContainer("mysql:8.0");
     }
 
 }

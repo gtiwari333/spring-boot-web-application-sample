@@ -23,8 +23,8 @@ class StatReportIntegrationTest {
 
     @AfterEach
     void cleanUp() {
-        db.execute("DELETE FROM g_article");
-        db.execute("DELETE FROM g_app_user");
+        db.execute("DELETE FROM G_ARTICLE");
+        db.execute("DELETE FROM G_APP_USER");
     }
 
     @Test
@@ -37,16 +37,16 @@ class StatReportIntegrationTest {
         String userUuid = UUID.randomUUID().toString().replace("-", "");
 
         db.execute(
-            "INSERT INTO g_app_user (id, email, first_name, last_name, username) " +
+            "INSERT INTO G_APP_USER (id, email, first_name, last_name, username) " +
             "VALUES (UNHEX('" + userUuid + "'), 'test@test.com', 'Test', 'User', 'testuser')"
         );
 
         db.execute(
-            "INSERT INTO g_article (title, content, status, created_by_user_id, created_date, last_modified_date) " +
+            "INSERT INTO G_ARTICLE (title, content, status, created_by_user_id, created_date, last_modified_date) " +
             "VALUES ('Flagged Article', 'Bad content', 'FLAGGED_FOR_MANUAL_REVIEW', UNHEX('" + userUuid + "'), NOW(), NOW())"
         );
         db.execute(
-            "INSERT INTO g_article (title, content, status, created_by_user_id, created_date, last_modified_date) " +
+            "INSERT INTO G_ARTICLE (title, content, status, created_by_user_id, created_date, last_modified_date) " +
             "VALUES ('Clean Article', 'Good content', 'PUBLISHED', UNHEX('" + userUuid + "'), NOW(), NOW())"
         );
 
@@ -58,13 +58,13 @@ class StatReportIntegrationTest {
         String userUuid = UUID.randomUUID().toString().replace("-", "");
 
         db.execute(
-            "INSERT INTO g_app_user (id, email, first_name, last_name, username) " +
+            "INSERT INTO G_APP_USER (id, email, first_name, last_name, username) " +
             "VALUES (UNHEX('" + userUuid + "'), 'test@test.com', 'Test', 'User', 'testuser')"
         );
 
         for (int i = 0; i < 3; i++) {
             db.execute(
-                "INSERT INTO g_article (title, content, status, created_by_user_id, created_date, last_modified_date) " +
+                "INSERT INTO G_ARTICLE (title, content, status, created_by_user_id, created_date, last_modified_date) " +
                 "VALUES ('Flagged " + i + "', 'Content " + i + "', 'FLAGGED_FOR_MANUAL_REVIEW', UNHEX('" + userUuid + "'), NOW(), NOW())"
             );
         }
