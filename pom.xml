@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>article-app-parent</artifactId>
+    <artifactId>sample-weapp-parent</artifactId>
     <groupId>gt.app</groupId>
     <packaging>pom</packaging>
     <version>1.0</version>
@@ -171,6 +171,11 @@
                 <version>${testcontainers-keycloak.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-mysql</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${google-guava.version}</version>
@@ -231,24 +236,6 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.gaul</groupId>
-                    <artifactId>modernizer-maven-plugin</artifactId>
-                    <version>${modernizer-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>modernizer</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>modernizer</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <javaVersion>${java.version}</javaVersion>
-                    </configuration>
-                </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
@@ -330,24 +317,113 @@
             </plugins>
         </pluginManagement>
     </build>
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>spring-milestones</id>-->
+    <!--            <name>Spring Milestones</name>-->
+    <!--            <url>https://repo.spring.io/milestone</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
+    <!--    <pluginRepositories>-->
+    <!--        <pluginRepository>-->
+    <!--            <id>spring-milestones</id>-->
+    <!--            <name>Spring Milestones</name>-->
+    <!--            <url>https://repo.spring.io/milestone</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </pluginRepository>-->
+    <!--    </pluginRepositories>-->
+
+    <profiles>
+        <profile>
+            <id>native</id>
+            <properties>
+                <checkstyle.skip>true</checkstyle.skip>
+                <maven.checkstyle.skip>true</maven.checkstyle.skip>
+                <modernizer.skip>true</modernizer.skip>
+                <dependency-check.skip>true</dependency-check.skip>
+                <pmd.skip>true</pmd.skip>
+            </properties>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.graalvm.buildtools</groupId>
+                            <artifactId>native-maven-plugin</artifactId>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <agent>
+                                <enabled>true</enabled>
+                                <metadataCopy>
+                                    <disabledStages>
+                                        <stage>main</stage>
+                                    </disabledStages>
+                                    <merge>true</merge>
+<!--                                    <outputDirectories>-->
+<!--                                        <dir>${project.basedir}/src/main/resources/META-INF/native-image/${project.groupId}/${project.artifactId}</dir>-->
+<!--                                        <dir>${project.build.outputDirectory}META-INF/native-image/${project.groupId}/${project.artifactId}</dir>-->
+<!--                                    </outputDirectories>-->
+                                    <outputDirectory>${project.build.outputDirectory}META-INF/native-image/${project.groupId}/${project.artifactId}
+                                    </outputDirectory>
+                                </metadataCopy>
+                            </agent>
+                            <metadataRepository>
+                                <enabled>true</enabled>
+                            </metadataRepository>
+                            <buildArgs>
+                                <buildArg>--no-fallback</buildArg>
+                                <buildArg>-H:+AddAllCharsets</buildArg>
+                                <!-- Faster build, larger binary size -->
+                                <buildArg>-Ob</buildArg>
+                                <!-- Smaller binary size -->
+                                <!--  <buildArg>-Os</buildArg>-->
+                            </buildArgs>
+                        </configuration>
+                        <executions>
+                            <!-- sequence is important -->
+                            <execution>
+                                <id>add-reachability-metadata</id>
+                                <goals>
+                                    <goal>add-reachability-metadata</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>add-agent-to-test</id>
+                                <goals>
+                                    <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>metadata-copy</id>
+                                <goals>
+                                    <goal>metadata-copy</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
