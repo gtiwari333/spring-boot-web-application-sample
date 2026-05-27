@@ -8,9 +8,17 @@ import org.testcontainers.activemq.ArtemisContainer;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestContainerConfig {
 
+    static final ArtemisContainer artemis = new ArtemisContainer("apache/activemq-artemis:2.44.0");
+
+    static {
+        artemis.start();
+    }
+
     @Bean
     @ServiceConnection
     ArtemisContainer artemis() {
-        return new ArtemisContainer("apache/activemq-artemis:2.44.0");
+        // activemq-artemis has @SeriviceConnection support, so using it here.
+        return artemis;
     }
+
 }

@@ -9,17 +9,26 @@ import org.testcontainers.mysql.MySQLContainer;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestContainerConfig {
 
+    static final ArtemisContainer artemis = new ArtemisContainer("apache/activemq-artemis:2.44.0");
+    static final MySQLContainer mysql = new MySQLContainer("mysql");
+
+    static {
+        artemis.start();
+        mysql.start();
+    }
+
+
     @Bean
     @ServiceConnection
     ArtemisContainer artemis() {
         // activemq-artemis has @SeriviceConnection support, so using it here.
-        return new ArtemisContainer("apache/activemq-artemis:2.44.0");
+        return artemis;
     }
 
     @Bean
     @ServiceConnection
     static MySQLContainer mysql() {     //mysql is lightweight
-        return new MySQLContainer("mysql");
+        return mysql;
     }
 
 }

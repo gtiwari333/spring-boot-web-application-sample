@@ -1,6 +1,8 @@
 spring:
     application:
         name: Integration Test
+    profiles:
+        active: test
     liquibase:
         enabled: true
         change-log: classpath:/liquibase/master.xml
@@ -54,8 +56,8 @@ app-properties:
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
     jms:
-        content-checkerrequest-queue: jms-content-checker-requestqueue
-        content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
+        content-checker-request-queue: jms-content-checker-requestqueue
+        content-checker-call-back-response-queue: jms-content-checkercallback-responsequeue
     web:
         base-url: http://localhost:${server.port} #we use defined_port for integration testing where this base-url is used
 

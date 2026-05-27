@@ -68,8 +68,8 @@ feign-clients:
 
 app-properties:
     jms:
-        content-checkerrequest-queue: jms-content-checker-requestqueue
-        content-checkercallback-response-queue: jms-content-checkercallback-responsequeue
+        content-checker-request-queue: jms-content-checker-requestqueue
+        content-checker-call-back-response-queue: jms-content-checkercallback-responsequeue
     file-storage:
         upload-folder: ${java.io.tmpdir}/uploads
     web:

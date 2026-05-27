@@ -8,10 +8,16 @@ import org.testcontainers.mysql.MySQLContainer;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestContainerConfig {
 
+    static final MySQLContainer mysql = new MySQLContainer("mysql");
+
+    static {
+        mysql.start();
+    }
+
     @Bean
     @ServiceConnection
-    static MySQLContainer mysql() {
-        return new MySQLContainer("mysql:8.0");
+    static MySQLContainer mysql() {     //mysql is lightweight
+        return mysql;
     }
 
 }
