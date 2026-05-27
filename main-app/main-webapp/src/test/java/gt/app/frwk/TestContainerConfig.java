@@ -10,7 +10,14 @@ import org.testcontainers.mysql.MySQLContainer;
 public class TestContainerConfig {
 
     static final ArtemisContainer artemis = new ArtemisContainer("apache/activemq-artemis:2.44.0");
-    static final MySQLContainer mysql = new MySQLContainer("mysql");
+
+    static final MySQLContainer mysql = new MySQLContainer("mysql:9.7")
+        .withCommand(
+            "mysqld",
+            "--lower_case_table_names=1",
+            "--character_set_server=utf8mb4",
+            "--explicit_defaults_for_timestamp"
+        );
 
     static {
         artemis.start();

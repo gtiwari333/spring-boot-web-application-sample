@@ -8,7 +8,13 @@ import org.testcontainers.mysql.MySQLContainer;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestContainerConfig {
 
-    static final MySQLContainer mysql = new MySQLContainer("mysql");
+    static final MySQLContainer mysql = new MySQLContainer("mysql:9.7")
+        .withCommand(
+            "mysqld",
+            "--lower_case_table_names=1",
+            "--character_set_server=utf8mb4",
+            "--explicit_defaults_for_timestamp"
+        );
 
     static {
         mysql.start();
