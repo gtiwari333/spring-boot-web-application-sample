@@ -17,7 +17,7 @@ public class TestContainerConfig {
         );
 
     static {
-        mysql.start();
+        mysql.withReuse(true).start();
     }
 
     @Bean

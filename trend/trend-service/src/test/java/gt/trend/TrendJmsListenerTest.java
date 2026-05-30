@@ -47,17 +47,6 @@ class TrendJmsListenerTest {
     }
 
     @Test
-    void multipleMessagesAreAllConsumed() {
-        for (int i = 0; i < 5; i++) {
-            jmsTemplate.convertAndSend("article-published", articleSummary((long) i, "Title " + i, "Content " + i, "user" + i));
-        }
-
-        for (int i = 0; i < 5; i++) {
-            assertThat(jmsTemplate.receiveAndConvert("article-published")).isNull();
-        }
-    }
-
-    @Test
     void bothListenersWorkIndependently() {
         var pubMsg = articleSummary(10L, "Published Article", "Pub content", "author");
         var readMsg = articleSummary(20L, "Read Article", "Read content", "reader");

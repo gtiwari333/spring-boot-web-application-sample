@@ -20,8 +20,8 @@ public class TestContainerConfig {
         );
 
     static {
-        artemis.start();
-        mysql.start();
+        artemis.withReuse(true).start();
+        mysql.withReuse(true).start();
     }
 
 

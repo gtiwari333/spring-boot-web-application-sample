@@ -11,7 +11,7 @@ public class TestContainerConfig {
     static final ArtemisContainer artemis = new ArtemisContainer("apache/activemq-artemis:2.44.0");
 
     static {
-        artemis.start();
+        artemis.withReuse(true).start();
     }
 
     @Bean
