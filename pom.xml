@@ -373,8 +373,9 @@
                                 <execution>
                                     <id>add-agent-to-test</id>
                                     <goals>
-                                        <goal>generateTestResourceConfig</goal>  <!-- attaches agent to Surefire -->
+                                        <goal>generateTestResourceConfig</goal>  <!-- attaches native-image-agent to Surefire -->
                                     </goals>
+                                    <phase>generate-test-resources</phase>
                                 </execution>
                                 <execution>
                                     <id>metadata-copy</id>
