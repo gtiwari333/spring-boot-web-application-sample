@@ -20,7 +20,7 @@ public abstract class AbstractIntegrationTest {
             .withRealmImportFile("keycloak/realm-export.json");
 
     static {
-        keycloak.withReuse(true).start();
+        keycloak.start();
     }
 
     @DynamicPropertySource

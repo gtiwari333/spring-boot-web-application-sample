@@ -23,7 +23,7 @@ class AbstractSpockSpec extends Specification {
             .withRealmImportFile("keycloak/realm-export.json");
 
     static {
-        keycloak.withReuse(true).start();
+        keycloak.start();
     }
 
     @DynamicPropertySource

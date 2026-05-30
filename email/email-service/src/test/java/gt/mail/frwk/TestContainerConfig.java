@@ -12,7 +12,7 @@ public class TestContainerConfig {
         .withExposedPorts(1025);
 
     static {
-        mailhog.withReuse(true).start();
+        mailhog.start();
     }
 
     @DynamicPropertySource
