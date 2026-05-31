@@ -156,8 +156,64 @@
                         </configuration>
                     </plugin>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <!--
+                              Seed the agent-output directory before tests run so:
+                              (a) the directory always exists for -H:ConfigurationFileDirectories even if tests are skipped,
+                              (b) merge-agent-files merges agent captures ON TOP of these known-good baseline entries.
+                            -->
+                            <execution>
+                                <id>seed-native-agent-output</id>
+                                <phase>generate-test-resources</phase>
+                                <goals><goal>copy-resources</goal></goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/native/agent-output/test</outputDirectory>
+                                    <overwrite>true</overwrite>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/src/main/resources/META-INF/native-image</directory>
+                                            <includes>
+                                                <include>reachability-metadata.json</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
+                        <configuration>
+                            <agent>
+                                <options>
+                                    <callerFilterFiles>
+                                        <filterFile>${project.basedir}/src/main/resources/META-INF/native-image/agent-caller-filter.json</filterFile>
+                                    </callerFilterFiles>
+                                    <accessFilterFiles>
+                                        <filterFile>${project.basedir}/src/main/resources/META-INF/native-image/agent-access-filter.json</filterFile>
+                                    </accessFilterFiles>
+                                </options>
+                                <metadataCopy>
+                                    <disabledStages>
+                                        <stage>main</stage>
+                                    </disabledStages>
+                                    <merge>true</merge>
+                                    <outputDirectory>${project.basedir}/src/main/resources/META-INF/native-image</outputDirectory>
+                                </metadataCopy>
+                            </agent>
+                            <!--
+                              Explicitly feed the test-agent output into native-image compilation.
+                              In native-maven-plugin 0.11.5 with extensions=true, merge-agent-files(build-native)
+                              only processes the 'main' agent stage (which is disabled). The 'test' stage output
+                              in target/native/agent-output/test/ is otherwise silently ignored.
+                            -->
+                            <buildArgs combine.children="append">
+                                <buildArg>-H:ConfigurationFileDirectories=${project.build.directory}/native/agent-output/test</buildArg>
+                            </buildArgs>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
