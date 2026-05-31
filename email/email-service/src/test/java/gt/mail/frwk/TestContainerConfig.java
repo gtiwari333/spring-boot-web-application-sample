@@ -8,7 +8,7 @@ import org.testcontainers.containers.GenericContainer;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestContainerConfig {
 
-    static final GenericContainer<?> mailhog = new GenericContainer<>("richarvey/mailhog")
+    public static final GenericContainer<?> mailhog = new GenericContainer<>("richarvey/mailhog")
         .withExposedPorts(1025);
 
     static {
@@ -17,6 +17,7 @@ public class TestContainerConfig {
 
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.mail.host", () -> mailhog.getHost());
         registry.add("spring.mail.port", () -> mailhog.getMappedPort(1025));
     }
 }

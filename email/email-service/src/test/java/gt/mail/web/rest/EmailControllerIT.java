@@ -1,45 +1,59 @@
 package gt.mail.web.rest;
 
 import gt.api.email.EmailDto;
-import gt.mail.modules.email.EmailService;
+import gt.mail.frwk.TestContainerConfig;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.client.RestClient;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Import(TestContainerConfig.class)
 class EmailControllerIT {
 
-    @MockitoBean
-    EmailService emailService;
+    @LocalServerPort
+    int port;
+
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.mail.host", () -> TestContainerConfig.mailhog.getHost());
+        registry.add("spring.mail.port", () -> TestContainerConfig.mailhog.getMappedPort(1025));
+    }
 
     @Test
-    void sendEmail(@Autowired MockMvc mvc) throws Exception {
-        String body = """
-            {
-              "fromEmail": "sender@example.com",
-              "to": ["test@example.com"],
-              "subject": "Test",
-              "content": "Hello",
-              "isHtml": false,
-              "files": []
+    void sendEmail() {
+        var email = new EmailDto(
+            "sender@example.com",
+            "Sender Name",
+            List.of("recipient1@example.com", "recipient2@example.com"),
+            List.of("cc@example.com"),
+            List.of("bcc@example.com"),
+            "Integration Test Subject",
+            "<h1>Hello from integration test</h1>",
+            true,
+            new EmailDto.FileBArray[]{
+                new EmailDto.FileBArray("test file content".getBytes(StandardCharsets.UTF_8), "test-attachment.txt")
             }
-            """;
+        );
 
-        mvc.perform(post("/sendEmail")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
-            .andExpect(status().isOk());
+        var restClient = RestClient.create("http://localhost:" + port);
+        var response = restClient.post()
+            .uri("/sendEmail")
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(email)
+            .retrieve()
+            .toBodilessEntity();
 
-        verify(emailService).sendEmail(any(EmailDto.class));
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }
