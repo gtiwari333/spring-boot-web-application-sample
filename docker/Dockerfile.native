@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/cc-debian12:nonroot
+FROM gcr.io/distroless/cc-debian13:nonroot
 
 ARG NATIVE_BINARY
 COPY ${NATIVE_BINARY} /app/server

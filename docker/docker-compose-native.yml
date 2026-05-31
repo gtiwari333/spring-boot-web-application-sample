@@ -4,9 +4,8 @@
 # Image naming: native images use -native suffix to distinguish from JVM images
 #   JVM:   gtapp-content-checker-service:latest
 #   Native: gtapp-content-checker-service-native:latest
-
 services:
-    localhost: # expose all container ports so they can use services using localhost:PORT
+    localhost:
         image: alpine:latest
         command: sleep infinity
         ports:
@@ -29,6 +28,12 @@ services:
             - "ARTEMIS_USER=admin"
             - "ARTEMIS_PASSWORD=admin"
         network_mode: "service:localhost"
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -sf http://localhost:61616 || exit 1" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+            start_period: 30s
 
     mysql:
         image: 'mysql:9.7'
@@ -38,14 +43,32 @@ services:
             - "MYSQL_DATABASE=seedapp"
         command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
         network_mode: "service:localhost"
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+            start_period: 30s
 
     emailhog:
         image: 'richarvey/mailhog'
         network_mode: "service:localhost"
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -sf http://localhost:8025 || exit 1" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
 
     zipkin:
         image: 'openzipkin/zipkin'
         network_mode: "service:localhost"
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -sf http://localhost:9411/health || exit 1" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+            start_period: 20s
 
     keycloak:
         image: 'quay.io/keycloak/keycloak:26.6.1'
@@ -60,13 +83,21 @@ services:
         volumes:
             - ../main-app/main-webapp/src/main/resources/keycloak/:/opt/keycloak/data/import
         network_mode: "service:localhost"
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -sf http://localhost:8080/health/ready || exit 1" ]
+            interval: 15s
+            timeout: 5s
+            retries: 15
+            start_period: 60s  # Keycloak + realm import is slow
 
     content-checker-service:
         image: gtapp-content-checker-service-native:latest
         network_mode: "service:localhost"
         depends_on:
-            - zipkin
-            - activemq
+            zipkin:
+                condition: service_healthy
+            activemq:
+                condition: service_healthy
 
     email-service:
         image: gtapp-email-service-native:latest
@@ -74,8 +105,10 @@ services:
             - "SPRING_PROFILES_ACTIVE=prod"
         network_mode: "service:localhost"
         depends_on:
-            - emailhog
-            - zipkin
+            emailhog:
+                condition: service_healthy
+            zipkin:
+                condition: service_healthy
 
     trend-service:
         image: gtapp-trend-service-native:latest
@@ -83,7 +116,8 @@ services:
             - "SPRING_PROFILES_ACTIVE=prod"
         network_mode: "service:localhost"
         depends_on:
-            - zipkin
+            zipkin:
+                condition: service_healthy
 
     report-service:
         image: gtapp-report-service-native:latest
@@ -91,9 +125,12 @@ services:
             - "SPRING_PROFILES_ACTIVE=prod"
         network_mode: "service:localhost"
         depends_on:
-            - zipkin
-            - mysql
-            - keycloak
+            zipkin:
+                condition: service_healthy
+            mysql:
+                condition: service_healthy
+            keycloak:
+                condition: service_healthy
 
     main-webapp:
         image: gtapp-main-webapp-native:latest
@@ -101,10 +138,15 @@ services:
             - "SPRING_PROFILES_ACTIVE=prod"
         network_mode: "service:localhost"
         depends_on:
-            - zipkin
-            - email-service
-            - mysql
-            - activemq
-            - keycloak
+            zipkin:
+                condition: service_healthy
+            email-service:
+                condition: service_started  # no healthcheck defined, best effort
+            mysql:
+                condition: service_healthy
+            activemq:
+                condition: service_healthy
+            keycloak:
+                condition: service_healthy
         volumes:
             - /var/tmp/:/tmp/uploads/attachments/

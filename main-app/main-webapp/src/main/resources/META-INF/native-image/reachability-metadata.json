@@ -2,7 +2,12 @@
     "reflection": [
         {
             "type": "gt.app.hibernate.PrefixedNamingStrategy",
-            "allDeclaredFields": true
+            "methods": [
+                {
+                    "name": "<init>",
+                    "parameterTypes": []
+                }
+            ]
         }
     ]
 }
