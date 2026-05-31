@@ -202,17 +202,9 @@
                                 <buildArg>-Ob</buildArg>
                                 <!-- Smaller binary size -->
                                 <!--  <buildArg>-Os</buildArg>-->
-
-                                <!--
-                                  Explicitly feed the test-agent output into native-image compilation.
-                                  In native-maven-plugin 0.11.5 with extensions=true, merge-agent-files(build-native)
-                                  only processes the 'main' agent stage (which is disabled). The 'test' stage output
-                                  in target/native/agent-output/test/ is otherwise silently ignored.
-                                -->
+                                <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg>
                                 <buildArg>-H:ConfigurationFileDirectories=${project.build.directory}/native/agent-output/test</buildArg>
-
                             </buildArgs>
-
                         </configuration>
 
                         <executions>

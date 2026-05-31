@@ -2,14 +2,12 @@ package gt.app;
 
 import brave.sampler.Sampler;
 import gt.app.config.AppProperties;
-import gt.common.config.LiquibaseRuntimeHints;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -22,7 +20,6 @@ import java.util.Arrays;
 @EnableConfigurationProperties(AppProperties.class)
 @EnableCaching
 @EnableScheduling
-@ImportRuntimeHints(LiquibaseRuntimeHints.class)
 public class MainApplication {
 
     public static void main(String[] args) throws UnknownHostException {

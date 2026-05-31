@@ -1,0 +1,8 @@
+{
+    "reflection": [
+        {
+            "type": "gt.app.hibernate.PrefixedNamingStrategy",
+            "allDeclaredFields": true
+        }
+    ]
+}

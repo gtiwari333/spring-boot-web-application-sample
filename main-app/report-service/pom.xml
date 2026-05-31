@@ -215,11 +215,9 @@
                                 <buildArg>-Ob</buildArg>
                                 <!-- Smaller binary size -->
                                 <!--  <buildArg>-Os</buildArg>-->
-
+                                <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg>
                                 <buildArg>-H:ConfigurationFileDirectories=${project.build.directory}/native/agent-output/test</buildArg>
-
                             </buildArgs>
-
                         </configuration>
                         <executions>
                             <!-- sequence is important -->
