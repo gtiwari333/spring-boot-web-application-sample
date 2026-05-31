@@ -3,11 +3,11 @@
 # build all modules - tests are run with native-image-agent to generate reachability-metadata
 
 ALL_MODULES=(
-#    content-checker/content-checker-service
+    content-checker/content-checker-service
     email/email-service
-#    trend/trend-service
-#    main-app/report-service
-#    main-app/main-webapp
+    trend/trend-service
+    main-app/report-service
+    main-app/main-webapp
 )
 
 # copy native binaries to dist/
